@@ -48,7 +48,7 @@ sample_size   = OPT.sample_size;   % sample size
 data_burnin   = OPT.data_burnin;   % periods to discard in simulations
 x_burnin      = OPT.x_burnin;      % burn-in phase for state accuracy checks (as we initialize the Kalman filters with a wide prior)
 Harvey_factor = OPT.Harvey_factor; % factor for wide prior for Kalman filter initialization, as suggested by Harvey and Phillips(1979)
-prune_tol     = OPT.prune_tol;     % vector of tolerance levels for cutting dimensions in skewed Kalman filter
+prune_tol     = OPT.prune_tol;     % vector of tolerance levels for pruning dimensions in skewed Kalman filter
 loss_fct      = OPT.loss_fct;      % options for loss functions
 seed_nbr      = OPT.seed_nbr;      % number to fix the seed for random numbers below
 cdfmvna_fct   = OPT.cdfmvna_fct;   % which function to use to evaluate high-dimensional Gaussian log cdf
@@ -65,7 +65,7 @@ Gamma_eta  = PARAMS.Gamma_eta;
 nu_eta     = PARAMS.nu_eta;
 Delta_eta  = PARAMS.Delta_eta;
 if isfield(PARAMS,'lambda_eta')
-    lambda_eta = PARAMS.lambda_eta;
+    lambda_eta     = PARAMS.lambda_eta;
     sqrt_Sigma_eta = PARAMS.sqrt_Sigma_eta;
 end
 
@@ -91,22 +91,22 @@ skip_lik  = true;  % do not compute log-likelihood (as we are only interested in
 skip_loss = false; % do compute loss function
 
 %% Initialize output structures
-cut_tol_nbr    = size(prune_tol,2);
-SAMPLESTATS    = nan(mc_replic,y_nbr*3);     % stores sample mean, sample std-dev and sample skewness of y
-filtL1_gauss   = nan(mc_replic,1);           % stores L1 loss for states filtered by the Gaussian Kalman filter
-filtL2_gauss   = nan(mc_replic,1);           % stores L2 loss for states filtered by the Gaussian Kalman filter
-filtLa_gauss   = nan(mc_replic,1);           % stores Lasym loss for states filtered by the Gaussian Kalman filter
-filtL1_csn     = nan(mc_replic,cut_tol_nbr); % stores L1 loss for states filtered by the Skewed Kalman filter with cutting dimensions
-filtL2_csn     = nan(mc_replic,cut_tol_nbr); % stores L2 loss for states filtered by the Skewed Kalman filter with cutting dimensions
-filtLa_csn     = nan(mc_replic,cut_tol_nbr); % stores Lasym loss for states filtered by the Skewed Kalman filter with cutting dimensions
-smoothL1_gauss = nan(mc_replic,1);           % stores L1 loss for states smoothed by the Gaussian Kalman smoother
-smoothL2_gauss = nan(mc_replic,1);           % stores L2 loss for states smoothed by the Gaussian Kalman smoother
-smoothLa_gauss = nan(mc_replic,1);           % stores Lasym loss for states smoothed by the Gaussian Kalman smoother
-smoothL1_csn   = nan(mc_replic,cut_tol_nbr); % stores L1 loss for states smoothed by the Skewed Kalman smoother with cutting dimensions
-smoothL2_csn   = nan(mc_replic,cut_tol_nbr); % stores L2 loss for states smoothed by the Skewed Kalman smoother with cutting dimensions
-smoothLa_csn   = nan(mc_replic,cut_tol_nbr); % stores Lasym loss for states smoothed by the Skewed Kalman smoother with cutting dimensions
+prune_tol_nbr  = size(prune_tol,2);
+SAMPLESTATS    = nan(mc_replic,y_nbr*3);       % stores sample mean, sample std-dev and sample skewness of y
+filtL1_gauss   = nan(mc_replic,1);             % stores L1 loss for states filtered by the Gaussian Kalman filter
+filtL2_gauss   = nan(mc_replic,1);             % stores L2 loss for states filtered by the Gaussian Kalman filter
+filtLa_gauss   = nan(mc_replic,1);             % stores La loss for states filtered by the Gaussian Kalman filter
+filtL1_csn     = nan(mc_replic,prune_tol_nbr); % stores L1 loss for states filtered by the Pruned Skewed Kalman filter
+filtL2_csn     = nan(mc_replic,prune_tol_nbr); % stores L2 loss for states filtered by the Pruned Skewed Kalman filter
+filtLa_csn     = nan(mc_replic,prune_tol_nbr); % stores La loss for states filtered by the Pruned Skewed Kalman filter
+smoothL1_gauss = nan(mc_replic,1);             % stores L1 loss for states smoothed by the Gaussian Kalman smoother
+smoothL2_gauss = nan(mc_replic,1);             % stores L2 loss for states smoothed by the Gaussian Kalman smoother
+smoothLa_gauss = nan(mc_replic,1);             % stores La loss for states smoothed by the Gaussian Kalman smoother
+smoothL1_csn   = nan(mc_replic,prune_tol_nbr); % stores L1 loss for states smoothed by the Pruned Skewed Kalman smoother
+smoothL2_csn   = nan(mc_replic,prune_tol_nbr); % stores L2 loss for states smoothed by the Pruned Skewed Kalman smoother
+smoothLa_csn   = nan(mc_replic,prune_tol_nbr); % stores La loss for states smoothed by the Pruned Skewed Kalman smoother
 
-%% Run Monte-Carlo simulations
+%% Run Monte-Carlo analysis
  % in order to set the seed in the parfor loop, we follow MATLAB's help on "Repeat Random Numbers in parfor-Loops"
 sc = parallel.pool.Constant(RandStream('Threefry','Seed',seed_nbr));
 fprintf('Seed settings for parpool:\n');
@@ -139,13 +139,13 @@ parfor r = 1:mc_replic
     filtL1_csn_tmp = nan(1,size(prune_tol,2));
     filtL2_csn_tmp = nan(1,size(prune_tol,2));
     filtLa_csn_tmp = nan(1,size(prune_tol,2));
-    for jcut = 1:size(prune_tol,2)
-        [~, xfilt_csn] = kalman_csn(y, mu_0,Sigma_0,Gamma_0,nu_0,Delta_0, G,R,F, mu_eta,Sigma_eta,Gamma_eta,nu_eta,Delta_eta, mu_eps,Sigma_eps, cdfmvna_fct,prune_tol(jcut),skip_lik,skip_loss,loss_fct);
-        filtL1_csn_tmp(jcut) = sum(sum(abs(xfilt_csn.L1(:,x_burnin:end)-x(:,x_burnin:end)),2));
-        filtL2_csn_tmp(jcut) = sum(sum((xfilt_csn.L2(:,x_burnin:end)-x(:,x_burnin:end)).^2,2));
+    for j_prune = 1:size(prune_tol,2)
+        [~, xfilt_csn] = kalman_csn(y, mu_0,Sigma_0,Gamma_0,nu_0,Delta_0, G,R,F, mu_eta,Sigma_eta,Gamma_eta,nu_eta,Delta_eta, mu_eps,Sigma_eps, cdfmvna_fct,prune_tol(j_prune),skip_lik,skip_loss,loss_fct);
+        filtL1_csn_tmp(j_prune) = sum(sum(abs(xfilt_csn.L1(:,x_burnin:end)-x(:,x_burnin:end)),2));
+        filtL2_csn_tmp(j_prune) = sum(sum((xfilt_csn.L2(:,x_burnin:end)-x(:,x_burnin:end)).^2,2));
         idxLa1 = (x>xfilt_csn.La); idxLa2 = ~idxLa1;
         idxLa1(:,1:x_burnin-1) = 0; idxLa2(:,1:x_burnin-1) = 0;
-        filtLa_csn_tmp(jcut) = sum(loss_fct.params.a*abs(xfilt_csn.La(idxLa1)-x(idxLa1))) + sum(loss_fct.params.b*abs(xfilt_csn.La(idxLa2)-x(idxLa2)));
+        filtLa_csn_tmp(j_prune) = sum(loss_fct.params.a*abs(xfilt_csn.La(idxLa1)-x(idxLa1))) + sum(loss_fct.params.b*abs(xfilt_csn.La(idxLa2)-x(idxLa2)));
     end
     filtL1_csn(r,:) = filtL1_csn_tmp;
     filtL2_csn(r,:) = filtL2_csn_tmp;
@@ -158,13 +158,13 @@ parfor r = 1:mc_replic
     smoothL1_csn_tmp = nan(1,size(prune_tol,2));
     smoothL2_csn_tmp = nan(1,size(prune_tol,2));
     smoothLa_csn_tmp = nan(1,size(prune_tol,2));
-    for jcut = 1:size(prune_tol,2)
-        xsmooth_csn = kalman_csn_smoother(y, pred,filt, G,R,F, Gamma_eta,Delta_eta, cdfmvna_fct,prune_tol(jcut),loss_fct);
-        smoothL1_csn_tmp(jcut) = sum(sum(abs(xsmooth_csn.L1(:,x_burnin:end)-x(:,x_burnin:end)),2));
-        smoothL2_csn_tmp(jcut) = sum(sum((xsmooth_csn.L2(:,x_burnin:end)-x(:,x_burnin:end)).^2,2));
+    for j_prune = 1:size(prune_tol,2)
+        xsmooth_csn = kalman_csn_smoother(y, pred,filt, G,R,F, Gamma_eta,Delta_eta, cdfmvna_fct,prune_tol(j_prune),loss_fct);
+        smoothL1_csn_tmp(j_prune) = sum(sum(abs(xsmooth_csn.L1(:,x_burnin:end)-x(:,x_burnin:end)),2));
+        smoothL2_csn_tmp(j_prune) = sum(sum((xsmooth_csn.L2(:,x_burnin:end)-x(:,x_burnin:end)).^2,2));
         idxLa1 = (x>xsmooth_csn.La); idxLa2 = ~idxLa1;
         idxLa1(:,1:x_burnin-1) = 0; idxLa2(:,1:x_burnin-1) = 0;
-        smoothLa_csn_tmp(jcut) = sum(loss_fct.params.a*abs(xsmooth_csn.La(idxLa1)-x(idxLa1))) + sum(loss_fct.params.b*abs(xsmooth_csn.La(idxLa2)-x(idxLa2)));
+        smoothLa_csn_tmp(j_prune) = sum(loss_fct.params.a*abs(xsmooth_csn.La(idxLa1)-x(idxLa1))) + sum(loss_fct.params.b*abs(xsmooth_csn.La(idxLa2)-x(idxLa2)));
     end
     smoothL1_csn(r,:) = smoothL1_csn_tmp;
     smoothL2_csn(r,:) = smoothL2_csn_tmp;
