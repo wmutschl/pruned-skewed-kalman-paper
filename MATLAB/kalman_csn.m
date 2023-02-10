@@ -191,7 +191,7 @@ for t=1:obs_nbr
                 Delta_y = normalization_Delta_y*Delta_y*normalization_Delta_y; % this is now a correlation matrix!
                 Delta_y = 0.5*(Delta_y + Delta_y');
                 if ~isempty(Delta_y)
-                    log_gaussian_cdf_top = logcdf_ME(normalization_Delta_y*(K_Skewed*prediction_error - nu_t_tm1), Delta_y);                    
+                    log_gaussian_cdf_top = logmvncdf_ME(normalization_Delta_y*(K_Skewed*prediction_error - nu_t_tm1), Delta_y);                    
                 else
                     log_gaussian_cdf_top = 0;
                 end
