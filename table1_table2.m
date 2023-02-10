@@ -165,17 +165,18 @@ if REDO == 2 || REDO == 3
 end
 
 %% display all results and create tables for paper
+ONLY_LATEX = false;
 %OPT0.computer_arch = 'glnxa64';
 %OPT0.computer_arch = 'maca64';
 %OPT0.computer_arch = 'maci64';
 %OPT0.computer_arch = 'win64';
-DisplayResults_MakeLatexTables_ExpectedLosses(['results_state_estimation_DGP1_T40_R2400_'  OPT0.computer_arch]);
-DisplayResults_MakeLatexTables_ExpectedLosses(['results_state_estimation_DGP1_T80_R2400_'  OPT0.computer_arch]);
-DisplayResults_MakeLatexTables_ExpectedLosses(['results_state_estimation_DGP1_T110_R2400_' OPT0.computer_arch]);
+DisplayResults_MakeLatexTables_ExpectedLosses(['results_state_estimation_DGP1_T40_R2400_'  OPT0.computer_arch],ONLY_LATEX);
+DisplayResults_MakeLatexTables_ExpectedLosses(['results_state_estimation_DGP1_T80_R2400_'  OPT0.computer_arch],ONLY_LATEX);
+DisplayResults_MakeLatexTables_ExpectedLosses(['results_state_estimation_DGP1_T110_R2400_' OPT0.computer_arch],ONLY_LATEX);
 
-DisplayResults_MakeLatexTables_ExpectedLosses(['results_state_estimation_DGP2_T40_R2400_'  OPT0.computer_arch]);
-DisplayResults_MakeLatexTables_ExpectedLosses(['results_state_estimation_DGP2_T80_R2400_'  OPT0.computer_arch]);
-DisplayResults_MakeLatexTables_ExpectedLosses(['results_state_estimation_DGP2_T110_R2400_' OPT0.computer_arch]);
+DisplayResults_MakeLatexTables_ExpectedLosses(['results_state_estimation_DGP2_T40_R2400_'  OPT0.computer_arch],ONLY_LATEX);
+DisplayResults_MakeLatexTables_ExpectedLosses(['results_state_estimation_DGP2_T80_R2400_'  OPT0.computer_arch],ONLY_LATEX);
+DisplayResults_MakeLatexTables_ExpectedLosses(['results_state_estimation_DGP2_T110_R2400_' OPT0.computer_arch],ONLY_LATEX);
 
 
 %% Clean up

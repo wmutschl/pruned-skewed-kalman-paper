@@ -1,4 +1,4 @@
-function DisplayResults_MakeLatexTables_ExpectedLosses(filename)
+function DisplayResults_MakeLatexTables_ExpectedLosses(filename,ONLY_LATEX)
 % DisplayResults_MakeLatexTables_ExpectedLosses(filename)
 % -------------------------------------------------------------------------
 % Collects and displays the results of the Monte-Carlo assessment of the 
@@ -10,6 +10,7 @@ function DisplayResults_MakeLatexTables_ExpectedLosses(filename)
 % INPUTS
 % - filename   [string]   load results created with Accuracy_States and saved in results/"filename".mat,
 %                         for example: results_state_estimation_DGP1_T40_R2400_maca64
+% - ONLY_LATEX [boolean]  only print the latex rows in the command window
 % -------------------------------------------------------------------------
 % OUTPUTS
 % - results are displayed in the command window
@@ -32,54 +33,66 @@ function DisplayResults_MakeLatexTables_ExpectedLosses(filename)
 % Kalman Filter and Smoother: With Application to the Yield Curve" by
 % Gaygysyz Guljanov, Willi Mutschler, Mark Trede (2022)
 % =========================================================================
+if nargin < 2
+    ONLY_LATEX = false;
+end
+
 load(['results/' filename],'OPT','PARAMS','RES');
 
 %% start log file
-diary off
-OPT.logfile = ['results/' filename,'.log'];
-if exist(OPT.logfile, 'file')
-    delete(OPT.logfile)
+if ~ONLY_LATEX
+    diary off
+    OPT.logfile = ['results/' filename,'.log'];
+    if exist(OPT.logfile, 'file')
+        delete(OPT.logfile)
+    end
+    diary(OPT.logfile)
 end
-diary(OPT.logfile)
 
-format long
-disp(repmat('*',1,60));
-% print settings to logfile
-disp(OPT)
-disp(repmat('*',1,60));
-disp('Parameter Matrix G:'); disp(PARAMS.G);
-disp('Parameter Matrix F:'); disp(PARAMS.F);
-disp('Parameter Matrix R:'); disp(PARAMS.R);
-disp('Parameter Matrix mu_eps:');    disp(PARAMS.mu_eps);
-disp('Parameter Matrix Sigma_eps:'); disp(PARAMS.Sigma_eps);
-disp('Parameter Matrix mu_eta:');         disp(PARAMS.mu_eta);
-disp('Parameter Matrix Sigma_eta:');      disp(PARAMS.Sigma_eta);
-disp('Parameter Matrix nu_eta:');         disp(PARAMS.nu_eta);
-disp('Parameter Matrix Gamma_eta:');      disp(PARAMS.Gamma_eta);
-disp('Parameter Matrix Delta_eta:');      disp(PARAMS.Delta_eta);
-disp('Parameter Matrix lambda_eta:');     disp(PARAMS.lambda_eta);
-disp('Parameter Matrix sqrt_Sigma_eta:'); disp(PARAMS.sqrt_Sigma_eta);
-disp(repmat('*',1,60));
-format short
+if ~ONLY_LATEX
+    format long
+    disp(repmat('*',1,60));
+    % print settings to logfile
+    disp(OPT)
+    disp(repmat('*',1,60));
+    disp('Parameter Matrix G:'); disp(PARAMS.G);
+    disp('Parameter Matrix F:'); disp(PARAMS.F);
+    disp('Parameter Matrix R:'); disp(PARAMS.R);
+    disp('Parameter Matrix mu_eps:');    disp(PARAMS.mu_eps);
+    disp('Parameter Matrix Sigma_eps:'); disp(PARAMS.Sigma_eps);
+    disp('Parameter Matrix mu_eta:');         disp(PARAMS.mu_eta);
+    disp('Parameter Matrix Sigma_eta:');      disp(PARAMS.Sigma_eta);
+    disp('Parameter Matrix nu_eta:');         disp(PARAMS.nu_eta);
+    disp('Parameter Matrix Gamma_eta:');      disp(PARAMS.Gamma_eta);
+    disp('Parameter Matrix Delta_eta:');      disp(PARAMS.Delta_eta);
+    disp('Parameter Matrix lambda_eta:');     disp(PARAMS.lambda_eta);
+    disp('Parameter Matrix sqrt_Sigma_eta:'); disp(PARAMS.sqrt_Sigma_eta);
+    disp(repmat('*',1,60));
+    format short
+end
 
 %% table with summary statistics
-tblTitles.SampleStats = {};
-for j=1:size(PARAMS.F,1)
-    tblTitles.SampleStats = [tblTitles.SampleStats sprintf('mean(y%d)',j) sprintf('sd(y%d)',j) sprintf('skew(y%d)',j)];
+if ~ONLY_LATEX
+    tblTitles.SampleStats = {};
+    for j=1:size(PARAMS.F,1)
+        tblTitles.SampleStats = [tblTitles.SampleStats sprintf('mean(y%d)',j) sprintf('sd(y%d)',j) sprintf('skew(y%d)',j)];
+    end
+    fprintf('%s\n%sSUMMARY STATISTICS\n',repmat('*',1,60),repmat(' ',1,10));
+    disp(array2table(RES.SampleStats,'VariableNames',tblTitles.SampleStats));
 end
-fprintf('%s\n%sSUMMARY STATISTICS\n',repmat('*',1,60),repmat(' ',1,10));
-disp(array2table(RES.SampleStats,'VariableNames',tblTitles.SampleStats));
 
 %% tables with expected losses
-tblTitles.Loss = {'Gaussian'};
-for j=1:size(OPT.prune_tol,2)
-    tblTitles.Loss = [tblTitles.Loss sprintf('CSN(%.d)',OPT.prune_tol(j))];
-end
-
+if ~ONLY_LATEX
+    tblTitles.Loss = {'Gaussian'};
+    for j=1:size(OPT.prune_tol,2)
+        tblTitles.Loss = [tblTitles.Loss sprintf('CSN(%.d)',OPT.prune_tol(j))];
+    end
+end    
 strKind = ["filt", "smooth"];
-
 for j=1:length(strKind)
-    fprintf('%s\nExpected Losses: %s\n',repmat('*',1,60),strKind(j))
+    if ~ONLY_LATEX
+        fprintf('%s\nExpected Losses: %s\n',repmat('*',1,60),strKind(j))
+    end
     MeanL = []; StdL = []; LowL = []; HighL = []; 
     RowNamesLoss = "";
     for strLoss = ["L1", "L2", "La"]
@@ -93,11 +106,13 @@ for j=1:length(strKind)
         end
     end
     RowNamesLoss(1) = [];
-    format long;
-    disp(array2table([MeanL;StdL;LowL;HighL],'VariableNames',tblTitles.Loss,'RowNames',RowNamesLoss'));
-    format short;
+    if ~ONLY_LATEX
+        format long;
+        disp(array2table([MeanL;StdL;LowL;HighL],'VariableNames',tblTitles.Loss,'RowNames',RowNamesLoss'));
+        format short;
+    end
 
-    % Latex table    
+    % Latex table
     fprintf('\n\nLatex Table Entries for %s:\n\n',strKind(j))
     if OPT.prune_tol(1) ~= 0
         MeanL = [MeanL(:,1) zeros(size(MeanL,1),1) MeanL(:,2:end)];
@@ -136,6 +151,8 @@ for j=1:length(strKind)
     end
     disp(tbl_latex);
 end
-disp(['Total computing time : ' dynsec2hms(RES.time_Accuracy_States) ]);
+if ~ONLY_LATEX
+    disp(['Total computing time : ' dynsec2hms(RES.time_Accuracy_States) ]);
+end
 
 diary off
