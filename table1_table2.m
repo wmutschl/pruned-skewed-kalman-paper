@@ -33,7 +33,7 @@
 clearvars; clearvars -global; clc; close all;
 addpath('MATLAB');
 
-REDO = 0; % 0: only create tables, 1: redo DGP1, 2: redo DGP2, 3: redo DGP1 and DGP2
+REDO = 3; % 0: only create tables, 1: redo DGP1, 2: redo DGP2, 3: redo DGP1 and DGP2
 
 % Common options
 SAMPLE_SIZES           = [40 80 110];        % loop over different sample lengths
