@@ -1,5 +1,5 @@
 function DisplayResults_MakeLatexTables_ExpectedLosses(filename,ONLY_LATEX)
-% DisplayResults_MakeLatexTables_ExpectedLosses(filename)
+% DisplayResults_MakeLatexTables_ExpectedLosses(filename,ONLY_LATEX)
 % -------------------------------------------------------------------------
 % Collects and displays the results of the Monte-Carlo assessment of the 
 % accuracy of filtered and smoothed states done in Accuracy_States.m
@@ -55,11 +55,11 @@ if ~ONLY_LATEX
     % print settings to logfile
     disp(OPT)
     disp(repmat('*',1,60));
-    disp('Parameter Matrix G:'); disp(PARAMS.G);
-    disp('Parameter Matrix F:'); disp(PARAMS.F);
-    disp('Parameter Matrix R:'); disp(PARAMS.R);
-    disp('Parameter Matrix mu_eps:');    disp(PARAMS.mu_eps);
-    disp('Parameter Matrix Sigma_eps:'); disp(PARAMS.Sigma_eps);
+    disp('Parameter Matrix G:');              disp(PARAMS.G);
+    disp('Parameter Matrix F:');              disp(PARAMS.F);
+    disp('Parameter Matrix R:');              disp(PARAMS.R);
+    disp('Parameter Matrix mu_eps:');         disp(PARAMS.mu_eps);
+    disp('Parameter Matrix Sigma_eps:');      disp(PARAMS.Sigma_eps);
     disp('Parameter Matrix mu_eta:');         disp(PARAMS.mu_eta);
     disp('Parameter Matrix Sigma_eta:');      disp(PARAMS.Sigma_eta);
     disp('Parameter Matrix nu_eta:');         disp(PARAMS.nu_eta);

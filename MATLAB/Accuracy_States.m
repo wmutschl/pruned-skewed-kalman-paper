@@ -107,7 +107,7 @@ smoothL2_csn   = nan(mc_replic,prune_tol_nbr); % stores L2 loss for states smoot
 smoothLa_csn   = nan(mc_replic,prune_tol_nbr); % stores La loss for states smoothed by the Pruned Skewed Kalman smoother
 
 %% Run Monte-Carlo analysis
- % in order to set the seed in the parfor loop, we follow MATLAB's help on "Repeat Random Numbers in parfor-Loops"
+% in order to set the seed in the parfor loop, we follow MATLAB's help on "Repeat Random Numbers in parfor-Loops"
 sc = parallel.pool.Constant(RandStream('Threefry','Seed',seed_nbr));
 fprintf('Seed settings for parpool:\n');
 disp(sc.Value);
