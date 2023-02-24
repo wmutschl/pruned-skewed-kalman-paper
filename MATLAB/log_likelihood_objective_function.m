@@ -88,7 +88,7 @@ elseif ~ispd(Sigma_eps)
     return
 end
 
-%% compute negative log likelihood
+%% compute log likelihood
 if strcmp(kf_variant{1},"gaussian")
     % initialize Kalman filter with a wide Normal prior: x_0 ~ CSN(0,Harvey_factor*eye(nx),0,0,eye(nx)) = N(0,10*eye(nx))
     mu_0     = zeros(OPT.x_nbr,1);

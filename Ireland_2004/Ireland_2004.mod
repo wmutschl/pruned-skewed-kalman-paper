@@ -42,8 +42,8 @@
  */
 
 @#define pre_1980=0
-@#define post_1980=1
-@#define full_sample=0
+@#define post_1980=0
+@#define full_sample=1
  
 var a ${a}$ (long_name='preference shock')
     e ${e}$ (long_name='cost push shock')
@@ -53,11 +53,11 @@ var a ${a}$ (long_name='preference shock')
     yhat ${\hat y}$ (long_name='output deviations from trend')
     ghat ${\hat g}$ (long_name='output growth')
     rhat ${\hat r}$ (long_name='interest deviations from trend')
-    gobs ${g^{obs}}$ (long_name='observed output growth')
-    robs ${r^{obs}}$ (long_name='observed interest deviations from trend')
-    piobs ${\pi^{obs}}$ (long_name='observed inflation deviations from trend')
-    r_annual ${r^{ann}}$ (long_name='annualized interest rate')
-    pi_annual ${\pi^{ann}}$ (long_name='annualized inflation rate')
+    //gobs ${g^{obs}}$ (long_name='observed output growth')
+    //robs ${r^{obs}}$ (long_name='observed interest deviations from trend')
+    //piobs ${\pi^{obs}}$ (long_name='observed inflation deviations from trend')
+    //r_annual ${r^{ann}}$ (long_name='annualized interest rate')
+    //pi_annual ${\pi^{ann}}$ (long_name='annualized inflation rate')
         ; 
 
 varexo eps_a ${\varepsilon_a}$ (long_name='preference innovation')
@@ -135,16 +135,17 @@ x=yhat-omega*a;
 ghat=yhat-yhat(-1)+z; 
 [tag='policy rule (22)']
 rhat-rhat(-1)=rho_pi*pihat+rho_g*ghat+rho_x*x+eps_r;
-[tag='observation equation g']
-gobs=ghat;
-[tag='observation equation r']
-robs=rhat;
-[tag='observation equation pi']
-piobs=pihat;
-[tag='definition annualized interest rate']
-r_annual=4*rhat;
-[tag='definition annualized inflation rate']
-pi_annual=4*pihat;        
+
+//[tag='observation equation g']
+//gobs=ghat;
+//[tag='observation equation r']
+//robs=rhat;
+//[tag='observation equation pi']
+//piobs=pihat;
+//[tag='definition annualized interest rate']
+//r_annual=4*rhat;
+//[tag='definition annualized inflation rate']
+//pi_annual=4*pihat;        
 end;
 
 
@@ -169,11 +170,12 @@ shocks;
 @#endif
 end;
 
+@#ifndef _noestim
 % Estimation
 estimated_params;
 omega; 
 alpha_x, ,0,1;
-alpha_pi, ,0,1;
+%alpha_pi, ,0,1;
 rho_pi, ,0,1;
 rho_g, ,0,1;
 rho_x, ,0,1;
@@ -187,22 +189,26 @@ end;
 
 estimated_params_init(use_calibration);
 end;
-
-varobs gobs robs piobs;
+//varobs gobs robs piobs;
+varobs ghat rhat pihat;
 
 @#if full_sample ==1 
-	estimation(datafile=data_full_sample,mode_compute=4);
+	estimation(datafile=data_full_sample,mode_compute=7);
 @#endif
 @#if pre_1980 ==1 
-	estimation(datafile=data_pre_1980,mode_compute=9);
+	estimation(datafile=data_pre_1980,mode_compute=7);
 @#endif
 @#if post_1980 ==1 
-	estimation(datafile=data_post_1980,mode_compute=1,analytic_derivation);
+	estimation(datafile=data_post_1980,mode_compute=7);
 @#endif
 
-@#ifdef DOPLOTS
-stoch_simul(order=1,conditional_variance_decomposition=[1 4 8 12 20 40], irf=16) ghat pi_annual r_annual x;
 
+@#else
+//stoch_simul(order=1,conditional_variance_decomposition=[1 4 8 12 20 40], irf=16) ghat pi_annual r_annual x;
+stoch_simul(order=1,periods=0,irf=0);
+@#endif
+
+@#ifdef _doplots
 figure
 subplot(4,4,1)
 plot([0:options_.irf],[0 oo_.irfs.ghat_eps_a]*100) 

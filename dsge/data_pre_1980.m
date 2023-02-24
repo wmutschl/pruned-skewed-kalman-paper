@@ -4,7 +4,3 @@ timeline=(1948.25:0.25:2003)';
 gobs = demean(gpr(timeline<1980,1));
 piobs = demean(gpr(timeline<1980,2));
 robs = demean(gpr(timeline<1980,3));
-
-ghat = demean(gpr(:,1));
-pihat = demean(gpr(:,2));
-rhat = demean(gpr(:,3));
