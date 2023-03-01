@@ -18,9 +18,6 @@ large_number = Inf;
 kf_variant = "gaussian"; % initialize
 
 % Retransform parameters if needed
-if OPT.optimizer.bounds.do_param_transform
-    %xparam1 = param_transform_bounded(xparam1,OPT.optimizer.bounds.lb,OPT.optimizer.bounds.ub);
-end
 
 % Check bounds
 if OPT.optimizer.bounds.penalize_objective
@@ -86,7 +83,7 @@ end
 
 % check if theoretical bound on skewness coefficient is violated
 for jp=1:MODEL.exo_nbr
-    if abs(skewness_coef_theor(MODEL.Sigma_eta(jp,jp),MODEL.Gamma_eta(jp,jp))) > 0.995
+    if abs(skewness_coef_theor(MODEL.Sigma_eta(jp,jp),MODEL.Gamma_eta(jp,jp))) > abs((sqrt(2)*(pi-4))/(pi-2)^(3/2))
         negative_log_likelihood = large_number; exit_flag = 0; warning('Skewness coefficient is out of bounds: %.4f\n',skewness_coef_theor(MODEL.Sigma_eta(jp,jp),MODEL.Gamma_eta(jp,jp)));
         return
     end
