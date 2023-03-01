@@ -77,8 +77,6 @@ for j=1:MODEL.varobs_nbr
 end
 clear ireland_2004_gpr date_start date_end idx j jexo jvarobs tmp tmp_varobs_names_DR
 
-gamma_eta_grid = grid_gamma_eta(ESTIM_PARAM.sqrt_Sigma_eta_a{1},ESTIM_PARAM.sqrt_Sigma_eta_e{1},ESTIM_PARAM.sqrt_Sigma_eta_z{1},ESTIM_PARAM.sqrt_Sigma_eta_r{1});
-
 % create vectors from structures
 xparam0 = nan(MODEL.param_estim_nbr,1);
 for j = 1:MODEL.param_estim_nbr
@@ -88,6 +86,7 @@ for j = 1:MODEL.param_estim_nbr
     %PARAM.(MODEL.param_estim_names{j}) = xparam0(j,1);
 end
 
+gamma_eta_grid = grid_gamma_eta(ESTIM_PARAM.sqrt_Sigma_eta_a{1},ESTIM_PARAM.sqrt_Sigma_eta_e{1},ESTIM_PARAM.sqrt_Sigma_eta_z{1},ESTIM_PARAM.sqrt_Sigma_eta_r{1});
 neg_log_likelihood_grid = nan(1,size(gamma_eta_grid,2));
 dat = DATA.MAT;
 
@@ -104,7 +103,7 @@ end
 parfor_progress(0);
 [~,idx_best] = sort(neg_log_likelihood_grid);
 
-gamma_eta_grid = gamma_eta_grid(:,idx_best(1:8));
+gamma_eta_grid = gamma_eta_grid(:,idx_best(1:24));
 neg_log_likelihood_grid = nan(1,size(gamma_eta_grid,2));
 x_grid = nan(MODEL.param_estim_nbr,size(gamma_eta_grid,2));
 
@@ -121,7 +120,24 @@ parfor jgrid = 1:size(gamma_eta_grid,2)
 end
 parfor_progress(0);
 
-
+for jgrid = 1:size(gamma_eta_grid,2)
+    skew_eta_grid(1,jgrid) = skewness_coef_theor(x_grid(1,jgrid),x_grid(2,jgrid));
+    skew_eta_grid(2,jgrid) = skewness_coef_theor(x_grid(3,jgrid),x_grid(4,jgrid));
+    skew_eta_grid(3,jgrid) = skewness_coef_theor(x_grid(5,jgrid),x_grid(6,jgrid));
+    skew_eta_grid(4,jgrid) = skewness_coef_theor(x_grid(7,jgrid),x_grid(8,jgrid));
+end
+skew_eta_grid
+[~,idx_best] = sort(neg_log_likelihood_grid);
+neg_log_likelihood_grid(idx_best)
+skew_eta_grid(:,idx_best)
+x_grid(1,idx_best)
+x_grid(2,idx_best)
+x_grid(3,idx_best)
+x_grid(4,idx_best)
+x_grid(5,idx_best)
+x_grid(6,idx_best)
+x_grid(7,idx_best)
+x_grid(8,idx_best)
     %% check objective function at initial parameters
     if OPT.optimizer.randomize_initval
     end
