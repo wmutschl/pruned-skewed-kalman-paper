@@ -58,8 +58,6 @@ for jexo = 1:MODEL.exo_nbr
     end
     if ~isempty(idx_stderr) && ~isempty(idx_skew)
         [MODEL.Sigma_eta(jexo,jexo),MODEL.Gamma_eta(jexo,jexo)] = csnVarSkew_To_SigmaGamma(xparam1(idx_stderr)^2,xparam1(idx_skew),1);
-    else
-        error('combination not supported')
     end
 end
 

@@ -19,7 +19,7 @@ OPT.optimizer.name = ["fminsearch"];
 OPT.optimizer.optim_options = optimset('display','final','MaxFunEvals',1000000,'MaxIter',10000);%,'TolFun',1e-5,'TolX',1e-6);
 OPT.cdfmvna_fct = "logmvncdf_ME"; % function to use to evaluate high-dimensional Gaussian log cdf, possible options: "logmvncdf_ME", "mvncdf", "qsilatmvnv", "qsimvnv"
 OPT.prune_tol   = 1e-4;           % pruning threshold
-OPT.use_stderr_skew_transform = true;
+OPT.use_stderr_skew_transform = false;
 %% Preprocessing of model, i.e. create script files with dynamic Jacobians, which can be evaluated numerically to compute the policy function
 MODEL = feval(str2func(OPT.modelname + "_preprocessing"));
 
@@ -80,7 +80,7 @@ end
 OPT_1 = OPT; MODEL_1 = MODEL; MODEL_1.param_estim_names = MODEL_0.param_estim_names;
 
 % create an evenly spaced grid of skewness coefficients between -0.995 and 0.995 for each shock
-grid_nbr = 6; % needs to be even number
+grid_nbr = 16; % needs to be even number
 best_of  = 4;  % best values to keep
 Skew_eta_grid = linspace(-0.995,0,grid_nbr/2); Skew_eta_grid = [Skew_eta_grid -Skew_eta_grid((end-1):-1:1)];
 if ~OPT.use_stderr_skew_transform
@@ -88,7 +88,7 @@ if ~OPT.use_stderr_skew_transform
     diag_Sigma_eta_grid = zeros(MODEL_0.exo_nbr,grid_nbr-1); diag_Gamma_eta_grid = zeros(MODEL_0.exo_nbr,grid_nbr-1);
     for jexo = 1:MODEL_0.exo_nbr
         exo_name = MODEL_0.exo_names(jexo,1);
-        Var_eta = ESTIM_PARAM_0.(sprintf('sqrt_Sigma_%s',exo_name)){1}^2;
+        Var_eta = ESTIM_PARAM_0.(sprintf('sqrt_diag_Sigma_%s',exo_name)){1}^2;
         for jgrid = 1:(grid_nbr-1)
             [diag_Sigma_eta_grid(jexo,jgrid),diag_Gamma_eta_grid(jexo,jgrid)] = csnVarSkew_To_SigmaGamma(Var_eta,Skew_eta_grid(jgrid),1);        
         end
@@ -142,7 +142,7 @@ for jbest=1:best_of
         for jexo=1:MODEL_0.exo_nbr
             var_eta_grid_1(jexo,jbest) = csnVar(diag_Sigma_eta_grid_1(jexo,jbest),diag_Gamma_eta_grid_1(jexo,jbest),0,1);
             skew_eta_grid_1(jexo,jbest) = skewness_coef_theor(diag_Sigma_eta_grid_1(jexo,jbest),diag_Gamma_eta_grid_1(jexo,jbest));
-        end
+        end        
     end
 end
 diag_Sigma_eta_grid_1
@@ -207,13 +207,13 @@ lr_stat = 2 * ( neg_log_likelihood_0 - neg_log_likelihood_2);
 lr_pval = chi2cdf(lr_stat, 4, "upper")
 
 % 
-% % Compute standard errors
-% OPT_2_j.optimizer.bounds.lb = OPT_2_j.optimizer.bounds.lb -0.5;
-% OPT_2_j.optimizer.bounds.ub = OPT_2_j.optimizer.bounds.ub + 0.5;
-% hess = get_hessian('negative_log_likelihood_dsge',xopt,[1e-3;1.0],    DATA.MAT, PARAM_2_j, MODEL_2_j, OPT_2_j);
-% hess = reshape(hess,MODEL_2_j.param_estim_nbr,MODEL_2_j.param_estim_nbr);
-% V = inv(hess); % estimated covariance matrix of coefficients
-% SE_values = sqrt(diag(V));
+% Compute standard errors
+OPT_2.optimizer.bounds.lb = OPT_2.optimizer.bounds.lb -0.5;
+OPT_2.optimizer.bounds.ub = OPT_2.optimizer.bounds.ub + 0.5;
+hess = get_hessian('negative_log_likelihood_dsge',xparam_2,[1e-3;1.0],    DATA.MAT, PARAM_2, MODEL_2, OPT_2);
+hess = reshape(hess,MODEL_2.param_estim_nbr,MODEL_2.param_estim_nbr);
+V = inv(hess); % estimated covariance matrix of coefficients
+SE_values = sqrt(diag(V));
 
 
 %     [xparam_1_j, PARAM_1_j, ESTIM_PARAM_1_j, MODEL_1_j, OPT_1_j] = feval(str2func(OPT_1.modelname + "_params"),  1, MODEL_1, OPT_1, xparam_0, sqrt_Sigma_eta_j, diag_Gamma_eta_j);
