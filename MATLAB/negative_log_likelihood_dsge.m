@@ -15,8 +15,7 @@ function [negative_log_likelihood,exit_flag] = negative_log_likelihood_dsge(xpar
 % initializations
 exit_flag = 1;
 large_number = Inf;
-kf_variant = "gaussian"; % initialize
-
+kf_variant = "gaussian";
 % Retransform parameters if needed
 
 % Check bounds
@@ -29,24 +28,48 @@ if OPT.optimizer.bounds.penalize_objective
 end
 
 % Update parameter structures
-for jp = 1:MODEL.param_estim_nbr
-    if any(ismember(MODEL.param_names(:,1),MODEL.param_estim_names{jp}))
-        % update model parameters
-        PARAM.(MODEL.param_estim_names{jp}) = xparam1(jp);
-    elseif any(ismember("sqrt_Sigma_"+MODEL.varobs(:,1),MODEL.param_estim_names{jp}))
-        idx = find(ismember("sqrt_Sigma_"+MODEL.endo_names_DR(MODEL.varobs_idx_DR),MODEL.param_estim_names{jp}));
-        % update shock parameters
-        MODEL.Sigma_eps(idx,idx) = xparam1(jp)^2;
-    elseif any(ismember("sqrt_Sigma_"+MODEL.exo_names(:,1),MODEL.param_estim_names{jp}))
-        idx = find(ismember("sqrt_Sigma_"+MODEL.exo_names(:,1),MODEL.param_estim_names{jp}));
-        % update shock parameters
-        MODEL.Sigma_eta(idx,idx) = xparam1(jp)^2;
-    elseif any(ismember("Gamma_"+MODEL.exo_names(:,1),MODEL.param_estim_names{jp}))
-        idx = find(ismember("Gamma_"+MODEL.exo_names(:,1),MODEL.param_estim_names{jp}));
-        % update shock parameters
-        MODEL.Gamma_eta(idx,idx) = xparam1(jp);        
+idx_stderr_eps          = find(contains(MODEL.param_estim_names,"stderr_"+MODEL.endo_names_DR(MODEL.varobs_idx_DR)));
+idx_skew_eta            = find(contains(MODEL.param_estim_names,"skew_"+MODEL.exo_names(:,1)));
+idx_stderr_eta          = find(contains(MODEL.param_estim_names,"stderr_"+MODEL.exo_names(:,1)));
+idx_diag_Gamma_eta      = find(contains(MODEL.param_estim_names,"diag_Gamma_"+MODEL.exo_names(:,1)));
+idx_sqrt_diag_Sigma_eta = find(contains(MODEL.param_estim_names,"sqrt_diag_Sigma_"'+MODEL.exo_names(:,1)));
+idx_model               = find(contains(MODEL.param_estim_names,MODEL.param_names));
+
+% Update measurement error parameters
+varobsnamesDR = MODEL.endo_names_DR(MODEL.varobs_idx_DR);
+for jvarobs = 1:MODEL.varobs_nbr
+    idx = find(contains(MODEL.param_estim_names,"stderr_"+varobsnamesDR(jvarobs,1)));
+    if ~isempty(idx)
+        MODEL.Sigma_eps(jvarobs,jvarobs) = xparam1(idx)^2;
     end
 end
+
+% Update shock parameters
+for jexo = 1:MODEL.exo_nbr
+    idx_Gamma     = find(contains(MODEL.param_estim_names,"diag_Gamma_"+MODEL.exo_names(jexo,1)));
+    idx_sqrtSigma = find(contains(MODEL.param_estim_names,"sqrt_diag_Sigma_"+MODEL.exo_names(jexo,1)));
+    idx_stderr    = find(contains(MODEL.param_estim_names,"stderr_"+MODEL.exo_names(jexo,1)));
+    idx_skew      = find(contains(MODEL.param_estim_names,"stderr_"+MODEL.exo_names(jexo,1)));
+    if ~isempty(idx_Gamma)
+        MODEL.Gamma_eta(jexo,jexo) = xparam1(idx_Gamma);
+    end
+    if ~isempty(idx_sqrtSigma)
+        MODEL.Sigma_eta(jexo,jexo) = xparam1(idx_sqrtSigma)^2;
+    end
+    if ~isempty(idx_stderr) && ~isempty(idx_skew)
+        [MODEL.Sigma_eta(jexo,jexo),MODEL.Gamma_eta(jexo,jexo)] = csnVarSkew_To_SigmaGamma(xparam1(idx_stderr)^2,xparam1(idx_skew),1);
+    else
+        error('combination not supported')
+    end
+end
+
+for jmod = 1:MODEL.param_nbr
+    idx = find(contains(MODEL.param_estim_names,MODEL.param_names(jmod)));
+    if ~isempty(idx)
+        PARAM.(MODEL.param_names(jmod)) = xparam1(idx);
+    end
+end
+
 if any(diag(MODEL.Gamma_eta))
     kf_variant = "pruned_skewed";
 end
