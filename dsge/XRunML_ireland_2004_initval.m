@@ -19,7 +19,7 @@ OPT.optimizer.name = ["fminsearch"];
 OPT.optimizer.optim_options = optimset('display','final','MaxFunEvals',1000000,'MaxIter',10000);%,'TolFun',1e-5,'TolX',1e-6);
 OPT.cdfmvna_fct = "logmvncdf_ME"; % function to use to evaluate high-dimensional Gaussian log cdf, possible options: "logmvncdf_ME", "mvncdf", "qsilatmvnv", "qsimvnv"
 OPT.prune_tol   = 1e-4;           % pruning threshold
-OPT.use_stderr_skew_transform = false;
+OPT.use_stderr_skew_transform = true;
 %% Preprocessing of model, i.e. create script files with dynamic Jacobians, which can be evaluated numerically to compute the policy function
 MODEL = feval(str2func(OPT.modelname + "_preprocessing"));
 
@@ -65,6 +65,15 @@ else
     [xparam_0,neg_log_likelihood_0] = fminsearch(@(x) negative_log_likelihood_dsge(x,DATA.MAT,PARAM_0,MODEL_0,OPT_0),  xparam_0,OPT_0.optimizer.optim_options);
     fprintf('Final value of the Gaussian log-likelihood function: %6.4f\n', -1*neg_log_likelihood_0)
 end
+stderr_eta_0 = nan(MODEL_0.exo_nbr,1);
+for jexo = 1:MODEL_0.exo_nbr
+    exo_name = MODEL_0.exo_names(jexo,1);
+    if ~OPT.use_stderr_skew_transform
+        stderr_eta_0(jexo) = xparam_0(find(contains(MODEL_0.param_estim_names,"sqrt_diag_Sigma_"+exo_name)));
+    else
+        stderr_eta_0(jexo) = xparam_0(find(contains(MODEL_0.param_estim_names,"stderr_"+exo_name)));
+    end
+end
 
 %% Stage 1:
 % Note:
@@ -87,17 +96,9 @@ if ~OPT.use_stderr_skew_transform
     % for each skewness coefficient compute required Sigma_eta and Gamma_eta such that V[eta] is equal to Gaussian estimate
     diag_Sigma_eta_grid = zeros(MODEL_0.exo_nbr,grid_nbr-1); diag_Gamma_eta_grid = zeros(MODEL_0.exo_nbr,grid_nbr-1);
     for jexo = 1:MODEL_0.exo_nbr
-        exo_name = MODEL_0.exo_names(jexo,1);
-        Var_eta = ESTIM_PARAM_0.(sprintf('sqrt_diag_Sigma_%s',exo_name)){1}^2;
         for jgrid = 1:(grid_nbr-1)
-            [diag_Sigma_eta_grid(jexo,jgrid),diag_Gamma_eta_grid(jexo,jgrid)] = csnVarSkew_To_SigmaGamma(Var_eta,Skew_eta_grid(jgrid),1);        
+            [diag_Sigma_eta_grid(jexo,jgrid),diag_Gamma_eta_grid(jexo,jgrid)] = csnVarSkew_To_SigmaGamma(stderr_eta_0(jexo)^2,Skew_eta_grid(jgrid),1);        
         end
-    end
-else
-    stderr_eta_0 = nan(MODEL_0.exo_nbr,1);
-    for jexo = 1:MODEL_0.exo_nbr
-        exo_name = MODEL_0.exo_names(jexo,1);
-        stderr_eta_0(jexo) = xparam_0(find(contains(MODEL_0.param_estim_names,"stderr_"+exo_name)));
     end
 end
 % compute negative loglikelihood for all possible combinations of grid values
@@ -119,7 +120,8 @@ parfor jgrid = 1:(grid_nbr-1)^4
     combo = COMBOS(jgrid,:);
     if OPT.use_stderr_skew_transform
         skew_eta_j = [Skew_eta_grid(combo(1)); Skew_eta_grid(combo(2)); Skew_eta_grid(combo(3)); Skew_eta_grid(combo(4))];
-        [xparam_1_j, PARAM_1_j, ESTIM_PARAM_1_j, MODEL_1_j, OPT_1_j] = feval(str2func(OPT_1.modelname + "_params"),  1, MODEL_1, OPT_1, xparam_0, [], [], stderr_eta_0, skew_eta_j);
+        stderr_eta_j = stderr_eta_0;
+        [xparam_1_j, PARAM_1_j, ESTIM_PARAM_1_j, MODEL_1_j, OPT_1_j] = feval(str2func(OPT_1.modelname + "_params"),  1, MODEL_1, OPT_1, xparam_0, [], [], stderr_eta_j, skew_eta_j);
     else
         sqrt_Sigma_eta_j = sqrt( [diag_Sigma_eta_grid(1,combo(1)) diag_Sigma_eta_grid(2,combo(2)) diag_Sigma_eta_grid(3,combo(3)) diag_Sigma_eta_grid(4,combo(4))] );    
         diag_Gamma_eta_j = [diag_Gamma_eta_grid(1,combo(1)) diag_Gamma_eta_grid(2,combo(2)) diag_Gamma_eta_grid(3,combo(3)) diag_Gamma_eta_grid(4,combo(4))];
@@ -131,23 +133,24 @@ end
 parfor_progress(0);
 [~,idx_best_1] = sort(neg_log_likelihood_grid_1);
 best_neg_log_likelihood_grid_1 = neg_log_likelihood_grid_1(idx_best_1(1:best_of))
-diag_Sigma_eta_grid_1 = nan(MODEL_1.exo_nbr,best_of); diag_Gamma_eta_grid_1 = nan(MODEL_1.exo_nbr,best_of); skew_eta_grid_1 = nan(MODEL_1.exo_nbr,best_of); var_eta_grid_1 = nan(MODEL_1.exo_nbr,best_of);
+diag_Sigma_eta_grid_1 = nan(MODEL_1.exo_nbr,best_of); diag_Gamma_eta_grid_1 = nan(MODEL_1.exo_nbr,best_of); skew_eta_grid_1 = nan(MODEL_1.exo_nbr,best_of); stderr_eta_grid_1 = nan(MODEL_1.exo_nbr,best_of);
 for jbest=1:best_of
     combo = COMBOS(idx_best_1(jbest),:);
     if OPT.use_stderr_skew_transform
         skew_eta_grid_1(:,jbest) = [Skew_eta_grid(combo(1)); Skew_eta_grid(combo(2)); Skew_eta_grid(combo(3)); Skew_eta_grid(combo(4))];
+        stderr_eta_grid_1(:,jbest) = stderr_eta_0;
     else
         diag_Sigma_eta_grid_1(:,jbest) = transpose( [diag_Sigma_eta_grid(1,combo(1)) diag_Sigma_eta_grid(2,combo(2)) diag_Sigma_eta_grid(3,combo(3)) diag_Sigma_eta_grid(4,combo(4))] );
         diag_Gamma_eta_grid_1(:,jbest) = transpose( [diag_Gamma_eta_grid(1,combo(1)) diag_Gamma_eta_grid(2,combo(2)) diag_Gamma_eta_grid(3,combo(3)) diag_Gamma_eta_grid(4,combo(4))] );
         for jexo=1:MODEL_0.exo_nbr
-            var_eta_grid_1(jexo,jbest) = csnVar(diag_Sigma_eta_grid_1(jexo,jbest),diag_Gamma_eta_grid_1(jexo,jbest),0,1);
+            stderr_eta_grid_1(jexo,jbest) = sqrt(csnVar(diag_Sigma_eta_grid_1(jexo,jbest),diag_Gamma_eta_grid_1(jexo,jbest),0,1));
             skew_eta_grid_1(jexo,jbest) = skewness_coef_theor(diag_Sigma_eta_grid_1(jexo,jbest),diag_Gamma_eta_grid_1(jexo,jbest));
-        end        
+        end
     end
 end
 diag_Sigma_eta_grid_1
 diag_Gamma_eta_grid_1
-var_eta_grid_1
+stderr_eta_grid_1
 skew_eta_grid_1
 
 % optimize over sigma_eta and gamma_eta using best values on grid as initial point
@@ -160,19 +163,20 @@ parfor jbest=1:best_of
     end
     [xparam_1(:,jbest),neg_log_likelihood_1(jbest)] = fminsearch(@(x) negative_log_likelihood_dsge(x,DATA.MAT,PARAM_1_j,MODEL_1_j,OPT_1_j),  xparam_1_j,OPT_1_j.optimizer.optim_options);
 end
+[~,best_of_1] = min(neg_log_likelihood_1);
 if OPT.use_stderr_skew_transform
-    skew_eta_1 = xparam_1(1:4,1);
-    stderr_eta_1 = xparam_1(5:8,1);
+    skew_eta_1 = xparam_1(1:4,best_of_1);
+    stderr_eta_1 = xparam_1(5:8,best_of_1);
 else
-    diag_Gamma_eta_1 = xparam_1(1:4,1);
-    diag_Sigma_eta_1 = xparam_1(5:8,1).^2;
+    diag_Gamma_eta_1 = xparam_1(1:4,best_of_1);
+    diag_Sigma_eta_1 = xparam_1(5:8,best_of_1).^2;
     stderr_eta_1 = nan(4,1); skew_eta_1 = nan(4,1);
     for jexo=1:4
-        stderr_eta_1(jexo,1) = sqrt(csnVar(diag_Sigma_eta_1(jexo,1),diag_Gamma_eta_1(jexo,1),0,1));
-        skew_eta_1(jexo,1) = skewness_coef_theor(diag_Sigma_eta_1(jexo,1),diag_Gamma_eta_1(jexo,1));
+        stderr_eta_1(jexo,1) = sqrt(csnVar(diag_Sigma_eta_1(jexo,best_of_1),diag_Gamma_eta_1(jexo,1),0,best_of_1));
+        skew_eta_1(jexo,1) = skewness_coef_theor(diag_Sigma_eta_1(jexo,best_of_1),diag_Gamma_eta_1(jexo,best_of_1));
     end
     diag_Sigma_eta_1
-    diag_Gamma_eta_1    
+    diag_Gamma_eta_1
 end
 stderr_eta_1
 skew_eta_1

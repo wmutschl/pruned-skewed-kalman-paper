@@ -49,15 +49,26 @@ for jexo = 1:MODEL.exo_nbr
     idx_Gamma     = find(contains(MODEL.param_estim_names,"diag_Gamma_"+MODEL.exo_names(jexo,1)));
     idx_sqrtSigma = find(contains(MODEL.param_estim_names,"sqrt_diag_Sigma_"+MODEL.exo_names(jexo,1)));
     idx_stderr    = find(contains(MODEL.param_estim_names,"stderr_"+MODEL.exo_names(jexo,1)));
-    idx_skew      = find(contains(MODEL.param_estim_names,"stderr_"+MODEL.exo_names(jexo,1)));
+    idx_skew      = find(contains(MODEL.param_estim_names,"skew_"+MODEL.exo_names(jexo,1)));
     if ~isempty(idx_Gamma)
         MODEL.Gamma_eta(jexo,jexo) = xparam1(idx_Gamma);
     end
     if ~isempty(idx_sqrtSigma)
         MODEL.Sigma_eta(jexo,jexo) = xparam1(idx_sqrtSigma)^2;
     end
-    if ~isempty(idx_stderr) && ~isempty(idx_skew)
-        [MODEL.Sigma_eta(jexo,jexo),MODEL.Gamma_eta(jexo,jexo)] = csnVarSkew_To_SigmaGamma(xparam1(idx_stderr)^2,xparam1(idx_skew),1);
+    if ~isempty(idx_stderr)
+        if ~isempty(idx_skew)
+            if abs(xparam1(idx_skew)) > 0.995
+                warning('Skewness parameter out of theoretical range, penalize likelihood')
+                negative_log_likelihood = large_number;
+                exit_flag = 0;
+                return
+            else
+                [MODEL.Sigma_eta(jexo,jexo),MODEL.Gamma_eta(jexo,jexo)] = csnVarSkew_To_SigmaGamma(xparam1(idx_stderr)^2,xparam1(idx_skew),1);
+            end
+        else
+            MODEL.Sigma_eta(jexo,jexo) = xparam1(idx_stderr)^2;
+        end
     end
 end
 
