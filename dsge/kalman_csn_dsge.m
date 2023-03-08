@@ -176,11 +176,15 @@ function [log_likelihood_val, filt_param_last, xfilt] = kalman_csn( ...
         Corr_mat_denom = 0.5 * (Corr_mat_denom + Corr_mat_denom');
         
         eval_point_denom = -covtocorr_mat * nu_t_tm1;
-        
-        cdf_val_denom = feval( ...
-            cdf_eval_fnc, eval_point_denom, Corr_mat_denom, varargin{:} ...
-        );
-        
+        try
+            cdf_val_denom = feval( ...
+                cdf_eval_fnc, eval_point_denom, Corr_mat_denom, varargin{:} ...
+            );
+        catch
+            warning('kalman_can_dsge: cdf_val_denom something wrong')
+            log_likelihood_val = -Inf;
+            return
+        end
         %Evaluate PDF
         %term9 = log(mvnpdf(data(tt, :), mu_data', Sigma_data));
         pdf_val = ( ...

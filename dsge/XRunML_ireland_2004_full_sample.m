@@ -12,14 +12,14 @@ OPT.datafile  = "data_full_sample";
 OPT.optimizer.randomize_initval         = 0; % 1: randomize initial values
 OPT.optimizer.bounds.do_param_transform = 0; % 1: transforms parameters with bounded support into parameters with unbounded support by using either exp() or logistic transformation
 OPT.optimizer.bounds.penalize_objective = 0; % 1: checks whether bounds are violated in objective function and penalize it
-OPT.optimizer.bounds.use_for_optimizer  = 0; % 1: if optimizer supports bounds, use these
+OPT.optimizer.bounds.use_for_optimizer  = 1; % 1: if optimizer supports bounds, use these
+OPT.use_stderr_skew_transform           = false;
 %OPT.optimizer.name = "fminsearch";
 %OPT.optimizer.name = ["cmaes","simulannealbnd","fminsearch", "fminunc", "patternsearch", "csminwel"];
 OPT.optimizer.name = ["fminsearch"];
 OPT.optimizer.optim_options = optimset('display','final','MaxFunEvals',1000000,'MaxIter',10000);%,'TolFun',1e-5,'TolX',1e-6);
 OPT.cdfmvna_fct = "logmvncdf_ME"; % function to use to evaluate high-dimensional Gaussian log cdf, possible options: "logmvncdf_ME", "mvncdf", "qsilatmvnv", "qsimvnv"
 OPT.prune_tol   = 1e-4;           % pruning threshold
-OPT.use_stderr_skew_transform = true;
 %% Preprocessing of model, i.e. create script files with dynamic Jacobians, which can be evaluated numerically to compute the policy function
 MODEL = feval(str2func(OPT.modelname + "_preprocessing"));
 
@@ -61,8 +61,12 @@ elapsed_time_0 = toc(tic_id_0);
 if exit_flag_0 ~= 1
     error('Something wrong with log-likelihood function at initial parameters')
 else
-    fprintf('Initial value of the Gaussian log-likelihood function: %6.4f \nTime required to compute log-likelihood function once: %s \n', -1*neg_log_likelihood_0,dynsec2hms(elapsed_time_0))
-    [xparam_0,neg_log_likelihood_0] = fminsearch(@(x) negative_log_likelihood_dsge(x,DATA.MAT,PARAM_0,MODEL_0,OPT_0),  xparam_0,OPT_0.optimizer.optim_options);
+    fprintf('Initial value of the Gaussian log-likelihood function: %6.4f \nTime required to compute log-likelihood function once: %s \n', -1*neg_log_likelihood_0,dynsec2hms(elapsed_time_0));
+    if OPT.optimizer.bounds.use_for_optimizer
+        [xparam_0,neg_log_likelihood_0] = fminsearchbnd(@(x) negative_log_likelihood_dsge(x,DATA.MAT,PARAM_0,MODEL_0,OPT_0),  xparam_0,OPT_0.optimizer.bounds.lb,OPT_0.optimizer.bounds.ub,OPT_0.optimizer.optim_options);
+    else
+        [xparam_0,neg_log_likelihood_0] = fminsearch(@(x) negative_log_likelihood_dsge(x,DATA.MAT,PARAM_0,MODEL_0,OPT_0),  xparam_0,OPT_0.optimizer.optim_options);
+    end
     fprintf('Final value of the Gaussian log-likelihood function: %6.4f\n', -1*neg_log_likelihood_0)
 end
 stderr_eta_0 = nan(MODEL_0.exo_nbr,1);
@@ -91,7 +95,7 @@ OPT_1 = OPT; MODEL_1 = MODEL; MODEL_1.param_estim_names = MODEL_0.param_estim_na
 % create an evenly spaced grid of skewness coefficients between -0.995 and 0.995 for each shock
 grid_nbr = 16; % needs to be even number
 best_of  = 3;  % best values to keep
-Skew_eta_grid = linspace(-0.995,0,grid_nbr/2); Skew_eta_grid = [Skew_eta_grid -Skew_eta_grid((end-1):-1:1)];
+Skew_eta_grid = linspace(-0.95,0,grid_nbr/2); Skew_eta_grid = [Skew_eta_grid -Skew_eta_grid((end-1):-1:1)];
 if ~OPT.use_stderr_skew_transform
     % for each skewness coefficient compute required Sigma_eta and Gamma_eta such that V[eta] is equal to Gaussian estimate
     diag_Sigma_eta_grid = zeros(MODEL_0.exo_nbr,grid_nbr-1); diag_Gamma_eta_grid = zeros(MODEL_0.exo_nbr,grid_nbr-1);
@@ -156,12 +160,16 @@ skew_eta_grid_1
 % optimize over sigma_eta and gamma_eta using best values on grid as initial point
 xparam_1 = nan(MODEL_1.exo_nbr + MODEL_1.exo_nbr,best_of) ; neg_log_likelihood_1 = nan(1,best_of);
 parfor jbest=1:best_of
-    if OPT.use_stderr_skew_transform
+    if OPT_1.use_stderr_skew_transform
         [xparam_1_j, PARAM_1_j, ESTIM_PARAM_1_j, MODEL_1_j, OPT_1_j] = feval(str2func(OPT_1.modelname + "_params"),  1, MODEL_1, OPT_1, xparam_0, [], [], stderr_eta_0, skew_eta_grid_1(:,jbest));
     else
         [xparam_1_j, PARAM_1_j, ESTIM_PARAM_1_j, MODEL_1_j, OPT_1_j] = feval(str2func(OPT_1.modelname + "_params"),  1, MODEL_1, OPT_1, xparam_0, sqrt(diag_Sigma_eta_grid_1(:,jbest)), diag_Gamma_eta_grid_1(:,jbest));        
     end
-    [xparam_1(:,jbest),neg_log_likelihood_1(jbest)] = fminsearch(@(x) negative_log_likelihood_dsge(x,DATA.MAT,PARAM_1_j,MODEL_1_j,OPT_1_j),  xparam_1_j,OPT_1_j.optimizer.optim_options);
+    if OPT_1.optimizer.bounds.use_for_optimizer
+        [xparam_1(:,jbest),neg_log_likelihood_1(jbest)] = fminsearchbnd(@(x) negative_log_likelihood_dsge(x,DATA.MAT,PARAM_1_j,MODEL_1_j,OPT_1_j),  xparam_1_j,OPT_1_j.optimizer.bounds.lb,OPT_1_j.optimizer.bounds.ub,OPT_1_j.optimizer.optim_options);
+    else
+        [xparam_1(:,jbest),neg_log_likelihood_1(jbest)] = fminsearch(@(x) negative_log_likelihood_dsge(x,DATA.MAT,PARAM_1_j,MODEL_1_j,OPT_1_j),  xparam_1_j,OPT_1_j.optimizer.optim_options);
+    end
 end
 [~,best_of_1] = min(neg_log_likelihood_1);
 if OPT.use_stderr_skew_transform
@@ -188,7 +196,11 @@ if OPT.use_stderr_skew_transform
 else
     [xparam_2, PARAM_2, ESTIM_PARAM_2, MODEL_2, OPT_2] = feval(str2func(OPT_2.modelname + "_params"),  2, MODEL_2, OPT_2, xparam_0, sqrt(diag_Sigma_eta_1), diag_Gamma_eta_1);
 end
-[xparam_2,neg_log_likelihood_2] = fminsearch(@(x) negative_log_likelihood_dsge(x,DATA.MAT,PARAM_2,MODEL_2,OPT_2),  xparam_2,OPT_2.optimizer.optim_options);
+if OPT_2.optimizer.bounds.use_for_optimizer
+    [xparam_2,neg_log_likelihood_2] = fminsearchbnd(@(x) negative_log_likelihood_dsge(x,DATA.MAT,PARAM_2,MODEL_2,OPT_2),  xparam_2,OPT_2.optimizer.bounds.lb,OPT_2.optimizer.bounds.ub,OPT_2.optimizer.optim_options);
+else
+    [xparam_2,neg_log_likelihood_2] = fminsearch(@(x) negative_log_likelihood_dsge(x,DATA.MAT,PARAM_2,MODEL_2,OPT_2),  xparam_2,OPT_2.optimizer.optim_options);
+end
 
 if OPT.use_stderr_skew_transform
     skew_eta_2 = xparam_2(1:4,1);
@@ -205,8 +217,8 @@ end
 xparam_2(9:end)
 stderr_eta_2
 skew_eta_2
-
-lr_stat = 2 * ( neg_log_likelihood_0 - neg_log_likelihood_2);
+fprintf('Final value of the CSN log-likelihood function: %6.4f\n', -1*neg_log_likelihood_2)
+lr_stat = 2 * ( neg_log_likelihood_0 - neg_log_likelihood_2)
 lr_pval = chi2cdf(lr_stat, 4, "upper")
 
 % 
@@ -216,7 +228,7 @@ OPT_2.optimizer.bounds.ub = OPT_2.optimizer.bounds.ub + 0.5;
 hess = get_hessian('negative_log_likelihood_dsge',xparam_2,[1e-3;1.0],    DATA.MAT, PARAM_2, MODEL_2, OPT_2);
 hess = reshape(hess,MODEL_2.param_estim_nbr,MODEL_2.param_estim_nbr);
 V = inv(hess); % estimated covariance matrix of coefficients
-SE_values = sqrt(diag(V));
+SE_values = sqrt(diag(V))
 
 % housekeeping
 rmpath('../MATLAB'); % this folder contains our core routines

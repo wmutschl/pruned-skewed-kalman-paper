@@ -96,10 +96,10 @@ if stage == 0
     end
 elseif stage == 1
     if OPT.use_stderr_skew_transform
-        ESTIM_PARAM.skew_eta_a   = {xparam_skew_eta(MODEL.idx_eta_a), -0.995, 0.995};
-        ESTIM_PARAM.skew_eta_e   = {xparam_skew_eta(MODEL.idx_eta_e), -0.995, 0.995};
-        ESTIM_PARAM.skew_eta_z   = {xparam_skew_eta(MODEL.idx_eta_z), -0.995, 0.995};
-        ESTIM_PARAM.skew_eta_r   = {xparam_skew_eta(MODEL.idx_eta_r), -0.995, 0.995};
+        ESTIM_PARAM.skew_eta_a   = {xparam_skew_eta(MODEL.idx_eta_a), -0.95, 0.95};
+        ESTIM_PARAM.skew_eta_e   = {xparam_skew_eta(MODEL.idx_eta_e), -0.95, 0.95};
+        ESTIM_PARAM.skew_eta_z   = {xparam_skew_eta(MODEL.idx_eta_z), -0.95, 0.95};
+        ESTIM_PARAM.skew_eta_r   = {xparam_skew_eta(MODEL.idx_eta_r), -0.95, 0.95};
         ESTIM_PARAM.stderr_eta_a = {xparam_stderr_eta(MODEL.idx_eta_a), 0, 1};
         ESTIM_PARAM.stderr_eta_e = {xparam_stderr_eta(MODEL.idx_eta_e), 0, 1};
         ESTIM_PARAM.stderr_eta_z = {xparam_stderr_eta(MODEL.idx_eta_z), 0, 1};
@@ -116,10 +116,10 @@ elseif stage == 1
     end    
 elseif stage == 2
     if OPT.use_stderr_skew_transform
-        ESTIM_PARAM.skew_eta_a   = {xparam_skew_eta(MODEL.idx_eta_a), -0.995, 0.995};
-        ESTIM_PARAM.skew_eta_e   = {xparam_skew_eta(MODEL.idx_eta_e), -0.995, 0.995};
-        ESTIM_PARAM.skew_eta_z   = {xparam_skew_eta(MODEL.idx_eta_z), -0.995, 0.995};
-        ESTIM_PARAM.skew_eta_r   = {xparam_skew_eta(MODEL.idx_eta_r), -0.995, 0.995};
+        ESTIM_PARAM.skew_eta_a   = {xparam_skew_eta(MODEL.idx_eta_a), -0.95, 0.95};
+        ESTIM_PARAM.skew_eta_e   = {xparam_skew_eta(MODEL.idx_eta_e), -0.95, 0.95};
+        ESTIM_PARAM.skew_eta_z   = {xparam_skew_eta(MODEL.idx_eta_z), -0.95, 0.95};
+        ESTIM_PARAM.skew_eta_r   = {xparam_skew_eta(MODEL.idx_eta_r), -0.95, 0.95};
         ESTIM_PARAM.stderr_eta_a = {xparam_stderr_eta(MODEL.idx_eta_a), 0, 1};
         ESTIM_PARAM.stderr_eta_e = {xparam_stderr_eta(MODEL.idx_eta_e), 0, 1};
         ESTIM_PARAM.stderr_eta_z = {xparam_stderr_eta(MODEL.idx_eta_z), 0, 1};
