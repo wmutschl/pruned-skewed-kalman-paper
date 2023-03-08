@@ -90,7 +90,7 @@ OPT_1 = OPT; MODEL_1 = MODEL; MODEL_1.param_estim_names = MODEL_0.param_estim_na
 
 % create an evenly spaced grid of skewness coefficients between -0.995 and 0.995 for each shock
 grid_nbr = 16; % needs to be even number
-best_of  = 4;  % best values to keep
+best_of  = 3;  % best values to keep
 Skew_eta_grid = linspace(-0.995,0,grid_nbr/2); Skew_eta_grid = [Skew_eta_grid -Skew_eta_grid((end-1):-1:1)];
 if ~OPT.use_stderr_skew_transform
     % for each skewness coefficient compute required Sigma_eta and Gamma_eta such that V[eta] is equal to Gaussian estimate
@@ -172,8 +172,8 @@ else
     diag_Sigma_eta_1 = xparam_1(5:8,best_of_1).^2;
     stderr_eta_1 = nan(4,1); skew_eta_1 = nan(4,1);
     for jexo=1:4
-        stderr_eta_1(jexo,1) = sqrt(csnVar(diag_Sigma_eta_1(jexo,best_of_1),diag_Gamma_eta_1(jexo,1),0,best_of_1));
-        skew_eta_1(jexo,1) = skewness_coef_theor(diag_Sigma_eta_1(jexo,best_of_1),diag_Gamma_eta_1(jexo,best_of_1));
+        stderr_eta_1(jexo,1) = sqrt(csnVar(diag_Sigma_eta_1(jexo,1),diag_Gamma_eta_1(jexo,1),0,1));
+        skew_eta_1(jexo,1) = skewness_coef_theor(diag_Sigma_eta_1(jexo,1),diag_Gamma_eta_1(jexo,1));
     end
     diag_Sigma_eta_1
     diag_Gamma_eta_1
