@@ -37,7 +37,7 @@ function [log_lik, x_filt, x_smooth] = kalman_gaussian(Y, mu_tm1_tm1,Sigma_tm1_t
 % - x_filt          [structure]                    filtered states according to different loss functions given by loss_fct.type
 % - x_smooth        [structure]                    smoothed states according to different loss functions given by loss_fct.type
 % =========================================================================
-% Copyright (C) 2022-2023 Gaygysyz Guljanov, Willi Mutschler, Mark Trede
+% Copyright (C) 2022-2023 Gaygysyz Guljanov, Willi Mutschler
 %
 % This is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by

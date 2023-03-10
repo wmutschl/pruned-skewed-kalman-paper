@@ -17,7 +17,7 @@ function DisplayResults_MakeLatexTables_ExpectedLosses(filename,ONLY_LATEX)
 % - latex codes are displayed in the command window
 % - a log file "filename.log" is created in the results folder
 % =========================================================================
-% Copyright (C) 2022-2023 Gaygysyz Guljanov, Willi Mutschler, Mark Trede
+% Copyright (C) 2022-2023 Willi Mutschler
 %
 % This is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by

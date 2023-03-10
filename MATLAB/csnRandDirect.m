@@ -16,7 +16,7 @@ function [csn_draws] = csnRandDirect(n, mu, Sigma, Gamma, nu, Delta)
 % - csn_draws  [p by n]   random draws of the CSN(mu,Sigma,Gamma,nu,Delta) distribution
 % =========================================================================
 % Copyright (C) 2015 GPL v2 Dmitry Pavlyuk, Eugene Girtcius (rcsn.R function in the "csn" R package)
-% Copyright (C) 2022-2023 Gaygysyz Guljanov, Willi Mutschler, Mark Trede
+% Copyright (C) 2022-2023 Gaygysyz Guljanov
 %
 % This is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by

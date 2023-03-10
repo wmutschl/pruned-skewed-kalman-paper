@@ -26,7 +26,7 @@ function [TIME,SAMPLESTATS] = Computing_Time_Log_Likelihood(PARAMS,OPT)
 % - TIME          [structure]   results of Monte Carlo analysis with measured time in seconds, for field names see bottom of the function
 % - SAMPLESTATS   [structure]   descriptive statistics (sample mean, sample standard deviation and sample skewness coefficient) for simulated data used in Monte Carlo
 % =========================================================================
-% Copyright (C) 2022-2023 Gaygysyz Guljanov, Willi Mutschler, Mark Trede
+% Copyright (C) 2022-2023 Willi Mutschler
 %
 % This is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by
@@ -40,7 +40,7 @@ function [TIME,SAMPLESTATS] = Computing_Time_Log_Likelihood(PARAMS,OPT)
 % -------------------------------------------------------------------------
 % This file is part of the replication files for the paper "Pruned Skewed
 % Kalman Filter and Smoother: With Application to the Yield Curve" by
-% Gaygysyz Guljanov, Willi Mutschler, Mark Trede (2022)
+% Gaygysyz Guljanov, Willi Mutschler, Mark Trede
 % =========================================================================
 
 %% get options from OPT structure

@@ -33,7 +33,7 @@ function x_smooth = kalman_csn_smoother(Y, pred,filt, G,R,F, Gamma_eta,Delta_eta
 % OUTPUTS
 % - x_smooth        [structure]                    smoothed states according to different loss functions given by loss_fct.type
 % =========================================================================
-% Copyright (C) 2022-2023 Gaygysyz Guljanov, Willi Mutschler, Mark Trede
+% Copyright (C) 2022-2023 Gaygysyz Guljanov
 %
 % This is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by

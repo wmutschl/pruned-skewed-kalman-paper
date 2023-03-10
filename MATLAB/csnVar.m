@@ -15,7 +15,7 @@ function V_csn = csnVar(Sigma, Gamma, nu, Delta, cdfmvna_fct)
 % OUTPUTS
 % - V_csn         [p by p]   covariance matrix of the CSN(mu,Sigma,Gamma,nu,Delta) distribution
 % =========================================================================
-% Copyright (C) 2022-2023 Gaygysyz Guljanov, Willi Mutschler, Mark Trede
+% Copyright (C) 2022-2023 Gaygysyz Guljanov, Willi Mutschler
 %
 % This is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by

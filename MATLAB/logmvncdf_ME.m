@@ -12,7 +12,7 @@ function log_cdf = logmvncdf_ME(Zj, R, cutoff)
 % log_cdf    [double]   approximate value of Gaussian log(CDF)
 % =========================================================================
 % Copyright (C) 2015 Dietmar Bauer (original implementation)
-% Copyright (C) 2022-2023 Gaygysyz Guljanov, Willi Mutschler, Mark Trede
+% Copyright (C) 2022-2023 Gaygysyz Guljanov
 %
 % This is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by

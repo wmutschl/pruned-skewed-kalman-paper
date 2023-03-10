@@ -32,7 +32,7 @@ function [Sigma, Gamma, nu, Delta] = csnPruneParams(Sigma, Gamma, nu, Delta, tol
 % - Delta         [qq by q]   5th parameter of the pruned CSN distribution (enables closure of CSN distribution und marginalization)
 % where qq < q is the skewness dimension of the pruned distribution
 % =========================================================================
-% Copyright (C) 2022-2023 Gaygysyz Guljanov, Willi Mutschler, Mark Trede
+% Copyright (C) 2022-2023 Gaygysyz Guljanov, Willi Mutschler
 %
 % This is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by

@@ -1,15 +1,19 @@
-function hms = dynsec2hms(secs)
-% function hms = dynsec2hms(secs)
+function Skew = csnSkewness_univariate(Sigma, Gamma)
+% function Skew = csnSkewness_univariate(Sigma, Gamma)
 % -------------------------------------------------------------------------
-% Converts a number of seconds (given e.g. by tic toc) into a hours-minutes-seconds string
+% computes the skewness coefficient of a univariate CSN distributed random
+% variable X ~ CSN(mu,Sigma,Gamma,nu,Delta) with nu=0 and Delta=1
+% according to equation 3.6 of Grabek, Klos, and Koloch (2011) - Skew-Normal
+% shocks in the linear state space form DSGE model
 % -------------------------------------------------------------------------
 % INPUTS
-% secs  [scalar]  seconds
+% - Sigma      [double]   scale parameter of CSN distribution
+% - Gamma      [double]   skewness parameter of CSN distribution
 % -------------------------------------------------------------------------
 % OUTPUTS
-% hms   [string]   human readable time in hours - minutes - seconds format
+% - Skew       [double]   theoretical skewness coefficient of X
 % =========================================================================
-% Copyright (C) 2008-2023 Dynare Team
+% Copyright (C) 2023 Gaygysyz Guljanov
 %
 % This is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by
@@ -23,10 +27,11 @@ function hms = dynsec2hms(secs)
 % -------------------------------------------------------------------------
 % This file is part of the replication files for the paper "Pruned Skewed
 % Kalman Filter and Smoother: With Application to the Yield Curve" by
-% Gaygysyz Guljanov, Willi Mutschler, Mark Trede (2022)
+% Gaygysyz Guljanov, Willi Mutschler, Mark Trede
 % =========================================================================
-secs = round(secs);
-s = rem(secs, 60);
-m = rem(floor(secs / 60), 60);
-h = floor(secs / 3600);
-hms = sprintf('%dh%02dm%02ds', h, m, s);
+term1 = (4 - pi) / 2;
+term2 = (sqrt(2/pi) * Gamma * Sigma / sqrt(1 + Gamma^2 * Sigma))^3;
+term3 = (Sigma - (2/pi) * (Gamma^2 * Sigma^2) / (1 + Gamma^2 * Sigma))^(3/2);
+Skew  = term1 * term2 / term3;
+
+end

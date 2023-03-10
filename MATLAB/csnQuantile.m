@@ -24,7 +24,7 @@ function [q_alph] = csnQuantile(alph, mu, Sigma, Gamma, nu, Delta, cdfmvna_fct, 
 % OUTPUTS
 % - q_alph        [p by 1]   alpha quantile vector of the CSN(mu,Sigma,Gamma,nu,Delta) distribution
 % =========================================================================
-% Copyright (C) 2022-2023 Gaygysyz Guljanov, Willi Mutschler, Mark Trede
+% Copyright (C) 2022-2023 Gaygysyz Guljanov, Willi Mutschler
 %
 % This is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by

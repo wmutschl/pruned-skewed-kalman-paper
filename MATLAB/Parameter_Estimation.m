@@ -28,7 +28,7 @@ function [ESTIMPARAMS,FVALS,EXITFLAGS,SAMPLESTATS] = Parameter_Estimation(PARAMS
 % - EXITFLAGS     [structure]   results of Monte Carlo analysis with exitflags for different variants of the Pruned Skewed Kalman filter and Gaussian Kalman filter, see below for fields
 % - SAMPLESTATS   [structure]   descriptive statistics (sample mean, sample standard deviation and sample skewness coefficient) for simulated data used in Monte Carlo
 % =========================================================================
-% Copyright (C) 2022-2023 Gaygysyz Guljanov, Willi Mutschler, Mark Trede
+% Copyright (C) 2022-2023 Willi Mutschler
 %
 % This is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by

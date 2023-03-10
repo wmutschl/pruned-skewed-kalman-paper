@@ -23,7 +23,7 @@ function [term1, term2, evalp_t1, covar_t1, evalp_t2, covar_t2, mult_matr] = der
 % - covar_t2        [(p-1) by (p-1)]   covariance matrix of normal CDF in term2
 % - mult_matr       [(p-1) by 1]       auxiliary expression Sigma_12/Sigma_22, this expression shows up when evaluating conditional mean and conditional Variance out of partitions of mean and Variance of joint distribution
 % =========================================================================
-% Copyright (C) 2022-2023 Gaygysyz Guljanov, Willi Mutschler, Mark Trede
+% Copyright (C) 2022-2023 Gaygysyz Guljanov
 %
 % This is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by

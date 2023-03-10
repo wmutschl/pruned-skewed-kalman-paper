@@ -199,9 +199,13 @@ function [log_likelihood_val, filt_param_last, xfilt] = kalman_csn( ...
         
         Corr_mat_num = covtocorr_mat * Delta_data * covtocorr_mat;
         Corr_mat_num = 0.5 * (Corr_mat_num + Corr_mat_num');
-        
-        cdf_val_num = feval(cdf_eval_fnc, eval_point_num, Corr_mat_num, varargin{:});
-    
+        try
+            cdf_val_num = feval(cdf_eval_fnc, eval_point_num, Corr_mat_num, varargin{:});
+        catch
+            warning('kalman_can_dsge: cdf_val_num something wrong')
+            log_likelihood_val = -Inf;
+            return
+        end
 
         % Likelihood contribution
         likeli_contr(tt) = -cdf_val_denom + pdf_val + cdf_val_num;

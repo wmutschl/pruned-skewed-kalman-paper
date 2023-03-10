@@ -1,25 +1,31 @@
-% =========================================================================
-% dlyapdoubling.m
-% =========================================================================
-
 function SIGy = dlyapdoubling(A,SIGu)
-% =========================================================================
-% Solves the Lyapunov equation SIGy = A*SIGy*A' + SIGu using the doubling
-% algorithm
-% =======================================================================
-% SIGy = dlyapdoubling(A,SIGu)
+% function SIGy = dlyapdoubling(A,SIGu)
+% -------------------------------------------------------------------------
+% Solves the Lyapunov equation SIGy = A*SIGy*A' + SIGu using the doubling algorithm
 % -----------------------------------------------------------------------
-% INPUT
-%   - A     : square matrix [n x n] (usually autoregressive or state space matrix)
-%   - SIGu  : square matrix (n x n] (usually covariance matrix)
+% INPUTS
+%   - A     [n by n]   square matrix, usually autoregressive or state space matrix
+%   - SIGu  [n by n]   square matrix, usually usually covariance matrix
 % -----------------------------------------------------------------------
 % OUTPUT
-%	- SIGy: square matrix (usually covariance matrix) [n x n] that solves
-%	the Lyapunov equation
-% =======================================================================
-% Willi Mutschler, October 30, 2021
-% willi@mutschler.eu
-% =======================================================================
+%	- SIGy  [n by n]   square matrix that solves the Lyapunov equation
+% =========================================================================
+% Copyright (C) 2022-2023 Willi Mutschler
+%
+% This is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% This is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+% -------------------------------------------------------------------------
+% This file is part of the replication files for the paper "Pruned Skewed
+% Kalman Filter and Smoother: With Application to the Yield Curve" by
+% Gaygysyz Guljanov, Willi Mutschler, Mark Trede (2022)
+% =========================================================================
 
 max_iter   = 500;
 A_old      = A;

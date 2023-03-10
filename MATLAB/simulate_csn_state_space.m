@@ -31,7 +31,7 @@ function [y, x] = simulate_csn_state_space(obs_nbr,burnin, G,R,F, mu_eta,Sigma_e
 % - y           [y_nbr by obs_nbr]     matrix of simulated observable variables
 % - x           [x_nbr by obs_nbr]     matrix of simulated state variables
 % =========================================================================
-% Copyright (C) 2022-2023 Gaygysyz Guljanov, Willi Mutschler, Mark Trede
+% Copyright (C) 2022-2023 Gaygysyz Guljanov, Willi Mutschler
 %
 % This is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by
