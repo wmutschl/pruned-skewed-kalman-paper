@@ -23,7 +23,7 @@ addpath('MATLAB');
 addpath('MATLAB/ireland2004');
 
 options_.dsge = 1;
-options_.datafile = "full_sample";
+options_.datafile = "pre_1980";
 options_.optim_opt = optimset('display','final','MaxFunEvals',1000000,'MaxIter',10000,'TolFun',1e-4,'TolX',1e-4); % optimization options (we'll use fminsearch)
 options_.optim_opt.penalize_objective = 0; % 1: checks whether bounds are violated in objective function and penalizes it
 options_.mode_compute = ["fminsearch" "fminsearchbnd" "fminunc" "cmaes"];
@@ -67,7 +67,7 @@ M_.params(ismember(M_.param_names,'BETA'))     = 0.99;
 M_.params(ismember(M_.param_names,'PSI'))      = 0.1;
 %M_.params(ismember(M_.param_names,'ALPHA_PI')) = 0.0001; % fix to very small value as estimate is virtually 0 and this parameter makes even Gaussian ML tricky
 
-%% FULL SAMPLE
+%% POST 1980 DATA
 load data/ireland2004_gpr.dat; % original dataset
 ireland2004_gpr = array2timetable(ireland2004_gpr,...
        'RowTimes',datetime('1948-Q2','InputFormat','yyyy-QQQ','Format','yyyy-QQQ'):calquarters(1):datetime('2003-Q1','InputFormat','yyyy-QQQ','Format','yyyy-QQQ'),...
@@ -75,6 +75,7 @@ ireland2004_gpr = array2timetable(ireland2004_gpr,...
                         'pihat',... % inflation (needs to be demeaned), based on quarterly changes in seasonally adjusted GDP deflator
                         'rhat'} ... % nominal interest rate (needs to be demeaned), based on quarterly averages of daily readings on the three-months US Treasury bill rate
        );
+ireland2004_gpr = ireland2004_gpr(1:find(ireland2004_gpr.Time==datetime('1979-Q4','InputFormat','yyyy-QQQ','Format','yyyy-QQQ')),:);
 datamat = [];
 for jvarobs=1:length(M_.varobs)
     datamat = [datamat (ireland2004_gpr.(M_.varobs(jvarobs))-mean(ireland2004_gpr.(M_.varobs(jvarobs))))]; %demean data

@@ -54,6 +54,7 @@ if STAGE == 0
         estim_params_.var_exo    = [ estim_params_.var_exo;     [ idx_eta_r,                                   0.0031,  0,  1 ] ];
         estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"OMEGA"),1),    0.0617,  0,  1 ] ];
         estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"ALPHA_X"),1),  0.0836,  0,  1 ] ];
+        estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"ALPHA_PI"),1), 0.0001,  0,  1 ] ];
         estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_PI"),1),   0.3597,  0,  1 ] ];
         estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_G"),1),    0.2536,  0,  1 ] ];
         estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_X"),1),    0.0347,  0,  1 ] ];
@@ -67,6 +68,7 @@ if STAGE == 0
         estim_params_.var_exo    = [ estim_params_.var_exo;     [ idx_eta_r,                                   0.0028,  0,  1 ] ];
         estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"OMEGA"),1),    0.0581,  0,  1 ] ];
         estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"ALPHA_X"),1),  0.0000,  0,  1 ] ];
+        estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"ALPHA_PI"),1), 0.0001,  0,  1 ] ];
         estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_PI"),1),   0.3866,  0,  1 ] ];
         estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_G"),1),    0.3960,  0,  1 ] ];
         estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_X"),1),    0.1654,  0,  1 ] ];
@@ -80,6 +82,7 @@ if STAGE == 0
         estim_params_.var_exo    = [ estim_params_.var_exo;     [ idx_eta_r,                                   0.0033,  0,  1 ] ];
         estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"OMEGA"),1),    0.0000,  0,  1 ] ];
         estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"ALPHA_X"),1),  0.2028,  0,  1 ] ];
+        estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"ALPHA_PI"),1), 0.0001,  0,  1 ] ];
         estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_PI"),1),   0.3053,  0,  1 ] ];
         estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_G"),1),    0.2365,  0,  1 ] ];
         estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_X"),1),    0.0000,  0,  1 ] ];
@@ -141,6 +144,7 @@ elseif STAGE == 2
     % model parameters
     estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"OMEGA"),1),    M_.params(find(ismember(M_.param_names,"OMEGA"),1)),    0, 1 ] ];
     estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"ALPHA_X"),1),  M_.params(find(ismember(M_.param_names,"ALPHA_X"),1)),  0, 1 ] ];
+    estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"ALPHA_PI"),1), M_.params(find(ismember(M_.param_names,"ALPHA_PI"),1)), 0, 1 ] ];
     estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_PI"),1),   M_.params(find(ismember(M_.param_names,"RHO_PI"),1)),   0, 1 ] ];
     estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_G"),1),    M_.params(find(ismember(M_.param_names,"RHO_G"),1)),    0, 1 ] ];
     estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_X"),1),    M_.params(find(ismember(M_.param_names,"RHO_X"),1)),    0, 1 ] ];

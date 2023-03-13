@@ -30,31 +30,32 @@ options_.mode_compute = ["fminsearch" "fminsearchbnd" "fminunc" "cmaes"];
 options_.kalman.csn.prune_tol = 1e-4; % pruning threshold in Pruned Skewed Kalman filter
 options_.kalman.csn.cdfmvna_fct = "logmvncdf_ME"; % function to use to evaluate high-dimensional Gaussian log cdf, possible options: "logmvncdf_ME", "mvncdf", "qsilatmvnv", "qsimvnv"
 options_.kalman.lik_init = 1; % 1: Gaussian distribution, where initial matrix of variance of the error of forecast is set equal to the unconditional variance of the state variables; 2: Gaussian with wide prior with an initial matrix of variance of the error of forecast diagonal with 10 on the diagonal
-options_.parameters.skewness_bounds = [-0.95 0.95]; % bounds for skewness coefficient in estim_params file
+options_.parameters.skewness_bounds = [-0.99 0.99]; % bounds for skewness coefficient in estim_params file
 options_.parameters.use_stderr_skew = 1;
 options_.parameters.transform.OMEGA = true;
 options_.parameters.transform.ALPHA_X = true;
-options_.parameters.transform.RHO_PI = true;
-options_.parameters.transform.RHO_G = true;
-options_.parameters.transform.RHO_X = true;
-options_.parameters.transform.RHO_A = true;
-options_.parameters.transform.RHO_E = true;
-options_.parameters.transform.stderr_eta_a = true;
-options_.parameters.transform.stderr_eta_e = true;
-options_.parameters.transform.stderr_eta_z = true;
-options_.parameters.transform.stderr_eta_r = true;
-options_.parameters.transform.sqrt_diag_Sigma_eta_a = true;
-options_.parameters.transform.sqrt_diag_Sigma_eta_e = true;
-options_.parameters.transform.sqrt_diag_Sigma_eta_z = true;
-options_.parameters.transform.sqrt_diag_Sigma_eta_r = true;
+options_.parameters.transform.ALPHA_PI = true;
+%options_.parameters.transform.RHO_PI = true;
+%options_.parameters.transform.RHO_G = true;
+%options_.parameters.transform.RHO_X = true;
+%options_.parameters.transform.RHO_A = true;
+%options_.parameters.transform.RHO_E = true;
+%options_.parameters.transform.stderr_eta_a = true;
+%options_.parameters.transform.stderr_eta_e = true;
+%options_.parameters.transform.stderr_eta_z = true;
+%options_.parameters.transform.stderr_eta_r = true;
+%options_.parameters.transform.sqrt_diag_Sigma_eta_a = true;
+%options_.parameters.transform.sqrt_diag_Sigma_eta_e = true;
+%options_.parameters.transform.sqrt_diag_Sigma_eta_z = true;
+%options_.parameters.transform.sqrt_diag_Sigma_eta_r = true;
 options_.parameters.transform.skew_eta_a = true;
 options_.parameters.transform.skew_eta_e = true;
 options_.parameters.transform.skew_eta_z = true;
 options_.parameters.transform.skew_eta_r = true;
-options_.parameters.transform.diag_Gamma_eta_a = true;
-options_.parameters.transform.diag_Gamma_eta_e = true;
-options_.parameters.transform.diag_Gamma_eta_z = true;
-options_.parameters.transform.diag_Gamma_eta_r = true;
+%options_.parameters.transform.diag_Gamma_eta_a = true;
+%options_.parameters.transform.diag_Gamma_eta_e = true;
+%options_.parameters.transform.diag_Gamma_eta_z = true;
+%options_.parameters.transform.diag_Gamma_eta_r = true;
 
 %% MODEL PREPROCESSING
 % create script files with analytic dynamic Jacobian, which is later evaluated numerically to compute the policy function
@@ -64,7 +65,7 @@ M_ = ireland2004_preprocessing;
 % common calibration, values taken from Ireland (2004)
 M_.params(ismember(M_.param_names,'BETA'))     = 0.99;
 M_.params(ismember(M_.param_names,'PSI'))      = 0.1;
-M_.params(ismember(M_.param_names,'ALPHA_PI')) = 0.0001; % fix to very small value as estimate is virtually 0 and this parameter makes even Gaussian ML tricky
+%M_.params(ismember(M_.param_names,'ALPHA_PI')) = 0.0001; % fix to very small value as estimate is virtually 0 and this parameter makes even Gaussian ML tricky
 
 %% POST 1980 DATA
 load data/ireland2004_gpr.dat; % original dataset
