@@ -1,0 +1,365 @@
+
+options_ = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+                  dsge: 1
+              datafile: "post_1980"
+             optim_opt: [1×1 struct]
+          mode_compute: ["cmaes"    "fminsearch"    "fminsearchbnd"    "fmincon"    "fminunc"]
+                kalman: [1×1 struct]
+            parameters: [1×1 struct]
+         computer_arch: 'maci64'
+              filename: 'results_ireland2004_post_1980_maci64'
+               poolobj: [1×1 parallel.ProcessPool]
+    physical_cores_nbr: 8
+               logfile: 'results/results_ireland2004_post_1980_maci64.log'
+
+
+ans = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+                   Display: 'final'
+               MaxFunEvals: 1000000
+                   MaxIter: 10000
+                    TolFun: 1.0000e-04
+                      TolX: 1.0000e-04
+               FunValCheck: []
+                 OutputFcn: []
+                  PlotFcns: []
+           ActiveConstrTol: []
+                 Algorithm: []
+    AlwaysHonorConstraints: []
+           DerivativeCheck: []
+               Diagnostics: []
+             DiffMaxChange: []
+             DiffMinChange: []
+            FinDiffRelStep: []
+               FinDiffType: []
+         GoalsExactAchieve: []
+                GradConstr: []
+                   GradObj: []
+                   HessFcn: []
+                   Hessian: []
+                  HessMult: []
+               HessPattern: []
+                HessUpdate: []
+          InitBarrierParam: []
+     InitTrustRegionRadius: []
+                  Jacobian: []
+                 JacobMult: []
+              JacobPattern: []
+                LargeScale: []
+                  MaxNodes: []
+                MaxPCGIter: []
+             MaxProjCGIter: []
+                MaxSQPIter: []
+                   MaxTime: []
+             MeritFunction: []
+                 MinAbsMax: []
+        NoStopIfFlatInfeas: []
+            ObjectiveLimit: []
+      PhaseOneTotalScaling: []
+            Preconditioner: []
+          PrecondBandWidth: []
+            RelLineSrchBnd: []
+    RelLineSrchBndDuration: []
+              ScaleProblem: []
+       SubproblemAlgorithm: []
+                    TolCon: []
+                 TolConSQP: []
+                TolGradCon: []
+                    TolPCG: []
+                 TolProjCG: []
+              TolProjCGAbs: []
+                  TypicalX: []
+               UseParallel: []
+        penalize_objective: 0
+
+
+ans = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+         csn: [1×1 struct]
+    lik_init: 1
+
+
+ans = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+      prune_tol: 1.0000e-04
+    cdfmvna_fct: "logmvncdf_ME"
+
+
+ans = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+    skewness_bounds: [-0.9900 0.9900]
+    use_stderr_skew: 1
+          transform: [1×1 struct]
+
+
+ans = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+               OMEGA: 1
+             ALPHA_X: 1
+            ALPHA_PI: 1
+          skew_eta_a: 1
+          skew_eta_e: 1
+          skew_eta_z: 1
+          skew_eta_r: 1
+    diag_Gamma_eta_a: 1
+    diag_Gamma_eta_e: 1
+    diag_Gamma_eta_z: 1
+    diag_Gamma_eta_r: 1
+
+Stage 0: initial value of the Gaussian log-likelihood function: 1206.2228 
+Time required to compute log-likelihood function once: 0h00m00s 
+                            <strong>fminsearch</strong>    <strong>fminsearchbnd</strong>     <strong>fmincon</strong>        <strong>cmaes</strong>        <strong>fminunc</strong>      <strong>Ireland</strong>
+                            <strong>__________</strong>    <strong>_____________</strong>    <strong>__________</strong>    <strong>__________</strong>    <strong>__________</strong>    <strong>_______</strong>
+
+    <strong>stderr_eta_a        </strong>      0.030168       0.030168        0.030165      0.030316        0.0302     0.0302
+    <strong>stderr_eta_e        </strong>    0.00024765     0.00024765      0.00024743    0.00024726    0.00029208     0.0002
+    <strong>stderr_eta_z        </strong>     0.0088647      0.0088647       0.0088655     0.0088767     0.0089009     0.0089
+    <strong>stderr_eta_r        </strong>     0.0027903      0.0027903       0.0027903     0.0027887     0.0028001     0.0028
+    <strong>transformed_OMEGA   </strong>        -2.786         -2.786         -2.7861       -2.8152       -2.7857    -2.7857
+    <strong>transformed_ALPHA_X </strong>       -28.664        -28.227         -15.992       -9.1956       -9.2102    -9.2102
+    <strong>transformed_ALPHA_PI</strong>       -39.753        -37.448         -28.952       -9.1591       -9.2102    -9.2102
+    <strong>RHO_PI              </strong>       0.38649        0.38649         0.38625       0.38654        0.3866     0.3866
+    <strong>RHO_G               </strong>       0.39602        0.39602         0.39602       0.39594         0.396      0.396
+    <strong>RHO_X               </strong>        0.1654         0.1654         0.16549       0.16486        0.1654     0.1654
+    <strong>RHO_A               </strong>        0.9048         0.9048         0.90479       0.90516        0.9048     0.9048
+    <strong>RHO_E               </strong>       0.99067        0.99067         0.99067       0.99075        0.9907     0.9907
+    <strong>log-lik             </strong>        1207.6         1207.6          1207.6        1207.6        1206.6     1206.2
+
+Standard Errors via direct Hessian (with bounds) on actual model parameters (untransformed):
+  - don't do step down for parameter 6
+  - don't do step down for parameter 7
+  - don't do cross step down for parameter 6
+  - don't do cross step down for parameter 7
+  - don't do cross step down for parameter 6
+  - don't do cross step down for parameter 7
+  - don't do cross step down for parameter 6
+  - don't do cross step down for parameter 7
+  - don't do cross step down for parameter 6
+  - don't do cross step down for parameter 7
+  - don't do cross step down for parameter 6
+  - don't do cross step down for parameter 7
+  - don't do cross step down for parameter 6
+  - don't do cross step down for parameter 7
+  - don't do cross step down for parameter 6
+  - don't do cross step down for parameter 6
+  - don't do cross step down for parameter 6
+  - don't do cross step down for parameter 6
+  - don't do cross step down for parameter 6
+  - don't do cross step down for parameter 7
+  - don't do cross step down for parameter 7
+  - don't do cross step down for parameter 7
+  - don't do cross step down for parameter 7
+  - don't do cross step down for parameter 7
+Standard Errors via direct Hessian on transformed parameters and using Delta method to get corresponding standard errors of untransformed parameters:
+[Warning: Matrix is close to singular or badly scaled. Results may be inaccurate. RCOND =  5.795136e-29.] 
+[> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('get_standard_errors', '/Users/wmutschl/Work/Forschung/Projects/Skewed_Kalman/replication_codes/MATLAB/get_standard_errors.m', 48)" style="font-weight:bold">get_standard_errors</a> (<a href="matlab: opentoline('/Users/wmutschl/Work/Forschung/Projects/Skewed_Kalman/replication_codes/MATLAB/get_standard_errors.m',48,0)">line 48</a>)
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dsge_maximum_likelihood_estimation_csn', '/Users/wmutschl/Work/Forschung/Projects/Skewed_Kalman/replication_codes/MATLAB/dsge_maximum_likelihood_estimation_csn.m', 139)" style="font-weight:bold">dsge_maximum_likelihood_estimation_csn</a> (<a href="matlab: opentoline('/Users/wmutschl/Work/Forschung/Projects/Skewed_Kalman/replication_codes/MATLAB/dsge_maximum_likelihood_estimation_csn.m',139,0)">line 139</a>)
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('ireland2004_post_1980', '/Users/wmutschl/Work/Forschung/Projects/Skewed_Kalman/replication_codes/ireland2004_post_1980.m', 89)" style="font-weight:bold">ireland2004_post_1980</a> (<a href="matlab: opentoline('/Users/wmutschl/Work/Forschung/Projects/Skewed_Kalman/replication_codes/ireland2004_post_1980.m',89,0)">line 89</a>)
+] 
+SUMMARY STAGE 0
+
+                      <strong>estimate</strong>       <strong>stderr</strong>        <strong>t-stat</strong>  
+                     <strong>__________</strong>    <strong>__________</strong>    <strong>__________</strong>
+
+    <strong>skew(eta_a)  </strong>             0           NaN           NaN
+    <strong>skew(eta_e)  </strong>             0           NaN           NaN
+    <strong>skew(eta_z)  </strong>             0           NaN           NaN
+    <strong>skew(eta_r)  </strong>             0           NaN           NaN
+    <strong>stderr(eta_a)</strong>      0.030168      0.016584        1.8191
+    <strong>stderr(eta_e)</strong>    0.00024765    0.00012712        1.9481
+    <strong>stderr(eta_z)</strong>     0.0088647      0.001451        6.1095
+    <strong>stderr(eta_r)</strong>     0.0027903    0.00037031        7.5351
+    <strong>stderr(ghat) </strong>             0           NaN           NaN
+    <strong>stderr(rhat) </strong>             0           NaN           NaN
+    <strong>stderr(pihat)</strong>             0           NaN           NaN
+    <strong>BETA         </strong>          0.99           NaN           NaN
+    <strong>PSI          </strong>           0.1           NaN           NaN
+    <strong>ALPHA_PI     </strong>    5.4368e-18     0.0025322    2.1471e-15
+    <strong>ALPHA_X      </strong>    3.5599e-13     0.0043425    8.1979e-11
+    <strong>RHO_A        </strong>        0.9048      0.059602        15.181
+    <strong>RHO_E        </strong>       0.99067      0.015509        63.878
+    <strong>OMEGA        </strong>      0.058086      0.087667       0.66258
+    <strong>RHO_PI       </strong>       0.38649       0.12728        3.0364
+    <strong>RHO_G        </strong>       0.39602      0.065011        6.0915
+    <strong>RHO_X        </strong>        0.1654      0.061493        2.6897
+
+Stage 0: final value of the Gaussian log-likelihood function: 1207.5619
+Stage 1: initial value of the Pruned-Skewed log-likelihood function: 1207.5619
+
+
+Running grid search for CSN skewness/gamma parameters:
+  0%[>                                                  ]
+                      <strong>best 1</strong>        <strong>best 2</strong>        <strong>best 3</strong>  
+                    <strong>__________</strong>    <strong>__________</strong>    <strong>__________</strong>
+
+    <strong>stderr eta_a</strong>      0.030168      0.030168      0.030168
+    <strong>stderr eta_e</strong>    0.00024765    0.00024765    0.00024765
+    <strong>stderr eta_z</strong>     0.0088647     0.0088647     0.0088647
+    <strong>stderr eta_r</strong>     0.0027903     0.0027903     0.0027903
+
+                   <strong>best 1</strong>      <strong>best 2</strong>      <strong>best 3</strong> 
+                  <strong>________</strong>    <strong>________</strong>    <strong>________</strong>
+
+    <strong>skew eta_a</strong>    -0.27143    -0.13571    -0.13571
+    <strong>skew eta_e</strong>    -0.54286    -0.54286    -0.40714
+    <strong>skew eta_z</strong>    -0.13571    -0.27143    -0.27143
+    <strong>skew eta_r</strong>     0.54286     0.54286     0.54286
+
+               <strong>best 1</strong>    <strong>best 2</strong>    <strong>best 3</strong>
+               <strong>______</strong>    <strong>______</strong>    <strong>______</strong>
+
+    <strong>Log-Lik</strong>    1212.6    1212.5    1212.4
+
+
+Optimize over both Sigma_eta/stderr_eta as well as Gamma_eta/Skew_eta using best values from grid search for CSN skewness/gamma parameter:
+                              <strong>fmincon_init1</strong>    <strong>fminsearch_init2</strong>    <strong>fminunc_init2</strong>    <strong>fmincon_init2</strong>    <strong>cmaes_init2</strong>    <strong>fminsearchbnd_init3</strong>    <strong>fminsearch_init3</strong>    <strong>fminunc_init1</strong>    <strong>fminsearchbnd_init1</strong>    <strong>fminsearchbnd_init2</strong>    <strong>cmaes_init1</strong>    <strong>fminunc_init3</strong>    <strong>fmincon_init3</strong>    <strong>cmaes_init3</strong>    <strong>fminsearch_init1</strong>
+                              <strong>_____________</strong>    <strong>________________</strong>    <strong>_____________</strong>    <strong>_____________</strong>    <strong>___________</strong>    <strong>___________________</strong>    <strong>________________</strong>    <strong>_____________</strong>    <strong>___________________</strong>    <strong>___________________</strong>    <strong>___________</strong>    <strong>_____________</strong>    <strong>_____________</strong>    <strong>___________</strong>    <strong>________________</strong>
+
+    <strong>transformed_skew_eta_a</strong>         -0.554           -0.56361          -0.56072         -0.28609        -0.28404           -0.56274              -0.55223          -0.27483            -0.24718               -0.27577           -0.56274        -0.27591         -0.27591        -0.27658          -0.27591   
+    <strong>transformed_skew_eta_e</strong>        -1.4304            -1.2738           -1.2312         -0.89278        -0.91069             -1.232              -0.86998           -1.4313            -0.84349                -1.2913             -1.232        -0.87424           -1.232         -1.2319            -1.232   
+    <strong>transformed_skew_eta_z</strong>         -0.313           -0.27914          -0.28943          -0.5639        -0.57039           -0.27591              -0.87314          -0.62924            -0.57561               -0.56662           -0.27591        -0.56274         -0.56274         -0.5629          -0.56274   
+    <strong>transformed_skew_eta_r</strong>         1.3135             1.2589            1.2323           1.2444          1.1801              1.232                 1.261            1.3101              1.2522                 1.2329              1.232           1.232            1.232          1.2319             1.232   
+    <strong>stderr_eta_a          </strong>       0.027974            0.02799          0.028352         0.029077        0.028893           0.030168              0.027984          0.029092            0.028317               0.029826           0.030168        0.030168         0.030168        0.030117          0.030168   
+    <strong>stderr_eta_e          </strong>     0.00026476         0.00026624        0.00025909       0.00025766      0.00025689         0.00025783            0.00026734        0.00024754          0.00025691             0.00024636         0.00024765      0.00024902       0.00024936      0.00024793        0.00024765   
+    <strong>stderr_eta_z          </strong>      0.0089848          0.0089247         0.0089628        0.0089076       0.0089941          0.0088648             0.0086832         0.0089233           0.0092954              0.0088188          0.0088647       0.0088647        0.0088647       0.0088703         0.0088647   
+    <strong>stderr_eta_r          </strong>      0.0027641          0.0027478           0.00275        0.0027424       0.0027131          0.0027899             0.0027355         0.0027831           0.0026965              0.0027744          0.0027903       0.0027902        0.0027902        0.002788         0.0027903   
+    <strong>log-lik               </strong>         1213.6             1213.5            1213.4             1213          1212.9             1212.8                1212.8            1212.8              1212.7                 1212.7             1212.6          1212.5           1212.5          1212.5            1212.5   
+
+Standard Errors via direct Hessian (with bounds) on actual model parameters (untransformed):
+Standard Errors via direct Hessian on transformed parameters and using Delta method to get corresponding standard errors of untransformed parameters:
+SUMMARY STAGE 1
+
+                      <strong>estimate</strong>       <strong>stderr</strong>      <strong>t-stat</strong> 
+                     <strong>__________</strong>    <strong>__________</strong>    <strong>_______</strong>
+
+    <strong>skew(eta_a)  </strong>      -0.26742     0.0013133    -203.63
+    <strong>skew(eta_e)  </strong>      -0.60779     0.0014639    -415.19
+    <strong>skew(eta_z)  </strong>      -0.15368    0.00036232    -424.16
+    <strong>skew(eta_r)  </strong>       0.57045     0.0015561     366.59
+    <strong>stderr(eta_a)</strong>      0.027974    8.6699e-05     322.66
+    <strong>stderr(eta_e)</strong>    0.00026476    2.8245e-05     9.3739
+    <strong>stderr(eta_z)</strong>     0.0089848    5.4156e-05     165.91
+    <strong>stderr(eta_r)</strong>     0.0027641    5.1999e-05     53.157
+    <strong>stderr(ghat) </strong>             0           NaN        NaN
+    <strong>stderr(rhat) </strong>             0           NaN        NaN
+    <strong>stderr(pihat)</strong>             0           NaN        NaN
+    <strong>BETA         </strong>          0.99           NaN        NaN
+    <strong>PSI          </strong>           0.1           NaN        NaN
+    <strong>ALPHA_PI     </strong>    5.4368e-18           NaN        NaN
+    <strong>ALPHA_X      </strong>    3.5599e-13           NaN        NaN
+    <strong>RHO_A        </strong>        0.9048           NaN        NaN
+    <strong>RHO_E        </strong>       0.99067           NaN        NaN
+    <strong>OMEGA        </strong>      0.058086           NaN        NaN
+    <strong>RHO_PI       </strong>       0.38649           NaN        NaN
+    <strong>RHO_G        </strong>       0.39602           NaN        NaN
+    <strong>RHO_X        </strong>        0.1654           NaN        NaN
+
+Stage 1: final value of the Pruned-Skewed log-likelihood function: 1213.6333
+
+
+Stage 2: initial value of the Pruned-Skewed log-likelihood function: 1213.6333
+
+
+ run maximum likelihood estimation with Pruned Skewed Kalman filter for all parameters using different optimizers in parallel:
+                              <strong>fminsearchbnd</strong>    <strong>fminsearch</strong>      <strong>cmaes</strong>        <strong>fmincon</strong>       <strong>fminunc</strong>  
+                              <strong>_____________</strong>    <strong>__________</strong>    <strong>__________</strong>    <strong>__________</strong>    <strong>__________</strong>
+
+    <strong>transformed_skew_eta_a</strong>       -0.55575        -0.57907        -0.554        -0.554        -0.554
+    <strong>transformed_skew_eta_e</strong>        -1.4362         -1.5226       -1.4304       -1.4304       -1.4304
+    <strong>transformed_skew_eta_z</strong>       -0.28889        -0.29748        -0.313        -0.313        -0.313
+    <strong>transformed_skew_eta_r</strong>         1.7846          1.5926        1.3135        1.3135        1.3135
+    <strong>stderr_eta_a          </strong>       0.028153        0.028622      0.027974      0.027974      0.027974
+    <strong>stderr_eta_e          </strong>     0.00023582      0.00026385    0.00026476    0.00026476    0.00026476
+    <strong>stderr_eta_z          </strong>      0.0092712       0.0089447     0.0089848     0.0089848     0.0089848
+    <strong>stderr_eta_r          </strong>      0.0026032       0.0026688     0.0027641     0.0027641     0.0027641
+    <strong>transformed_OMEGA     </strong>        -2.7345         -2.6474        -2.786        -2.786        -2.786
+    <strong>transformed_ALPHA_X   </strong>        -35.057         -44.527       -28.664       -28.664       -28.664
+    <strong>transformed_ALPHA_PI  </strong>        -26.507         -20.713       -39.753       -39.753       -39.753
+    <strong>RHO_PI                </strong>        0.31106         0.34515       0.38649       0.38649       0.38649
+    <strong>RHO_G                 </strong>        0.35864         0.35984       0.39602       0.39602       0.39602
+    <strong>RHO_X                 </strong>        0.17791         0.17104        0.1654        0.1654        0.1654
+    <strong>RHO_A                 </strong>        0.90616         0.90894        0.9048        0.9048        0.9048
+    <strong>RHO_E                 </strong>        0.98602         0.98484       0.99067       0.99067       0.99067
+    <strong>log-lik               </strong>         1214.1            1214        1213.6        1213.6        1213.6
+
+Standard Errors via direct Hessian (with bounds) on actual model parameters (untransformed):
+  - don't do step down for parameter 10
+  - don't do step down for parameter 11
+  - don't do cross step down for parameter 10
+  - don't do cross step down for parameter 11
+  - don't do cross step down for parameter 10
+  - don't do cross step down for parameter 11
+  - don't do cross step down for parameter 10
+  - don't do cross step down for parameter 11
+  - don't do cross step down for parameter 10
+  - don't do cross step down for parameter 11
+  - don't do cross step down for parameter 10
+  - don't do cross step down for parameter 11
+  - don't do cross step down for parameter 10
+  - don't do cross step down for parameter 11
+  - don't do cross step down for parameter 10
+  - don't do cross step down for parameter 11
+  - don't do cross step down for parameter 10
+  - don't do cross step down for parameter 11
+  - don't do cross step down for parameter 10
+  - don't do cross step down for parameter 11
+  - don't do cross step down for parameter 10
+  - don't do cross step down for parameter 11
+  - don't do cross step down for parameter 10
+  - don't do cross step down for parameter 10
+  - don't do cross step down for parameter 10
+  - don't do cross step down for parameter 10
+  - don't do cross step down for parameter 10
+  - don't do cross step down for parameter 11
+  - don't do cross step down for parameter 11
+  - don't do cross step down for parameter 11
+  - don't do cross step down for parameter 11
+  - don't do cross step down for parameter 11
+Standard Errors via direct Hessian on transformed parameters and using Delta method to get corresponding standard errors of untransformed parameters:
+[Warning: Matrix is close to singular or badly scaled. Results may be inaccurate. RCOND =  6.344371e-31.] 
+[> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('get_standard_errors', '/Users/wmutschl/Work/Forschung/Projects/Skewed_Kalman/replication_codes/MATLAB/get_standard_errors.m', 48)" style="font-weight:bold">get_standard_errors</a> (<a href="matlab: opentoline('/Users/wmutschl/Work/Forschung/Projects/Skewed_Kalman/replication_codes/MATLAB/get_standard_errors.m',48,0)">line 48</a>)
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dsge_maximum_likelihood_estimation_csn', '/Users/wmutschl/Work/Forschung/Projects/Skewed_Kalman/replication_codes/MATLAB/dsge_maximum_likelihood_estimation_csn.m', 326)" style="font-weight:bold">dsge_maximum_likelihood_estimation_csn</a> (<a href="matlab: opentoline('/Users/wmutschl/Work/Forschung/Projects/Skewed_Kalman/replication_codes/MATLAB/dsge_maximum_likelihood_estimation_csn.m',326,0)">line 326</a>)
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('ireland2004_post_1980', '/Users/wmutschl/Work/Forschung/Projects/Skewed_Kalman/replication_codes/ireland2004_post_1980.m', 89)" style="font-weight:bold">ireland2004_post_1980</a> (<a href="matlab: opentoline('/Users/wmutschl/Work/Forschung/Projects/Skewed_Kalman/replication_codes/ireland2004_post_1980.m',89,0)">line 89</a>)
+] 
+SUMMARY STAGE 2
+
+                      <strong>estimate</strong>       <strong>stderr</strong>        <strong>t-stat</strong>  
+                     <strong>__________</strong>    <strong>__________</strong>    <strong>__________</strong>
+
+    <strong>skew(eta_a)  </strong>      -0.26823     0.0014615       -183.53
+    <strong>skew(eta_e)  </strong>      -0.60956     0.0020884       -291.88
+    <strong>skew(eta_z)  </strong>      -0.14201    0.00063783       -222.65
+    <strong>skew(eta_r)  </strong>       0.70541     0.0026101        270.26
+    <strong>stderr(eta_a)</strong>      0.028153    0.00014703        191.47
+    <strong>stderr(eta_e)</strong>    0.00023582    2.3788e-05        9.9133
+    <strong>stderr(eta_z)</strong>     0.0092712    5.2244e-05        177.46
+    <strong>stderr(eta_r)</strong>     0.0026032    5.4696e-05        47.594
+    <strong>stderr(ghat) </strong>             0           NaN           NaN
+    <strong>stderr(rhat) </strong>             0           NaN           NaN
+    <strong>stderr(pihat)</strong>             0           NaN           NaN
+    <strong>BETA         </strong>          0.99           NaN           NaN
+    <strong>PSI          </strong>           0.1           NaN           NaN
+    <strong>ALPHA_PI     </strong>    3.0764e-12    0.00034461    8.9273e-09
+    <strong>ALPHA_X      </strong>    5.9558e-16     0.0004225    1.4097e-12
+    <strong>RHO_A        </strong>       0.90616     0.0015529        583.53
+    <strong>RHO_E        </strong>       0.98602     0.0014555        677.43
+    <strong>OMEGA        </strong>      0.060966    0.00025554        238.57
+    <strong>RHO_PI       </strong>       0.31106     0.0016489        188.64
+    <strong>RHO_G        </strong>       0.35864     0.0016918        211.98
+    <strong>RHO_X        </strong>       0.17791     0.0003231        550.64
+
+Stage 2: final value of the Pruned Skewed log-likelihood function: 1214.1311
+Likelihood Ratio Test Statistic = 13.14 with p-val = 0.0106

@@ -69,7 +69,7 @@ end
 
 %% UPDATE PARAMETERS
 if options_.dsge
-    M_ = set_params_dsge(xparams,estim_params_,options_,M_);
+    M_ = dsge_set_params(xparams,estim_params_,options_,M_);
 end
 % check whether we need Pruned Skewed Kalman filter
 if any(diag(M_.Gamma_eta))

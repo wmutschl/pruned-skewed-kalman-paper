@@ -1,4 +1,4 @@
-function [Gamma_A, nu_A, Delta_A] = fr_lintransf(A_mat, Sigma_A, Gamma, nu, Delta)
+function [Gamma_A, nu_A, Delta_A] = fr_lintransf(A_mat, Sigma, Sigma_A, Gamma, nu, Delta)
 
     % Briefly: 
     %       - Rank deficient linear transformation of CSN distributed random variable

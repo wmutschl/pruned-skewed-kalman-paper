@@ -145,9 +145,9 @@
   
 % maximize likelihood
 
-  options = optimset('Display','iter','LargeScale','off','MaxFunEvals',2500,'MaxIter',2500);
+  options = optimset('Display','iter','LargeScale','off','MaxFunEvals',10000,'MaxIter',10000);
 
-  thetstar = fminunc(@llfn,bigtheto,options);
+  thetstar = fminsearch(@llfn,bigtheto,options);
 
 % calculate standard errors
 
@@ -195,6 +195,8 @@
             rhop rhog rhox ...
             rhoa rhoe ...
             siga sige sigz sigr ]';
+
+  tstar = [0.0617 0.0836 0.0001 0.3597 0.2536 0.0347 0.9470 0.9625 0.0405 0.0012 0.0109 0.0031]';
 
   scalinv = inv(diag(scalvec));
 

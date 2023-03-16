@@ -116,7 +116,7 @@ elseif STAGE == 1
         estim_params_.var_exo  = [ estim_params_.var_exo;   [ idx_eta_r,  sqrt(M_.Sigma_eta(idx_eta_r,idx_eta_r)),  0, 1 ] ];
     end
 
-elseif STAGE == 2
+elseif STAGE >= 2
     % use calibrated values from M_ structure as initial values
     if options_.parameters.use_stderr_skew
         % skew parameters

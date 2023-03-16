@@ -1,5 +1,4 @@
-function hessian_mat = get_hessian(func,x, gstep, varargin) % --*-- Unitary tests --*--
-
+function hessian_mat = get_hessian_with_bounds(func, x, gstep, bounds, varargin)
 % Computes second order partial derivatives
 %
 % INPUTS
@@ -46,9 +45,11 @@ function hessian_mat = get_hessian(func,x, gstep, varargin) % --*-- Unitary test
 if ~isa(func, 'function_handle')
     func = str2func(func);
 end
-
+ub = bounds(:,2);
+lb = bounds(:,1);
 n   = size(x,1);
-h1  = max(abs(x), sqrt(gstep(1))*ones(n, 1))*eps^(1/6)*gstep(2);
+%h1  = max(abs(x), sqrt(gstep(1))*ones(n, 1))*eps^(1/6)*gstep(2);
+h1 = gstep;
 h_1 = h1;
 xh1 = x+h1;
 h1  = xh1-x;
@@ -62,10 +63,20 @@ f_1 = f1;
 for i=1:n
     %do step up
     xh1(i)   = x(i)+h1(i);
-    f1(:,i)  = feval(func, xh1, varargin{:});
+    if xh1(i) <= ub(i)        
+        f1(:,i)  = feval(func, xh1, varargin{:});
+    else
+        %fprintf('  - don''t do step up for parameter %d\n',i)
+        f1(:,i)  = f0;
+    end
     %do step down
     xh1(i)   = x(i)-h_1(i);
-    f_1(:,i) = feval(func, xh1, varargin{:});
+    if xh1(i) >= lb(i)        
+        f_1(:,i) = feval(func, xh1, varargin{:});
+    else
+        %fprintf('  - don''t do step down for parameter %d\n',i)
+        f_1(:,i) = f0;
+    end
     %reset parameter
     xh1(i)   = x(i);
 end
@@ -84,67 +95,16 @@ for i=1:n
     hessian_mat(:,(i-1)*n+i) = (f1(:,i)+f_1(:,i)-2*f0)./(h1(i)*h_1(i)); %formula 25.3.23
     for j=i+1:n
         %step in up direction
-        xh1(i) = x(i)+h1(i);
-        xh1(j) = x(j)+h_1(j);
+        xh1(i) = x(i)+h1(i);  if xh1(i) > ub(i); xh1(i) = x(i); end %fprintf('  - don''t do cross step up for parameter %d\n',i); end
+        xh1(j) = x(j)+h_1(j); if xh1(j) > ub(j); xh1(j) = x(j); end %fprintf('  - don''t do cross step up for parameter %d\n',j); end
         %step in down direction
-        xh_1(i) = x(i)-h1(i);
-        xh_1(j) = x(j)-h_1(j);
+        xh_1(i) = x(i)-h1(i);  if xh_1(i) < lb(i); xh_1(i) = x(i); end %fprintf('  - don''t do cross step down for parameter %d\n',i); end
+        xh_1(j) = x(j)-h_1(j); if xh_1(j) < lb(j); xh_1(j) = x(j); end %fprintf('  - don''t do cross step down for parameter %d\n',j); end
         hessian_mat(:,(i-1)*n+j) =-(-feval(func, xh1, varargin{:})-feval(func, xh_1, varargin{:})+temp(:,i)+temp(:,j))./(2*h1(i)*h_1(j)); %formula 25.3.27
-                                                                                                                                          %reset grid points
+        %reset grid points
         xh1(i)  = x(i);
         xh1(j)  = x(j);
         xh_1(i) = x(i);
         xh_1(j) = x(j);
     end
 end
-
-
-%@test:1
-%$ % Create a function.
-%$ fid = fopen('exfun.m','w+');
-%$ fprintf(fid,'function [f,g,H] = exfun(xvar)\\n');
-%$ fprintf(fid,'x = xvar(1);\\n');
-%$ fprintf(fid,'y = xvar(2);\\n');
-%$ fprintf(fid,'f = x^2* log(y);\\n');
-%$ fprintf(fid,'if nargout>1\\n');
-%$ fprintf(fid,'    g = zeros(2,1);\\n');
-%$ fprintf(fid,'    g(1) = 2*x*log(y);\\n');
-%$ fprintf(fid,'    g(2) = x*x/y;\\n');
-%$ fprintf(fid,'end\\n');
-%$ fprintf(fid,'if nargout>2\\n');
-%$ fprintf(fid,'    H = zeros(2,2);\\n');
-%$ fprintf(fid,'    H(1,1) = 2*log(y);\\n');
-%$ fprintf(fid,'    H(1,2) = 2*x/y;\\n');
-%$ fprintf(fid,'    H(2,1) = H(1,2);\\n');
-%$ fprintf(fid,'    H(2,2) = -x*x/(y*y);\\n');
-%$ fprintf(fid,'    H = H(:);\\n');
-%$ fprintf(fid,'end\\n');
-%$ fclose(fid);
-%$
-%$ rehash;
-%$
-%$ t = zeros(5,1);
-%$
-%$ % Evaluate the Hessian at (1,e)
-%$ try
-%$    H = hessian('exfun',[1; exp(1)],[1e-2; 1]);
-%$    t(1) = 1;
-%$ catch
-%$    t(1) = 0;
-%$ end
-%$
-%$ % Compute the true Hessian matrix
-%$ [f, g, Htrue] = exfun([1 exp(1)]);
-%$
-%$ % Delete exfun routine from disk.
-%$ delete('exfun.m');
-%$
-%$ % Compare the values in H and Htrue
-%$ if t(1)
-%$    t(2) = dassert(abs(H(1)-Htrue(1))<1e-6,true);
-%$    t(3) = dassert(abs(H(2)-Htrue(2))<1e-6,true);
-%$    t(4) = dassert(abs(H(3)-Htrue(3))<1e-6,true);
-%$    t(5) = dassert(abs(H(4)-Htrue(4))<1e-6,true);
-%$ end
-%$ T = all(t);
-%@eof:1

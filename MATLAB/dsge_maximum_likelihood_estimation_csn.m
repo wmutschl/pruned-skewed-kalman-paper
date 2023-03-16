@@ -1,4 +1,4 @@
-%function M_ = dsge_maximum_likelihood_estimation_csn(M_,options_,datamat)
+function [oo_,M_] = dsge_maximum_likelihood_estimation_csn(M_,options_,datamat)
 % -------------------------------------------------------------------------
 % Maximum Likelihood Estimation of a DSGE model with CSN distributed innovations,
 % solved with first-order perturbation techniques, and estimated using the
@@ -38,6 +38,8 @@
 % - options_   [structure]   options (stripped down version of Dynare's options_ structure)
 % -------------------------------------------------------------------------
 % OUTPUTS
+% - oo_        [structure]   estimation results and structures of different stages
+% - M_         [structure]   updated information on the model (stripped down version of Dynare's M_ structure)
 % =========================================================================
 % Copyright © 2023 Willi Mutschler
 %
@@ -55,61 +57,69 @@
 % Kalman Filter and Smoother: With Application to the Yield Curve" by
 % Gaygysyz Guljanov, Willi Mutschler, Mark Trede
 % =========================================================================
+% set missing options
 if ~isfield(options_.parameters,'transform')
     options_.parameters.transform = [];
 end
+% parallel environment
+options_.poolobj = gcp('nocreate');
+if isempty(options_.poolobj)
+    options_.physical_cores_nbr=feature('numcores');
+    parpool(options_.physical_cores_nbr);
+else
+    options_.physical_cores_nbr = options_.poolobj.NumWorkers;
+end
+% create results folder
+if ~exist('results', 'dir')
+    mkdir('results');
+end
+% open log file
+diary off
+options_.logfile = ['results/' options_.filename,'.log'];
+if exist(options_.logfile, 'file')
+    delete(options_.logfile)
+end
+diary(options_.logfile)
+options_
+options_.optim_opt
+options_.kalman
+options_.kalman.csn
+options_.parameters
+options_.parameters.transform
+
+options_STDERR = options_; options_STDERR.parameters.transform = []; % we compute standard errors on untransformed parameters
+objfct = @negative_log_likelihood;
+
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % STAGE 0
 % - use provided initial values in estimated_params_ file
 % - run ML with Gaussian Kalman filter
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 STAGE = 0;
-[estim_params0,xparams0Init,bounds0] = feval(str2func(M_.fname + "_estim_params"), STAGE, M_, options_);
-M_ = set_params_dsge(xparams0Init,estim_params0,options_,M_);
-tic_id0 = tic;
-[neg_log_likelihood0Init,exit_flag0] = negative_log_likelihood(xparams0Init, bounds0, datamat, estim_params0, options_, M_);
-elapsed_time0 = toc(tic_id0);
-if exit_flag0 ~= 1
-    error('Something wrong with log-likelihood function at initial parameters')
-else
-    fprintf('Stage 0: initial value of the Gaussian log-likelihood function: %6.4f \nTime required to compute log-likelihood function once: %s \n', -1*neg_log_likelihood0Init,dynsec2hms(elapsed_time0));
-end
-xparams_stage0 = nan(estim_params0.ntot,length(options_.mode_compute)); neg_log_likelihood_stage0 = nan(1,length(options_.mode_compute));
+[estim_params_0,xparamsInit_stage0_tr,bounds0_tr] = feval(str2func(M_.fname + "_estim_params"), STAGE, M_, options_);
+M_ = dsge_set_params(xparamsInit_stage0_tr, estim_params_0, options_, M_);
 % run maximum likelihood with Gaussian Kalman filter
-parfor jopt=1:length(options_.mode_compute)
-    if options_.mode_compute(jopt)=="fminsearch"
-        [xparams_stage0(:,jopt), neg_log_likelihood_stage0(jopt)] = fminsearch(   @(x) negative_log_likelihood(x,bounds0,datamat,estim_params0,options_,M_),  xparams0Init,                             options_.optim_opt);
-    elseif options_.mode_compute(jopt)=="fminsearchbnd"
-        [xparams_stage0(:,jopt), neg_log_likelihood_stage0(jopt)] = fminsearchbnd(@(x) negative_log_likelihood(x,bounds0,datamat,estim_params0,options_,M_),  xparams0Init, bounds0(:,1), bounds0(:,2), options_.optim_opt);
-    elseif options_.mode_compute(jopt)=="fminunc"
-        [xparams_stage0(:,jopt), neg_log_likelihood_stage0(jopt)] = fminunc(      @(x) negative_log_likelihood(x,bounds0,datamat,estim_params0,options_,M_),  xparams0Init,                             options_.optim_opt);
-    elseif options_.mode_compute(jopt)=="cmaes"
-        cmaesOptions = cmaes('defaults');
-        cmaesOptions.SaveVariables='off'; cmaesOptions.DispFinal='on'; cmaesOptions.WarnOnEqualFunctionValues='no'; cmaesOptions.DispModulo='500'; cmaesOptions.LogModulo='0'; cmaesOptions.LogTime='0'; cmaesOptions.Resume = 0;
-        cmaesOptions.LBounds = bounds0(:,1); cmaesOptions.UBounds = bounds0(:,2);
-        % Set default search volume (SIGMA)
-        cmaesSIGMA = (bounds0(:,2)-bounds0(:,1))*0.2; cmaesSIGMA(~isfinite(cmaesSIGMA)) = 0.01;
-        while max(cmaesSIGMA)/min(cmaesSIGMA)>1e6 %make sure initial search volume (SIGMA) is not badly conditioned
-            cmaesSIGMA(cmaesSIGMA==max(cmaesSIGMA))=0.9*cmaesSIGMA(cmaesSIGMA==max(cmaesSIGMA));
-        end
-        cmaesOptions.TolFun = options_.optim_opt.TolFun; cmaesOptions.MaxIter = options_.optim_opt.MaxIter; cmaesOptions.MaxFunEvals = options_.optim_opt.MaxFunEvals;
-        [~, ~, ~, ~, ~, BESTEVER] = cmaes('negative_log_likelihood',xparams0Init,cmaesSIGMA,cmaesOptions,  bounds0,datamat,estim_params0,options_,M_);
-        xparams_stage0(:,jopt)=BESTEVER.x;
-        neg_log_likelihood_stage0(jopt)=BESTEVER.f;
-    end
-end
-[~,stage0best] = sort(neg_log_likelihood_stage0);
-disp(array2table([xparams_stage0(:,stage0best) xparams0Init; -neg_log_likelihood_stage0(stage0best) -neg_log_likelihood0Init],...
-                 'RowNames',[estim_params0.names;'log-lik'],...
-                 'VariableNames',[options_.mode_compute(stage0best) "Ireland"]))
-xparams0Final = xparams_stage0(:,stage0best(1));
-neg_log_likelihood0Final = neg_log_likelihood_stage0(stage0best(1));
-M_ = set_params_dsge(xparams0Final,estim_params0,options_,M_); % update model and shock parameters for use in stage 1
-V_stage0 = inv(reshape(get_hessian('negative_log_likelihood',xparams0Final,[1e-3;1.0],bounds0,datamat,estim_params0,options_,M_),estim_params0.ntot,estim_params0.ntot)); SE_stage0 = sqrt(diag(V_stage0)); % compute standard errors
-fprintf('SUMMARY STAGE 0\n\n')
-disp( table(xparams0Final,SE_stage0,xparams0Final./SE_stage0,'Var',{'Estimate','s.d.','t-stat'},'Row',estim_params0.names) );
-disp(array2table([sqrt(diag(M_.Cov_eta)) M_.Skew_eta],'RowNames',M_.exo_names,'VariableNames',["stderr", "skew"]));
-fprintf('Stage 0: final value of the Gaussian log-likelihood function: %6.4f\n', -1*neg_log_likelihood0Final);
+diary off
+[xparams_stage0_tr, neg_log_likelihood_stage0, best_stage0] = minimize_objective_in_parallel(objfct, xparamsInit_stage0_tr, bounds0_tr(:,1), bounds0_tr(:,2), options_.optim_names, options_.optim_opt,    bounds0_tr,datamat,estim_params_0,options_,M_);
+diary(options_.logfile)
+% compute standard errors
+[xparams_stage0, bounds0] = dsge_untransform(xparams_stage0_tr, bounds0_tr, estim_params_0);
+xstderr_stage0 = standard_errors_inverse_hessian(objfct, xparams_stage0, bounds0,    bounds0,datamat,estim_params_0,options_STDERR,M_);
+% display summary
+fprintf('%s\nSUMMARY STAGE 0\n\n',repmat('*',1,100))
+fprintf('  Point Estimates\n')
+disp(array2table([xparams_stage0(:,best_stage0); -neg_log_likelihood_stage0(best_stage0)], 'RowNames',[erase(estim_params_0.names,"transformed_");'Log-Lik'], 'VariableNames', options_.optim_names(best_stage0)));
+fprintf('  Standard Errors\n')
+disp(array2table([xstderr_stage0(:,best_stage0); -neg_log_likelihood_stage0(best_stage0)], 'RowNames',[erase(estim_params_0.names,"transformed_");'Log-Lik'], 'VariableNames', options_.optim_names(best_stage0)));
+fprintf('Final value of the best log-likelihood function: %6.4f\n', -1*neg_log_likelihood_stage0(best_stage0(1)))
+fprintf('%s\n\n',repmat('*',1,100))
+% store results
+oo_.stage0.xparams_tr = xparams_stage0_tr;
+oo_.stage0.xparams = xparams_stage0;
+oo_.stage0.xstderr = xstderr_stage0;
+oo_.stage0.neg_log_likelihood = neg_log_likelihood_stage0;
+% update model and shock parameters for use in stage 1
+M_ = dsge_set_params(xparams_stage0_tr(:,best_stage0(1)),estim_params_0,options_,M_);
 
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % STAGE 1
@@ -121,10 +131,9 @@ fprintf('Stage 0: final value of the Gaussian log-likelihood function: %6.4f\n',
 % - for a chosen number of best combinations: use these as initial value and optimize over shock parameters with Pruned Skewed Kalman filter
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 STAGE = 1;
-[estim_params1,xparams1Init,bounds1] = feval(str2func(M_.fname + "_estim_params"), STAGE, M_, options_); % note that M_ stores the values from stage 0
-M_ = set_params_dsge(xparams1Init,estim_params1,options_,M_);
-[neg_log_likelihood1Init,exit_flag1] = negative_log_likelihood(xparams1Init, bounds1, datamat, estim_params1, options_, M_);
-fprintf('Stage 1: initial value of the Pruned-Skewed log-likelihood function: %6.4f\n', -1*neg_log_likelihood1Init);
+[estim_params_1, xparamsInit_stage1_tr, bounds1_tr] = feval(str2func(M_.fname + "_estim_params"), STAGE, M_, options_);
+M_ = dsge_set_params(xparamsInit_stage1_tr, estim_params_1, options_, M_);
+
 % create an evenly spaced grid of skewness coefficients for each estimated skewness or gamma parameter
 grid.nbr      = 16;   % needs to be even number
 grid.endpoint = 0.95; % grid is set between +- this value
@@ -132,27 +141,31 @@ grid.bestof   = 3;    % how many values to keep in stage 1
 Skew_eta_grid = linspace(-abs(grid.endpoint),0,grid.nbr/2); Skew_eta_grid = [Skew_eta_grid -Skew_eta_grid((end-1):-1:1)];
 if ~options_.parameters.use_stderr_skew
     % for each skewness coefficient compute required Sigma_eta_j and Gamma_eta_j such that V[eta_j] stays equal to previous stage
-    diag_Sigma_eta_grid = zeros(estim_params1.nsx,grid.nbr-1);
-    diag_Gamma_eta_grid = zeros(estim_params1.nsx,grid.nbr-1);
+    diag_Sigma_eta_grid = zeros(estim_params_1.nsx,grid.nbr-1);
+    diag_Gamma_eta_grid = zeros(estim_params_1.nsx,grid.nbr-1);
     for jexo = 1:M_.exo_nbr
-        idx_exo = find(ismember(estim_params1.skew_exo(:,1),jexo));
+        idx_exo = find(ismember(estim_params_1.skew_exo(:,1),jexo));
         if ~isempty(idx_exo)
             for jgrid = 1:(grid.nbr-1)
                 [diag_Sigma_eta_grid(idx_exo,jgrid),diag_Gamma_eta_grid(idx_exo,jgrid)] = csnVarSkew_To_SigmaGamma_univariate(M_.Cov_eta(jexo,jexo),Skew_eta_grid(jgrid),1);
             end
         end
     end
+else
+    diag_Sigma_eta_grid = [];
+    diag_Gamma_eta_grid = [];
 end
 % compute negative loglikelihood for all possible combinations of grid values
-neg_log_likelihood_grid = nan(1,(grid.nbr-1)^estim_params1.nsx); % initialize storage
-COMBOS = create_combos(estim_params1.nsx,grid.nbr);
+neg_log_likelihood_grid = nan(1,(grid.nbr-1)^estim_params_1.nsx); % initialize storage
+COMBOS = create_combos(estim_params_1.nsx,grid.nbr);
 fprintf('\n\nRunning grid search for CSN skewness/gamma parameters:\n');
-parfor_progress((grid.nbr-1)^estim_params1.nsx);
-parfor jgrid = 1:(grid.nbr-1)^estim_params1.nsx
+parfor_progress((grid.nbr-1)^estim_params_1.nsx);
+diary off;
+parfor jgrid = 1:(grid.nbr-1)^estim_params_1.nsx
     M_j = M_;
     combo = COMBOS(jgrid,:);
-    for jnsx = 1:estim_params1.nsx
-        jexo = estim_params1.skew_exo(jnsx,1);
+    for jnsx = 1:estim_params_1.nsx
+        jexo = estim_params_1.skew_exo(jnsx,1);
         if options_.parameters.use_stderr_skew
             M_j.Skew_eta(jexo,1) = Skew_eta_grid(combo(jnsx));
         else
@@ -165,14 +178,14 @@ parfor jgrid = 1:(grid.nbr-1)^estim_params1.nsx
     parfor_progress;
 end
 parfor_progress(0);
-
+diary(options_.logfile)
 % get best values on grid
 [~,idx_best_grid] = sort(neg_log_likelihood_grid);
 tbl_stderr_grid = nan(M_.exo_nbr,grid.bestof); tbl_skew_grid = nan(M_.exo_nbr,grid.bestof); tbl_loglik_grid = nan(1,grid.bestof); % table for all shock parameters (even non-estimated)
 for j=1:grid.bestof
     jgrid = idx_best_grid(j);  M_grid{j} = M_;  combo = COMBOS(jgrid,:);
-    for jnsx = 1:estim_params1.nsx
-        jexo = estim_params1.skew_exo(jnsx,1);
+    for jnsx = 1:estim_params_1.nsx
+        jexo = estim_params_1.skew_exo(jnsx,1);
         if options_.parameters.use_stderr_skew
             M_grid{j}.Skew_eta(jexo,1) = Skew_eta_grid(combo(jnsx));
         else
@@ -184,107 +197,116 @@ for j=1:grid.bestof
     [negative_log_likelihood_grid{j}, ~, M_grid{j}] = negative_log_likelihood(xparams_grid{j}, bounds_grid{j}, datamat, estim_params_grid{j}, options_, M_grid{j});
     tbl_stderr_grid(:,j) = sqrt(diag(M_grid{j}.Cov_eta));  tbl_skew_grid(:,j) = M_grid{j}.Skew_eta;  tbl_loglik_grid(:,j) = -1*negative_log_likelihood_grid{j};
 end
+% display results on grid
 disp(array2table(tbl_stderr_grid,'RowNames',"stderr "+M_.exo_names,'VariableNames',"best " + num2str(transpose(1:grid.bestof))));
 disp(array2table(tbl_skew_grid,'RowNames',"skew "+M_.exo_names,'VariableNames',"best " + num2str(transpose(1:grid.bestof))));
 disp(array2table(tbl_loglik_grid,'RowNames',"Log-Lik",'VariableNames',"best " + num2str(transpose(1:grid.bestof))));
 
 % optimize over both Sigma_eta/stderr_eta as well as Gamma_eta/Skew_eta using best values on grid as initial point
-xparams_stage1 = nan(estim_params1.ntot,grid.bestof,length(options_.mode_compute)) ; neg_log_likelihood_stage1 = nan(grid.bestof,length(options_.mode_compute));
+xparams_stage1_tr = nan(estim_params_1.ntot,grid.bestof*length(options_.optim_names)) ; neg_log_likelihood_stage1 = nan(1,grid.bestof*length(options_.optim_names));
 fprintf('\nOptimize over both Sigma_eta/stderr_eta as well as Gamma_eta/Skew_eta using best values from grid search for CSN skewness/gamma parameter:\n');
 % run maximum likelihood with Pruned Skewed Kalman filter
+diary off
 for jgrid=1:grid.bestof
-    parfor jopt=1:length(options_.mode_compute)
-        if options_.mode_compute(jopt)=="fminsearch"
-            [xparams_stage1(:,jgrid,jopt), neg_log_likelihood_stage1(jgrid,jopt)] = fminsearch(   @(x) negative_log_likelihood(x,bounds_grid{jgrid},datamat,estim_params_grid{jgrid},options_,M_grid{jgrid}),  xparams_grid{jgrid},                                                   options_.optim_opt);
-        elseif options_.mode_compute(jopt)=="fminsearchbnd"
-            [xparams_stage1(:,jgrid,jopt), neg_log_likelihood_stage1(jgrid,jopt)] = fminsearchbnd(@(x) negative_log_likelihood(x,bounds_grid{jgrid},datamat,estim_params_grid{jgrid},options_,M_grid{jgrid}),  xparams_grid{jgrid}, bounds_grid{jgrid}(:,1), bounds_grid{jgrid}(:,2), options_.optim_opt);
-        elseif options_.mode_compute(jopt)=="fminunc"
-            [xparams_stage1(:,jgrid,jopt), neg_log_likelihood_stage1(jgrid,jopt)] = fminunc(      @(x) negative_log_likelihood(x,bounds_grid{jgrid},datamat,estim_params_grid{jgrid},options_,M_grid{jgrid}),  xparams_grid{jgrid},                                                   options_.optim_opt);
-        elseif options_.mode_compute(jopt)=="cmaes"
-            cmaesOptions = cmaes('defaults');
-            cmaesOptions.SaveVariables='off'; cmaesOptions.DispFinal='on'; cmaesOptions.WarnOnEqualFunctionValues='no'; cmaesOptions.DispModulo='500'; cmaesOptions.LogModulo='0'; cmaesOptions.LogTime='0'; cmaesOptions.Resume = 0;
-            cmaesOptions.LBounds = bounds_grid{jgrid}(:,1); cmaesOptions.UBounds = bounds_grid{jgrid}(:,2);
-            % Set default search volume (SIGMA)
-            cmaesSIGMA = (bounds_grid{jgrid}(:,2)-bounds_grid{jgrid}(:,1))*0.2; cmaesSIGMA(~isfinite(cmaesSIGMA)) = 0.01;
-            while max(cmaesSIGMA)/min(cmaesSIGMA)>1e6 %make sure initial search volume (SIGMA) is not badly conditioned
-                cmaesSIGMA(cmaesSIGMA==max(cmaesSIGMA))=0.9*cmaesSIGMA(cmaesSIGMA==max(cmaesSIGMA));
-            end
-            cmaesOptions.TolFun = options_.optim_opt.TolFun; cmaesOptions.MaxIter = options_.optim_opt.MaxIter; cmaesOptions.MaxFunEvals = options_.optim_opt.MaxFunEvals;
-            [~, ~, ~, ~, ~, BESTEVER] = cmaes('negative_log_likelihood',xparams_grid{jgrid},cmaesSIGMA,cmaesOptions,  bounds_grid{jgrid},datamat,estim_params_grid{jgrid},options_,M_grid{jgrid});
-            xparams_stage1(:,jgrid,jopt)=BESTEVER.x; neg_log_likelihood_stage1(jgrid,jopt)=BESTEVER.f;
-        end
-    end
+    idx = (jgrid-1)*length(options_.optim_names) + (1:length(options_.optim_names));
+    [xparams_stage1_tr(:,idx), neg_log_likelihood_stage1(1,idx)] = minimize_objective_in_parallel(objfct, xparams_grid{jgrid}, bounds_grid{jgrid}(:,1), bounds_grid{jgrid}(:,2), options_.optim_names, options_.optim_opt,    bounds_grid{jgrid},datamat,estim_params_grid{jgrid},options_,M_grid{jgrid});
 end
-strStage1 = [];
-for jgrid=1:grid.bestof
-    for jopt=1:length(options_.mode_compute)
-        strStage1 = [strStage1 (options_.mode_compute(jopt)+"_init"+num2str(jgrid)) ];
-    end
-end
-xparams_stage1 = reshape(xparams_stage1,estim_params1.ntot,grid.bestof*length(options_.mode_compute));
-neg_log_likelihood_stage1 = reshape(neg_log_likelihood_stage1,1,grid.bestof*length(options_.mode_compute));
-[~,stage1best] = sort(neg_log_likelihood_stage1(:));
-disp(array2table([xparams_stage1(:,stage1best); -neg_log_likelihood_stage1(stage1best)],...
-                 'RowNames',[estim_params1.names;'log-lik'],...
-                 'VariableNames',strStage1(stage1best)));
-xparams1Final = xparams_stage1(:,stage1best(1));
-neg_log_likelihood1Final = neg_log_likelihood_stage1(stage1best(1));
-M_ = set_params_dsge(xparams1Final,estim_params1,options_,M_);
-V_stage1 = inv(reshape(get_hessian('negative_log_likelihood',xparams1Final,[1e-3;1.0],bounds1,datamat,estim_params1,options_,M_),estim_params1.ntot,estim_params1.ntot)); SE_stage1 = sqrt(diag(V_stage1)); % compute standard errors
-fprintf('SUMMARY STAGE 1\n\n')
-disp( table(xparams_stage1(:,stage1best(1)),SE_stage1,xparams_stage1(:,stage1best(1))./SE_stage1,'Var',{'Estimate','s.d.','t-stat'},'Row',estim_params1.names) );
-disp(array2table([sqrt(diag(M_.Cov_eta)) M_.Skew_eta],'RowNames',M_.exo_names,'VariableNames',["stderr", "skew"]));
-fprintf('Stage 1: final value of the Pruned-Skewed log-likelihood function: %6.4f\n', -1*neg_log_likelihood1Final)
+diary(options_.logfile)
+[~,best_stage1] = sort(neg_log_likelihood_stage1);
+% compute standard errors
+[xparams_stage1, bounds1] = dsge_untransform(xparams_stage1_tr, bounds1_tr, estim_params_1);
+xstderr_stage1 = standard_errors_inverse_hessian(objfct, xparams_stage1, bounds1,    bounds1,datamat,estim_params_1,options_STDERR,M_);
+% display summary
+strOptimNamesInit = repmat(options_.optim_names,1,grid.bestof) + "_init_" + string(kron(1:grid.bestof,ones(1,length(options_.optim_names))));
+fprintf('%s\nSUMMARY STAGE 1\n\n',repmat('*',1,100))
+fprintf('  Point Estimates\n')
+disp(array2table([xparams_stage1(:,best_stage1); -neg_log_likelihood_stage1(best_stage1)], 'RowNames',[erase(estim_params_1.names,"transformed_");'Log-Lik'], 'VariableNames', strOptimNamesInit(best_stage1)));
+fprintf('  Standard Errors\n')
+disp(array2table([xstderr_stage1(:,best_stage1); -neg_log_likelihood_stage1(best_stage1)], 'RowNames',[erase(estim_params_1.names,"transformed_");'Log-Lik'], 'VariableNames', strOptimNamesInit(best_stage1)));
+fprintf('Final value of the best log-likelihood function: %6.4f\n', -1*neg_log_likelihood_stage1(best_stage1(1)))
+fprintf('%s\n\n',repmat('*',1,100))
+% store results
+oo_.stage1.xparams_tr = xparams_stage1_tr;
+oo_.stage1.xparams = xparams_stage1;
+oo_.stage1.xstderr = xstderr_stage1;
+oo_.stage1.neg_log_likelihood = neg_log_likelihood_stage1;
+% update model and shock parameters for use in stage 2
+M_ = dsge_set_params(xparams_stage1_tr(:,best_stage1(1)),estim_params_1,options_,M_);
+
 
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % STAGE 2
 % - use best values from stage 1 as initial value for shock parameters
 % - use values from stage 0 as initial value for model parameters
 % - run optimization with Pruned Skewed Kalman filter to estimate model as well as shock parameters
-% - compute standard errors using the inverse hessian (with possibly fine-tuned numerical steps)
+% - compute standard errors using the inverse hessian
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 STAGE = 2;
-[estim_params2,xparams2Init,bounds2] = feval(str2func(M_.fname + "_estim_params"), STAGE, M_, options_);
-M_ = set_params_dsge(xparams2Init,estim_params2,options_,M_);
-[neg_log_likelihood2Init,exit_flag2] = negative_log_likelihood(xparams2Init, bounds2, datamat, estim_params2, options_, M_);
-fprintf('\n\nStage 2: initial value of the Pruned-Skewed log-likelihood function: %6.4f\n', -1*neg_log_likelihood2Init);
-xparams_stage2 = nan(estim_params2.ntot,length(options_.mode_compute)); neg_log_likelihood_stage2 = nan(1,length(options_.mode_compute));
-fprintf('\n\n run maximum likelihood estimation with Pruned Skewed Kalman filter for all parameters using different optimizers in parallel:\n')
-parfor jopt=1:length(options_.mode_compute)
-    if options_.mode_compute(jopt)=="fminsearch"
-        [xparams_stage2(:,jopt), neg_log_likelihood_stage2(jopt)] = fminsearch(   @(x) negative_log_likelihood(x,bounds2,datamat,estim_params2,options_,M_),  xparams2Init,                             options_.optim_opt);
-    elseif options_.mode_compute(jopt)=="fminsearchbnd"
-        [xparams_stage2(:,jopt), neg_log_likelihood_stage2(jopt)] = fminsearchbnd(@(x) negative_log_likelihood(x,bounds2,datamat,estim_params2,options_,M_),  xparams2Init, bounds2(:,1), bounds2(:,2), options_.optim_opt);
-    elseif options_.mode_compute(jopt)=="fminunc"
-        [xparams_stage2(:,jopt), neg_log_likelihood_stage2(jopt)] = fminunc(      @(x) negative_log_likelihood(x,bounds2,datamat,estim_params2,options_,M_),  xparams2Init,                             options_.optim_opt);
-    elseif options_.mode_compute(jopt)=="cmaes"
-        cmaesOptions = cmaes('defaults');
-        cmaesOptions.SaveVariables='off'; cmaesOptions.DispFinal='on'; cmaesOptions.WarnOnEqualFunctionValues='no'; cmaesOptions.DispModulo='500'; cmaesOptions.LogModulo='0'; cmaesOptions.LogTime='0'; cmaesOptions.Resume = 0;
-        cmaesOptions.LBounds = bounds2(:,1); cmaesOptions.UBounds = bounds2(:,2);
-        % Set default search volume (SIGMA)
-        cmaesSIGMA = (bounds2(:,2)-bounds2(:,1))*0.2; cmaesSIGMA(~isfinite(cmaesSIGMA)) = 0.01;
-        while max(cmaesSIGMA)/min(cmaesSIGMA)>1e6 %make sure initial search volume (SIGMA) is not badly conditioned
-            cmaesSIGMA(cmaesSIGMA==max(cmaesSIGMA))=0.9*cmaesSIGMA(cmaesSIGMA==max(cmaesSIGMA));
-        end
-        cmaesOptions.TolFun = options_.optim_opt.TolFun; cmaesOptions.MaxIter = options_.optim_opt.MaxIter; cmaesOptions.MaxFunEvals = options_.optim_opt.MaxFunEvals;
-        [~, ~, ~, ~, ~, BESTEVER] = cmaes('negative_log_likelihood',xparams2Init,cmaesSIGMA,cmaesOptions,  bounds2,datamat,estim_params2,options_,M_);
-        xparams_stage2(:,jopt)=BESTEVER.x; neg_log_likelihood_stage2(jopt)=BESTEVER.f;
-    end
-end
-[~,stage2best] = sort(neg_log_likelihood_stage2);
-disp(array2table([xparams_stage2(:,stage2best); -neg_log_likelihood_stage2(stage2best)],...
-                 'RowNames',[estim_params2.names;'log-lik'],...
-                 'VariableNames',options_.mode_compute(stage2best)));
-xparams2Final = xparams_stage2(:,stage2best(1));
-neg_log_likelihood2Final = neg_log_likelihood_stage2(stage2best(1));
-M_ = set_params_dsge(xparams2Final,estim_params2,options_,M_); % update parameters
-V_stage2 = inv(reshape(get_hessian('negative_log_likelihood',xparams2Final,[1e-3;1.0],bounds2,datamat,estim_params2,options_,M_),estim_params2.ntot,estim_params2.ntot)); SE_stage2 = sqrt(diag(V_stage2)); % compute standard errors
-fprintf('SUMMARY STAGE 2\n\n')
-disp( table(xparams2Final,SE_stage2,xparams2Final./SE_stage2,'Var',{'Estimate','s.d.','t-stat'},'Row',estim_params2.names) );
-disp(array2table(M_.params,'RowNames',M_.param_names,'VariableNames',["final"]));
-disp(array2table([sqrt(diag(M_.Cov_eta)) M_.Skew_eta],'RowNames',M_.exo_names,'VariableNames',["stderr", "skew"]));
-fprintf('Final value of the Pruned Skewed log-likelihood function: %6.4f\n', -1*neg_log_likelihood2Final)
+[estim_params_2,xparamsInit_stage2_tr,bounds2_tr] = feval(str2func(M_.fname + "_estim_params"), STAGE, M_, options_);
+M_ = dsge_set_params(xparamsInit_stage2_tr, estim_params_2, options_, M_);
+% run maximum likelihood with Pruned Skewed Kalman filter
+fprintf('\n\nRun maximum likelihood estimation with Pruned Skewed Kalman filter for all parameters using different optimizers in parallel:\n')
+diary off
+[xparams_stage2_tr, neg_log_likelihood_stage2, best_stage2] = minimize_objective_in_parallel(objfct, xparamsInit_stage2_tr, bounds2_tr(:,1), bounds2_tr(:,2), options_.optim_names, options_.optim_opt,    bounds2_tr,datamat,estim_params_2,options_,M_);
+diary(options_.logfile)
+% compute standard errors
+[xparams_stage2, bounds2] = dsge_untransform(xparams_stage2_tr, bounds2_tr, estim_params_2);
+xstderr_stage2 = standard_errors_inverse_hessian(objfct, xparams_stage2, bounds2,    bounds2,datamat,estim_params_2,options_STDERR,M_);
+lr_stat_stage2 = 2 * ( neg_log_likelihood_stage0(best_stage0(1)) - neg_log_likelihood_stage2(best_stage2(1)));
+lr_pval_stage2 = chi2cdf(lr_stat_stage2, size(xparams_stage2,1)-size(xparams_stage0,1), "upper");
+% display summary
+fprintf('%s\nSUMMARY STAGE 2\n\n',repmat('*',1,100))
+fprintf('  Point Estimates\n')
+disp(array2table([xparams_stage2(:,best_stage2); -neg_log_likelihood_stage2(best_stage2)], 'RowNames',[erase(estim_params_2.names,"transformed_");'Log-Lik'], 'VariableNames', options_.optim_names(best_stage2)));
+fprintf('  Standard Errors\n')
+disp(array2table([xstderr_stage2(:,best_stage2); -neg_log_likelihood_stage2(best_stage2)], 'RowNames',[erase(estim_params_2.names,"transformed_");'Log-Lik'], 'VariableNames', options_.optim_names(best_stage2)));
+fprintf('Final value of the best log-likelihood function: %6.4f\n', -1*neg_log_likelihood_stage2(best_stage2(1)))
+fprintf('Likelihood Ratio Test Statistic = %.2f with p-val = %.4f\n',lr_stat_stage2,lr_pval_stage2);
+fprintf('%s\n\n',repmat('*',1,100))
+% store results
+oo_.stage2.xparams_tr = xparams_stage2_tr;
+oo_.stage2.xparams = xparams_stage2;
+oo_.stage2.xstderr = xstderr_stage2;
+oo_.stage2.neg_log_likelihood = neg_log_likelihood_stage2;
+% update model and shock parameters for use in stage 3
+M_ = dsge_set_params(xparams_stage2_tr(:,best_stage2(1)),estim_params_2,options_,M_);
 
-lr_stat = 2 * ( neg_log_likelihood0Final - neg_log_likelihood2Final);
-lr_pval = chi2cdf(lr_stat, 4, "upper");
-fprintf('Likelihood Ratio Test Statistic = %.2f with p-val = %.4f\n',lr_stat,lr_pval);
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% STAGE 3
+% - yet another optimization step
+% - use best values from stage 2 as initial value and feed this into different optimizers
+% - compute standard errors using the inverse hessian
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+STAGE = 3;
+[estim_params_3,xparamsInit_stage3_tr,bounds3_tr] = feval(str2func(M_.fname + "_estim_params"), STAGE, M_, options_);
+M_ = dsge_set_params(xparamsInit_stage3_tr, estim_params_3, options_, M_);
+% run maximum likelihood with Pruned Skewed Kalman filter
+fprintf('\n\nRun maximum likelihood estimation with Pruned Skewed Kalman filter for all parameters using different optimizers in parallel:\n')
+diary off
+[xparams_stage3_tr, neg_log_likelihood_stage3, best_stage3] = minimize_objective_in_parallel(objfct, xparamsInit_stage3_tr, bounds3_tr(:,1), bounds3_tr(:,2), options_.optim_names, options_.optim_opt,    bounds3_tr,datamat,estim_params_3,options_,M_);
+diary(options_.logfile)
+% compute standard errors
+[xparams_stage3, bounds3] = dsge_untransform(xparams_stage3_tr, bounds3_tr, estim_params_3);
+xstderr_stage3 = standard_errors_inverse_hessian(objfct, xparams_stage3, bounds3,    bounds3,datamat,estim_params_3,options_STDERR,M_);
+lr_stat_stage3 = 2 * ( neg_log_likelihood_stage0(best_stage0(1)) - neg_log_likelihood_stage3(best_stage3(1)));
+lr_pval_stage3 = chi2cdf(lr_stat_stage3, size(xparams_stage3,1)-size(xparams_stage0,1), "upper");
+% display summary
+fprintf('%s\nSUMMARY STAGE 3\n\n',repmat('*',1,100))
+fprintf('  Point Estimates\n')
+disp(array2table([xparams_stage3(:,best_stage3); -neg_log_likelihood_stage3(best_stage3)], 'RowNames',[erase(estim_params_3.names,"transformed_");'Log-Lik'], 'VariableNames', options_.optim_names(best_stage3)));
+fprintf('  Standard Errors\n')
+disp(array2table([xstderr_stage3(:,best_stage3); -neg_log_likelihood_stage3(best_stage3)], 'RowNames',[erase(estim_params_3.names,"transformed_");'Log-Lik'], 'VariableNames', options_.optim_names(best_stage3)));
+fprintf('Stage 3: final value of the best log-likelihood function: %6.4f\n', -1*neg_log_likelihood_stage3(best_stage3(1)))
+fprintf('Stage 3: Likelihood Ratio Test Statistic = %.2f with p-val = %.4f\n',lr_stat_stage3,lr_pval_stage3);
+fprintf('%s\n\n',repmat('*',1,100))
+% store results
+oo_.stage3.xparams_tr = xparams_stage3_tr;
+oo_.stage3.xparams = xparams_stage3;
+oo_.stage3.xstderr = xstderr_stage3;
+oo_.stage3.neg_log_likelihood = neg_log_likelihood_stage3;
+% update model and shock parameters
+M_ = dsge_set_params(xparams_stage3_tr(:,best_stage3(1)),estim_params_3,options_,M_);
+
+%% houeskeeping 
+diary off
+save(['results/' options_.filename]);

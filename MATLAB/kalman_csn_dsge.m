@@ -107,10 +107,9 @@ function [log_likelihood_val, filt_param_last, xfilt] = kalman_csn( ...
         );
 
 
-            % Pruning / Cutting algorithm
-        [Gamma_t_tm1, nu_t_tm1, Delta_t_tm1] = dim_red6( ...
-            Sigma_t_tm1, Gamma_t_tm1, nu_t_tm1, Delta_t_tm1, cut_tol ...
-        );
+        % Pruning / Cutting algorithm
+        %[Gamma_t_tm1, nu_t_tm1, Delta_t_tm1] = dim_red6(Sigma_t_tm1, Gamma_t_tm1, nu_t_tm1, Delta_t_tm1, cut_tol);
+        [Sigma_t_tm1, Gamma_t_tm1, nu_t_tm1, Delta_t_tm1] = csnPruneParams(Sigma_t_tm1, Gamma_t_tm1, nu_t_tm1, Delta_t_tm1, cut_tol);
 
 
         prediction_error = data(tt, :)' - (F_mat * mu_t_tm1 + mu_eps);

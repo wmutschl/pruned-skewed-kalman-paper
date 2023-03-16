@@ -131,6 +131,36 @@
 
 % maximize likelihood
 
-  options = optimset('Display','iter','LargeScale','off','MaxFunEvals',2500,'MaxIter',2500);
+  options = optimset('Display','iter','LargeScale','off','MaxFunEvals',10000,'MaxIter',10000);
 
-  thetstar = fminunc(@llfn,bigtheto,options);
+  [thetstar,fval] = fminsearch(@llfn,bigtheto,options);
+
+  omegatr = thetstar(1);
+  omega = omegatr^2/(1+omegatr^2);
+  alphaxtr = thetstar(2);
+  alphax = alphaxtr^2/(1+alphaxtr^2);
+  alphaptr = thetstar(3);
+  alphap = alphaptr^2/(1+alphaptr^2);
+  rhoptr = thetstar(4);
+  rhop = abs(rhoptr);
+  rhogtr = thetstar(5);
+  rhog = abs(rhogtr);
+  rhoxtr = thetstar(6);
+  rhox = abs(rhoxtr);
+  rhoatr = thetstar(7);
+  rhoa = (100*rhoatr)^2/(1+(100*rhoatr)^2);
+  rhoetr = thetstar(8);
+  rhoe = (100*rhoetr)^2/(1+(100*rhoetr)^2);
+  sigatr = thetstar(9);
+  siga = abs(sigatr);
+  sigetr = thetstar(10);
+  sige = abs(sigetr);
+  sigztr = thetstar(11);
+  sigz = abs(sigztr);
+  sigrtr = thetstar(12);
+  sigr = abs(sigrtr);
+  bigthetopt = [ omega alphax alphap ...
+               rhop rhog rhox ...
+               rhoa rhoe ...
+               siga sige sigz sigr ]';
+  fval1 = llfnse(bigthetopt);
