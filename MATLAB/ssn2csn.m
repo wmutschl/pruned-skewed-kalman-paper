@@ -44,14 +44,14 @@ function [S_hat, mu_hat, Lambda_hat, Gamma_hat] = ssn2csn(mu, Sigma, Gamma, tol,
     end
 
     % Get Schur decomposition
-    [S_mat, Lambda] = schur(Sigma);
+    [S_mat, Lambda_mat] = schur(Sigma);
 
     % Create a hold_vec, which tells which dimensions to hold
     if hmdel > 0
         
         % Reorder the diagonal elements of Lambda, in an increasing order
-        len = length(Lambda);
-        diag_el = diag(Lambda);
+        len = length(Lambda_mat);
+        diag_el = diag(Lambda_mat);
         [~, min_indices] = mink(diag_el, len);
     
         % Should we delete more than hmdel
@@ -74,7 +74,7 @@ function [S_hat, mu_hat, Lambda_hat, Gamma_hat] = ssn2csn(mu, Sigma, Gamma, tol,
 
     else
 
-        hold_vec = diag(Lambda) > tol;
+        hold_vec = diag(Lambda_mat) > tol;
 
     end
     
@@ -83,7 +83,7 @@ function [S_hat, mu_hat, Lambda_hat, Gamma_hat] = ssn2csn(mu, Sigma, Gamma, tol,
     
     mu_hat = zeros(sum(hold_vec), 1);
     
-    Lambda_hat = Lambda(hold_vec, hold_vec);
+    Lambda_hat = Lambda_mat(hold_vec, hold_vec);
 
     Gamma_hat = Gamma * S_hat;
 

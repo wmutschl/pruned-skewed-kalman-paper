@@ -3,60 +3,65 @@ function [log_likelihood_val, filt_param_last, xfilt] = kalman_csn( ...
     mu_t_t, Sigma_t_t, Gamma_t_t, nu_t_t, Delta_t_t, ...
     mu_eps, Sigma_eps, ...
     mu_eta, Sigma_eta, Gamma_eta, nu_eta, Delta_eta, ...
-    data, eval_lik, cut_tol, cdf_eval_fnc, varargin ...
+    data, eval_lik, cut_tol , cdfmvna_fct, prune_algorithm...
 )
 
     % Briefly: 
-    %       - More robust (also numerically) skewed Kalman filter recursions, ...
-    %         log-likelihood evaluation
-    %       - This skewed Kalman filter is tailored for DSGE models
+    %   - More robust (also numerically) 
+    %     skewed Kalman filter recursions, log-likelihood evaluation
     %
     % Structure:
-    %       - State Space model is of the form:
-    %               Yt = F_mat*X_t + eps_t        ,  eps_t N(mu_eps, Sigma_eps)
-    %               Xt = G_mat*X_t-1 + R_mat*eta_t,  eta_t CSN(mu_eta, Sigma_eta, ...
-    %                                                          Gamma_eta, ...
-    %                                                          nu_eta, Delta_eta)
-    % 
+    %   - State Space model is of the form:
+    %       Yt = F_mat*X_t + eps_t
+    %       Xt = G_mat*X_t-1 + R_mat*eta_t
+    %
+    %       with
+    %       eps_t ~ N(mu_eps, Sigma_eps)
+    %       eta_t ~ CSN(mu_eta, Sigma_eta, Gamma_eta, nu_eta, Delta_eta)
+    %
     % Inputs:
-    %           G_mat       : Transition matrix in State equation
-    %           F_mat       : Matrix in Observation equation
-    %           ---
-    %           mu_eps      : Mean of the Measurement error
-    %           Sigma_eps   : Var-Cov matrix of the Measurement error
-    %           ---
-    %           R_mat       : Matrix multiplying structural shocks in State equation
-    %           ---
-    %           mu_eta      : Mean of the structural shock
-    %           Sigma_eta   : Var-Cov matrix of the structural shock
-    %           Gamma_eta   : Shape matrix which regulates skewness
-    %           Delta_eta   : Last parameter of CSN distribution of structural shock, ...
-    %                         usually identity matrix
-    %           ---
-    %           data        : Observations
-    %           eval_lik    : Should the likelihood be evaluated, boolean value
-    %           cdf_eval_fnc: Handle for the function with which multivariate normal cdf ...
-    %                         is calculated or the string of the function_name ...
-    %                         e.g. 'mvncdf' or @mvncdf
-    %           varargin    : Additional inputs to "cdf_eval_fnc"
+    %   G_mat: Transition matrix in State equation
+    %   F_mat: Matrix in Observation equation
+    %   ---
+    %   mu_eps: Mean of the Measurement error
+    %   Sigma_eps: Var-Cov matrix of the Measurement error
+    %   ---
+    %   R_mat: Matrix multiplying structural shocks in State equation
+    %   ---
+    %   mu_eta: Mean of the structural shock
+    %   Sigma_eta: Var-Cov matrix of the structural shock
+    %   Gamma_eta: Shape matrix which regulates skewness
+    %   Delta_eta: Last parameter of CSN distribution of ...
+    %       structural shock, usually identity matrix
+    %   ---
+    %   data: Observations
+    %   eval_lik: Should the likelihood be evaluated, boolean value
+    %   cdf_eval_fnc: Handle for the function 
+    %       with which multivariate normal cdf ...
+    %       is calculated or the string of the function_name ...
+    %       e.g. 'mvncdf' or @mvncdf
+    %   varargin: Additional inputs to "cdf_eval_fnc"
     %       
     % Outputs:
-    %           log_likelihood_val: Sum of log-likelihood contributions
-    %           filt_param_last   : Parameters of the last filtered values
-    %           xfilt             : Mean of the filtered values
+    %   log_likelihood_val: Sum of log-likelihood contributions
+    %   filt_param_last: Parameters of the last filtered values
+    %   xfilt: Mean of the filtered values
     %
     %
     % Literature:
-    %       1. [HO.JO.2013]   : Horn, Johnson (2013) - ...
-    %                           Matrix analysis -- Theorem 2.6.3 (page 150)
-    %       2. [GO.DO.GU.2004]: Gonzales-Farias, Dominguez-Molina, Gupta (2004) - ...
-    %                           Additive properties of skew normal random vectors -- ...
-    %                           Theorem 2 (page 527)
+    %       1. [HO.JO.2013]: 
+    %           Horn, Johnson (2013) - Matrix analysis:
+    %           Theorem 2.6.3 (page 150)
+    %       2. [GO.DO.GU.2004]: 
+    %           Gonzales-Farias, Dominguez-Molina, Gupta (2004) - ...
+    %           Additive properties of skew normal random vectors: ...
+    %           Theorem 2 (page 527)
     %
     % Moreover:
     %       - Codes by G.Guljanov 05.05.2022
     %       - All the vectors should be column vectors
-    %       - Y should be as usual. Rows are observations(realizations) and ...
+    %       - Y should be as usual. 
+    %         Rows are observations(realizations) and ...
     %         columns are variables
     
     nn = length(G_mat);
@@ -108,8 +113,11 @@ function [log_likelihood_val, filt_param_last, xfilt] = kalman_csn( ...
 
 
         % Pruning / Cutting algorithm
-        %[Gamma_t_tm1, nu_t_tm1, Delta_t_tm1] = dim_red6(Sigma_t_tm1, Gamma_t_tm1, nu_t_tm1, Delta_t_tm1, cut_tol);
-        [Sigma_t_tm1, Gamma_t_tm1, nu_t_tm1, Delta_t_tm1] = csnPruneParams(Sigma_t_tm1, Gamma_t_tm1, nu_t_tm1, Delta_t_tm1, cut_tol);
+        if prune_algorithm == "max_dim"
+            [Gamma_t_tm1, nu_t_tm1, Delta_t_tm1] = dim_red6(Sigma_t_tm1, Gamma_t_tm1, nu_t_tm1, Delta_t_tm1, cut_tol);
+        elseif prune_algorithm == "correlation"
+            [Sigma_t_tm1, Gamma_t_tm1, nu_t_tm1, Delta_t_tm1] = csnPruneParams(Sigma_t_tm1, Gamma_t_tm1, nu_t_tm1, Delta_t_tm1, cut_tol);
+        end
 
 
         prediction_error = data(tt, :)' - (F_mat * mu_t_tm1 + mu_eps);
@@ -176,9 +184,9 @@ function [log_likelihood_val, filt_param_last, xfilt] = kalman_csn( ...
         
         eval_point_denom = -covtocorr_mat * nu_t_tm1;
         try
-            cdf_val_denom = feval( ...
-                cdf_eval_fnc, eval_point_denom, Corr_mat_denom, varargin{:} ...
-            );
+            if strcmp(cdfmvna_fct,'logmvncdf_ME')
+                cdf_val_denom = logmvncdf_ME( eval_point_denom, Corr_mat_denom);
+            end
         catch
             warning('kalman_can_dsge: cdf_val_denom something wrong')
             log_likelihood_val = -Inf;
@@ -199,7 +207,9 @@ function [log_likelihood_val, filt_param_last, xfilt] = kalman_csn( ...
         Corr_mat_num = covtocorr_mat * Delta_data * covtocorr_mat;
         Corr_mat_num = 0.5 * (Corr_mat_num + Corr_mat_num');
         try
-            cdf_val_num = feval(cdf_eval_fnc, eval_point_num, Corr_mat_num, varargin{:});
+            if strcmp(cdfmvna_fct,'logmvncdf_ME')
+                cdf_val_num = logmvncdf_ME(eval_point_num, Corr_mat_num);
+            end
         catch
             warning('kalman_can_dsge: cdf_val_num something wrong')
             log_likelihood_val = -Inf;
