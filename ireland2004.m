@@ -56,12 +56,11 @@ clear ireland2004_gpr ireland2004_post1980 jvarobs
 %% COMMON OPTIONS
 options_.computer_arch = computer('arch');
 options_.dsge = 1; % 1: we are interested in the structural model parameters and not the state-space parameters of the linearized solution
-options_.optim_names = ["cmaes" "fminsearch" "fminsearchbnd" "fmincon" "fminunc" ]; % names of optimizer that will be used in parallel
-options_.optim_names = ["cmaes" ]; % names of optimizer that will be used in parallel
 options_.optim_opt = optimset('display','final','MaxFunEvals',1000000,'MaxIter',10000,'TolFun',1e-4,'TolX',1e-4); % optimization options
 options_.optim_opt.penalize_objective = 0; % 1: checks whether bounds are violated in objective function and penalizes likelihood (useful for optimizers that don't support parameter bounds)
 options_.kalman.csn.prune_tol = 1e-2; % pruning threshold in Pruned Skewed Kalman filter
 options_.kalman.csn.cdfmvna_fct = "logmvncdf_ME"; % function to use to evaluate high-dimensional Gaussian log cdf, possible options: "logmvncdf_ME", "mvncdf", "qsilatmvnv", "qsimvnv"
+options_.kalman.csn.prune_algorithm = "correlations"; % "correlations": prunes according to correlation coefficient; "max_dim": prunes according to correlation coefficient+keeps a maximum of 15 dimensions
 options_.kalman.lik_init = 1; % 1: stationary distribution, i.e. Gaussian distribution, where initial matrix of variance of the error of forecast is set equal to the unconditional variance of the state variables;
                               % 2: wide prior, i.e. Gaussian with an initial matrix of variance of the error of forecast diagonal with 10 on the diagonal
 options_.parameters.skewness_bounds = [-0.99 0.99]; % bounds for skewness coefficient used in estim_params file;
@@ -78,7 +77,6 @@ options_.parameters.transform.skew_eta_a = true;
 options_.parameters.transform.skew_eta_e = true;
 options_.parameters.transform.skew_eta_z = true;
 options_.parameters.transform.skew_eta_r = true;
-
 options_.parameters.transform.stderr_eta_a = true;
 options_.parameters.transform.stderr_eta_e = true;
 options_.parameters.transform.stderr_eta_z = true;
@@ -89,6 +87,10 @@ options_.parameters.transform.stderr_eta_r = true;
 options_post_1980 = options_;
 options_post_1980.datafile = "post_1980";
 options_post_1980.filename = sprintf('results_ireland2004_%s_%s',options_post_1980.datafile,options_post_1980.computer_arch);
+%options_post_1980.kalman.csn.initval_search = 1; % 1: try to find good initial values first from Gaussian estimation, then grid on csn shock parameters;
+%options_post_1980.optim_names = ["cmaes" "fminsearch" "fminsearchbnd" "fmincon" "fminunc" ]; % names of optimizer that will be used in parallel
+options_post_1980.kalman.csn.initval_search = 0; % 0: use initial values provided in estim_params file
+options_post_1980.optim_names = "fminsearchbnd"; % names of optimizer that will be used in parallel
 [oo_post_1980, M_post_1980] = dsge_maximum_likelihood_estimation_csn(M_,options_post_1980,datamat_post1980);
 
 %% HOUSEKEEPING

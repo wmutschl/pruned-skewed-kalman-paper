@@ -115,7 +115,7 @@ function [log_likelihood_val, filt_param_last, xfilt] = kalman_csn( ...
         % Pruning / Cutting algorithm
         if prune_algorithm == "max_dim"
             [Gamma_t_tm1, nu_t_tm1, Delta_t_tm1] = dim_red6(Sigma_t_tm1, Gamma_t_tm1, nu_t_tm1, Delta_t_tm1, cut_tol);
-        elseif prune_algorithm == "correlation"
+        elseif prune_algorithm == "correlations"
             [Sigma_t_tm1, Gamma_t_tm1, nu_t_tm1, Delta_t_tm1] = csnPruneParams(Sigma_t_tm1, Gamma_t_tm1, nu_t_tm1, Delta_t_tm1, cut_tol);
         end
 
