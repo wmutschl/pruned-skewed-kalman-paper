@@ -83,14 +83,24 @@ options_.parameters.transform.stderr_eta_z = true;
 options_.parameters.transform.stderr_eta_r = true;
 
 
+%% FULL SAMPLE
+% options_full = options_;
+% options_full.datafile = "full_sample";
+% options_full.filename = sprintf('results_ireland2004_%s_%s',options_full.datafile,options_full.computer_arch);
+% options_full.kalman.csn.initval_search = 1; % 1: try to find good initial values first from Gaussian estimation, then grid on csn shock parameters;
+% options_full.optim_names = ["cmaes" "fminsearch" "fminsearchbnd" "fmincon" "fminunc" ]; % names of optimizer that will be used in parallel
+% %options_post_1980.kalman.csn.initval_search = 0; % 0: use initial values provided in estim_params file
+% %options_post_1980.optim_names = "fminsearchbnd"; % names of optimizer that will be used in parallel
+% [oo_full, M_full] = dsge_maximum_likelihood_estimation_csn(M_,options_full,datamat_full);
+
 %% POST 1980 SAMPLE
 options_post_1980 = options_;
 options_post_1980.datafile = "post_1980";
 options_post_1980.filename = sprintf('results_ireland2004_%s_%s',options_post_1980.datafile,options_post_1980.computer_arch);
 %options_post_1980.kalman.csn.initval_search = 1; % 1: try to find good initial values first from Gaussian estimation, then grid on csn shock parameters;
-%options_post_1980.optim_names = ["cmaes" "fminsearch" "fminsearchbnd" "fmincon" "fminunc" ]; % names of optimizer that will be used in parallel
+options_post_1980.optim_names = ["cmaes" "fminsearch" "fminsearchbnd" "fminunc" ]; % names of optimizer that will be used in parallel
 options_post_1980.kalman.csn.initval_search = 0; % 0: use initial values provided in estim_params file
-options_post_1980.optim_names = "fminsearchbnd"; % names of optimizer that will be used in parallel
+%options_post_1980.optim_names = "fminsearchbnd"; % names of optimizer that will be used in parallel
 [oo_post_1980, M_post_1980] = dsge_maximum_likelihood_estimation_csn(M_,options_post_1980,datamat_post1980);
 
 %% HOUSEKEEPING

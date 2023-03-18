@@ -5,12 +5,12 @@ options_ =
 
          computer_arch: 'maci64'
                   dsge: 1
-           optim_names: "cmaes"
              optim_opt: [1×1 struct]
                 kalman: [1×1 struct]
             parameters: [1×1 struct]
               datafile: "post_1980"
               filename: 'results_ireland2004_post_1980_maci64'
+           optim_names: ["cmaes"    "fminsearch"    "fminsearchbnd"    "fmincon"    "fminunc"]
                poolobj: [1×1 parallel.ProcessPool]
     physical_cores_nbr: 8
                logfile: 'results/results_ireland2004_post_1980_maci64.log'
@@ -90,8 +90,10 @@ ans =
 
   <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
 
-      prune_tol: 0.0100
-    cdfmvna_fct: "logmvncdf_ME"
+          prune_tol: 0.0100
+        cdfmvna_fct: "logmvncdf_ME"
+    prune_algorithm: "correlations"
+     initval_search: 0
 
 
 ans = 
@@ -119,115 +121,3 @@ ans =
     stderr_eta_z: 1
     stderr_eta_r: 1
 
-****************************************************************************************************
-SUMMARY STAGE 0
-
-  Point Estimates
-                      <strong>cmaes</strong>   
-                    <strong>__________</strong>
-
-    <strong>stderr_eta_a</strong>      0.030163
-    <strong>stderr_eta_e</strong>    0.00024755
-    <strong>stderr_eta_z</strong>      0.008865
-    <strong>stderr_eta_r</strong>     0.0027902
-    <strong>OMEGA       </strong>      0.058053
-    <strong>ALPHA_X     </strong>    0.00010568
-    <strong>ALPHA_PI    </strong>    0.00011602
-    <strong>RHO_PI      </strong>       0.38639
-    <strong>RHO_G       </strong>       0.39601
-    <strong>RHO_X       </strong>       0.16542
-    <strong>RHO_A       </strong>       0.90478
-    <strong>RHO_E       </strong>       0.99068
-    <strong>Log-Lik     </strong>        1207.6
-
-  Standard Errors
-                      <strong>cmaes</strong>   
-                    <strong>__________</strong>
-
-    <strong>stderr_eta_a</strong>      0.032824
-    <strong>stderr_eta_e</strong>    0.00034033
-    <strong>stderr_eta_z</strong>     0.0040601
-    <strong>stderr_eta_r</strong>     0.0006652
-    <strong>OMEGA       </strong>       0.17309
-    <strong>ALPHA_X     </strong>        0.5929
-    <strong>ALPHA_PI    </strong>       0.28334
-    <strong>RHO_PI      </strong>       0.24808
-    <strong>RHO_G       </strong>       0.15921
-    <strong>RHO_X       </strong>      0.071648
-    <strong>RHO_A       </strong>       0.11255
-    <strong>RHO_E       </strong>      0.020902
-    <strong>Log-Lik     </strong>        1207.6
-
-Final value of the best log-likelihood function: 1207.5600
-****************************************************************************************************
-
-
-
-Running grid search for CSN skewness/gamma parameters:
-  0%[>                                                  ]
-                      <strong>best 1</strong>        <strong>best 2</strong>        <strong>best 3</strong>  
-                    <strong>__________</strong>    <strong>__________</strong>    <strong>__________</strong>
-
-    <strong>stderr eta_a</strong>      0.030163      0.030163      0.030163
-    <strong>stderr eta_e</strong>    0.00024755    0.00024755    0.00024755
-    <strong>stderr eta_z</strong>      0.008865      0.008865      0.008865
-    <strong>stderr eta_r</strong>     0.0027902     0.0027902     0.0027902
-
-                  <strong>best 1</strong>    <strong>best 2</strong>    <strong>best 3</strong>
-                  <strong>______</strong>    <strong>______</strong>    <strong>______</strong>
-
-    <strong>skew eta_a</strong>        0       0           0 
-    <strong>skew eta_e</strong>        0       0       -0.95 
-    <strong>skew eta_z</strong>    -0.95       0           0 
-    <strong>skew eta_r</strong>        0       0           0 
-
-               <strong>best 1</strong>    <strong>best 2</strong>    <strong>best 3</strong>
-               <strong>______</strong>    <strong>______</strong>    <strong>______</strong>
-
-    <strong>Log-Lik</strong>    1208.2    1207.6    1206.4
-
-
-Optimize over both Sigma_eta/stderr_eta as well as Gamma_eta/Skew_eta using best values from grid search for CSN skewness/gamma parameter:
-****************************************************************************************************
-SUMMARY STAGE 1
-
-  Point Estimates
-                    <strong>cmaes_init_2</strong>    <strong>cmaes_init_3</strong>    <strong>cmaes_init_1</strong>
-                    <strong>____________</strong>    <strong>____________</strong>    <strong>____________</strong>
-
-    <strong>skew_eta_a  </strong>       -0.25027        -0.21708        -0.10409 
-    <strong>skew_eta_e  </strong>       -0.33685        -0.63837         0.10563 
-    <strong>skew_eta_z  </strong>       -0.20892        -0.10848        -0.94308 
-    <strong>skew_eta_r  </strong>        0.66528         0.62272         0.10029 
-    <strong>stderr_eta_a</strong>       0.027688        0.028001        0.029016 
-    <strong>stderr_eta_e</strong>     0.00026986      0.00026496      0.00026802 
-    <strong>stderr_eta_z</strong>      0.0087008       0.0089733       0.0087275 
-    <strong>stderr_eta_r</strong>      0.0028279       0.0027905        0.002713 
-    <strong>Log-Lik     </strong>         1213.4          1213.3          1211.5 
-
-  Standard Errors
-                    <strong>cmaes_init_2</strong>    <strong>cmaes_init_3</strong>    <strong>cmaes_init_1</strong>
-                    <strong>____________</strong>    <strong>____________</strong>    <strong>____________</strong>
-
-    <strong>skew_eta_a  </strong>     0.00048754       0.0004786      0.00017141 
-    <strong>skew_eta_e  </strong>     0.00052496       0.0014076      0.00018919 
-    <strong>skew_eta_z  </strong>     0.00030986      0.00023907       0.0011587 
-    <strong>skew_eta_r  </strong>      0.0014034       0.0013735      0.00015734 
-    <strong>stderr_eta_a</strong>     6.6008e-05       6.973e-05      4.5489e-05 
-    <strong>stderr_eta_e</strong>     2.4504e-05      2.6263e-05      2.4549e-05 
-    <strong>stderr_eta_z</strong>     3.5633e-05      6.9825e-05      3.6381e-05 
-    <strong>stderr_eta_r</strong>     4.4672e-05      6.4467e-05      4.2486e-05 
-    <strong>Log-Lik     </strong>         1213.4          1213.3          1211.5 
-
-Final value of the best log-likelihood function: 1213.4214
-****************************************************************************************************
-
-<a href="matlab: opentoline('/Users/wmutschl/Work/Forschung/Projects/Skewed_Kalman/replication_codes/MATLAB/dsge_maximum_likelihood_estimation_csn.m',244,1)">244 </a>STAGE = 2;
-[estim_params_2,xparamsInit_stage2_tr,bounds2_tr] = feval(str2func(M_.fname + "_estim_params"), STAGE, M_, options_);
-M_ = dsge_set_params(xparamsInit_stage2_tr, estim_params_2, options_, M_);
-% run maximum likelihood with Pruned Skewed Kalman filter
-fprintf('\n\nRun maximum likelihood estimation with Pruned Skewed Kalman filter for all parameters using different optimizers in parallel:\n')
-
-
-Run maximum likelihood estimation with Pruned Skewed Kalman filter for all parameters using different optimizers in parallel:
-diary off
