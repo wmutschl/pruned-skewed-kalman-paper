@@ -1,4 +1,4 @@
-function M_ = set_params_dsge(xparams,estim_params_,options_,M_)
+function M_ = dsge_set_params(xparams,estim_params_,options_,M_)
 % function M_ = set_params_dsge(xparams,estim_params_,options_,M_)
 % -------------------------------------------------------------------------
 % updates parameters in model structure for a DSGE model
