@@ -103,18 +103,20 @@ for t=1:obs_nbr
         sig=sqrt(diag(Omega));
         if any(diag(Omega)<kalman_tol) || rcond(Omega./(sig*sig'))<kalman_tol
             badly_conditioned_Omega = true;
-            warning('kalman_gaussian: badly_conditioned_Omega')
+            %warning('kalman_gaussian: badly_conditioned_Omega')
         end
     end
     if badly_conditioned_Omega
         if ~all(abs(Omega(:))<kalman_tol)
             % Use univariate filter (will remove observations with zero variance prediction error)
-            warning('kalman_gaussian: you should use an univariate filter, which is not in the replication codes')
+            %warning('kalman_gaussian: you should use an univariate filter, which is not in the replication codes')
+            %return
         else
             % Pathological case, discard draw.
-            warning('kalman_gaussian: discard draw due to badly_conditioned_Omega')
-            return
+            %warning('kalman_gaussian: discard draw due to badly_conditioned_Omega')
+            %return
         end
+        return
     else
         Omega_singular = false;
         log_detOmega = log(det(Omega));

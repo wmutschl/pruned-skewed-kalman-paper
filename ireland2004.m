@@ -45,24 +45,24 @@ ireland2004_gpr = array2timetable(ireland2004_gpr,...
                         'rhat'} ... % nominal interest rate (needs to be demeaned), based on quarterly averages of daily readings on the three-months US Treasury bill rate
        );
 ireland2004_post1980 = ireland2004_gpr(find(ireland2004_gpr.Time==datetime('1980-Q1','InputFormat','yyyy-QQQ','Format','yyyy-QQQ')):end,:);
-datamat_full = [];
-datamat_post1980 = [];
+datamat = [];
 for jvarobs=1:length(M_.varobs)
-    datamat_full = [datamat_full (ireland2004_gpr.(M_.varobs(jvarobs))-mean(ireland2004_gpr.(M_.varobs(jvarobs))))]; %demean data on actual sample
-    datamat_post1980 = [datamat_post1980 (ireland2004_post1980.(M_.varobs(jvarobs))-mean(ireland2004_post1980.(M_.varobs(jvarobs))))]; %demean data on actual sample
+    datamat = [datamat (ireland2004_post1980.(M_.varobs(jvarobs))-mean(ireland2004_post1980.(M_.varobs(jvarobs))))]; %demean data on actual sample
 end
 clear ireland2004_gpr ireland2004_post1980 jvarobs
 
-%% COMMON OPTIONS
+%% OPTIONS
 options_.computer_arch = computer('arch');
 options_.dsge = 1; % 1: we are interested in the structural model parameters and not the state-space parameters of the linearized solution
 options_.optim_opt = optimset('display','final','MaxFunEvals',1000000,'MaxIter',10000,'TolFun',1e-4,'TolX',1e-4); % optimization options
+options_.optim_opt.names = ["simulannealbnd" "cmaes" "cmaes_dsge" "sa_resampling" "fminsearch" "fminsearchbnd" "fmincon" "fminunc" ]; % names of optimizer that will be used in parallel ("simulannealbnd" and "sa_resampling" are very time-consuming, "cmaes" and "cmaes_dsge" are mildly time-consuming, fminsearch and fminsearchbnd can be mildly time-consuming, "fmincon" and "fminunc" are fast (but not as good) )
 options_.optim_opt.penalize_objective = 0; % 1: checks whether bounds are violated in objective function and penalizes likelihood (useful for optimizers that don't support parameter bounds)
 options_.kalman.csn.prune_tol = 1e-2; % pruning threshold in Pruned Skewed Kalman filter
 options_.kalman.csn.cdfmvna_fct = "logmvncdf_ME"; % function to use to evaluate high-dimensional Gaussian log cdf, possible options: "logmvncdf_ME", "mvncdf", "qsilatmvnv", "qsimvnv"
 options_.kalman.csn.prune_algorithm = "correlations"; % "correlations": prunes according to correlation coefficient; "max_dim": prunes according to correlation coefficient+keeps a maximum of 15 dimensions
 options_.kalman.lik_init = 1; % 1: stationary distribution, i.e. Gaussian distribution, where initial matrix of variance of the error of forecast is set equal to the unconditional variance of the state variables;
                               % 2: wide prior, i.e. Gaussian with an initial matrix of variance of the error of forecast diagonal with 10 on the diagonal
+                              % 3: run Gaussian Kalman filter (without computing the likelihood) and take smoothed Sigma matrix
 options_.parameters.skewness_bounds = [-0.99 0.99]; % bounds for skewness coefficient used in estim_params file;
                                                     % note that the absolute value of the theoretical skewness coefficient of the CSN distribution is bounded by 0.995
                                                     % inference at the bound is problematic due to so-called pile ups; in our experience the likelihood becomes extremely flat with respect to Gamma_eta when close to the bound
@@ -70,38 +70,34 @@ options_.parameters.use_stderr_skew = 1;            % 1: optimization algorithm 
                                                     % 0: optimization algorithm optimizes over diag(Gamma_eta) and sqrt(diag(Sigma_eta)) instead of skewness coefficient and standard error of CSN shocks
                                                     % note that this has implications for the computation of standard errors
 % transform bounded parameters into unbounded ones for the optimization algorithm using the log-odds-transformation
-options_.parameters.transform.OMEGA      = true;
-options_.parameters.transform.ALPHA_X    = true;
-options_.parameters.transform.ALPHA_PI   = true;
-options_.parameters.transform.skew_eta_a = true;
-options_.parameters.transform.skew_eta_e = true;
-options_.parameters.transform.skew_eta_z = true;
-options_.parameters.transform.skew_eta_r = true;
+options_.parameters.fix.ALPHA_X            = true;
+options_.parameters.fix.ALPHA_PI           = true;
+options_.parameters.transform.OMEGA        = true;
+options_.parameters.transform.skew_eta_a   = true;
+options_.parameters.transform.skew_eta_e   = true;
+options_.parameters.transform.skew_eta_z   = true;
+options_.parameters.transform.skew_eta_r   = true;
 options_.parameters.transform.stderr_eta_a = true;
 options_.parameters.transform.stderr_eta_e = true;
 options_.parameters.transform.stderr_eta_z = true;
 options_.parameters.transform.stderr_eta_r = true;
+if options_.parameters.fix.ALPHA_X
+    M_.params(ismember(M_.param_names,'ALPHA_X')) = 0;
+else
+    options_.parameters.transform.ALPHA_X  = true;
+end
+if options_.parameters.fix.ALPHA_PI
+    M_.params(ismember(M_.param_names,'ALPHA_PI')) = 0;
+else    
+    options_.parameters.transform.ALPHA_PI = true;
+end
 
-
-%% FULL SAMPLE
-options_full = options_;
-options_full.datafile = "full_sample";
-options_full.filename = sprintf('results_ireland2004_%s_%s',options_full.datafile,options_full.computer_arch);
-options_full.kalman.csn.initval_search = 1; % 1: try to find good initial values first from Gaussian estimation, then grid on csn shock parameters;
-options_full.optim_names = ["simulannealbnd" "cmaes" "cmaes_dsge" "sa_resampling" "fminsearch" "fminsearchbnd" "fmincon" "fminunc" ]; % names of optimizer that will be used in parallel ("simulannealbnd" and "sa_resampling" are very time-consuming, "cmaes" and "cmaes_dsge" are mildly time-consuming, fminsearch and fminsearchbnd can be mildly time-consuming, "fmincon" and "fminunc" are fast (but not as good) )
-%options_full.kalman.csn.initval_search = 0; % 0: use initial values provided in estim_params file
-%options_full.optim_names = "fminsearchbnd"; % names of optimizer that will be used in parallel
-[oo_full, M_full] = dsge_maximum_likelihood_estimation_csn(M_,options_full,datamat_full);
-
-%% POST 1980 SAMPLE
-% options_post_1980 = options_;
-% options_post_1980.datafile = "post_1980";
-% options_post_1980.filename = sprintf('results_ireland2004_%s_%s',options_post_1980.datafile,options_post_1980.computer_arch);
-% %options_post_1980.kalman.csn.initval_search = 1; % 1: try to find good initial values first from Gaussian estimation, then grid on csn shock parameters;
-% options_post_1980.optim_names = ["simulannealbnd" "cmaes" "cmaes_dsge" "sa_resampling" "fminsearch" "fminsearchbnd" "fmincon" "fminunc" ]; % names of optimizer that will be used in parallel ("simulannealbnd" and "sa_resampling" are very time-consuming, "cmaes" and "cmaes_dsge" are mildly time-consuming, fminsearch and fminsearchbnd can be mildly time-consuming, "fmincon" and "fminunc" are fast (but not as good) )
+%% ESTIMATION ON POST 1980 SAMPLE
+options_.filename = sprintf('results_ireland2004_stderrskew%d_KalmanInit%d_FixAx%d_FixAp%d_%s',options_.parameters.use_stderr_skew,options_.kalman.lik_init,options_.parameters.fix.ALPHA_X,options_.parameters.fix.ALPHA_PI,options_.computer_arch);
+options_.kalman.csn.initval_search = 1; % 1: try to find good initial values first from Gaussian estimation, then grid on csn shock parameters;
 % options_post_1980.kalman.csn.initval_search = 0; % 0: use initial values provided in estim_params file
 % %options_post_1980.optim_names = "fminsearchbnd"; % names of optimizer that will be used in parallel
-% [oo_post_1980, M_post_1980] = dsge_maximum_likelihood_estimation_csn(M_,options_post_1980,datamat_post1980);
+[oo_, M_] = dsge_maximum_likelihood_estimation_csn(M_,options_,datamat);
 
 %% HOUSEKEEPING
 rmpath('MATLAB');

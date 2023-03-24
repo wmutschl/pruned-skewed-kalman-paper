@@ -1,4 +1,4 @@
-function M_ = dsge_set_params(xparams,estim_params_,options_,M_)
+function [M_, error_indicator] = dsge_set_params(xparams,estim_params_,options_,M_)
 % function M_ = set_params_dsge(xparams,estim_params_,options_,M_)
 % -------------------------------------------------------------------------
 % updates parameters in model structure for a DSGE model
@@ -10,7 +10,8 @@ function M_ = dsge_set_params(xparams,estim_params_,options_,M_)
 % - M_              [structure]       model information, inspired by Dynare's M_ structure
 % -------------------------------------------------------------------------
 % OUTPUTS
-% - M_              [structure]       model information, inspired by Dynare's M_ structure
+% - M_                [structure]     model information, inspired by Dynare's M_ structure
+% - error_indicator   [boolean]       1: if transformation failed (mostly if Gamma is extremely large and/or Sigma is extremely small)
 % =========================================================================
 % Copyright (C) 2023 Willi Mutschler
 %
@@ -28,8 +29,8 @@ function M_ = dsge_set_params(xparams,estim_params_,options_,M_)
 % Kalman Filter and Smoother: With Application to the Yield Curve" by
 % Gaygysyz Guljanov, Willi Mutschler, Mark Trede
 % =========================================================================
+error_indicator=zeros(1,M_.exo_nbr);
 idxparams=1;
-
 % skewness parameters of shocks (ordered first in xparams)
 for jnsx = 1:estim_params_.nsx
     jexo = estim_params_.skew_exo(jnsx,1);
@@ -99,7 +100,7 @@ for jexo = 1:M_.exo_nbr
             if abs(M_.Skew_eta(jexo,1)) >= 0.995
                 warning('Skewness parameter very close to theoretical bound')
             else
-                [M_.Sigma_eta(jexo,jexo),M_.Gamma_eta(jexo,jexo)] = csnVarSkew_To_SigmaGamma_univariate(M_.Cov_eta(jexo,jexo),M_.Skew_eta(jexo,1),1);
+                [M_.Sigma_eta(jexo,jexo),M_.Gamma_eta(jexo,jexo),error_indicator(jexo)] = csnVarSkew_To_SigmaGamma_univariate(M_.Cov_eta(jexo,jexo),M_.Skew_eta(jexo,1),1);
             end
         end
     else
@@ -118,4 +119,10 @@ end
 
 if any(diag(M_.Gamma_eta))
     M_.mu_eta  = -csnMean(zeros(M_.exo_nbr,1),M_.Sigma_eta,M_.Gamma_eta,M_.nu_eta,M_.Delta_eta,options_.kalman.csn.cdfmvna_fct); % ensures E[eta]=0
+end
+
+if any(error_indicator)
+    error_indicator = 1;
+else
+    error_indicator = 0;
 end

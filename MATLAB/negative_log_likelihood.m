@@ -69,7 +69,12 @@ end
 
 %% UPDATE PARAMETERS
 if options_.dsge
-    M_ = dsge_set_params(xparams,estim_params_,options_,M_);
+    [M_, error_indicator] = dsge_set_params(xparams,estim_params_,options_,M_);
+    if error_indicator
+        negative_log_likelihood = large_number;
+        exit_flag = 0;
+        return
+    end
 end
 % check whether we need Pruned Skewed Kalman filter
 if any(diag(M_.Gamma_eta))
@@ -79,27 +84,27 @@ end
 %% CHECK POSITIVE DEFINITENESS OF COVARIANCE MATRICES
 if isdiag(M_.Cov_eta)
     if any(diag(M_.Cov_eta)<0)
-        negative_log_likelihood = large_number; exit_flag = 0; warning('Cov_eta not positive definite\n');
+        negative_log_likelihood = large_number; exit_flag = 0; %warning('Cov_eta not positive definite\n');
         return
     end
 elseif ~ispd(M_.Cov_eta)
-    negative_log_likelihood = large_number; exit_flag = 0; warning('Cov_eta not positive definite\n');
+    negative_log_likelihood = large_number; exit_flag = 0; %warning('Cov_eta not positive definite\n');
     return
 end
 if isdiag(M_.Cov_eps)
     if any(diag(M_.Cov_eps)<0)
-        negative_log_likelihood = large_number; exit_flag = 0; warning('Cov_eps not positive definite\n');
+        negative_log_likelihood = large_number; exit_flag = 0; %warning('Cov_eps not positive definite\n');
         return
     end
 elseif ~ispd(M_.Cov_eps)
-    negative_log_likelihood = large_number; exit_flag = 0; warning('Cov_eps not positive definite\n');
+    negative_log_likelihood = large_number; exit_flag = 0; %warning('Cov_eps not positive definite\n');
     return
 end
 
 %% CHECK THEORETICAL BOUND ON SKEWNESS COEFFICIENT
 for jp=1:M_.exo_nbr
     if abs(csnSkewness_univariate(M_.Sigma_eta(jp,jp),M_.Gamma_eta(jp,jp))) > abs((sqrt(2)*(pi-4))/(pi-2)^(3/2))
-        negative_log_likelihood = large_number; exit_flag = 0; warning('Skewness coefficient is out of bounds: %.4f\n',csnSkewness_univariate(M_.Sigma_eta(jp,jp),M_.Gamma_eta(jp,jp)));
+        negative_log_likelihood = large_number; exit_flag = 0; %warning('Skewness coefficient is out of bounds: %.4f\n',csnSkewness_univariate(M_.Sigma_eta(jp,jp),M_.Gamma_eta(jp,jp)));
         return
     end
 end
@@ -125,7 +130,6 @@ elseif kf_variant == "pruned_skewed"
     Gamma_0 = zeros(M_.endo_nbr,M_.endo_nbr); % initialize at Gaussian distribution
     nu_0    = zeros(M_.endo_nbr,1); % normalization
     Delta_0 = eye(M_.endo_nbr); % normalization
-    %log_likelihood1 = kalman_csn(DATAMAT', mu_0,Sigma_0,Gamma_0,nu_0,Delta_0, SOL.gx,SOL.gu,MODEL.F, MODEL.mu_eta,MODEL.Sigma_eta,MODEL.Gamma_eta,MODEL.nu_eta,MODEL.Delta_eta, MODEL.mu_eps,MODEL.Sigma_eps, OPT.cdfmvna_fct,OPT.prune_tol,false,true);
     if options_.dsge
         negative_log_likelihood = -1*kalman_csn_dsge(...
             M_.G,M_.R,M_.F, ...

@@ -1,4 +1,5 @@
-function [oo_,M_] = dsge_maximum_likelihood_estimation_csn(M_,options_,datamat)
+function [oo_, M_] = dsge_maximum_likelihood_estimation_csn(M_, options_, datamat)
+% function [oo_, M_] = dsge_maximum_likelihood_estimation_csn(M_, options_, datamat)
 % -------------------------------------------------------------------------
 % Maximum Likelihood Estimation of a DSGE model with CSN distributed innovations,
 % solved with first-order perturbation techniques, and estimated using the
@@ -20,22 +21,20 @@ function [oo_,M_] = dsge_maximum_likelihood_estimation_csn(M_,options_,datamat)
 %   - mu_eta is endogenously determined to ensure that E[eta]=0
 % -------------------------------------------------------------------------
 % Note that we run the estimation in several stages in order to get good initial values:
-% Stage 0: - use provided initial values in estimated_params_0 file
-%          - run ML with Gaussian Kalman filter
-% Stage 1: - fix model parameters to estimates from stage 0
-%          - fix Var[eta_j] to estimates of stage 0
-%          - create grid for Skew[eta_j]_i
-%          - for each combination of Var[eta_j] and Skew[eta_j]_i recover corresponding Sigma_eta_j and Gamma_eta_j combinations
-%          - compute negative log-likelihood of each value on grid
-%          - for a chosen number of best combinations: use these as initial value and optimize shock parameters with Pruned Skewed Kalman filter
-% Stage 2: - use best values from stage 1 as initial value for shock parameters
-%          - use values from stage 0 as initial value for model parameters
-%          - run optimization with Pruned Skewed Kalman filter to estimate model as well as shock parameters
-%          - compute standard errors using the inverse hessian (with possibly fine-tuned numerical steps)
+% - use provided initial values in estimated_params_0 file
+% - run ML with Gaussian Kalman filter
+% - fix model parameters and Var[eta_j] to estimates from Gaussian Kalman filter
+% - create grid for Skew[eta_j]_i keeping Var[eta_j] constant
+% - for each combination of Var[eta_j] and Skew[eta_j]_i recover corresponding Sigma_eta_j and Gamma_eta_j combinations
+% - compute negative log-likelihood of each value on grid
+% - for a chosen number of best combinations: use these as initial value and optimize shock parameters with Pruned Skewed Kalman filter
+% - use best values from grid search as initial value for shock parameters and values from Gaussian estimatino as initial value for model parameters
+% - run optimization with Pruned Skewed Kalman filter to estimate model as well as shock parameters
 % -------------------------------------------------------------------------
 % INPUTS
-% - M_         [structure]   information on the model (stripped down version of Dynare's M_ structure)
-% - options_   [structure]   options (stripped down version of Dynare's options_ structure)
+% - M_         [structure]              information on the model (stripped down version of Dynare's M_ structure)
+% - options_   [structure]              options (stripped down version of Dynare's options_ structure)
+% - datamat    [varobs_nbr by nobs)     matrix with data
 % -------------------------------------------------------------------------
 % OUTPUTS
 % - oo_        [structure]   estimation results and structures of different stages
@@ -100,7 +99,7 @@ STAGE = "gaussian_initval_from_ireland2004_paper";
 M_ = dsge_set_params(xparamsInit_gauss_tr, estim_params_gauss, options_, M_);
 % run maximum likelihood with Gaussian Kalman filter
 diary off
-[xparams_gauss_tr, neg_log_likelihood_gauss, best_gauss] = minimize_objective_in_parallel(objfct, xparamsInit_gauss_tr, bounds_gauss_tr(:,1), bounds_gauss_tr(:,2), options_.optim_names, options_.optim_opt,    bounds_gauss_tr,datamat,estim_params_gauss,options_,M_);
+[xparams_gauss_tr, neg_log_likelihood_gauss, best_gauss] = minimize_objective_in_parallel(objfct, xparamsInit_gauss_tr, bounds_gauss_tr(:,1), bounds_gauss_tr(:,2), options_.optim_opt,    bounds_gauss_tr,datamat,estim_params_gauss,options_,M_);
 diary(options_.logfile)
 % compute standard errors
 [xparams_gauss, bounds_gauss] = dsge_untransform(xparams_gauss_tr, bounds_gauss_tr, estim_params_gauss);
@@ -108,9 +107,9 @@ xstderr_gauss = standard_errors_inverse_hessian(objfct, xparams_gauss, bounds_ga
 % display summary
 fprintf('%s\nSUMMARY GAUSSIAN\n\n',repmat('*',1,100))
 fprintf('  Point Estimates\n')
-disp(array2table([xparams_gauss(:,best_gauss); -neg_log_likelihood_gauss(best_gauss)], 'RowNames',[erase(estim_params_gauss.names,"transformed_");'Log-Lik'], 'VariableNames', options_.optim_names(best_gauss)));
+disp(array2table([xparams_gauss(:,best_gauss); -neg_log_likelihood_gauss(best_gauss)], 'RowNames',[erase(estim_params_gauss.names,"transformed_");'Log-Lik'], 'VariableNames', options_.optim_opt.names(best_gauss)));
 fprintf('  Standard Errors\n')
-disp(array2table([xstderr_gauss(:,best_gauss); -neg_log_likelihood_gauss(best_gauss)], 'RowNames',[erase(estim_params_gauss.names,"transformed_");'Log-Lik'], 'VariableNames', options_.optim_names(best_gauss)));
+disp(array2table([xstderr_gauss(:,best_gauss); -neg_log_likelihood_gauss(best_gauss)], 'RowNames',[erase(estim_params_gauss.names,"transformed_");'Log-Lik'], 'VariableNames', options_.optim_opt.names(best_gauss)));
 fprintf('Final value of the best Gaussian log-likelihood function: %6.4f\n', -1*neg_log_likelihood_gauss(best_gauss(1)))
 fprintf('%s\n\n',repmat('*',1,100))
 % store results
@@ -144,7 +143,7 @@ if isfield(options_.kalman.csn,'initval_search') && (options_.kalman.csn.initval
     
     % create an evenly spaced grid of skewness coefficients for each estimated skewness or gamma parameter
     grid.nbr      = 16;   % needs to be even number
-    grid.endpoint = 0.95; % grid is set between +- this value
+    grid.endpoint = 0.99; % grid is set between +- this value
     grid.bestof   = 3;    % how many values to keep in stage 1
     Skew_eta_grid = linspace(-abs(grid.endpoint),0,grid.nbr/2); Skew_eta_grid = [Skew_eta_grid -Skew_eta_grid((end-1):-1:1)];
     if ~options_.parameters.use_stderr_skew
@@ -211,13 +210,13 @@ if isfield(options_.kalman.csn,'initval_search') && (options_.kalman.csn.initval
     disp(array2table(tbl_loglik_grid,'RowNames',"Log-Lik",'VariableNames',"best " + num2str(transpose(1:grid.bestof))));
     
     % optimize over both Sigma_eta/stderr_eta as well as Gamma_eta/Skew_eta using best values on grid as initial point
-    xparams_stage1_tr = nan(estim_params_1.ntot,grid.bestof*length(options_.optim_names)) ; neg_log_likelihood_stage1 = nan(1,grid.bestof*length(options_.optim_names));
+    xparams_stage1_tr = nan(estim_params_1.ntot,grid.bestof*length(options_.optim_opt.names)) ; neg_log_likelihood_stage1 = nan(1,grid.bestof*length(options_.optim_opt.names));
     fprintf('\nINITIAL VALUES: Optimize over both Sigma_eta/stderr_eta as well as Gamma_eta/Skew_eta using best values from grid search for CSN skewness/gamma parameter:\n');
     % run maximum likelihood with Pruned Skewed Kalman filter
     diary off
     for jgrid=1:grid.bestof
-        idx = (jgrid-1)*length(options_.optim_names) + (1:length(options_.optim_names));
-        [xparams_stage1_tr(:,idx), neg_log_likelihood_stage1(1,idx)] = minimize_objective_in_parallel(objfct, xparams_grid{jgrid}, bounds_grid{jgrid}(:,1), bounds_grid{jgrid}(:,2), options_.optim_names, options_.optim_opt,    bounds_grid{jgrid},datamat,estim_params_grid{jgrid},options_,M_grid{jgrid});
+        idx = (jgrid-1)*length(options_.optim_opt.names) + (1:length(options_.optim_opt.names));
+        [xparams_stage1_tr(:,idx), neg_log_likelihood_stage1(1,idx)] = minimize_objective_in_parallel(objfct, xparams_grid{jgrid}, bounds_grid{jgrid}(:,1), bounds_grid{jgrid}(:,2), options_.optim_opt,    bounds_grid{jgrid},datamat,estim_params_grid{jgrid},options_,M_grid{jgrid});
     end
     diary(options_.logfile)
     [~,best_stage1] = sort(neg_log_likelihood_stage1);
@@ -225,7 +224,7 @@ if isfield(options_.kalman.csn,'initval_search') && (options_.kalman.csn.initval
     [xparams_stage1, bounds1] = dsge_untransform(xparams_stage1_tr, bounds1_tr, estim_params_1);
     xstderr_stage1 = standard_errors_inverse_hessian(objfct, xparams_stage1, bounds1,    bounds1,datamat,estim_params_1,options_STDERR,M_);
     % display summary
-    strOptimNamesInit = repmat(options_.optim_names,1,grid.bestof) + "_init_" + string(kron(1:grid.bestof,ones(1,length(options_.optim_names))));
+    strOptimNamesInit = repmat(options_.optim_opt.names,1,grid.bestof) + "_init_" + string(kron(1:grid.bestof,ones(1,length(options_.optim_opt.names))));
     fprintf('%s\nSUMMARY INITVAL STAGE 1\n\n',repmat('*',1,100))
     fprintf('  Point Estimates\n')
     disp(array2table([xparams_stage1(:,best_stage1); -neg_log_likelihood_stage1(best_stage1)], 'RowNames',[erase(estim_params_1.names,"transformed_");'Log-Lik'], 'VariableNames', strOptimNamesInit(best_stage1)));
@@ -254,7 +253,7 @@ if isfield(options_.kalman.csn,'initval_search') && (options_.kalman.csn.initval
     % run maximum likelihood with Pruned Skewed Kalman filter
     fprintf('\n\nINITIAL VALUES: Run maximum likelihood estimation with Pruned Skewed Kalman filter for all parameters using different optimizers in parallel:\n')
     diary off
-    [xparams_stage2_tr, neg_log_likelihood_stage2, best_stage2] = minimize_objective_in_parallel(objfct, xparamsInit_stage2_tr, bounds2_tr(:,1), bounds2_tr(:,2), options_.optim_names, options_.optim_opt,    bounds2_tr,datamat,estim_params_2,options_,M_);
+    [xparams_stage2_tr, neg_log_likelihood_stage2, best_stage2] = minimize_objective_in_parallel(objfct, xparamsInit_stage2_tr, bounds2_tr(:,1), bounds2_tr(:,2), options_.optim_opt,    bounds2_tr,datamat,estim_params_2,options_,M_);
     diary(options_.logfile)
     % compute standard errors
     [xparams_stage2, bounds2] = dsge_untransform(xparams_stage2_tr, bounds2_tr, estim_params_2);
@@ -264,9 +263,9 @@ if isfield(options_.kalman.csn,'initval_search') && (options_.kalman.csn.initval
     % display summary
     fprintf('%s\nSUMMARY INITVAL STAGE 2\n\n',repmat('*',1,100))
     fprintf('  Point Estimates\n')
-    disp(array2table([xparams_stage2(:,best_stage2); -neg_log_likelihood_stage2(best_stage2)], 'RowNames',[erase(estim_params_2.names,"transformed_");'Log-Lik'], 'VariableNames', options_.optim_names(best_stage2)));
+    disp(array2table([xparams_stage2(:,best_stage2); -neg_log_likelihood_stage2(best_stage2)], 'RowNames',[erase(estim_params_2.names,"transformed_");'Log-Lik'], 'VariableNames', options_.optim_opt.names(best_stage2)));
     fprintf('  Standard Errors\n')
-    disp(array2table([xstderr_stage2(:,best_stage2); -neg_log_likelihood_stage2(best_stage2)], 'RowNames',[erase(estim_params_2.names,"transformed_");'Log-Lik'], 'VariableNames', options_.optim_names(best_stage2)));
+    disp(array2table([xstderr_stage2(:,best_stage2); -neg_log_likelihood_stage2(best_stage2)], 'RowNames',[erase(estim_params_2.names,"transformed_");'Log-Lik'], 'VariableNames', options_.optim_opt.names(best_stage2)));
     fprintf('Final value of the best log-likelihood function: %6.4f\n', -1*neg_log_likelihood_stage2(best_stage2(1)))
     fprintf('Likelihood Ratio Test Statistic = %.2f with p-val = %.4f\n',lr_stat_stage2,lr_pval_stage2);
     fprintf('%s\n\n',repmat('*',1,100))
@@ -292,7 +291,7 @@ if isfield(options_.kalman.csn,'initval_search') && (options_.kalman.csn.initval
 else
     STAGE = "csn_initval";
 end
-if length(options_.optim_names)==1
+if length(options_.optim_opt.names)==1
     options_.optim_opt.Display = 'iter';
 end
 [estim_params_csn,xparamsInit_csn_tr,bounds_csn_tr] = feval(str2func(M_.fname + "_estim_params"), STAGE, M_, options_);
@@ -300,7 +299,7 @@ M_ = dsge_set_params(xparamsInit_csn_tr, estim_params_csn, options_, M_);
 % run maximum likelihood with Pruned Skewed Kalman filter
 fprintf('\n\nRun maximum likelihood estimation with Pruned Skewed Kalman filter for all parameters using different optimizers in parallel:\n')
 diary off
-[xparams_csn_tr, neg_log_likelihood_csn, best_csn] = minimize_objective_in_parallel(objfct, xparamsInit_csn_tr, bounds_csn_tr(:,1), bounds_csn_tr(:,2), options_.optim_names, options_.optim_opt,    bounds_csn_tr,datamat,estim_params_csn,options_,M_);
+[xparams_csn_tr, neg_log_likelihood_csn, best_csn] = minimize_objective_in_parallel(objfct, xparamsInit_csn_tr, bounds_csn_tr(:,1), bounds_csn_tr(:,2), options_.optim_opt,    bounds_csn_tr,datamat,estim_params_csn,options_,M_);
 diary(options_.logfile)
 % compute standard errors
 [xparams_csn, bounds_csn] = dsge_untransform(xparams_csn_tr, bounds_csn_tr, estim_params_csn);
@@ -310,9 +309,9 @@ lr_pval = chi2cdf(lr_stat, size(xparams_csn,1)-size(xparams_gauss,1), "upper");
 % display summary
 fprintf('%s\nSUMMARY CSN\n\n',repmat('*',1,100))
 fprintf('  Point Estimates\n')
-disp(array2table([xparams_csn(:,best_csn); -neg_log_likelihood_csn(best_csn)], 'RowNames',[erase(estim_params_csn.names,"transformed_");'Log-Lik'], 'VariableNames', options_.optim_names(best_csn)));
+disp(array2table([xparams_csn(:,best_csn); -neg_log_likelihood_csn(best_csn)], 'RowNames',[erase(estim_params_csn.names,"transformed_");'Log-Lik'], 'VariableNames', options_.optim_opt.names(best_csn)));
 fprintf('  Standard Errors\n')
-disp(array2table([xstderr_csn(:,best_csn); -neg_log_likelihood_csn(best_csn)], 'RowNames',[erase(estim_params_csn.names,"transformed_");'Log-Lik'], 'VariableNames', options_.optim_names(best_csn)));
+disp(array2table([xstderr_csn(:,best_csn); -neg_log_likelihood_csn(best_csn)], 'RowNames',[erase(estim_params_csn.names,"transformed_");'Log-Lik'], 'VariableNames', options_.optim_opt.names(best_csn)));
 fprintf('Final value of the best CSN log-likelihood function: %6.4f\n', -1*neg_log_likelihood_csn(best_csn(1)))
 fprintf('Likelihood Ratio Test Statistic = %.2f with p-val = %.4f\n',lr_stat,lr_pval);
 fprintf('%s\n\n',repmat('*',1,100))

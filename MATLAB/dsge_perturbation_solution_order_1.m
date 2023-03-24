@@ -97,12 +97,12 @@ end
 % Blanchard-Khan order condition
 if abs(T(n,n))>abs(S(n,n))
     error_indicator = 1;
-	warning('Blanchard-Khan order condition not fullfilled: No equilibrium exists.');
+	%warning('Blanchard-Khan order condition not fullfilled: No equilibrium exists.');
     gx = []; gu = [];
     return
 elseif abs(T(n+1,n+1))<abs(S(n+1,n+1))
     error_indicator = 1;
-	warning('Blanchard-Khan order condition not fullfilled: Indeterminacy.');
+	%warning('Blanchard-Khan order condition not fullfilled: Indeterminacy.');
     gx = []; gu = [];
     return
 end
@@ -116,7 +116,7 @@ z21 = Z(n+1:end,1:n);
 % Blanchard-Khan rank condition:
 if rank(z22)<n
     error_indicator = 1;
-    warning('Blanchard-Khan rank condition not fullfilled: no stable solution');
+    %warning('Blanchard-Khan rank condition not fullfilled: no stable solution');
     gx = []; gu = [];
     return
 end
