@@ -60,6 +60,9 @@ function [oo_, M_] = dsge_maximum_likelihood_estimation_csn(M_, options_, datama
 if ~isfield(options_.parameters,'transform')
     options_.parameters.transform = [];
 end
+if ~isfield(options_.parameters,'fix')
+    options_.parameters.fix = [];
+end
 % parallel environment
 options_.poolobj = gcp('nocreate');
 if isempty(options_.poolobj)
@@ -85,6 +88,7 @@ options_.kalman
 options_.kalman.csn
 options_.parameters
 options_.parameters.transform
+options_.parameters.fix
 
 options_STDERR = options_; options_STDERR.parameters.transform = []; % we compute standard errors on untransformed parameters
 objfct = @negative_log_likelihood;
@@ -143,7 +147,7 @@ if isfield(options_.kalman.csn,'initval_search') && (options_.kalman.csn.initval
     
     % create an evenly spaced grid of skewness coefficients for each estimated skewness or gamma parameter
     grid.nbr      = 16;   % needs to be even number
-    grid.endpoint = 0.99; % grid is set between +- this value
+    grid.endpoint = 0.95; % grid is set between +- this value
     grid.bestof   = 3;    % how many values to keep in stage 1
     Skew_eta_grid = linspace(-abs(grid.endpoint),0,grid.nbr/2); Skew_eta_grid = [Skew_eta_grid -Skew_eta_grid((end-1):-1:1)];
     if ~options_.parameters.use_stderr_skew

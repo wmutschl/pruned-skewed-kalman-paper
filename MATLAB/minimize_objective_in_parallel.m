@@ -11,8 +11,8 @@ end
 
 XPARAMS = nan(length(xparamsInit),length(optim_opt.names));
 FVALS = nan(1,length(optim_opt.names));
-warning('off','MATLAB:illConditionedMatrix');
 parfor jopt=1:length(optim_opt.names)
+    warning('off','MATLAB:illConditionedMatrix');
     if optim_opt.names(jopt)=="fminsearch"
         [XPARAMS(:,jopt), FVALS(jopt)] = fminsearch(objfct_, xparamsInit, optim_opt);
     elseif optim_opt.names(jopt)=="fminsearchbnd"
@@ -23,7 +23,7 @@ parfor jopt=1:length(optim_opt.names)
         [XPARAMS(:,jopt), FVALS(jopt)] = fmincon(objfct_, xparamsInit, [], [], [], [], lb, ub, [], optim_opt);
     elseif optim_opt.names(jopt)=="simulannealbnd"
         [XPARAMS(:,jopt), FVALS(jopt)] = simulannealbnd(objfct_, xparamsInit, lb, ub, optim_opt);
-    elseif optim_opt.names(jopt)=="cmaes"
+    elseif optim_opt.names(jopt)=="cmaes"        
         cmaesOptions = cmaes('defaults');
         cmaesOptions.SaveVariables='off'; cmaesOptions.DispFinal='on'; cmaesOptions.WarnOnEqualFunctionValues='no'; cmaesOptions.DispModulo='300'; cmaesOptions.LogModulo='0'; cmaesOptions.LogTime='0'; cmaesOptions.Resume = 0;
         cmaesOptions.LBounds = lb; cmaesOptions.UBounds = ub;
@@ -71,9 +71,9 @@ parfor jopt=1:length(optim_opt.names)
         end
         sa_opt_Save_To_File = [];
         if ~isempty(optim_opt.TolFun); sa_opt_eps = optim_opt.TolFun; end
-        if ~isempty(optim_opt.MaxFunEvals); sa_opt_maxevl = optim_opt.TolFun; end
+        if ~isempty(optim_opt.MaxFunEvals); sa_opt_maxevl = optim_opt.MaxFunEvals; end
         [~,~,~,XPARAMS(:,jopt),FVALS(jopt),~,~,~,~] = sa_resampling(objfct_,length(xparamsInit),xparamsInit,sa_opt_max,sa_opt_rt,sa_opt_eps,sa_opt_ns,sa_opt_nt,sa_opt_neps,sa_opt_maxevl,sa_opt_maxresample,sa_opt_maxNaNJump,lb,ub,sa_opt_c,sa_opt_iprint,sa_opt_t,sa_opt_vm,sa_opt_Save_To_File);
     end
+    warning('on','MATLAB:illConditionedMatrix');
 end
-warning('on','MATLAB:illConditionedMatrix');
 [~, bestjopt] = sort(FVALS);
