@@ -42,7 +42,11 @@ function M_ = ireland2004_preprocessing
 M_.fname = "ireland2004";
 
 % files are stored within the folder
-folder = erase(mfilename('fullpath'),"/"+M_.fname+"_preprocessing");
+if strcmp(computer('arch'),'win64')
+    folder = erase(mfilename('fullpath'),"\"+M_.fname+"_preprocessing");
+else
+    folder = erase(mfilename('fullpath'),"/"+M_.fname+"_preprocessing");
+end
 oldfolder = cd(folder);
 
 % declare names for endogenous variables as string array, second entry is assumption set for the sym command below
