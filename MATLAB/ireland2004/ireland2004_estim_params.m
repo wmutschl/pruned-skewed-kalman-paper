@@ -102,7 +102,28 @@ elseif STAGE == "csn_initval"
         estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_G"),1),    0.342417096575105,  0,  1 ] ];
         estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_X"),1),    0.278333295547864,  0,  1 ] ];
         estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_A"),1),    0.914095505119110,  0,  1 ] ];
-        estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_E"),1),    0.982779569560883,  0,  1 ] ];    
+        estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_E"),1),    0.982779569560883,  0,  1 ] ];
+    elseif options_.computer_arch == "glnxa64"
+        if options_.parameters.use_stderr_skew
+            % skew parameters
+            estim_params_.skew_exo    = [ estim_params_.skew_exo;   [ idx_eta_a,  -0.195030894510672,  options_.parameters.skewness_bounds ] ];
+            estim_params_.skew_exo    = [ estim_params_.skew_exo;   [ idx_eta_e,  -0.184942715855431,  options_.parameters.skewness_bounds ] ];
+            estim_params_.skew_exo    = [ estim_params_.skew_exo;   [ idx_eta_z,  -0.911975194042870,  options_.parameters.skewness_bounds ] ];
+            estim_params_.skew_exo    = [ estim_params_.skew_exo;   [ idx_eta_r,   0.809018589416853,  options_.parameters.skewness_bounds ] ];
+            % stderr parameters
+            estim_params_.var_exo    = [ estim_params_.var_exo;     [ idx_eta_a,   0.024502963310865,  0,  1 ] ];
+            estim_params_.var_exo    = [ estim_params_.var_exo;     [ idx_eta_e,   0.000183843755439,  0,  1 ] ];
+            estim_params_.var_exo    = [ estim_params_.var_exo;     [ idx_eta_z,   0.008063223789748,  0,  1 ] ];
+            estim_params_.var_exo    = [ estim_params_.var_exo;     [ idx_eta_r,   0.002853656419181,  0,  1 ] ];
+        end
+        estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"OMEGA"),1),    0.149332315900222,  0,  1 ] ];
+        estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"ALPHA_X"),1),  0.000010048674642,  1e-5,  1 ] ];
+        estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"ALPHA_PI"),1), 0.000011321529489,  1e-5,  1 ] ];
+        estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_PI"),1),   0.254409816433547,  0,  1 ] ];
+        estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_G"),1),    0.342252617505345,  0,  1 ] ];
+        estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_X"),1),    0.296402129547985,  0,  1 ] ];
+        estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_A"),1),    0.914365516759944,  0,  1 ] ];
+        estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_E"),1),    0.982228332044889,  0,  1 ] ];        
     end
 
 elseif STAGE == "csn_shock_params"

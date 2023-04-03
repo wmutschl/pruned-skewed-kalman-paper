@@ -114,11 +114,15 @@ options_.filename = sprintf('results_ireland2004_stderrskew%d_KalmanInit%d_FixAx
 %options_.optim_opt.names = ["fminsearch" "fminsearchbnd"]; % names of optimizer that will be used in parallel ("simulannealbnd" and "sa_resampling" are very time-consuming, "cmaes" and "cmaes_dsge" are mildly time-consuming, fminsearch and fminsearchbnd can be mildly time-consuming, "fmincon" and "fminunc" are fast (but not as good) )
 options_.kalman.csn.initval_search = 0; % 0: use initial values provided in estim_params file
 [oo_, M_] = dsge_maximum_likelihood_estimation_csn(M_,options_,datamat);
+end
 
+if ONLY_LATEX
+    load('results/results_ireland2004_stderrskew1_KalmanInit1_FixAx0_FixAp0_R2023a_maci64.mat');
+else
+    load("results/" + options_.filename);
 end
 
 %% display all results and create tables for paper
-load('results/results_ireland2004_stderrskew1_KalmanInit1_FixAx0_FixAp0_R2023a_maci64.mat')
 [~,optim_col] = sort(oo_.csn.neg_log_likelihood); optim_col=optim_col(1);
 xparams_csn = oo_.csn.xparams(:,optim_col);
 xparams_csn_stderr = oo_.csn.xstderr(:,optim_col);
