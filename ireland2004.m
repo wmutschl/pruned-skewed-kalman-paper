@@ -77,6 +77,11 @@ options_.parameters.use_stderr_skew = 1;            % 1: optimization algorithm 
 options_.parameters.fix.ALPHA_X            = false;
 options_.parameters.fix.ALPHA_PI           = false;
 options_.parameters.transform.OMEGA        = true;
+options_.parameters.transform.RHO_PI       = true;
+options_.parameters.transform.RHO_G        = true;
+options_.parameters.transform.RHO_X        = true;
+options_.parameters.transform.RHO_A        = true;
+options_.parameters.transform.RHO_E        = true;
 options_.parameters.transform.skew_eta_a   = true;
 options_.parameters.transform.skew_eta_e   = true;
 options_.parameters.transform.skew_eta_z   = true;
@@ -89,6 +94,10 @@ options_.parameters.transform.sqrt_diag_Sigma_eta_a = true;
 options_.parameters.transform.sqrt_diag_Sigma_eta_e = true;
 options_.parameters.transform.sqrt_diag_Sigma_eta_z = true;
 options_.parameters.transform.sqrt_diag_Sigma_eta_r = true;
+options_.parameters.transform.diag_Gamma_eta_a = true;
+options_.parameters.transform.diag_Gamma_eta_e = true;
+options_.parameters.transform.diag_Gamma_eta_z = true;
+options_.parameters.transform.diag_Gamma_eta_r = true;
 if isfield(options_.parameters.fix,'ALPHA_X') && (options_.parameters.fix.ALPHA_X==1)
     M_.params(ismember(M_.param_names,'ALPHA_X')) = 0;
 else
