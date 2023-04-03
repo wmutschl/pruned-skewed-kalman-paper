@@ -106,20 +106,24 @@ diary off
 [xparams_gauss_tr, neg_log_likelihood_gauss, best_gauss] = minimize_objective_in_parallel(objfct, xparamsInit_gauss_tr, bounds_gauss_tr(:,1), bounds_gauss_tr(:,2), options_.optim_opt,    bounds_gauss_tr,datamat,estim_params_gauss,options_,M_);
 diary(options_.logfile)
 % compute standard errors
+xstderr_gauss_tr = standard_errors_inverse_hessian(objfct, xparams_gauss_tr, bounds_gauss_tr,    bounds_gauss_tr,datamat,estim_params_gauss,options_,M_);
 [xparams_gauss, bounds_gauss] = dsge_untransform(xparams_gauss_tr, bounds_gauss_tr, estim_params_gauss);
 xstderr_gauss = standard_errors_inverse_hessian(objfct, xparams_gauss, bounds_gauss,    bounds_gauss,datamat,estim_params_gauss,options_STDERR,M_);
 % display summary
 fprintf('%s\nSUMMARY GAUSSIAN\n\n',repmat('*',1,100))
 fprintf('  Point Estimates\n')
 disp(array2table([xparams_gauss(:,best_gauss); -neg_log_likelihood_gauss(best_gauss)], 'RowNames',[erase(estim_params_gauss.names,"transformed_");'Log-Lik'], 'VariableNames', options_.optim_opt.names(best_gauss)));
-fprintf('  Standard Errors\n')
+fprintf('  Standard Errors (original variables)\n')
 disp(array2table([xstderr_gauss(:,best_gauss); -neg_log_likelihood_gauss(best_gauss)], 'RowNames',[erase(estim_params_gauss.names,"transformed_");'Log-Lik'], 'VariableNames', options_.optim_opt.names(best_gauss)));
+fprintf('  Standard Errors (transformed variables)\n')
+disp(array2table([xstderr_gauss_tr(:,best_gauss); -neg_log_likelihood_gauss(best_gauss)], 'RowNames',[estim_params_gauss.names;'Log-Lik'], 'VariableNames', options_.optim_opt.names(best_gauss)));
 fprintf('Final value of the best Gaussian log-likelihood function: %6.4f\n', -1*neg_log_likelihood_gauss(best_gauss(1)))
 fprintf('%s\n\n',repmat('*',1,100))
 % store results
 oo_.gauss.xparams_tr = xparams_gauss_tr;
 oo_.gauss.xparams = xparams_gauss;
 oo_.gauss.xstderr = xstderr_gauss;
+oo_.gauss.xstderr_tr = xstderr_gauss_tr;
 oo_.gauss.neg_log_likelihood = neg_log_likelihood_gauss;
 % update model and shock parameters
 M_ = dsge_set_params(xparams_gauss_tr(:,best_gauss(1)),estim_params_gauss,options_,M_);
@@ -224,22 +228,17 @@ if isfield(options_.kalman.csn,'initval_search') && (options_.kalman.csn.initval
     end
     diary(options_.logfile)
     [~,best_stage1] = sort(neg_log_likelihood_stage1);
-    % compute standard errors
-    [xparams_stage1, bounds1] = dsge_untransform(xparams_stage1_tr, bounds1_tr, estim_params_1);
-    xstderr_stage1 = standard_errors_inverse_hessian(objfct, xparams_stage1, bounds1,    bounds1,datamat,estim_params_1,options_STDERR,M_);
+    
     % display summary
     strOptimNamesInit = repmat(options_.optim_opt.names,1,grid.bestof) + "_init_" + string(kron(1:grid.bestof,ones(1,length(options_.optim_opt.names))));
     fprintf('%s\nSUMMARY INITVAL STAGE 1\n\n',repmat('*',1,100))
     fprintf('  Point Estimates\n')
     disp(array2table([xparams_stage1(:,best_stage1); -neg_log_likelihood_stage1(best_stage1)], 'RowNames',[erase(estim_params_1.names,"transformed_");'Log-Lik'], 'VariableNames', strOptimNamesInit(best_stage1)));
-    fprintf('  Standard Errors\n')
-    disp(array2table([xstderr_stage1(:,best_stage1); -neg_log_likelihood_stage1(best_stage1)], 'RowNames',[erase(estim_params_1.names,"transformed_");'Log-Lik'], 'VariableNames', strOptimNamesInit(best_stage1)));
     fprintf('Final value of the best log-likelihood function: %6.4f\n', -1*neg_log_likelihood_stage1(best_stage1(1)))
     fprintf('%s\n\n',repmat('*',1,100))
     % store results
     oo_.initval.stage1.xparams_tr = xparams_stage1_tr;
     oo_.initval.stage1.xparams = xparams_stage1;
-    oo_.initval.stage1.xstderr = xstderr_stage1;
     oo_.initval.stage1.neg_log_likelihood = neg_log_likelihood_stage1;
     % update model and shock parameters
     M_ = dsge_set_params(xparams_stage1_tr(:,best_stage1(1)),estim_params_1,options_,M_);
@@ -259,24 +258,15 @@ if isfield(options_.kalman.csn,'initval_search') && (options_.kalman.csn.initval
     diary off
     [xparams_stage2_tr, neg_log_likelihood_stage2, best_stage2] = minimize_objective_in_parallel(objfct, xparamsInit_stage2_tr, bounds2_tr(:,1), bounds2_tr(:,2), options_.optim_opt,    bounds2_tr,datamat,estim_params_2,options_,M_);
     diary(options_.logfile)
-    % compute standard errors
-    [xparams_stage2, bounds2] = dsge_untransform(xparams_stage2_tr, bounds2_tr, estim_params_2);
-    xstderr_stage2 = standard_errors_inverse_hessian(objfct, xparams_stage2, bounds2,    bounds2,datamat,estim_params_2,options_STDERR,M_);
-    lr_stat_stage2 = 2 * ( neg_log_likelihood_gauss(best_gauss(1)) - neg_log_likelihood_stage2(best_stage2(1)));
-    lr_pval_stage2 = chi2cdf(lr_stat_stage2, size(xparams_stage2,1)-size(xparams_gauss,1), "upper");
     % display summary
     fprintf('%s\nSUMMARY INITVAL STAGE 2\n\n',repmat('*',1,100))
     fprintf('  Point Estimates\n')
     disp(array2table([xparams_stage2(:,best_stage2); -neg_log_likelihood_stage2(best_stage2)], 'RowNames',[erase(estim_params_2.names,"transformed_");'Log-Lik'], 'VariableNames', options_.optim_opt.names(best_stage2)));
-    fprintf('  Standard Errors\n')
-    disp(array2table([xstderr_stage2(:,best_stage2); -neg_log_likelihood_stage2(best_stage2)], 'RowNames',[erase(estim_params_2.names,"transformed_");'Log-Lik'], 'VariableNames', options_.optim_opt.names(best_stage2)));
     fprintf('Final value of the best log-likelihood function: %6.4f\n', -1*neg_log_likelihood_stage2(best_stage2(1)))
-    fprintf('Likelihood Ratio Test Statistic = %.2f with p-val = %.4f\n',lr_stat_stage2,lr_pval_stage2);
     fprintf('%s\n\n',repmat('*',1,100))
     % store results
     oo_.initval.stage2.xparams_tr = xparams_stage2_tr;
     oo_.initval.stage2.xparams = xparams_stage2;
-    oo_.initval.stage2.xstderr = xstderr_stage2;
     oo_.initval.stage2.neg_log_likelihood = neg_log_likelihood_stage2;
     % update model and shock parameters for use in stage 3
     M_ = dsge_set_params(xparams_stage2_tr(:,best_stage2(1)),estim_params_2,options_,M_);

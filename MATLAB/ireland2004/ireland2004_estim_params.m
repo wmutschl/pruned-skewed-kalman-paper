@@ -52,8 +52,8 @@ if STAGE == "gaussian_initval_from_ireland2004_paper"
     estim_params_.var_exo    = [ estim_params_.var_exo;     [ idx_eta_z,                                   0.0089,  0,  1 ] ];
     estim_params_.var_exo    = [ estim_params_.var_exo;     [ idx_eta_r,                                   0.0028,  0,  1 ] ];
     estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"OMEGA"),1),    0.0581,  0,  1 ] ];
-    estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"ALPHA_X"),1),  0.0000,  0,  1 ] ];    
-    estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"ALPHA_PI"),1), 0.0001,  0,  1 ] ];
+    estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"ALPHA_X"),1),  0.00002, 1e-5,  1 ] ];    
+    estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"ALPHA_PI"),1), 0.00002, 1e-5,  1 ] ];
     estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_PI"),1),   0.3866,  0,  1 ] ];
     estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_G"),1),    0.3960,  0,  1 ] ];
     estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_X"),1),    0.1654,  0,  1 ] ];
@@ -74,8 +74,8 @@ elseif STAGE == "csn_initval"
         estim_params_.var_exo    = [ estim_params_.var_exo;     [ idx_eta_r,   0.002851650708864,  0,  1 ] ];
     end
     estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"OMEGA"),1),    0.159644017914298,  0,  1 ] ];
-    estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"ALPHA_X"),1),  0.000106616306533,  0,  1 ] ];
-    estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"ALPHA_PI"),1), 0.000101659210638,  0,  1 ] ];
+    estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"ALPHA_X"),1),  0.000106616306533,  1e-5,  1 ] ];
+    estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"ALPHA_PI"),1), 0.000101659210638,  1e-5,  1 ] ];
     estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_PI"),1),   0.281767895546142,  0,  1 ] ];
     estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_G"),1),    0.341320071286309,  0,  1 ] ];
     estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_X"),1),    0.284545656092694,  0,  1 ] ];
@@ -135,8 +135,8 @@ elseif STAGE == "all_params"
     end
     % model parameters
     estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"OMEGA"),1),    M_.params(find(ismember(M_.param_names,"OMEGA"),1)),    0, 1 ] ];
-    estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"ALPHA_X"),1),  M_.params(find(ismember(M_.param_names,"ALPHA_X"),1)),  0, 1 ] ];
-    estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"ALPHA_PI"),1), M_.params(find(ismember(M_.param_names,"ALPHA_PI"),1)), 0, 1 ] ];
+    estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"ALPHA_X"),1),  M_.params(find(ismember(M_.param_names,"ALPHA_X"),1)),  1e-5, 1 ] ];
+    estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"ALPHA_PI"),1), M_.params(find(ismember(M_.param_names,"ALPHA_PI"),1)), 1e-5, 1 ] ];
     estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_PI"),1),   M_.params(find(ismember(M_.param_names,"RHO_PI"),1)),   0, 1 ] ];
     estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_G"),1),    M_.params(find(ismember(M_.param_names,"RHO_G"),1)),    0, 1 ] ];
     estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_X"),1),    M_.params(find(ismember(M_.param_names,"RHO_X"),1)),    0, 1 ] ];
