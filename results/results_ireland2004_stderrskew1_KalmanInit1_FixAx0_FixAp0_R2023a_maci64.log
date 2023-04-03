@@ -21,8 +21,8 @@ ans =
                    Display: 'final'
                MaxFunEvals: 100000
                    MaxIter: 10000
-                    TolFun: 1.0000e-04
-                      TolX: 1.0000e-04
+                    TolFun: 1.000000000000000e-04
+                      TolX: 1.000000000000000e-04
                FunValCheck: []
                  OutputFcn: []
                   PlotFcns: []
@@ -73,7 +73,7 @@ ans =
               TolProjCGAbs: []
                   TypicalX: []
                UseParallel: []
-                     names: ["fminsearch"    "fminsearchbnd"]
+                     names: ["cmaes"    "cmaes_dsge"    "fminsearch"    "fminsearchbnd"    "fmincon"    "fminunc"]
         penalize_objective: 0
 
 
@@ -89,17 +89,17 @@ ans =
 
   <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
 
-          prune_tol: 0.0100
+          prune_tol: 0.010000000000000
         cdfmvna_fct: "logmvncdf_ME"
     prune_algorithm: "correlations"
-     initval_search: 1
+     initval_search: 0
 
 
 ans = 
 
   <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
 
-    skewness_bounds: [-0.9500 0.9500]
+    skewness_bounds: [-0.950000000000000 0.950000000000000]
     use_stderr_skew: 1
                 fix: [1×1 struct]
           transform: [1×1 struct]
@@ -146,139 +146,60 @@ ans =
 SUMMARY GAUSSIAN
 
   Point Estimates
-                    <strong>fminsearch</strong>    <strong>fminsearchbnd</strong>
-                    <strong>__________</strong>    <strong>_____________</strong>
+                         <strong>fminsearch</strong>            <strong>fminsearchbnd</strong>              <strong>fmincon</strong>                  <strong>cmaes</strong>                 <strong>cmaes_dsge</strong>             <strong>fminunc</strong>     
+                    <strong>____________________</strong>    <strong>____________________</strong>    <strong>____________________</strong>    <strong>____________________</strong>    <strong>____________________</strong>    <strong>________________</strong>
 
-    <strong>stderr_eta_a</strong>      0.030168       0.030167  
-    <strong>stderr_eta_e</strong>    0.00024766     0.00024767  
-    <strong>stderr_eta_z</strong>     0.0088647      0.0088646  
-    <strong>stderr_eta_r</strong>     0.0027903      0.0027903  
-    <strong>OMEGA       </strong>      0.058085       0.058096  
-    <strong>ALPHA_X     </strong>         1e-05     1.8976e-05  
-    <strong>ALPHA_PI    </strong>         1e-05     1.7831e-05  
-    <strong>RHO_PI      </strong>        0.3865         0.3865  
-    <strong>RHO_G       </strong>       0.39601        0.39601  
-    <strong>RHO_X       </strong>       0.16539        0.16539  
-    <strong>RHO_A       </strong>        0.9048        0.90479  
-    <strong>RHO_E       </strong>       0.99067        0.99067  
-    <strong>Log-Lik     </strong>        1207.6         1207.6  
+    <strong>stderr_eta_a</strong>      0.0301680284506133      0.0301669301388058      0.0301605534742058      0.0301656726138627      0.0304925851734699              0.0302
+    <strong>stderr_eta_e</strong>    0.000247656247963507    0.000247667442769046    0.000247647436957152    0.000247671649444014    0.000245544800655528              0.0002
+    <strong>stderr_eta_z</strong>     0.00886470795617054     0.00886457413107703      0.0088645318107261     0.00886454107372827     0.00888982528999051              0.0089
+    <strong>stderr_eta_r</strong>     0.00279030526124307     0.00279029843419195     0.00279038863153022      0.0027901841195297     0.00278875404631148              0.0028
+    <strong>OMEGA       </strong>      0.0580852429371911       0.058095798731577      0.0581177376180411      0.0580943431587623      0.0555974732960202              0.0581
+    <strong>ALPHA_X     </strong>    1.00000002173477e-05    1.89759891648368e-05     1.9993596332932e-05    1.97313330814067e-05    1.97910690809757e-05               2e-05
+    <strong>ALPHA_PI    </strong>                   1e-05    1.78313174342337e-05    1.99814139407131e-05    2.02460372721802e-05    2.03351453576552e-05               2e-05
+    <strong>RHO_PI      </strong>       0.386495021054571       0.386499818026712       0.386448077242307       0.386494526231354       0.384865067131538              0.3866
+    <strong>RHO_G       </strong>       0.396013739926323       0.396012259953528       0.396015776383835       0.395993392171426       0.396126067843807               0.396
+    <strong>RHO_X       </strong>       0.165392800515066       0.165392421975326       0.165447194726425       0.165356685940344       0.165276163139868              0.1654
+    <strong>RHO_A       </strong>       0.904797281936984       0.904794392561828       0.904774355702842       0.904785722216776       0.905748999512557              0.9048
+    <strong>RHO_E       </strong>       0.990673295303714       0.990672239038219       0.990657788384156        0.99067486529977        0.99077855182638              0.9907
+    <strong>Log-Lik     </strong>        1207.56171298046        1207.56158089982        1207.56154978704        1207.56154822799        1207.56081952818    1206.22393291434
 
   Standard Errors (original variables)
-                    <strong>fminsearch</strong>    <strong>fminsearchbnd</strong>
-                    <strong>__________</strong>    <strong>_____________</strong>
+                         <strong>fminsearch</strong>            <strong>fminsearchbnd</strong>              <strong>fmincon</strong>                  <strong>cmaes</strong>                 <strong>cmaes_dsge</strong>                         <strong>fminunc</strong>                 
+                    <strong>____________________</strong>    <strong>____________________</strong>    <strong>____________________</strong>    <strong>____________________</strong>    <strong>____________________</strong>    <strong>________________________________________</strong>
 
-    <strong>stderr_eta_a</strong>      0.016584       0.016581  
-    <strong>stderr_eta_e</strong>    0.00012712     0.00012714  
-    <strong>stderr_eta_z</strong>     0.0014509      0.0014511  
-    <strong>stderr_eta_r</strong>    0.00037031      0.0003703  
-    <strong>OMEGA       </strong>       0.08766       0.087674  
-    <strong>ALPHA_X     </strong>     0.0043424      0.0043424  
-    <strong>ALPHA_PI    </strong>     0.0025321       0.002532  
-    <strong>RHO_PI      </strong>       0.12728        0.12729  
-    <strong>RHO_G       </strong>      0.065009        0.06501  
-    <strong>RHO_X       </strong>       0.06149       0.061492  
-    <strong>RHO_A       </strong>      0.059602       0.059597  
-    <strong>RHO_E       </strong>      0.015508        0.01551  
-    <strong>Log-Lik     </strong>        1207.6         1207.6  
+    <strong>stderr_eta_a</strong>      0.0165835971263839      0.0165812256917863      0.0165802674250856      0.0165771143561005      0.0170484518569518     0.00677445191208432+0i                 
+    <strong>stderr_eta_e</strong>     0.00012712094955821    0.000127136803531439    0.000127236538362584    0.000127096251960756    0.000124330102683437     3.1148470827176e-05+0i                 
+    <strong>stderr_eta_z</strong>     0.00145090088716998     0.00145106999823659     0.00145229799195575      0.0014505714207058     0.00141197780857382    0.000497033674176422+0i                 
+    <strong>stderr_eta_r</strong>    0.000370305222041609    0.000370301848787212    0.000370339216617985    0.000370255043900969    0.000369987995294092    0.000369849057003821+0i                 
+    <strong>OMEGA       </strong>      0.0876604921772656       0.087673870843736      0.0877855362593653      0.0876397745936389      0.0840169361487399      0.0156138804258614+0i                 
+    <strong>ALPHA_X     </strong>     0.00434243750089148      0.0043423744755957     0.00434168576576098     0.00434337533980461     0.00431935217637435     0.00429831764534995+0i                 
+    <strong>ALPHA_PI    </strong>     0.00253210302652555      0.0025320017041284     0.00253198847467722     0.00253197245235795     0.00253735846489221     0.00279728243337427+0i                 
+    <strong>RHO_PI      </strong>        0.12728225869836       0.127288627131697       0.127327014367754       0.127256988778033       0.125999798125184       0.117876542135879+0i                 
+    <strong>RHO_G       </strong>      0.0650094229648469      0.0650102738230585      0.0650324052026477      0.0649958910804634      0.0646499638535524      0.0523638402271354+0i                 
+    <strong>RHO_X       </strong>      0.0614895305296777      0.0614922125849162      0.0615604211865222      0.0614566316858148      0.0606330701824745                       0+0.0373247357886337i
+    <strong>RHO_A       </strong>      0.0596016961794616      0.0595965402519691      0.0596103716586376      0.0595937404532489      0.0602606906909844      0.0283849353144171+0i                 
+    <strong>RHO_E       </strong>      0.0155078154387216       0.015510335440953      0.0155502314972943       0.015501190208277      0.0151759555382366     0.00585497843763119+0i                 
+    <strong>Log-Lik     </strong>        1207.56171298046        1207.56158089982        1207.56154978704        1207.56154822799        1207.56081952818        1206.22393291434+0i                 
 
   Standard Errors (transformed variables)
-                                <strong>fminsearch</strong>    <strong>fminsearchbnd</strong>
-                                <strong>__________</strong>    <strong>_____________</strong>
+                                    <strong>fminsearch</strong>          <strong>fminsearchbnd</strong>            <strong>fmincon</strong>                <strong>cmaes</strong>               <strong>cmaes_dsge</strong>             <strong>fminunc</strong>      
+                                <strong>__________________</strong>    <strong>__________________</strong>    <strong>__________________</strong>    <strong>__________________</strong>    <strong>__________________</strong>    <strong>__________________</strong>
 
-    <strong>transformed_stderr_eta_a</strong>       0.53273       0.53268   
-    <strong>transformed_stderr_eta_e</strong>       0.72718        0.7272   
-    <strong>transformed_stderr_eta_z</strong>       0.14169        0.1417   
-    <strong>transformed_stderr_eta_r</strong>       0.13434       0.13434   
-    <strong>transformed_OMEGA       </strong>        1.2517        1.2515   
-    <strong>transformed_ALPHA_X     </strong>    1.2286e+05        164.32   
-    <strong>transformed_ALPHA_PI    </strong>    1.9644e+05        102.57   
-    <strong>RHO_PI                  </strong>       0.20978       0.20978   
-    <strong>RHO_G                   </strong>       0.06125       0.06125   
-    <strong>RHO_X                   </strong>      0.097548      0.097556   
-    <strong>RHO_A                   </strong>      0.057945      0.057942   
-    <strong>RHO_E                   </strong>      0.013041      0.013042   
-    <strong>Log-Lik                 </strong>        1207.6        1207.6   
+    <strong>transformed_stderr_eta_a</strong>     0.532730202833654     0.532683527511072     0.532653132173142     0.532597352208971     0.542810689788229     0.407265253241623
+    <strong>transformed_stderr_eta_e</strong>     0.727181383738893     0.727200356547414     0.727277882105009     0.727242856669212     0.726576942445631     0.175530565817771
+    <strong>transformed_stderr_eta_z</strong>     0.141693496237535     0.141701410600055     0.141701493629392     0.141706457642709     0.140561460852243     0.121559572652663
+    <strong>transformed_stderr_eta_r</strong>     0.134339156790341      0.13434001693363      0.13435204924517     0.134321861081455     0.134327917971228     0.155665743036282
+    <strong>transformed_OMEGA       </strong>      1.25173233076287      1.25154504191654      1.25165705365274      1.25135841800151      1.29537312846323      1.60151140804398
+    <strong>transformed_ALPHA_X     </strong>      122858.294612315      164.319108077779      155.703127508964      157.849253806242       156.49755857642      154.105014932212
+    <strong>transformed_ALPHA_PI    </strong>      196442.474525219      102.573942597507      90.8565618939732       89.674938988382      89.4774615161106      100.289709949958
+    <strong>RHO_PI                  </strong>     0.209778675587894     0.209783733049772     0.209840465681736     0.209773017473022     0.209058254855122     0.302276122343121
+    <strong>RHO_G                   </strong>    0.0612499368488562     0.061250258955226     0.061255611557307    0.0612418902524246    0.0612166144876204    0.0899795183315607
+    <strong>RHO_X                   </strong>    0.0975482651468583    0.0975559252044139    0.0976152118556535    0.0975099883632501    0.0964547382007655     0.141380229323486
+    <strong>RHO_A                   </strong>     0.057945248175218    0.0579421683649854    0.0579523382607387    0.0579398851271078    0.0584476868482783    0.0363370745190539
+    <strong>RHO_E                   </strong>    0.0130405418344552    0.0130419842167093    0.0130634824586678    0.0130378012055253     0.012908966479231    0.0136987382629648
+    <strong>Log-Lik                 </strong>      1207.56171298046      1207.56158089982      1207.56154978704      1207.56154822799      1207.56081952818      1206.22393291434
 
 Final value of the best Gaussian log-likelihood function: 1207.5617
-****************************************************************************************************
-
-INITIAL VALUES: For initial value search, we use a pruning threshold of 10%. This will be re-set at the final stage.
-
-
-INITIAL VALUES: Running grid search for CSN skewness/gamma parameters:
-  0%[>                                                  ]
-                      <strong>best 1</strong>        <strong>best 2</strong>        <strong>best 3</strong>  
-                    <strong>__________</strong>    <strong>__________</strong>    <strong>__________</strong>
-
-    <strong>stderr eta_a</strong>      0.030168      0.030168      0.030168
-    <strong>stderr eta_e</strong>    0.00024766    0.00024766    0.00024766
-    <strong>stderr eta_z</strong>     0.0088647     0.0088647     0.0088647
-    <strong>stderr eta_r</strong>     0.0027903     0.0027903     0.0027903
-
-                   <strong>best 1</strong>      <strong>best 2</strong>      <strong>best 3</strong> 
-                  <strong>________</strong>    <strong>________</strong>    <strong>________</strong>
-
-    <strong>skew eta_a</strong>    -0.13571    -0.13571    -0.13571
-    <strong>skew eta_e</strong>    -0.13571    -0.13571    -0.27143
-    <strong>skew eta_z</strong>    -0.67857    -0.81429    -0.27143
-    <strong>skew eta_r</strong>     0.54286     0.54286     0.54286
-
-               <strong>best 1</strong>    <strong>best 2</strong>    <strong>best 3</strong>
-               <strong>______</strong>    <strong>______</strong>    <strong>______</strong>
-
-    <strong>Log-Lik</strong>    1212.1     1212     1211.9
-
-
-INITIAL VALUES: Optimize over both Sigma_eta/stderr_eta as well as Gamma_eta/Skew_eta using best values from grid search for CSN skewness/gamma parameter:
-****************************************************************************************************
-SUMMARY INITVAL STAGE 1
-
-  Point Estimates
-                    <strong>fminsearch_init_2</strong>    <strong>fminsearchbnd_init_2</strong>    <strong>fminsearch_init_1</strong>    <strong>fminsearchbnd_init_1</strong>    <strong>fminsearch_init_3</strong>    <strong>fminsearchbnd_init_3</strong>
-                    <strong>_________________</strong>    <strong>____________________</strong>    <strong>_________________</strong>    <strong>____________________</strong>    <strong>_________________</strong>    <strong>____________________</strong>
-
-    <strong>skew_eta_a  </strong>         -0.13934               -0.13934              -0.14043               -0.14043              -0.14901               -0.14901     
-    <strong>skew_eta_e  </strong>         -0.13598               -0.13598              -0.12886               -0.12886              -0.26127               -0.26127     
-    <strong>skew_eta_z  </strong>         -0.77569               -0.77569              -0.64283               -0.64283              -0.27859               -0.27859     
-    <strong>skew_eta_r  </strong>          0.57307                0.57307               0.56148                0.56148               0.54559                0.54559     
-    <strong>stderr_eta_a</strong>         0.028111               0.028111              0.027839               0.027839              0.027839               0.027839     
-    <strong>stderr_eta_e</strong>       0.00027148             0.00027148            0.00026808             0.00026808            0.00026783             0.00026783     
-    <strong>stderr_eta_z</strong>        0.0089405              0.0089405              0.008956               0.008956             0.0086532              0.0086532     
-    <strong>stderr_eta_r</strong>        0.0028228              0.0028228             0.0027997              0.0027997             0.0028743              0.0028743     
-    <strong>Log-Lik     </strong>           1212.7                 1212.7                1212.7                 1212.7                1212.5                 1212.5     
-
-Final value of the best log-likelihood function: 1212.6730
-****************************************************************************************************
-
-
-
-INITIAL VALUES: Run maximum likelihood estimation with Pruned Skewed Kalman filter for all parameters using different optimizers in parallel:
-****************************************************************************************************
-SUMMARY INITVAL STAGE 2
-
-  Point Estimates
-                    <strong>fminsearch</strong>    <strong>fminsearchbnd</strong>
-                    <strong>__________</strong>    <strong>_____________</strong>
-
-    <strong>skew_eta_a  </strong>      -0.13516       -0.14828  
-    <strong>skew_eta_e  </strong>      -0.13969       -0.13094  
-    <strong>skew_eta_z  </strong>      -0.78507       -0.82905  
-    <strong>skew_eta_r  </strong>       0.65095        0.60041  
-    <strong>stderr_eta_a</strong>      0.027364       0.030611  
-    <strong>stderr_eta_e</strong>    0.00030459     0.00028081  
-    <strong>stderr_eta_z</strong>     0.0084461       0.009106  
-    <strong>stderr_eta_r</strong>     0.0027821      0.0026917  
-    <strong>OMEGA       </strong>      0.085915       0.057218  
-    <strong>ALPHA_X     </strong>         1e-05     1.0002e-05  
-    <strong>ALPHA_PI    </strong>         1e-05          1e-05  
-    <strong>RHO_PI      </strong>        0.4107        0.38218  
-    <strong>RHO_G       </strong>       0.35113        0.35168  
-    <strong>RHO_X       </strong>       0.16838        0.16071  
-    <strong>RHO_A       </strong>       0.90515        0.91648  
-    <strong>RHO_E       </strong>       0.99372        0.99231  
-    <strong>Log-Lik     </strong>        1213.9         1213.3  
-
-Final value of the best log-likelihood function: 1213.9391
 ****************************************************************************************************
 
 
@@ -288,50 +209,50 @@ Run maximum likelihood estimation with Pruned Skewed Kalman filter for all param
 SUMMARY CSN
 
   Point Estimates
-                    <strong>fminsearchbnd</strong>    <strong>fminsearch</strong>
-                    <strong>_____________</strong>    <strong>__________</strong>
+                         <strong>fminsearch</strong>            <strong>fminsearchbnd</strong>              <strong>fmincon</strong>                 <strong>fminunc</strong>                  <strong>cmaes</strong>                 <strong>cmaes_dsge</strong>     
+                    <strong>____________________</strong>    <strong>____________________</strong>    <strong>____________________</strong>    <strong>____________________</strong>    <strong>____________________</strong>    <strong>____________________</strong>
 
-    <strong>skew_eta_a  </strong>        -0.1582        -0.14225
-    <strong>skew_eta_e  </strong>       -0.19772        -0.15546
-    <strong>skew_eta_z  </strong>        -0.9217        -0.90473
-    <strong>skew_eta_r  </strong>        0.82398         0.80405
-    <strong>stderr_eta_a</strong>       0.024371        0.023686
-    <strong>stderr_eta_e</strong>     0.00021082      0.00017602
-    <strong>stderr_eta_z</strong>      0.0079524       0.0081353
-    <strong>stderr_eta_r</strong>      0.0028625       0.0028368
-    <strong>OMEGA       </strong>         0.1554         0.14968
-    <strong>ALPHA_X     </strong>      0.0001955      0.00025373
-    <strong>ALPHA_PI    </strong>          1e-05           1e-05
-    <strong>RHO_PI      </strong>        0.29083          0.2468
-    <strong>RHO_G       </strong>        0.33946         0.34175
-    <strong>RHO_X       </strong>        0.28184         0.29675
-    <strong>RHO_A       </strong>        0.91392         0.91029
-    <strong>RHO_E       </strong>        0.98142         0.98363
-    <strong>Log-Lik     </strong>         1215.8          1215.7
+    <strong>skew_eta_a  </strong>      -0.213756064936548      -0.210269296892251      -0.217084820658091      -0.217152126632996      -0.217152129209896      -0.217152129209896
+    <strong>skew_eta_e  </strong>      -0.222656876908346      -0.219071687818114      -0.226265912961121      -0.226113253527928      -0.226113231149225      -0.226113231149225
+    <strong>skew_eta_z  </strong>      -0.948864427236076      -0.946974648802304      -0.923848534241701       -0.92384923611602      -0.923849236134372      -0.923849236134372
+    <strong>skew_eta_r  </strong>       0.802848191663897       0.804607446882275        0.80556606712293       0.805559212298014       0.805559211425317       0.805559211425317
+    <strong>stderr_eta_a</strong>       0.025303390881332      0.0251112708316177      0.0252402484096532      0.0252393871392421       0.025239387157507       0.025239387157507
+    <strong>stderr_eta_e</strong>    0.000203686573462659    0.000195165267855201    0.000197721351619906    0.000197716076770902    0.000197716076509666    0.000197716076509666
+    <strong>stderr_eta_z</strong>     0.00792210220082026     0.00795739674752592     0.00796616751141098     0.00796603498546589     0.00796603498559645     0.00796603498559645
+    <strong>stderr_eta_r</strong>     0.00283534247363642      0.0028343370131889     0.00283625651075517     0.00283620206162772     0.00283620205731904     0.00283620205731904
+    <strong>OMEGA       </strong>       0.151638526664774       0.151960100335892        0.15013875865075       0.150114849969124       0.150114849014154       0.150114849014154
+    <strong>ALPHA_X     </strong>    0.000185784174722417    0.000140761178599379    0.000193240867990571    0.000193236869008578    0.000193236868878676    0.000193236868878676
+    <strong>ALPHA_PI    </strong>    1.00005178147396e-05    1.00005374702576e-05    1.00000002309978e-05    1.00000002310016e-05    1.00000002310016e-05    1.00000002310016e-05
+    <strong>RHO_PI      </strong>       0.277049756329777       0.264653247147564       0.267852963542256       0.267849426659181       0.267849413749733       0.267849413749733
+    <strong>RHO_G       </strong>       0.340201166470791       0.340369647388985        0.34100859419422       0.341003338300799       0.341003324945699       0.341003324945699
+    <strong>RHO_X       </strong>        0.28349157041171        0.28411854031756       0.284622562112648       0.284612341913023       0.284612308301521       0.284612308301521
+    <strong>RHO_A       </strong>       0.916958046945673       0.916357054685601       0.916781702338179       0.916787807576256       0.916787807033826       0.916787807033826
+    <strong>RHO_E       </strong>       0.981229899873662       0.981832649363114        0.98139873396108       0.981399140102054       0.981399127628676       0.981399127628676
+    <strong>Log-Lik     </strong>        1215.83536443909        1215.83316411472        1215.82215006812        1215.82214225997        1215.82214111658        1215.82214111658
 
   Standard Errors
-                    <strong>fminsearchbnd</strong>          <strong>fminsearch</strong>      
-                    <strong>_____________</strong>    <strong>______________________</strong>
+                         <strong>fminsearch</strong>                       <strong>fminsearchbnd</strong>                                    <strong>fmincon</strong>                                       <strong>fminunc</strong>                                        <strong>cmaes</strong>                                     <strong>cmaes_dsge</strong>                
+                    <strong>____________________</strong>    <strong>__________________________________________</strong>    <strong>__________________________________________</strong>    <strong>__________________________________________</strong>    <strong>_________________________________________</strong>    <strong>_________________________________________</strong>
 
-    <strong>skew_eta_a  </strong>      0.0078255       0.0074188+0i         
-    <strong>skew_eta_e  </strong>       0.010196       0.0053843+0i         
-    <strong>skew_eta_z  </strong>       0.043919               0+0.012004i  
-    <strong>skew_eta_r  </strong>       0.038436        0.025298+0i         
-    <strong>stderr_eta_a</strong>      0.0019627       0.0013968+0i         
-    <strong>stderr_eta_e</strong>     5.4053e-05               0+6.3573e-05i
-    <strong>stderr_eta_z</strong>     0.00078884      0.00063829+0i         
-    <strong>stderr_eta_r</strong>     0.00024807      0.00028167+0i         
-    <strong>OMEGA       </strong>      0.0073717       0.0079624+0i         
-    <strong>ALPHA_X     </strong>     0.00054233               0+1.4698e-05i
-    <strong>ALPHA_PI    </strong>      0.0022167        0.001243+0i         
-    <strong>RHO_PI      </strong>       0.017978       0.0083399+0i         
-    <strong>RHO_G       </strong>       0.014715        0.015174+0i         
-    <strong>RHO_X       </strong>       0.012387               0+0.0047516i 
-    <strong>RHO_A       </strong>       0.018078        0.011425+0i         
-    <strong>RHO_E       </strong>       0.024062               0+0.030131i  
-    <strong>Log-Lik     </strong>         1215.8          1215.7+0i         
+    <strong>skew_eta_a  </strong>     0.00908030599107068      0.0103629143622351+0i                                          0+0.034518350953783i                          0+0.00609699760088367i                        0+0.00414274873500306i                       0+0.00414274873500306i
+    <strong>skew_eta_e  </strong>      0.0198064124805306      0.0177107904364079+0i                         0.0100708075734926+0i                         0.0106474227183839+0i                        0.00914894857072222+0i                       0.00914894857072222+0i                  
+    <strong>skew_eta_z  </strong>      0.0763885510378923      0.0363273998689205+0i                         0.0373649374589856+0i                         0.0852075563397751+0i                         0.0329450850139026+0i                        0.0329450850139026+0i                  
+    <strong>skew_eta_r  </strong>      0.0437322036406081      0.0417575963683742+0i                         0.0385145947619294+0i                         0.0943206314688256+0i                         0.0308139870216738+0i                        0.0308139870216738+0i                  
+    <strong>stderr_eta_a</strong>     0.00162065967031098                       0+0.001986429558465i       0.000886954446670462+0i                         0.0012994438975412+0i                       0.000892124228143373+0i                      0.000892124228143373+0i                  
+    <strong>stderr_eta_e</strong>    5.77393513048005e-05     5.6957626475632e-05+0i                       6.01525649734136e-05+0i                       5.99617542657566e-05+0i                       5.60112543872343e-05+0i                      5.60112543872343e-05+0i                  
+    <strong>stderr_eta_z</strong>    0.000255624057293812                       0+0.000214478547255855i                       0+0.000351487244485391i                       0+0.000332603505255494i                       0+0.00034580150273617i                       0+0.00034580150273617i
+    <strong>stderr_eta_r</strong>    0.000212882809914093    0.000208954144783643+0i                       0.000233157480498385+0i                       0.000465865658355354+0i                       0.000277837865355627+0i                      0.000277837865355627+0i                  
+    <strong>OMEGA       </strong>     0.00855223458325472     0.00785733996308768+0i                                          0+0.0104709888265963i        0.0204012489875202+0i                        0.00452941335104646+0i                       0.00452941335104646+0i                  
+    <strong>ALPHA_X     </strong>    0.000366620581526687      0.0110418627671819+0i                       0.000161632958155857+0i                       0.000760916296460145+0i                       0.000232286695799112+0i                      0.000232286695799112+0i                  
+    <strong>ALPHA_PI    </strong>     0.00190228201374146     0.00174761731522516+0i                        0.00189241992550666+0i                        0.00210542623595175+0i                        0.00190729591926022+0i                       0.00190729591926022+0i                  
+    <strong>RHO_PI      </strong>      0.0197765923416691       0.013907834641191+0i                         0.0188273573677871+0i                         0.0146186255894578+0i                         0.0133841761648522+0i                        0.0133841761648522+0i                  
+    <strong>RHO_G       </strong>      0.0130229100109466      0.0151404194026179+0i                         0.0337592009604452+0i                         0.0332315036613949+0i                         0.0184561295126678+0i                        0.0184561295126678+0i                  
+    <strong>RHO_X       </strong>     0.00219607593035865                       0+0.00483407210002988i                        0+0.00160127858967846i                        0+0.00175281863343001i                        0+0.00172755140320025i                       0+0.00172755140320025i
+    <strong>RHO_A       </strong>      0.0106627788686409                       0+0.00784270606905909i       0.0106119999054741+0i                         0.0121332423460888+0i                         0.0105365817518973+0i                        0.0105365817518973+0i                  
+    <strong>RHO_E       </strong>      0.0249505854964088      0.0274954144827493+0i                         0.0261036657838849+0i                          0.026450527459525+0i                         0.0251314426269012+0i                        0.0251314426269012+0i                  
+    <strong>Log-Lik     </strong>        1215.83536443909        1215.83316411472+0i                           1215.82215006812+0i                           1215.82214225997+0i                           1215.82214111658+0i                          1215.82214111658+0i                  
 
-Final value of the best CSN log-likelihood function: 1215.7557
-Likelihood Ratio Test Statistic = 16.39 with p-val = 0.0025
+Final value of the best CSN log-likelihood function: 1215.8354
+Likelihood Ratio Test Statistic = 16.55 with p-val = 0.0024
 ****************************************************************************************************
 

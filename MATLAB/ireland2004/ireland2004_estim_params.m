@@ -63,24 +63,24 @@ if STAGE == "gaussian_initval_from_ireland2004_paper"
 elseif STAGE == "csn_initval"
     if options_.parameters.use_stderr_skew
         % skew parameters
-        estim_params_.skew_exo    = [ estim_params_.skew_exo;   [ idx_eta_a,  -0.184394700801044,  options_.parameters.skewness_bounds ] ];
-        estim_params_.skew_exo    = [ estim_params_.skew_exo;   [ idx_eta_e,  -0.210718413719792,  options_.parameters.skewness_bounds ] ];
-        estim_params_.skew_exo    = [ estim_params_.skew_exo;   [ idx_eta_z,  -0.980044798218938,  options_.parameters.skewness_bounds ] ];
-        estim_params_.skew_exo    = [ estim_params_.skew_exo;   [ idx_eta_r,   0.799764339004216,  options_.parameters.skewness_bounds ] ];
+        estim_params_.skew_exo    = [ estim_params_.skew_exo;   [ idx_eta_a,  -0.217152129209896,  options_.parameters.skewness_bounds ] ];
+        estim_params_.skew_exo    = [ estim_params_.skew_exo;   [ idx_eta_e,  -0.226113231149225,  options_.parameters.skewness_bounds ] ];
+        estim_params_.skew_exo    = [ estim_params_.skew_exo;   [ idx_eta_z,  -0.923849236134372,  options_.parameters.skewness_bounds ] ];
+        estim_params_.skew_exo    = [ estim_params_.skew_exo;   [ idx_eta_r,   0.805559211425317,  options_.parameters.skewness_bounds ] ];
         % stderr parameters
-        estim_params_.var_exo    = [ estim_params_.var_exo;     [ idx_eta_a,   0.024413432751257,  0,  1 ] ];
-        estim_params_.var_exo    = [ estim_params_.var_exo;     [ idx_eta_e,   0.000204389799289,  0,  1 ] ];
-        estim_params_.var_exo    = [ estim_params_.var_exo;     [ idx_eta_z,   0.007908159026356,  0,  1 ] ];
-        estim_params_.var_exo    = [ estim_params_.var_exo;     [ idx_eta_r,   0.002851650708864,  0,  1 ] ];
+        estim_params_.var_exo    = [ estim_params_.var_exo;     [ idx_eta_a,   0.025239387157507,  0,  1 ] ];
+        estim_params_.var_exo    = [ estim_params_.var_exo;     [ idx_eta_e,   0.000197716076509666,  0,  1 ] ];
+        estim_params_.var_exo    = [ estim_params_.var_exo;     [ idx_eta_z,   0.00796603498559645,  0,  1 ] ];
+        estim_params_.var_exo    = [ estim_params_.var_exo;     [ idx_eta_r,   0.00283620205731904,  0,  1 ] ];
     end
-    estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"OMEGA"),1),    0.159644017914298,  0,  1 ] ];
-    estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"ALPHA_X"),1),  0.000106616306533,  1e-5,  1 ] ];
-    estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"ALPHA_PI"),1), 0.000101659210638,  1e-5,  1 ] ];
-    estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_PI"),1),   0.281767895546142,  0,  1 ] ];
-    estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_G"),1),    0.341320071286309,  0,  1 ] ];
-    estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_X"),1),    0.284545656092694,  0,  1 ] ];
-    estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_A"),1),    0.914081907408818,  0,  1 ] ];
-    estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_E"),1),    0.981811159652702,  0,  1 ] ];
+    estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"OMEGA"),1),    0.150114849014154,  0,  1 ] ];
+    estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"ALPHA_X"),1),  0.000193236868878676,  1e-5,  1 ] ];
+    estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"ALPHA_PI"),1), 1.00000002310016e-05,  1e-5,  1 ] ];
+    estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_PI"),1),   0.267849413749733,  0,  1 ] ];
+    estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_G"),1),    0.341003324945699,  0,  1 ] ];
+    estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_X"),1),    0.284612308301521,  0,  1 ] ];
+    estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_A"),1),    0.916787807033826,  0,  1 ] ];
+    estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_E"),1),    0.981399127628676,  0,  1 ] ];
 
 elseif STAGE == "csn_shock_params"
     % focus only on shock parameters, use calibrated values from M_ structure as initial values

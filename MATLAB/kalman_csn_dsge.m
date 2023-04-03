@@ -188,7 +188,7 @@ function [log_likelihood_val, filt_param_last, xfilt] = kalman_csn_dsge( ...
                 cdf_val_denom = logmvncdf_ME( eval_point_denom, Corr_mat_denom);
             end
         catch
-            warning('kalman_can_dsge: cdf_val_denom something wrong')
+            warning('kalman_csn_dsge: cdf_val_denom something wrong')
             log_likelihood_val = -Inf;
             return
         end
@@ -211,7 +211,7 @@ function [log_likelihood_val, filt_param_last, xfilt] = kalman_csn_dsge( ...
                 cdf_val_num = logmvncdf_ME(eval_point_num, Corr_mat_num);
             end
         catch
-            warning('kalman_can_dsge: cdf_val_num something wrong')
+            warning('kalman_csn_dsge: cdf_val_num something wrong')
             log_likelihood_val = -Inf;
             return
         end
