@@ -56,6 +56,14 @@ function [oo_, M_] = dsge_maximum_likelihood_estimation_csn(M_, options_, datama
 % Kalman Filter and Smoother: With Application to the Yield Curve" by
 % Gaygysyz Guljanov, Willi Mutschler, Mark Trede
 % =========================================================================
+% remove optimizers that require missing optimization toolbox in Apple Silicon Beta R2022b
+v = ver;
+has_optim_toolbox = any(strcmp(cellstr(char(v.Name)), 'Optimization Toolbox'));
+if ~has_optim_toolbox
+    options_.optim_opt.names(options_.optim_opt.names=="fmincon") = [];
+    options_.optim_opt.names(options_.optim_opt.names=="fminunc") = [];
+end
+
 % set missing options
 if ~isfield(options_.parameters,'transform')
     options_.parameters.transform = [];
