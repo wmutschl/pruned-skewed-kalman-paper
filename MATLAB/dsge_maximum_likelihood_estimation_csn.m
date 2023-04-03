@@ -228,7 +228,8 @@ if isfield(options_.kalman.csn,'initval_search') && (options_.kalman.csn.initval
     end
     diary(options_.logfile)
     [~,best_stage1] = sort(neg_log_likelihood_stage1);
-    
+    [xparams_stage1, bounds1] = dsge_untransform(xparams_stage1_tr, bounds1_tr, estim_params_1);
+
     % display summary
     strOptimNamesInit = repmat(options_.optim_opt.names,1,grid.bestof) + "_init_" + string(kron(1:grid.bestof,ones(1,length(options_.optim_opt.names))));
     fprintf('%s\nSUMMARY INITVAL STAGE 1\n\n',repmat('*',1,100))
@@ -257,6 +258,7 @@ if isfield(options_.kalman.csn,'initval_search') && (options_.kalman.csn.initval
     fprintf('\n\nINITIAL VALUES: Run maximum likelihood estimation with Pruned Skewed Kalman filter for all parameters using different optimizers in parallel:\n')
     diary off
     [xparams_stage2_tr, neg_log_likelihood_stage2, best_stage2] = minimize_objective_in_parallel(objfct, xparamsInit_stage2_tr, bounds2_tr(:,1), bounds2_tr(:,2), options_.optim_opt,    bounds2_tr,datamat,estim_params_2,options_,M_);
+    [xparams_stage2, bounds2] = dsge_untransform(xparams_stage2_tr, bounds2_tr, estim_params_2);
     diary(options_.logfile)
     % display summary
     fprintf('%s\nSUMMARY INITVAL STAGE 2\n\n',repmat('*',1,100))
