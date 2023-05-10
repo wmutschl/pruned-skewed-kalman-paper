@@ -1,5 +1,5 @@
 function [ys_, params_, error_indicator] = ireland2004_steady_state(ys_,exo_,M_,options_)
-% function [ys, params_, error_indicator] = ireland2004_steady_state(M_)
+% function [ys, params_, error_indicator] = ireland2004_steady_state(ys_,exo_,M_,options_)
 % -------------------------------------------------------------------------
 % computes the steady-state of the small scale New Keynesian model of Ireland (2004): 
 % "Technology Shocks in The New Keynesian Model", The Review of Economics and Statistics
@@ -30,8 +30,9 @@ function [ys_, params_, error_indicator] = ireland2004_steady_state(ys_,exo_,M_,
 % GNU General Public License for more details.
 % -------------------------------------------------------------------------
 % This file is part of the replication files for the paper "Pruned Skewed
-% Kalman Filter and Smoother: With Application to the Yield Curve" by
-% Gaygysyz Guljanov, Willi Mutschler, Mark Trede
+% Kalman Filter and Smoother: Pruned Skewed Kalman Filter and Smoother:
+% With Applications to the Yield Curve and Asymmetric Monetary Policy Shocks"
+% by Gaygysyz Guljanov, Willi Mutschler, Mark Trede
 % =========================================================================
 
 error_indicator = 0; % initialize no error

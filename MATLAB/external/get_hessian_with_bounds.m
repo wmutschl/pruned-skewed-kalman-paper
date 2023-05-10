@@ -1,5 +1,15 @@
+% This file is part of the replication files for the paper "Pruned Skewed
+% Kalman Filter and Smoother: Pruned Skewed Kalman Filter and Smoother:
+% With Applications to the Yield Curve and Asymmetric Monetary Policy Shocks"
+% by Gaygysyz Guljanov, Willi Mutschler, Mark Trede
+
 function hessian_mat = get_hessian_with_bounds(func, x, gstep, bounds, varargin)
-% Computes second order partial derivatives
+% Computes second order partial derivatives using two-sided finite
+% difference method.
+% based on get_hessian.m from Dynare with the following changes:
+% - if a step up or down of a parameter passes the lower or upper bounds,
+%   then the partial derivatives are computed using one-sided finite
+%   differences.
 %
 % INPUTS
 %    func        [string]   name of the function
@@ -26,21 +36,17 @@ function hessian_mat = get_hessian_with_bounds(func, x, gstep, bounds, varargin)
 %
 
 % Copyright (C) 2001-2017 Dynare Team
+% Copyright (C) 2023 Willi Mutschler
 %
-% This file is part of Dynare.
-%
-% Dynare is free software: you can redistribute it and/or modify
+% This is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by
 % the Free Software Foundation, either version 3 of the License, or
 % (at your option) any later version.
 %
-% Dynare is distributed in the hope that it will be useful,
+% It is distributed in the hope that it will be useful,
 % but WITHOUT ANY WARRANTY; without even the implied warranty of
 % MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 % GNU General Public License for more details.
-%
-% You should have received a copy of the GNU General Public License
-% along with Dynare.  If not, see <https://www.gnu.org/licenses/>.
 
 if ~isa(func, 'function_handle')
     func = str2func(func);

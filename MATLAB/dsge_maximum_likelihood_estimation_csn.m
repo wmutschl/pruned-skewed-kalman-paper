@@ -1,5 +1,5 @@
-function [oo_, M_] = dsge_maximum_likelihood_estimation_csn(M_, options_, datamat)
-% function [oo_, M_] = dsge_maximum_likelihood_estimation_csn(M_, options_, datamat)
+function [oo_gauss, oo_csn, M_gauss, M_csn, estim_params_gauss, estim_params_csn] = dsge_maximum_likelihood_estimation_csn(M_, options_, datamat)
+% function [oo_gauss, oo_csn, M_gauss, M_csn] = dsge_maximum_likelihood_estimation_csn(M_, options_, datamat)
 % -------------------------------------------------------------------------
 % Maximum Likelihood Estimation of a DSGE model with CSN distributed innovations,
 % solved with first-order perturbation techniques, and estimated using the
@@ -20,25 +20,30 @@ function [oo_, M_] = dsge_maximum_likelihood_estimation_csn(M_, options_, datama
 %   - due to identifiability, we normalize nu_eta=0, Delta_eta=I
 %   - mu_eta is endogenously determined to ensure that E[eta]=0
 % -------------------------------------------------------------------------
-% Note that we run the estimation in several stages in order to get good initial values:
-% - use provided initial values in estimated_params_0 file
-% - run ML with Gaussian Kalman filter
-% - fix model parameters and Var[eta_j] to estimates from Gaussian Kalman filter
-% - create grid for Skew[eta_j]_i keeping Var[eta_j] constant
+% Initial value search:
+% - use provided initial values in estim_params.m file
+% - run Maximum Likelihood estimation with Gaussian Kalman filter
+% - fix model parameters and Var[eta_j] to estimates with Gaussian Kalman filter
+% - create grid for Skew[eta_j]_i keeping Var[eta_j] constant at Gaussian estimates
 % - for each combination of Var[eta_j] and Skew[eta_j]_i recover corresponding Sigma_eta_j and Gamma_eta_j combinations
 % - compute negative log-likelihood of each value on grid
 % - for a chosen number of best combinations: use these as initial value and optimize shock parameters with Pruned Skewed Kalman filter
 % - use best values from grid search as initial value for shock parameters and values from Gaussian estimatino as initial value for model parameters
 % - run optimization with Pruned Skewed Kalman filter to estimate model as well as shock parameters
+% - save optimized values into estim_params.m file for easy access
 % -------------------------------------------------------------------------
 % INPUTS
 % - M_         [structure]              information on the model (stripped down version of Dynare's M_ structure)
 % - options_   [structure]              options (stripped down version of Dynare's options_ structure)
-% - datamat    [varobs_nbr by nobs)     matrix with data
+% - datamat    [varobs_nbr by nobs]     matrix with data
 % -------------------------------------------------------------------------
 % OUTPUTS
-% - oo_        [structure]   estimation results and structures of different stages
-% - M_         [structure]   updated information on the model (stripped down version of Dynare's M_ structure)
+% - oo_gauss             [structure]   estimation results of Gaussian Kalman filter
+% - oo_csn               [structure]   estimation results of Pruned Skewed Kalman filter
+% - M_gauss              [structure]   updated information and parameters on the model of Gaussian Kalman filter
+% - M_csn                [structure]   updated information and parameters on the model of Pruned Skewed Kalman filter
+% - estim_params_gauss   [structure]   information on estimated parameters in Gaussian case
+% - estim_params_csn     [structure]   information on estimated parameters in CSN case
 % =========================================================================
 % Copyright © 2023 Willi Mutschler
 %
@@ -53,8 +58,9 @@ function [oo_, M_] = dsge_maximum_likelihood_estimation_csn(M_, options_, datama
 % GNU General Public License for more details.
 % -------------------------------------------------------------------------
 % This file is part of the replication files for the paper "Pruned Skewed
-% Kalman Filter and Smoother: With Application to the Yield Curve" by
-% Gaygysyz Guljanov, Willi Mutschler, Mark Trede
+% Kalman Filter and Smoother: Pruned Skewed Kalman Filter and Smoother:
+% With Applications to the Yield Curve and Asymmetric Monetary Policy Shocks"
+% by Gaygysyz Guljanov, Willi Mutschler, Mark Trede
 % =========================================================================
 % remove optimizers that require missing optimization toolbox in Apple Silicon Beta R2022b
 v = ver;
@@ -63,7 +69,6 @@ if ~has_optim_toolbox
     options_.optim_opt.names(options_.optim_opt.names=="fmincon") = [];
     options_.optim_opt.names(options_.optim_opt.names=="fminunc") = [];
 end
-
 % set missing options
 if ~isfield(options_.parameters,'transform')
     options_.parameters.transform = [];
@@ -97,8 +102,8 @@ options_.kalman.csn
 options_.parameters
 options_.parameters.transform
 options_.parameters.fix
+options_STDERR = options_; options_STDERR.parameters.transform = []; % options to compute standard errors on untransformed parameters
 
-options_STDERR = options_; options_STDERR.parameters.transform = []; % we compute standard errors on untransformed parameters
 objfct = @negative_log_likelihood;
 
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -128,13 +133,14 @@ disp(array2table([xstderr_gauss_tr(:,best_gauss); -neg_log_likelihood_gauss(best
 fprintf('Final value of the best Gaussian log-likelihood function: %6.4f\n', -1*neg_log_likelihood_gauss(best_gauss(1)))
 fprintf('%s\n\n',repmat('*',1,100))
 % store results
-oo_.gauss.xparams_tr = xparams_gauss_tr;
-oo_.gauss.xparams = xparams_gauss;
-oo_.gauss.xstderr = xstderr_gauss;
-oo_.gauss.xstderr_tr = xstderr_gauss_tr;
-oo_.gauss.neg_log_likelihood = neg_log_likelihood_gauss;
+oo_gauss.xparams_tr = xparams_gauss_tr;
+oo_gauss.xparams = xparams_gauss;
+oo_gauss.xstderr = xstderr_gauss;
+oo_gauss.xstderr_tr = xstderr_gauss_tr;
+oo_gauss.neg_log_likelihood = neg_log_likelihood_gauss;
 % update model and shock parameters
 M_ = dsge_set_params(xparams_gauss_tr(:,best_gauss(1)),estim_params_gauss,options_,M_);
+M_gauss = M_;
 
 if isfield(options_.kalman.csn,'initval_search') && (options_.kalman.csn.initval_search==1)
 %% INIITAL VALUE SEARCH
@@ -246,9 +252,9 @@ if isfield(options_.kalman.csn,'initval_search') && (options_.kalman.csn.initval
     fprintf('Final value of the best log-likelihood function: %6.4f\n', -1*neg_log_likelihood_stage1(best_stage1(1)))
     fprintf('%s\n\n',repmat('*',1,100))
     % store results
-    oo_.initval.stage1.xparams_tr = xparams_stage1_tr;
-    oo_.initval.stage1.xparams = xparams_stage1;
-    oo_.initval.stage1.neg_log_likelihood = neg_log_likelihood_stage1;
+    oo_initval.stage1.xparams_tr = xparams_stage1_tr;
+    oo_initval.stage1.xparams = xparams_stage1;
+    oo_initval.stage1.neg_log_likelihood = neg_log_likelihood_stage1;
     % update model and shock parameters
     M_ = dsge_set_params(xparams_stage1_tr(:,best_stage1(1)),estim_params_1,options_,M_);
         
@@ -275,9 +281,9 @@ if isfield(options_.kalman.csn,'initval_search') && (options_.kalman.csn.initval
     fprintf('Final value of the best log-likelihood function: %6.4f\n', -1*neg_log_likelihood_stage2(best_stage2(1)))
     fprintf('%s\n\n',repmat('*',1,100))
     % store results
-    oo_.initval.stage2.xparams_tr = xparams_stage2_tr;
-    oo_.initval.stage2.xparams = xparams_stage2;
-    oo_.initval.stage2.neg_log_likelihood = neg_log_likelihood_stage2;
+    oo_initval.stage2.xparams_tr = xparams_stage2_tr;
+    oo_initval.stage2.xparams = xparams_stage2;
+    oo_initval.stage2.neg_log_likelihood = neg_log_likelihood_stage2;
     % update model and shock parameters for use in stage 3
     M_ = dsge_set_params(xparams_stage2_tr(:,best_stage2(1)),estim_params_2,options_,M_);
 
@@ -320,12 +326,13 @@ fprintf('Final value of the best CSN log-likelihood function: %6.4f\n', -1*neg_l
 fprintf('Likelihood Ratio Test Statistic = %.2f with p-val = %.4f\n',lr_stat,lr_pval);
 fprintf('%s\n\n',repmat('*',1,100))
 % store results
-oo_.csn.xparams_tr = xparams_csn_tr;
-oo_.csn.xparams = xparams_csn;
-oo_.csn.xstderr = xstderr_csn;
-oo_.csn.neg_log_likelihood = neg_log_likelihood_csn;
+oo_csn.xparams_tr = xparams_csn_tr;
+oo_csn.xparams = xparams_csn;
+oo_csn.xstderr = xstderr_csn;
+oo_csn.neg_log_likelihood = neg_log_likelihood_csn;
 % update model and shock parameters
 M_ = dsge_set_params(xparams_csn_tr(:,best_csn(1)),estim_params_csn,options_,M_);
+M_csn = M_;
 
 %% houeskeeping 
 diary off

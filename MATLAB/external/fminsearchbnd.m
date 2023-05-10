@@ -1,3 +1,8 @@
+% This file is part of the replication files for the paper "Pruned Skewed
+% Kalman Filter and Smoother: Pruned Skewed Kalman Filter and Smoother:
+% With Applications to the Yield Curve and Asymmetric Monetary Policy Shocks"
+% by Gaygysyz Guljanov, Willi Mutschler, Mark Trede
+
 function [x,fval,exitflag,output] = fminsearchbnd(fun,x0,LB,UB,options,varargin)
 % FMINSEARCHBND: FMINSEARCH, but with bound constraints by transformation
 % usage: x=FMINSEARCHBND(fun,x0)

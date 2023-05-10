@@ -26,8 +26,9 @@ function Skew = csnSkewness_univariate(Sigma, Gamma)
 % GNU General Public License for more details.
 % -------------------------------------------------------------------------
 % This file is part of the replication files for the paper "Pruned Skewed
-% Kalman Filter and Smoother: With Application to the Yield Curve" by
-% Gaygysyz Guljanov, Willi Mutschler, Mark Trede
+% Kalman Filter and Smoother: Pruned Skewed Kalman Filter and Smoother:
+% With Applications to the Yield Curve and Asymmetric Monetary Policy Shocks"
+% by Gaygysyz Guljanov, Willi Mutschler, Mark Trede
 % =========================================================================
 term1 = (4 - pi) / 2;
 term2 = (sqrt(2/pi) * Gamma * Sigma / sqrt(1 + Gamma^2 * Sigma))^3;

@@ -4,9 +4,7 @@ function DisplayResults_MakeLatexTables_ComputingTime(filename,ONLY_LATEX)
 % Collects and displays the results of the Monte-Carlo assessment of the 
 % computing time of the log-likelihood function with both the Gaussian
 % as well as Pruned Skewed Kalman filter in Computing_Time_Log_Likliheood.m
-% Creates a log file with results and also the Latex code for the rows of
-% Table 3 of the paper "Pruned Skewed Kalman Filter and Smoother: With Application
-% to the Yield Curve" by Gaygysyz Guljanov, Willi Mutschler, Mark Trede
+% Creates a log file with results and also the corresponding Latex code
 % -------------------------------------------------------------------------
 % INPUTS
 % - filename   [string]   load results created with Computing_Time_Log_Likliheood.m and saved in results/"filename".mat,
@@ -31,8 +29,9 @@ function DisplayResults_MakeLatexTables_ComputingTime(filename,ONLY_LATEX)
 % GNU General Public License for more details.
 % -------------------------------------------------------------------------
 % This file is part of the replication files for the paper "Pruned Skewed
-% Kalman Filter and Smoother: With Application to the Yield Curve" by
-% Gaygysyz Guljanov, Willi Mutschler, Mark Trede (2022)
+% Kalman Filter and Smoother: Pruned Skewed Kalman Filter and Smoother:
+% With Applications to the Yield Curve and Asymmetric Monetary Policy Shocks"
+% by Gaygysyz Guljanov, Willi Mutschler, Mark Trede
 % =========================================================================
 if nargin < 2
     ONLY_LATEX = false;

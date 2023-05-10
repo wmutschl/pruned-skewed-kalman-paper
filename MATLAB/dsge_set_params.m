@@ -1,5 +1,5 @@
 function [M_, error_indicator] = dsge_set_params(xparams,estim_params_,options_,M_)
-% function M_ = set_params_dsge(xparams,estim_params_,options_,M_)
+% function [M_, error_indicator] = dsge_set_params(xparams,estim_params_,options_,M_)
 % -------------------------------------------------------------------------
 % updates parameters in model structure for a DSGE model
 % -------------------------------------------------------------------------
@@ -26,8 +26,9 @@ function [M_, error_indicator] = dsge_set_params(xparams,estim_params_,options_,
 % GNU General Public License for more details.
 % -------------------------------------------------------------------------
 % This file is part of the replication files for the paper "Pruned Skewed
-% Kalman Filter and Smoother: With Application to the Yield Curve" by
-% Gaygysyz Guljanov, Willi Mutschler, Mark Trede
+% Kalman Filter and Smoother: Pruned Skewed Kalman Filter and Smoother:
+% With Applications to the Yield Curve and Asymmetric Monetary Policy Shocks"
+% by Gaygysyz Guljanov, Willi Mutschler, Mark Trede
 % =========================================================================
 error_indicator=zeros(1,M_.exo_nbr);
 idxparams=1;
@@ -90,7 +91,7 @@ if (idxparams-1)~=length(xparams)
     error('something wrong in updating dsge parameters')
 end
 
-% update M_ structure, taking into account which parameter transformation is used and that we assume indepent shocks
+% update M_ structure, taking into account which parameter transformation is used and that we assume independent shocks
 for jexo = 1:M_.exo_nbr
     if options_.parameters.use_stderr_skew
         if M_.Skew_eta(jexo,1) == 0 % Gaussian

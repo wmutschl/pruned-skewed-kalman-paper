@@ -1,5 +1,5 @@
 function log_cdf = logmvncdf_ME(Zj, R, cutoff)
-% log_cdf = logmvncdf_ME(Zj, Corr_mat, cutoff)
+% log_cdf = logmvncdf_ME(Zj, R, cutoff)
 % -------------------------------------------------------------------------
 % Approximates Gaussian log(CDF) function according to Mendell and Elston (1974)
 % -------------------------------------------------------------------------
@@ -25,8 +25,9 @@ function log_cdf = logmvncdf_ME(Zj, R, cutoff)
 % GNU General Public License for more details.
 % -------------------------------------------------------------------------
 % This file is part of the replication files for the paper "Pruned Skewed
-% Kalman Filter and Smoother: With Application to the Yield Curve" by
-% Gaygysyz Guljanov, Willi Mutschler, Mark Trede (2022)
+% Kalman Filter and Smoother: Pruned Skewed Kalman Filter and Smoother:
+% With Applications to the Yield Curve and Asymmetric Monetary Policy Shocks"
+% by Gaygysyz Guljanov, Willi Mutschler, Mark Trede
 % =========================================================================
 
 if nargin < 3

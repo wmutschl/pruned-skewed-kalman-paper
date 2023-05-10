@@ -1,5 +1,5 @@
 function [negative_log_likelihood, exit_flag, M_] = negative_log_likelihood(xparams, bounds, datamat, estim_params_, options_, M_)
-% function [negative_log_likelihood, exit_flag] = negative_log_likelihood(xparam, datamat, bounds, options_, M_)
+% function [negative_log_likelihood, exit_flag, M_] = negative_log_likelihood(xparams, bounds, datamat, estim_params_, options_, M_)
 % -------------------------------------------------------------------------
 % computes the negative log-likelihood of a state-space model with csn distributed innovations eta and normally distributed noise eps:
 %   x(t) = G*x(t-1) + R*eta(t)   [state transition equation]
@@ -16,17 +16,17 @@ function [negative_log_likelihood, exit_flag, M_] = negative_log_likelihood(xpar
 %   - due to identifiability, we normalize nu_eta=0, Delta_eta=I
 % -------------------------------------------------------------------------
 % INPUTS
-% - xparam          [estim_param_nbr by 1]   values of estimated parameters
+% - xparams         [estim_param_nbr by 1]   values of estimated parameters
 % - bounds          [estim_param_nbr by 2]   values with lower and upper bounds for estimated parameters
 % - datamat         [varobs_nbr by nobs)     matrix with data
-% - params_         [structure]              information on calibrated parameters
 % - estim_params_   [structure]              information on estimated parameters, inspired by Dynare's estimated_params block
 % - options_        [structure]              options
-% - M_              [structure]              model information (also includes M_.Sigma_eps, M_.Sigma_eta and M_.Gamma_eta)
+% - M_              [structure]              model information (also includes M_.Sigma_eps, M_.Sigma_eta, M_.Gamma_eta, M_.Cov_eps, M_.Cov_eta)
 % -------------------------------------------------------------------------
 % OUTPUTS
-% - negative_log_likelihood   [double]   value of negative log-likelihood function
-% - exit_flag                 [boolean]  1: no errors occured
+% - negative_log_likelihood   [double]     value of negative log-likelihood function
+% - exit_flag                 [boolean]    1: no errors occured
+% - M_                        [structure]  updated model information with parameters, state space matrices and shock/measurement error matrices
 % =========================================================================
 % Copyright © 2023 Willi Mutschler
 %
@@ -41,14 +41,14 @@ function [negative_log_likelihood, exit_flag, M_] = negative_log_likelihood(xpar
 % GNU General Public License for more details.
 % -------------------------------------------------------------------------
 % This file is part of the replication files for the paper "Pruned Skewed
-% Kalman Filter and Smoother: With Application to the Yield Curve" by
-% Gaygysyz Guljanov, Willi Mutschler, Mark Trede
+% Kalman Filter and Smoother: Pruned Skewed Kalman Filter and Smoother:
+% With Applications to the Yield Curve and Asymmetric Monetary Policy Shocks"
+% by Gaygysyz Guljanov, Willi Mutschler, Mark Trede
 % =========================================================================
 
 %% INITIALIZATIONS
 exit_flag = 1;
 large_number = Inf;
-kf_variant = "gaussian";
 
 if ~isfield(options_,'first_obs')
     options_.first_obs = 1;
@@ -57,15 +57,6 @@ if ~isfield(options_,'nobs')
     options_.nobs = size(datamat,1);
 end
 datamat = datamat(options_.first_obs:options_.nobs,:);
-
-%% CHECK BOUNDS
-if options_.optim_opt.penalize_objective
-    if any(xparams<bounds(:,1)) || any(xparams>bounds(:,2))
-        negative_log_likelihood = large_number;
-        exit_flag = 0;
-        return
-    end
-end
 
 %% UPDATE PARAMETERS
 if options_.dsge
@@ -76,9 +67,12 @@ if options_.dsge
         return
     end
 end
-% check whether we need Pruned Skewed Kalman filter
+
+%% SET KALMAN FILTER VARIANT
 if any(diag(M_.Gamma_eta))
     kf_variant = "pruned_skewed";
+else
+    kf_variant = "gaussian";
 end
 
 %% CHECK POSITIVE DEFINITENESS OF COVARIANCE MATRICES
@@ -122,22 +116,38 @@ if options_.kalman.lik_init == 1
     mu_0 = zeros(M_.endo_nbr,1); % note that y are the model variables in deviation from steady-state, so the mean is zero by definition
     %Sigma_0 = reshape( inv(eye(MODEL.endo_nbr*MODEL.endo_nbr) - kron(SOL.gx,SOL.gx))*reshape(SOL.gu*MODEL.COV_eta*SOL.gu',MODEL.endo_nbr*MODEL.endo_nbr,1) ,MODEL.endo_nbr,MODEL.endo_nbr); %analytical, but slow
     Sigma_0 = dlyapdoubling(M_.G,M_.R*M_.Cov_eta*M_.R'); % very fast and numerically accurate
+elseif options_.kalman.lik_init == 2
+    error('wide prior initialization of Kalman filter not yet implemented');
+elseif options_.kalman.lik_init == 3
+    error('initialization of Kalman filter with Gaussian prerun not yet implemented');
 end
 
+skip_lik = false;
+skip_loss = true;
 if kf_variant == "gaussian"
-    negative_log_likelihood = -1*kalman_gaussian(datamat', mu_0,Sigma_0, M_.G,M_.R,M_.F, M_.mu_eta,M_.Sigma_eta, M_.mu_eps,M_.Sigma_eps, false, true);
+    negative_log_likelihood = -1*kalman_gaussian(datamat',...
+                                                 mu_0,Sigma_0,...
+                                                 M_.G,M_.R,M_.F,...
+                                                 M_.mu_eta,M_.Sigma_eta,...
+                                                 M_.mu_eps,M_.Sigma_eps,...
+                                                 skip_lik, skip_loss);
 elseif kf_variant == "pruned_skewed"
     Gamma_0 = zeros(M_.endo_nbr,M_.endo_nbr); % initialize at Gaussian distribution
     nu_0    = zeros(M_.endo_nbr,1); % normalization
     Delta_0 = eye(M_.endo_nbr); % normalization
-    if options_.dsge
-        negative_log_likelihood = -1*kalman_csn_dsge(...
-            M_.G,M_.R,M_.F, ...
-            mu_0, Sigma_0, Gamma_0, nu_0, Delta_0, ...
-            M_.mu_eps, M_.Sigma_eps, ...
-            M_.mu_eta, M_.Sigma_eta, M_.Gamma_eta, M_.nu_eta, M_.Delta_eta, ...
-            datamat, true, options_.kalman.csn.prune_tol, options_.kalman.csn.cdfmvna_fct, options_.kalman.csn.prune_algorithm);
-    end
+    negative_log_likelihood = -1*kalman_csn(datamat',...
+                                            mu_0,Sigma_0,Gamma_0,nu_0,Delta_0,...
+                                            M_.G,M_.R,M_.F,...
+                                            M_.mu_eta,M_.Sigma_eta,M_.Gamma_eta,M_.nu_eta,M_.Delta_eta,...
+                                            M_.mu_eps,M_.Sigma_eps,...
+                                            options_.dsge,options_.kalman.csn.cdfmvna_fct,options_.kalman.csn.prune_tol,...
+                                            skip_lik,skip_loss);
+    % negative_log_likelihood1 = -1*kalman_csn_dsge(...
+    %         M_.G,M_.R,M_.F, ...
+    %         mu_0, Sigma_0, Gamma_0, nu_0, Delta_0, ...
+    %         M_.mu_eps, M_.Sigma_eps, ...
+    %         M_.mu_eta, M_.Sigma_eta, M_.Gamma_eta, M_.nu_eta, M_.Delta_eta, ...
+    %         datamat, true, options_.kalman.csn.prune_tol, options_.kalman.csn.cdfmvna_fct, "correlations");
 end
 
 if isnan(negative_log_likelihood) || isinf(negative_log_likelihood) || ~isreal(negative_log_likelihood)

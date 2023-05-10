@@ -1,5 +1,5 @@
 function [term1, term2, evalp_t1, covar_t1, evalp_t2, covar_t2, mult_matr] = derivative_gaussian_cdf(mu, Sigma, which_element, cdfmvna_fct)
-% function [term1, term2, evalp_t1, covar_t1, evalp_t2, covar_t2, mult_matr] = cdfder(mu, Sigma, which_element, cdfmvna_fct)
+% function [term1, term2, evalp_t1, covar_t1, evalp_t2, covar_t2, mult_matr] = derivative_gaussian_cdf(mu, Sigma, which_element, cdfmvna_fct)
 % -------------------------------------------------------------------------
 % Differentiates the multivariate normal cdf according to steps given in
 % Rodenburger (2015, p.28-29) - On Approximations of Normal Integrals in the Context of Probit based Discrete Choice Modeling (2015)
@@ -36,8 +36,9 @@ function [term1, term2, evalp_t1, covar_t1, evalp_t2, covar_t2, mult_matr] = der
 % GNU General Public License for more details.
 % -------------------------------------------------------------------------
 % This file is part of the replication files for the paper "Pruned Skewed
-% Kalman Filter and Smoother: With Application to the Yield Curve" by
-% Gaygysyz Guljanov, Willi Mutschler, Mark Trede (2022)
+% Kalman Filter and Smoother: Pruned Skewed Kalman Filter and Smoother:
+% With Applications to the Yield Curve and Asymmetric Monetary Policy Shocks"
+% by Gaygysyz Guljanov, Willi Mutschler, Mark Trede
 % =========================================================================
 
 if nargin < 4

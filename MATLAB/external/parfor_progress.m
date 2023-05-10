@@ -1,3 +1,8 @@
+% This file is part of the replication files for the paper "Pruned Skewed
+% Kalman Filter and Smoother: Pruned Skewed Kalman Filter and Smoother:
+% With Applications to the Yield Curve and Asymmetric Monetary Policy Shocks"
+% by Gaygysyz Guljanov, Willi Mutschler, Mark Trede
+
 function percent = parfor_progress(N)
 %PARFOR_PROGRESS Progress monitor (progress bar) that works with parfor.
 %   PARFOR_PROGRESS works by creating a file called parfor_progress.txt in

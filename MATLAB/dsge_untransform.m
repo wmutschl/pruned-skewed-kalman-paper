@@ -1,5 +1,34 @@
 function [xparams_untransformed, bounds_untransformed] = dsge_untransform(xparams, bounds, estim_params_)
-% create vectors with untransform parameter values and bounds
+% function [xparams_untransformed, bounds_untransformed] = dsge_untransform(xparams, bounds, estim_params_)
+% -------------------------------------------------------------------------
+% create vectors with untransformed parameter values and untransformed bounds
+% -------------------------------------------------------------------------
+% INPUTS
+% - xparams          [nparam x 1]   parameter vector with possibly transformed parameters
+% - bounds           [nparam x 2]   lower and upper bounds (are infinite for transformed parameters)
+% - estim_params_    [structure]    information on estimated parameters
+% -------------------------------------------------------------------------
+% OUTPUTS
+% - xparams_untransformed   [nparam x 1]   parameter vector with untransformed (original) parameters
+% - bounds_untransformed    [nparam x 2]   lower and upper bounds for untransformed (original) parameters
+% =========================================================================
+% Copyright (C) 2023 Willi Mutschler
+%
+% This is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% This is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+% -------------------------------------------------------------------------
+% This file is part of the replication files for the paper "Pruned Skewed
+% Kalman Filter and Smoother: Pruned Skewed Kalman Filter and Smoother:
+% With Applications to the Yield Curve and Asymmetric Monetary Policy Shocks"
+% by Gaygysyz Guljanov, Willi Mutschler, Mark Trede
+% =========================================================================
 xparams_untransformed = xparams;
 bounds_untransformed = bounds;
 for j=1:size(xparams,2)

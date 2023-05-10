@@ -14,9 +14,6 @@ function M_ = ireland2004_preprocessing
 % policy function), see the manual of Dynare for clarifications.
 % -------------------------------------------------------------------------
 % INPUTS
-% - use_logit_transform_for_parameters   [boolean]
-%   if a parameter 0<=x<=1 we declare instead logit_x=log(x/(1-x))
-%   to ensure that parameters are bound within ther natural domain
 % -------------------------------------------------------------------------
 % OUTPUTS
 % - M_   [structure]   information on the model (inspired by Dynare's M_ structure)
@@ -34,10 +31,12 @@ function M_ = ireland2004_preprocessing
 % GNU General Public License for more details.
 % -------------------------------------------------------------------------
 % This file is part of the replication files for the paper "Pruned Skewed
-% Kalman Filter and Smoother: With Application to the Yield Curve" by
-% Gaygysyz Guljanov, Willi Mutschler, Mark Trede
+% Kalman Filter and Smoother: Pruned Skewed Kalman Filter and Smoother:
+% With Applications to the Yield Curve and Asymmetric Monetary Policy Shocks"
+% by Gaygysyz Guljanov, Willi Mutschler, Mark Trede
 % =========================================================================
 
+%% symbolic declarations
 % Model name
 M_.fname = "ireland2004";
 
@@ -118,7 +117,7 @@ for j = 1:aux_param_nbr
     eval(sprintf('%s = sym(''%s'',''%s'');',aux_param_names(j,1),aux_param_names(j,1),aux_param_names(j,2))); %this evaluates expressions like steady_state_x = sym('steady_state_x','real');
 end
 
-% Model Equations
+%% Model Equations
 % similar to Dynare's model block, but with all equations written on the right-hand-side of the equations
 % note the following convention with respect to Dynare: x_back for x(-1), x_curr for x(0), x_fwrd for x(+1) variables, steady_state_x for steady-state(x)
 
@@ -131,6 +130,7 @@ model_eqs(6) = -xhat_curr + yhat_curr - OMEGA*ahat_curr; % output gap (20)
 model_eqs(7) = -ghat_curr + yhat_curr - yhat_back + zhat_curr; % growth rate of output (21)
 model_eqs(8) = -(rhat_curr-rhat_back) + RHO_PI*pihat_curr + RHO_G*ghat_curr + RHO_X*xhat_curr + eta_r; % policy rule (22)
 
+%% DR ordering and different types of variables
 % define and reorder variables
 M_.lead_lag_incidence = zeros(3,M_.endo_nbr); % rows are time periods, columns are endogenous variables; this matrix encodes whether a varialbe appears at t-1, t or t+1
 TIME = ["_back","_curr","_fwrd"];
@@ -171,6 +171,7 @@ for jvarobs=1:length(M_.varobs)
     M_.F(jvarobs,find(ismember(M_.endo_names(M_.order_var),M_.varobs(jvarobs)),1)) = 1;
 end
 
+%% compute Jacobian of dynamic model
 % take derivative with respect to [x_back;x_curr;x_fwrd;exo]
 g1 = jacobian(model_eqs,[str2sym([endo_static;endo_pred;endo_both;endo_fwrd] + "_back");...
                          str2sym([endo_static;endo_pred;endo_both;endo_fwrd] + "_curr");...
@@ -179,7 +180,7 @@ g1 = jacobian(model_eqs,[str2sym([endo_static;endo_pred;endo_both;endo_fwrd] + "
                         ]);
 g1 = simplify(g1); % simplify algebra
 
-% write out model equations to script files
+%% write out model equations to script files
 nameOfFunction = M_.fname + "_f";
 % Delete old version of file (if it exists)
 if exist(nameOfFunction+".m",'file') > 0
@@ -214,7 +215,7 @@ end
 fprintf(fileID,'\nend %% function end \n');
 fclose(fileID);
 
-% Write out derivatives to script files
+%% write out derivatives to script files
 nameOfFunction = M_.fname + "_g1";
 % Delete old version of file (if it exists)
 if exist(nameOfFunction+".m",'file') > 0
@@ -252,6 +253,7 @@ end
 fprintf(fileID,'\nend %% function end \n');
 fclose(fileID);
 
+%% cleanup and initializations
 % remove "real" from name structures
 M_.endo_names = M_.endo_names(:,1);
 M_.exo_names = M_.exo_names(:,1);

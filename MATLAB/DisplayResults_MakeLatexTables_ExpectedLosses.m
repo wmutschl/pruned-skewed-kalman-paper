@@ -3,9 +3,7 @@ function DisplayResults_MakeLatexTables_ExpectedLosses(filename,ONLY_LATEX)
 % -------------------------------------------------------------------------
 % Collects and displays the results of the Monte-Carlo assessment of the 
 % accuracy of filtered and smoothed states done in Accuracy_States.m
-% Creates a log file with results and also the Latex code for the rows of
-% Table 1 and Table 2 of the paper "Pruned Skewed Kalman Filter and Smoother:
-% With Application to the Yield Curve" by Gaygysyz Guljanov, Willi Mutschler, Mark Trede
+% Creates a log file with results and also the corresponding Latex code
 % -------------------------------------------------------------------------
 % INPUTS
 % - filename   [string]   load results created with Accuracy_States and saved in results/"filename".mat,
@@ -30,8 +28,9 @@ function DisplayResults_MakeLatexTables_ExpectedLosses(filename,ONLY_LATEX)
 % GNU General Public License for more details.
 % -------------------------------------------------------------------------
 % This file is part of the replication files for the paper "Pruned Skewed
-% Kalman Filter and Smoother: With Application to the Yield Curve" by
-% Gaygysyz Guljanov, Willi Mutschler, Mark Trede (2022)
+% Kalman Filter and Smoother: Pruned Skewed Kalman Filter and Smoother:
+% With Applications to the Yield Curve and Asymmetric Monetary Policy Shocks"
+% by Gaygysyz Guljanov, Willi Mutschler, Mark Trede
 % =========================================================================
 if nargin < 2
     ONLY_LATEX = false;

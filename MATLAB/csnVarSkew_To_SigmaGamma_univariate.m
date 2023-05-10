@@ -10,6 +10,7 @@ function [Sigma, Gamma, error_indicator] = csnVarSkew_To_SigmaGamma_univariate(V
 % INPUTS
 % - Var     [double]   unconditional variance of X
 % - Skew    [double]   theoretical skewness coefficient of X
+% - check   [boolean]  check whether transformation worked
 % -------------------------------------------------------------------------
 % OUTPUTS
 % - Sigma             [double]    scale parameter of CSN distribution
@@ -29,8 +30,9 @@ function [Sigma, Gamma, error_indicator] = csnVarSkew_To_SigmaGamma_univariate(V
 % GNU General Public License for more details.
 % -------------------------------------------------------------------------
 % This file is part of the replication files for the paper "Pruned Skewed
-% Kalman Filter and Smoother: With Application to the Yield Curve" by
-% Gaygysyz Guljanov, Willi Mutschler, Mark Trede
+% Kalman Filter and Smoother: Pruned Skewed Kalman Filter and Smoother:
+% With Applications to the Yield Curve and Asymmetric Monetary Policy Shocks"
+% by Gaygysyz Guljanov, Willi Mutschler, Mark Trede
 % =========================================================================
 if nargin < 3
     check = false;

@@ -46,8 +46,9 @@ function x_smooth = kalman_csn_smoother(Y, pred,filt, G,R,F, Gamma_eta,Delta_eta
 % GNU General Public License for more details.
 % -------------------------------------------------------------------------
 % This file is part of the replication files for the paper "Pruned Skewed
-% Kalman Filter and Smoother: With Application to the Yield Curve" by
-% Gaygysyz Guljanov, Willi Mutschler, Mark Trede (2022)
+% Kalman Filter and Smoother: Pruned Skewed Kalman Filter and Smoother:
+% With Applications to the Yield Curve and Asymmetric Monetary Policy Shocks"
+% by Gaygysyz Guljanov, Willi Mutschler, Mark Trede
 % =========================================================================
 % Possible avenues for speedup
 % - get rid of inv(), but we do need the inverse so inv() might be still a good choice, alternatively try out inv_chol.mex
