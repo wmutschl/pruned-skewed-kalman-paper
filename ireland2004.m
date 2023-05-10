@@ -58,7 +58,7 @@ clear ireland2004_gpr ireland2004_post1980 jvarobs
 options_.computer_arch = computer('arch');
 options_.dsge = 1; % 1: we are interested in the structural model parameters and not the state-space parameters of the linearized solution
 options_.optim_opt = optimset('display','final','MaxFunEvals',100000,'MaxIter',10000,'TolFun',1e-4,'TolX',1e-4); % optimization options
-options_.optim_opt.names = ["cmaes" "cmaes_dsge" "fminsearch" "fminsearchbnd" "fmincon" "fminunc" ]; % names of optimizer that will be used in parallel ("simulannealbnd" and "sa_resampling" are very time-consuming, "cmaes" and "cmaes_dsge" are mildly time-consuming, fminsearch and fminsearchbnd can be mildly time-consuming, "fmincon" and "fminunc" are fast (but not as good) )
+options_.optim_opt.names = ["cmaes" "cmaes_dsge" "fminsearch" "fminsearchbnd" "fmincon" "fminunc" "simulannealbnd" "sa_resampling" ]; % names of optimizer that will be used in parallel ("simulannealbnd" and "sa_resampling" are very time-consuming, "cmaes" and "cmaes_dsge" are mildly time-consuming, fminsearch and fminsearchbnd can be mildly time-consuming, "fmincon" and "fminunc" are fast (but not as good) )
 options_.optim_opt.penalize_objective = 0; % 1: checks whether bounds are violated in objective function and penalizes likelihood (useful for optimizers that don't support parameter bounds)
 options_.kalman.csn.prune_tol = 1e-2; % pruning threshold in Pruned Skewed Kalman filter
 options_.kalman.csn.cdfmvna_fct = "logmvncdf_ME"; % function to use to evaluate high-dimensional Gaussian log cdf, possible options: "logmvncdf_ME", "mvncdf", "qsilatmvnv", "qsimvnv"
