@@ -65,24 +65,24 @@ elseif STAGE == "csn_initval"
     if options_.computer_arch == "maci64"
         if options_.parameters.use_stderr_skew
             % skew parameters
-            estim_params_.skew_exo    = [ estim_params_.skew_exo;   [ idx_eta_a,  -0.217152129209896,  options_.parameters.skewness_bounds ] ];
-            estim_params_.skew_exo    = [ estim_params_.skew_exo;   [ idx_eta_e,  -0.226113231149225,  options_.parameters.skewness_bounds ] ];
-            estim_params_.skew_exo    = [ estim_params_.skew_exo;   [ idx_eta_z,  -0.923849236134372,  options_.parameters.skewness_bounds ] ];
-            estim_params_.skew_exo    = [ estim_params_.skew_exo;   [ idx_eta_r,   0.805559211425317,  options_.parameters.skewness_bounds ] ];
+            estim_params_.skew_exo    = [ estim_params_.skew_exo;   [ idx_eta_a,  -0.2148051691244,  options_.parameters.skewness_bounds ] ];
+            estim_params_.skew_exo    = [ estim_params_.skew_exo;   [ idx_eta_e,  -0.216054941908771,  options_.parameters.skewness_bounds ] ];
+            estim_params_.skew_exo    = [ estim_params_.skew_exo;   [ idx_eta_z,  -0.949872170095001,  options_.parameters.skewness_bounds ] ];
+            estim_params_.skew_exo    = [ estim_params_.skew_exo;   [ idx_eta_r,   0.81251177057583,  options_.parameters.skewness_bounds ] ];
             % stderr parameters
-            estim_params_.var_exo    = [ estim_params_.var_exo;     [ idx_eta_a,   0.025239387157507,  0,  1 ] ];
-            estim_params_.var_exo    = [ estim_params_.var_exo;     [ idx_eta_e,   0.000197716076509666,  0,  1 ] ];
-            estim_params_.var_exo    = [ estim_params_.var_exo;     [ idx_eta_z,   0.00796603498559645,  0,  1 ] ];
-            estim_params_.var_exo    = [ estim_params_.var_exo;     [ idx_eta_r,   0.00283620205731904,  0,  1 ] ];
+            estim_params_.var_exo    = [ estim_params_.var_exo;     [ idx_eta_a,   0.0244282794886616,  0,  1 ] ];
+            estim_params_.var_exo    = [ estim_params_.var_exo;     [ idx_eta_e,   0.000192068224122503,  0,  1 ] ];
+            estim_params_.var_exo    = [ estim_params_.var_exo;     [ idx_eta_z,   0.00795683484335787,  0,  1 ] ];
+            estim_params_.var_exo    = [ estim_params_.var_exo;     [ idx_eta_r,   0.00284788877240782,  0,  1 ] ];
         end
-        estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"OMEGA"),1),    0.150114849014154,  0,  1 ] ];
-        estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"ALPHA_X"),1),  0.000193236868878676,  1e-5,  1 ] ];
-        estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"ALPHA_PI"),1), 1.00000002310016e-05,  1e-5,  1 ] ];
-        estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_PI"),1),   0.267849413749733,  0,  1 ] ];
-        estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_G"),1),    0.341003324945699,  0,  1 ] ];
-        estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_X"),1),    0.284612308301521,  0,  1 ] ];
-        estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_A"),1),    0.916787807033826,  0,  1 ] ];
-        estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_E"),1),    0.981399127628676,  0,  1 ] ];
+        estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"OMEGA"),1),    0.156065882932166,  0,  1 ] ];
+        estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"ALPHA_X"),1),  1.00000012104736e-05,  1e-5,  1 ] ];
+        estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"ALPHA_PI"),1), 1.00000000050019e-05,  1e-5,  1 ] ];
+        estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_PI"),1),   0.263849247933521,  0,  1 ] ];
+        estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_G"),1),    0.340438887860689,  0,  1 ] ];
+        estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_X"),1),    0.289897532758958,  0,  1 ] ];
+        estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_A"),1),    0.914017612167537,  0,  1 ] ];
+        estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_E"),1),    0.982180201898588,  0,  1 ] ];
     elseif options_.computer_arch == "maca64"
         if options_.parameters.use_stderr_skew
             % skew parameters

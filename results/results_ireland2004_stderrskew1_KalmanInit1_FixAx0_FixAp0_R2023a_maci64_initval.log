@@ -1,0 +1,347 @@
+
+options_ = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+         computer_arch: 'maci64'
+                  dsge: 1
+             optim_opt: [1×1 struct]
+                kalman: [1×1 struct]
+            parameters: [1×1 struct]
+              filename: 'results_ireland2004_stderrskew1_KalmanInit1_FixAx0_FixAp0_R2023a_maci64_initval'
+               poolobj: [1×1 parallel.ProcessPool]
+    physical_cores_nbr: 12
+               logfile: 'results/results_ireland2004_stderrskew1_KalmanInit1_FixAx0_FixAp0_R2023a_maci64_initval.log'
+
+
+ans = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+                   Display: 'final'
+               MaxFunEvals: 100000
+                   MaxIter: 10000
+                    TolFun: 1.0000e-04
+                      TolX: 1.0000e-04
+               FunValCheck: []
+                 OutputFcn: []
+                  PlotFcns: []
+           ActiveConstrTol: []
+                 Algorithm: []
+    AlwaysHonorConstraints: []
+           DerivativeCheck: []
+               Diagnostics: []
+             DiffMaxChange: []
+             DiffMinChange: []
+            FinDiffRelStep: []
+               FinDiffType: []
+         GoalsExactAchieve: []
+                GradConstr: []
+                   GradObj: []
+                   HessFcn: []
+                   Hessian: []
+                  HessMult: []
+               HessPattern: []
+                HessUpdate: []
+          InitBarrierParam: []
+     InitTrustRegionRadius: []
+                  Jacobian: []
+                 JacobMult: []
+              JacobPattern: []
+                LargeScale: []
+                  MaxNodes: []
+                MaxPCGIter: []
+             MaxProjCGIter: []
+                MaxSQPIter: []
+                   MaxTime: []
+             MeritFunction: []
+                 MinAbsMax: []
+        NoStopIfFlatInfeas: []
+            ObjectiveLimit: []
+      PhaseOneTotalScaling: []
+            Preconditioner: []
+          PrecondBandWidth: []
+            RelLineSrchBnd: []
+    RelLineSrchBndDuration: []
+              ScaleProblem: []
+       SubproblemAlgorithm: []
+                    TolCon: []
+                 TolConSQP: []
+                TolGradCon: []
+                    TolPCG: []
+                 TolProjCG: []
+              TolProjCGAbs: []
+                  TypicalX: []
+               UseParallel: []
+                     names: ["cmaes"    "cmaes_dsge"    "fminsearch"    "fminsearchbnd"    "fmincon"    "fminunc"]
+
+
+ans = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+         csn: [1×1 struct]
+    lik_init: 1
+
+
+ans = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+         prune_tol: 0.0100
+       cdfmvna_fct: "logmvncdf_ME"
+    initval_search: 1
+
+
+ans = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+    skewness_bounds: [-0.9500 0.9500]
+    use_stderr_skew: 1
+                fix: [1×1 struct]
+          transform: [1×1 struct]
+
+
+ans = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+                    OMEGA: 1
+                   RHO_PI: 0
+                    RHO_G: 0
+                    RHO_X: 0
+                    RHO_A: 0
+                    RHO_E: 0
+               skew_eta_a: 1
+               skew_eta_e: 1
+               skew_eta_z: 1
+               skew_eta_r: 1
+             stderr_eta_a: 1
+             stderr_eta_e: 1
+             stderr_eta_z: 1
+             stderr_eta_r: 1
+    sqrt_diag_Sigma_eta_a: 1
+    sqrt_diag_Sigma_eta_e: 1
+    sqrt_diag_Sigma_eta_z: 1
+    sqrt_diag_Sigma_eta_r: 1
+         diag_Gamma_eta_a: 1
+         diag_Gamma_eta_e: 1
+         diag_Gamma_eta_z: 1
+         diag_Gamma_eta_r: 1
+                  ALPHA_X: 1
+                 ALPHA_PI: 1
+
+
+ans = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+     ALPHA_X: 0
+    ALPHA_PI: 0
+
+****************************************************************************************************
+SUMMARY GAUSSIAN
+
+  Point Estimates
+                    <strong>fminsearch</strong>    <strong>fminsearchbnd</strong>     <strong>fmincon</strong>        <strong>cmaes</strong>       <strong>cmaes_dsge</strong>    <strong>fminunc</strong>
+                    <strong>__________</strong>    <strong>_____________</strong>    <strong>__________</strong>    <strong>__________</strong>    <strong>__________</strong>    <strong>_______</strong>
+
+    <strong>stderr_eta_a</strong>      0.030168       0.030167        0.030161      0.030114      0.029638    0.0302 
+    <strong>stderr_eta_e</strong>    0.00024766     0.00024767      0.00024765    0.00024779    0.00024669    0.0002 
+    <strong>stderr_eta_z</strong>     0.0088647      0.0088646       0.0088645     0.0088609     0.0088468    0.0089 
+    <strong>stderr_eta_r</strong>     0.0027903      0.0027903       0.0027904     0.0027903     0.0027948    0.0028 
+    <strong>OMEGA       </strong>      0.058085       0.058096        0.058118      0.058482      0.061329    0.0581 
+    <strong>ALPHA_X     </strong>         1e-05     1.8976e-05      1.9994e-05    1.8959e-05    1.9093e-05     2e-05 
+    <strong>ALPHA_PI    </strong>         1e-05     1.7831e-05      1.9981e-05    1.9875e-05    2.0664e-05     2e-05 
+    <strong>RHO_PI      </strong>        0.3865         0.3865         0.38645       0.38649       0.38471    0.3866 
+    <strong>RHO_G       </strong>       0.39601        0.39601         0.39602       0.39598       0.39636     0.396 
+    <strong>RHO_X       </strong>       0.16539        0.16539         0.16545        0.1655       0.16736    0.1654 
+    <strong>RHO_A       </strong>        0.9048        0.90479         0.90477       0.90463       0.90318    0.9048 
+    <strong>RHO_E       </strong>       0.99067        0.99067         0.99066       0.99066       0.99058    0.9907 
+    <strong>Log-Lik     </strong>        1207.6         1207.6          1207.6        1207.6        1207.6    1206.2 
+
+  Standard Errors (original variables)
+                    <strong>fminsearch</strong>    <strong>fminsearchbnd</strong>     <strong>fmincon</strong>        <strong>cmaes</strong>       <strong>cmaes_dsge</strong>          <strong>fminunc</strong>       
+                    <strong>__________</strong>    <strong>_____________</strong>    <strong>__________</strong>    <strong>__________</strong>    <strong>__________</strong>    <strong>____________________</strong>
+
+    <strong>stderr_eta_a</strong>      0.016584       0.016581         0.01658      0.016545      0.016049     0.0067745+0i       
+    <strong>stderr_eta_e</strong>    0.00012712     0.00012714      0.00012724    0.00012762    0.00013099    3.1148e-05+0i       
+    <strong>stderr_eta_z</strong>     0.0014509      0.0014511       0.0014523     0.0014584     0.0015192    0.00049703+0i       
+    <strong>stderr_eta_r</strong>    0.00037031      0.0003703      0.00037034    0.00037029    0.00037191    0.00036985+0i       
+    <strong>OMEGA       </strong>       0.08766       0.087674        0.087786      0.088394      0.094775      0.015614+0i       
+    <strong>ALPHA_X     </strong>     0.0043424      0.0043424       0.0043417     0.0043451     0.0043331     0.0042983+0i       
+    <strong>ALPHA_PI    </strong>     0.0025321       0.002532        0.002532      0.002531     0.0025247     0.0027973+0i       
+    <strong>RHO_PI      </strong>       0.12728        0.12729         0.12733       0.12751       0.12918       0.11788+0i       
+    <strong>RHO_G       </strong>      0.065009        0.06501        0.065032       0.06509      0.066162      0.052364+0i       
+    <strong>RHO_X       </strong>       0.06149       0.061492         0.06156      0.061682      0.064009             0+0.037325i
+    <strong>RHO_A       </strong>      0.059602       0.059597         0.05961      0.059618      0.059039      0.028385+0i       
+    <strong>RHO_E       </strong>      0.015508        0.01551         0.01555      0.015578      0.016135      0.005855+0i       
+    <strong>Log-Lik     </strong>        1207.6         1207.6          1207.6        1207.6        1207.6        1206.2+0i       
+
+  Standard Errors (transformed variables)
+                                <strong>fminsearch</strong>    <strong>fminsearchbnd</strong>    <strong>fmincon</strong>      <strong>cmaes</strong>      <strong>cmaes_dsge</strong>    <strong>fminunc</strong> 
+                                <strong>__________</strong>    <strong>_____________</strong>    <strong>________</strong>    <strong>________</strong>    <strong>__________</strong>    <strong>________</strong>
+
+    <strong>transformed_stderr_eta_a</strong>       0.53273       0.53268        0.53265     0.53162      0.51958      0.40727
+    <strong>transformed_stderr_eta_e</strong>       0.72718        0.7272        0.72728     0.72795      0.73679      0.17553
+    <strong>transformed_stderr_eta_z</strong>       0.14169        0.1417         0.1417     0.14184      0.14196      0.12156
+    <strong>transformed_stderr_eta_r</strong>       0.13434       0.13434        0.13435     0.13434      0.13479      0.15567
+    <strong>transformed_OMEGA       </strong>        1.2517        1.2515         1.2517      1.2456       1.2097       1.6015
+    <strong>transformed_ALPHA_X     </strong>    1.2286e+05        164.32          155.7      164.58       162.91       154.11
+    <strong>transformed_ALPHA_PI    </strong>    1.9644e+05        102.57         90.857       91.31       87.647       100.29
+    <strong>RHO_PI                  </strong>       0.20978       0.20978        0.20984     0.21005      0.21317      0.30228
+    <strong>RHO_G                   </strong>       0.06125       0.06125       0.061256    0.061256     0.061507      0.08998
+    <strong>RHO_X                   </strong>      0.097548      0.097556       0.097615    0.097807      0.10055      0.14138
+    <strong>RHO_A                   </strong>      0.057945      0.057942       0.057952    0.057928     0.057442     0.036337
+    <strong>RHO_E                   </strong>      0.013041      0.013042       0.013063    0.013064     0.013163     0.013699
+    <strong>Log-Lik                 </strong>        1207.6        1207.6         1207.6      1207.6       1207.6       1206.2
+
+Final value of the best Gaussian log-likelihood function: 1207.5617
+****************************************************************************************************
+
+INITIAL VALUES: For initial value search, we use a pruning threshold of 10%. This will be re-set at the final stage.
+
+
+INITIAL VALUES: Running grid search for CSN skewness/gamma parameters:
+  0%[>                                                  ]
+                      <strong>best 1</strong>        <strong>best 2</strong>        <strong>best 3</strong>  
+                    <strong>__________</strong>    <strong>__________</strong>    <strong>__________</strong>
+
+    <strong>stderr eta_a</strong>      0.030168      0.030168      0.030168
+    <strong>stderr eta_e</strong>    0.00024766    0.00024766    0.00024766
+    <strong>stderr eta_z</strong>     0.0088647     0.0088647     0.0088647
+    <strong>stderr eta_r</strong>     0.0027903     0.0027903     0.0027903
+
+                   <strong>best 1</strong>      <strong>best 2</strong>      <strong>best 3</strong> 
+                  <strong>________</strong>    <strong>________</strong>    <strong>________</strong>
+
+    <strong>skew eta_a</strong>    -0.13571    -0.13571    -0.13571
+    <strong>skew eta_e</strong>    -0.13571    -0.13571    -0.27143
+    <strong>skew eta_z</strong>    -0.67857    -0.81429    -0.27143
+    <strong>skew eta_r</strong>     0.54286     0.54286     0.54286
+
+               <strong>best 1</strong>    <strong>best 2</strong>    <strong>best 3</strong>
+               <strong>______</strong>    <strong>______</strong>    <strong>______</strong>
+
+    <strong>Log-Lik</strong>    1212.1     1212     1211.9
+
+
+INITIAL VALUES: Optimize over both Sigma_eta/stderr_eta as well as Gamma_eta/Skew_eta using best values from grid search for CSN skewness/gamma parameter:
+****************************************************************************************************
+SUMMARY INITVAL STAGE 1
+
+  Point Estimates
+                    <strong>cmaes_init_2</strong>    <strong>cmaes_dsge_init_2</strong>    <strong>cmaes_dsge_init_1</strong>    <strong>cmaes_init_1</strong>    <strong>cmaes_init_3</strong>    <strong>fminsearch_init_2</strong>    <strong>fminsearchbnd_init_2</strong>    <strong>cmaes_dsge_init_3</strong>    <strong>fminsearch_init_1</strong>    <strong>fminsearchbnd_init_1</strong>    <strong>fminsearch_init_3</strong>    <strong>fminsearchbnd_init_3</strong>    <strong>fminunc_init_1</strong>    <strong>fmincon_init_1</strong>    <strong>fminunc_init_2</strong>    <strong>fmincon_init_2</strong>    <strong>fminunc_init_3</strong>    <strong>fmincon_init_3</strong>
+                    <strong>____________</strong>    <strong>_________________</strong>    <strong>_________________</strong>    <strong>____________</strong>    <strong>____________</strong>    <strong>_________________</strong>    <strong>____________________</strong>    <strong>_________________</strong>    <strong>_________________</strong>    <strong>____________________</strong>    <strong>_________________</strong>    <strong>____________________</strong>    <strong>______________</strong>    <strong>______________</strong>    <strong>______________</strong>    <strong>______________</strong>    <strong>______________</strong>    <strong>______________</strong>
+
+    <strong>skew_eta_a  </strong>      -0.13675           -0.13654             -0.14024           -0.13975        -0.15343          -0.13934               -0.13934              -0.15337             -0.14043               -0.14043              -0.14901               -0.14901             -0.13571          -0.13571          -0.13571          -0.13571          -0.13571          -0.13575  
+    <strong>skew_eta_e  </strong>      -0.19698           -0.20226             -0.19799           -0.19768        -0.25249          -0.13598               -0.13598               -0.3021             -0.12886               -0.12886              -0.26127               -0.26127             -0.13571          -0.13571          -0.13571          -0.13571          -0.27143          -0.27144  
+    <strong>skew_eta_z  </strong>      -0.78915           -0.79763             -0.66927           -0.68206        -0.31387          -0.77569               -0.77569              -0.31645             -0.64283               -0.64283              -0.27859               -0.27859             -0.67857          -0.67857          -0.81429          -0.81429          -0.27143          -0.27143  
+    <strong>skew_eta_r  </strong>       0.60192            0.61212              0.59615            0.59646         0.58214           0.57307                0.57307                0.5925              0.56148                0.56148               0.54559                0.54559              0.54286           0.54286           0.54286           0.54286           0.54286           0.54286  
+    <strong>stderr_eta_a</strong>      0.027722           0.027629             0.027759           0.027753         0.02791          0.028111               0.028111              0.027916             0.027839               0.027839              0.027839               0.027839             0.030168          0.030168          0.030168          0.030168          0.030168          0.030168  
+    <strong>stderr_eta_e</strong>     0.0002746          0.0002762           0.00027255         0.00027269      0.00026891        0.00027148             0.00027148            0.00026785           0.00026808             0.00026808            0.00026783             0.00026783           0.00024766        0.00024766        0.00024766        0.00024766        0.00024766        0.00024765  
+    <strong>stderr_eta_z</strong>     0.0089094          0.0089529            0.0088832          0.0088905       0.0088303         0.0089405              0.0089405             0.0088518             0.008956               0.008956             0.0086532              0.0086532            0.0088647         0.0088647         0.0088647         0.0088647         0.0088647         0.0088646  
+    <strong>stderr_eta_r</strong>     0.0028395           0.002832            0.0028208          0.0028233       0.0027975         0.0028228              0.0028228             0.0028093            0.0027997              0.0027997             0.0028743              0.0028743            0.0027903         0.0027903         0.0027903         0.0027903         0.0027903         0.0027903  
+    <strong>Log-Lik     </strong>          1213               1213                 1213               1213          1212.7            1212.7                 1212.7                1212.7               1212.7                 1212.7                1212.5                 1212.5               1212.1            1212.1              1212              1212            1211.9            1211.9  
+
+Final value of the best log-likelihood function: 1213.0220
+****************************************************************************************************
+
+
+
+INITIAL VALUES: Run maximum likelihood estimation with Pruned Skewed Kalman filter for all parameters using different optimizers in parallel:
+****************************************************************************************************
+SUMMARY INITVAL STAGE 2
+
+  Point Estimates
+                    <strong>cmaes_dsge</strong>      <strong>cmaes</strong>       <strong>fminsearch</strong>    <strong>fminsearchbnd</strong>     <strong>fminunc</strong>      <strong>fmincon</strong> 
+                    <strong>__________</strong>    <strong>__________</strong>    <strong>__________</strong>    <strong>_____________</strong>    <strong>_________</strong>    <strong>_________</strong>
+
+    <strong>skew_eta_a  </strong>      -0.20224       -0.2073      -0.14867       -0.13904       -0.13675     -0.13675
+    <strong>skew_eta_e  </strong>      -0.19936      -0.20014      -0.20583       -0.22339       -0.19698     -0.19698
+    <strong>skew_eta_z  </strong>      -0.81499      -0.83044      -0.78698       -0.77155       -0.78915     -0.78915
+    <strong>skew_eta_r  </strong>       0.86086       0.87266       0.65469        0.63225        0.60192      0.60192
+    <strong>stderr_eta_a</strong>      0.020542      0.020874       0.03294       0.028197       0.027722     0.027722
+    <strong>stderr_eta_e</strong>    0.00013237    0.00013318    0.00028841     0.00027746      0.0002746    0.0002746
+    <strong>stderr_eta_z</strong>     0.0088432     0.0088472     0.0088006      0.0088125      0.0089094    0.0089094
+    <strong>stderr_eta_r</strong>     0.0027932     0.0027903     0.0027027       0.002836      0.0028395    0.0028395
+    <strong>OMEGA       </strong>       0.12323       0.12106      0.069887       0.083353       0.058085     0.058085
+    <strong>ALPHA_X     </strong>         1e-05         1e-05         1e-05          1e-05          1e-05        1e-05
+    <strong>ALPHA_PI    </strong>         1e-05         1e-05         1e-05          1e-05          1e-05        1e-05
+    <strong>RHO_PI      </strong>       0.17249       0.17236       0.36951        0.38632         0.3865       0.3865
+    <strong>RHO_G       </strong>       0.33689       0.33573        0.3554         0.3744        0.39601      0.39601
+    <strong>RHO_X       </strong>       0.33192       0.33343       0.15963        0.17068        0.16539      0.16539
+    <strong>RHO_A       </strong>       0.88602       0.88785       0.92347        0.90811         0.9048       0.9048
+    <strong>RHO_E       </strong>       0.98286       0.98241       0.98726        0.98744        0.99067      0.99067
+    <strong>Log-Lik     </strong>        1215.2        1215.2        1213.7         1213.7           1213         1213
+
+Final value of the best log-likelihood function: 1215.2486
+****************************************************************************************************
+
+
+
+Run maximum likelihood estimation with Pruned Skewed Kalman filter for all parameters using different optimizers in parallel:
+Warning: Matrix is singular, close to singular or badly scaled. Results may be inaccurate. RCOND = NaN.
+> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('parallel_function>make_general_channel/channel_general', '/Applications/MATLAB_R2023a.app/toolbox/matlab/lang/parallel_function.m', 837)" style="font-weight:bold">parallel_function>make_general_channel/channel_general</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2023a.app/toolbox/matlab/lang/parallel_function.m',837,0)">line 837</a>)
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('parallel.internal.parfor.cppRemoteParallelFunction', '/Applications/MATLAB_R2023a.app/toolbox/parallel/cluster/+parallel/+internal/+parfor/cppRemoteParallelFunction.m', 53)" style="font-weight:bold">parallel.internal.parfor.cppRemoteParallelFunction</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2023a.app/toolbox/parallel/cluster/+parallel/+internal/+parfor/cppRemoteParallelFunction.m',53,0)">line 53</a>)
+
+Warning: Matrix is singular, close to singular or badly scaled. Results may be inaccurate. RCOND = NaN.
+> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('parallel_function>make_general_channel/channel_general', '/Applications/MATLAB_R2023a.app/toolbox/matlab/lang/parallel_function.m', 837)" style="font-weight:bold">parallel_function>make_general_channel/channel_general</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2023a.app/toolbox/matlab/lang/parallel_function.m',837,0)">line 837</a>)
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('parallel.internal.parfor.cppRemoteParallelFunction', '/Applications/MATLAB_R2023a.app/toolbox/parallel/cluster/+parallel/+internal/+parfor/cppRemoteParallelFunction.m', 53)" style="font-weight:bold">parallel.internal.parfor.cppRemoteParallelFunction</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2023a.app/toolbox/parallel/cluster/+parallel/+internal/+parfor/cppRemoteParallelFunction.m',53,0)">line 53</a>)
+
+Warning: Matrix is singular, close to singular or badly scaled. Results may be inaccurate. RCOND = NaN.
+> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('parallel_function>make_general_channel/channel_general', '/Applications/MATLAB_R2023a.app/toolbox/matlab/lang/parallel_function.m', 837)" style="font-weight:bold">parallel_function>make_general_channel/channel_general</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2023a.app/toolbox/matlab/lang/parallel_function.m',837,0)">line 837</a>)
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('parallel.internal.parfor.cppRemoteParallelFunction', '/Applications/MATLAB_R2023a.app/toolbox/parallel/cluster/+parallel/+internal/+parfor/cppRemoteParallelFunction.m', 53)" style="font-weight:bold">parallel.internal.parfor.cppRemoteParallelFunction</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2023a.app/toolbox/parallel/cluster/+parallel/+internal/+parfor/cppRemoteParallelFunction.m',53,0)">line 53</a>)
+
+****************************************************************************************************
+SUMMARY CSN
+
+  Point Estimates
+                      <strong>cmaes</strong>      <strong>cmaes_dsge</strong>    <strong>fminsearch</strong>    <strong>fminsearchbnd</strong>     <strong>fmincon</strong>       <strong>fminunc</strong>  
+                    <strong>_________</strong>    <strong>__________</strong>    <strong>__________</strong>    <strong>_____________</strong>    <strong>__________</strong>    <strong>__________</strong>
+
+    <strong>skew_eta_a  </strong>     -0.21295      -0.20995      -0.23669       -0.19611        -0.20224      -0.20224
+    <strong>skew_eta_e  </strong>     -0.22212      -0.21873       -0.2193       -0.19225        -0.19936      -0.19936
+    <strong>skew_eta_z  </strong>     -0.94957      -0.94965      -0.84924       -0.85727        -0.81499      -0.81499
+    <strong>skew_eta_r  </strong>      0.80524       0.81196       0.81289        0.83475         0.86086       0.86086
+    <strong>stderr_eta_a</strong>     0.025025      0.023894      0.025188       0.023266        0.020542      0.020542
+    <strong>stderr_eta_e</strong>    0.0002021    0.00019053    0.00016118      0.0001328      0.00013237    0.00013237
+    <strong>stderr_eta_z</strong>    0.0079368     0.0080931     0.0081332      0.0083206       0.0088432     0.0088432
+    <strong>stderr_eta_r</strong>    0.0028357      0.002825     0.0028188      0.0028557       0.0027932     0.0027932
+    <strong>OMEGA       </strong>      0.15261       0.15035       0.14146         0.1455         0.12323       0.12323
+    <strong>ALPHA_X     </strong>        1e-05         1e-05         1e-05          1e-05           1e-05         1e-05
+    <strong>ALPHA_PI    </strong>        1e-05         1e-05         1e-05          1e-05           1e-05         1e-05
+    <strong>RHO_PI      </strong>      0.27514       0.25987       0.20723        0.17346         0.17249       0.17249
+    <strong>RHO_G       </strong>      0.34025       0.33942       0.34263        0.34394         0.33689       0.33689
+    <strong>RHO_X       </strong>      0.28297        0.2931       0.29938        0.31859         0.33192       0.33192
+    <strong>RHO_A       </strong>      0.91586        0.9099       0.91672        0.90987         0.88602       0.88602
+    <strong>RHO_E       </strong>      0.98154       0.98142       0.98096        0.98422         0.98286       0.98286
+    <strong>Log-Lik     </strong>       1215.8        1215.8        1215.7         1215.7          1215.3        1215.3
+
+  Standard Errors
+                            <strong>cmaes</strong>             <strong>cmaes_dsge</strong>          <strong>fminsearch</strong>          <strong>fminsearchbnd</strong>    <strong>fmincon</strong>    <strong>fminunc</strong>
+                    <strong>______________________</strong>    <strong>__________</strong>    <strong>______________________</strong>    <strong>_____________</strong>    <strong>_______</strong>    <strong>_______</strong>
+
+    <strong>skew_eta_a  </strong>             0+0.005726i        0.27958      0.0096932+0i                   NaN           NaN        NaN 
+    <strong>skew_eta_e  </strong>             0+0.0056905i       0.23848      0.0089229+0i                   NaN           NaN        NaN 
+    <strong>skew_eta_z  </strong>      0.092353+0i                8.1725        0.03411+0i                   NaN           NaN        NaN 
+    <strong>skew_eta_r  </strong>      0.043156+0i               0.93757       0.032381+0i                   NaN           NaN        NaN 
+    <strong>stderr_eta_a</strong>             0+0.00079902i     0.019142      0.0012355+0i                   NaN           NaN        NaN 
+    <strong>stderr_eta_e</strong>    6.6564e-05+0i             0.0082898              0+6.7231e-05i          NaN           NaN        NaN 
+    <strong>stderr_eta_z</strong>    0.00037656+0i              0.058388     0.00034252+0i                   NaN           NaN        NaN 
+    <strong>stderr_eta_r</strong>     0.0002135+0i             0.0033434     0.00025757+0i                   NaN           NaN        NaN 
+    <strong>OMEGA       </strong>      0.008715+0i               0.15237      0.0056907+0i                   NaN           NaN        NaN 
+    <strong>ALPHA_X     </strong>     0.0012177+0i              0.094649      0.0022554+0i                   NaN           NaN        NaN 
+    <strong>ALPHA_PI    </strong>     0.0019061+0i              0.044379      0.0012288+0i                   NaN           NaN        NaN 
+    <strong>RHO_PI      </strong>      0.019288+0i               0.77119      0.0074135+0i                   NaN           NaN        NaN 
+    <strong>RHO_G       </strong>       0.01228+0i               0.89058       0.012232+0i                   NaN           NaN        NaN 
+    <strong>RHO_X       </strong>     0.0041116+0i               0.10459       0.010578+0i                   NaN           NaN        NaN 
+    <strong>RHO_A       </strong>     0.0094987+0i              0.027408      0.0088132+0i                   NaN           NaN        NaN 
+    <strong>RHO_E       </strong>      0.029672+0i                3.8431              0+0.034252i            NaN           NaN        NaN 
+    <strong>Log-Lik     </strong>        1215.8+0i                1215.8         1215.7+0i                1215.7        1215.3     1215.3 
+
+Final value of the best CSN log-likelihood function: 1215.8372
+Likelihood Ratio Test Statistic = 16.55 with p-val = 0.0024
+****************************************************************************************************
+
