@@ -1,5 +1,5 @@
-function [log_lik,x_filt,pred,filt] = kalman_csn(Y, mu_tm1_tm1,Sigma_tm1_tm1,Gamma_tm1_tm1,nu_tm1_tm1,Delta_tm1_tm1, G,R,F, mu_eta,Sigma_eta,Gamma_eta,nu_eta,Delta_eta, mu_eps,Sigma_eps, cdfmvna_fct,prune_tol,skip_lik,skip_loss,loss_fct)
-% [log_lik,x_filt,pred,filt] = kalman_csn(Y, mu_tm1_tm1,Sigma_tm1_tm1,Gamma_tm1_tm1,nu_tm1_tm1,Delta_tm1_tm1, G,R,F, mu_eta,Sigma_eta,Gamma_eta,nu_eta,Delta_eta, mu_eps,Sigma_eps, cdfmvna_fct,prune_tol,skip_lik,skip_loss,loss_fct)
+function [log_lik,x_filt,pred,filt] = kalman_csn(Y, mu_tm1_tm1,Sigma_tm1_tm1,Gamma_tm1_tm1,nu_tm1_tm1,Delta_tm1_tm1, G,R,F, mu_eta,Sigma_eta,Gamma_eta,nu_eta,Delta_eta, mu_eps,Sigma_eps, G_singular,cdfmvna_fct,prune_tol,skip_lik,skip_loss,loss_fct, verbose)
+% [log_lik,x_filt,pred,filt] = kalman_csn(Y, mu_tm1_tm1,Sigma_tm1_tm1,Gamma_tm1_tm1,nu_tm1_tm1,Delta_tm1_tm1, G,R,F, mu_eta,Sigma_eta,Gamma_eta,nu_eta,Delta_eta, mu_eps,Sigma_eps, G_singular,cdfmvna_fct,prune_tol,skip_lik,skip_loss,loss_fct)
 % -------------------------------------------------------------------------
 % Evaluate (1) log-likelihood value, (2) filtered states and (3) smoothed states
 % of linear state space model with csn distributed innovations and normally distributed noise:
@@ -30,6 +30,7 @@ function [log_lik,x_filt,pred,filt] = kalman_csn(Y, mu_tm1_tm1,Sigma_tm1_tm1,Gam
 % - Delta_eta       [skeweta_dim by skeweta_dim]   5th parameter of CSN distributed innovations eta (enables closure of CSN distribution und marginalization)
 % - mu_eps          [y_nbr by 1]                   location parameter of normally distributed measurement errors eps (equals expectation vector)
 % - Sigma_eps       [y_nbr by y_nbr]               scale parameter of normally distributed measurement errors eps (equals covariance matrix)
+% - G_singular      [boolean]                      indicator if prediction step is done on joint distribution, [x_t', eta_t']', useful for DSGE models where G is singular
 % - cdfmvna_fct     [string]                       name of function to compute log Gaussian cdf, possible values: 'logmvncdf_ME', 'mvncdf', 'qsilatmvnv', 'qsimvnv'
 % - prune_tol       [double]                       correlation threshold to prune redundant skewness dimensions, if set to 0 no pruning will be done
 % - skip_lik        [boolean]                      1: skip log-likelihood computations (e.g. for doing filtering and smoothing only)
@@ -69,15 +70,19 @@ kalman_tol = 1e-10;    % numerical tolerance for determining the singularity of 
 Omega_singular = true; % initialize
 
 % get dimensions
-[y_nbr,x_nbr] = size(F);
-obs_nbr       = size(Y,2);
+x_nbr = length(G);
+[y_nbr, obs_nbr] = size(Y);
 
 % initialize some matrices
-mu_eta    = R*mu_eta;
-Sigma_eta = R*Sigma_eta*R';
-Gamma_eta = Gamma_eta/(R'*R)*R';
-Gamma_eta_X_Sigma_eta = Gamma_eta*Sigma_eta;
-Delta22_common = Delta_eta + Gamma_eta_X_Sigma_eta*Gamma_eta';
+if G_singular
+    G_bar = [G, R]; % Multiplying matrix of joint distribution
+else
+    mu_eta    = R*mu_eta;
+    Sigma_eta = R*Sigma_eta*R';
+    Gamma_eta = Gamma_eta/(R'*R)*R';
+    Gamma_eta_X_Sigma_eta = Gamma_eta*Sigma_eta;
+    Delta22_common = Delta_eta + Gamma_eta_X_Sigma_eta*Gamma_eta';
+end
 const2pi = -0.5*y_nbr*log(2*pi);
 
 if nargout > 1
@@ -85,6 +90,7 @@ if nargout > 1
     x_filt.L2 = nan(x_nbr,obs_nbr);
     x_filt.La = nan(x_nbr,obs_nbr);
 end
+
 if nargout > 2
     % initialize "pred" structure to save parameters of predicted states
     pred.mu    = zeros(x_nbr,obs_nbr);
@@ -100,26 +106,40 @@ if nargout > 2
     filt.nu    = cell(obs_nbr,1); % use cell as skewness dimension is time-varying
     filt.Delta = cell(obs_nbr,1); % use cell as skewness dimension is time-varying
 end
+
 log_lik_t = zeros(obs_nbr,1); % initialize vector of likelihood contributions
 log_lik   = -Inf; % default value of log likelihood
 
-for t=1:obs_nbr
-    % auxiliary matrices
-    Gamma_tm1_tm1_X_Sigma_tm1_tm1      = Gamma_tm1_tm1*Sigma_tm1_tm1;
-    Gamma_tm1_tm1_X_Sigma_tm1_tm1_X_GT = Gamma_tm1_tm1_X_Sigma_tm1_tm1*G';
+for t = 1:obs_nbr
+    %%%%%%%%%%%%%%
+    % PREDICTION %
+    %%%%%%%%%%%%%%
 
-    % prediction
-    mu_t_tm1  = G*mu_tm1_tm1 + mu_eta;
-    Sigma_t_tm1 = G*Sigma_tm1_tm1*G' + Sigma_eta;
-    Sigma_t_tm1 = 0.5*(Sigma_t_tm1 + Sigma_t_tm1'); % ensure symmetry
-    invSigma_t_tm1 = inv(Sigma_t_tm1);
-    Gamma_t_tm1 = [Gamma_tm1_tm1_X_Sigma_tm1_tm1_X_GT; Gamma_eta_X_Sigma_eta]*invSigma_t_tm1;
-    nu_t_tm1 = [nu_tm1_tm1; nu_eta];
-    Delta11_t_tm1 = Delta_tm1_tm1 + Gamma_tm1_tm1_X_Sigma_tm1_tm1*Gamma_tm1_tm1' - Gamma_tm1_tm1_X_Sigma_tm1_tm1_X_GT*invSigma_t_tm1*Gamma_tm1_tm1_X_Sigma_tm1_tm1_X_GT';
-    Delta22_t_tm1 = Delta22_common - Gamma_eta_X_Sigma_eta*invSigma_t_tm1*Gamma_eta_X_Sigma_eta';
-    Delta12_t_tm1 = -Gamma_tm1_tm1_X_Sigma_tm1_tm1_X_GT*invSigma_t_tm1*Gamma_eta_X_Sigma_eta';
-    Delta_t_tm1 = [Delta11_t_tm1 , Delta12_t_tm1; Delta12_t_tm1' , Delta22_t_tm1];
-    Delta_t_tm1 = 0.5*(Delta_t_tm1 + Delta_t_tm1'); % ensure symmetry
+    if G_singular
+        % Parameters of joint distribution, [x_t', eta_t']'
+        mu_bar_tm1_tm1 = [mu_tm1_tm1; mu_eta];
+        nu_bar_tm1_tm1 = [nu_tm1_tm1; nu_eta];
+        Sigma_bar_tm1_tm1 = blkdiag_two(Sigma_tm1_tm1, Sigma_eta);
+        Gamma_bar_tm1_tm1 = blkdiag_two(Gamma_tm1_tm1, Gamma_eta);
+        Delta_bar_tm1_tm1 = blkdiag_two(Delta_tm1_tm1, Delta_eta);
+        % Linear transformation of the joint distribution
+        [mu_t_tm1, Sigma_t_tm1, Gamma_t_tm1, nu_t_tm1, Delta_t_tm1] = csn_statespace_linear_transform(G_bar, mu_bar_tm1_tm1, Sigma_bar_tm1_tm1, Gamma_bar_tm1_tm1, nu_bar_tm1_tm1, Delta_bar_tm1_tm1);
+    else
+        % auxiliary matrices
+        Gamma_tm1_tm1_X_Sigma_tm1_tm1      = Gamma_tm1_tm1*Sigma_tm1_tm1;
+        Gamma_tm1_tm1_X_Sigma_tm1_tm1_X_GT = Gamma_tm1_tm1_X_Sigma_tm1_tm1*G';
+        mu_t_tm1  = G*mu_tm1_tm1 + mu_eta;
+        Sigma_t_tm1 = G*Sigma_tm1_tm1*G' + Sigma_eta;
+        Sigma_t_tm1 = 0.5*(Sigma_t_tm1 + Sigma_t_tm1'); % ensure symmetry
+        invSigma_t_tm1 = inv(Sigma_t_tm1);
+        Gamma_t_tm1 = [Gamma_tm1_tm1_X_Sigma_tm1_tm1_X_GT; Gamma_eta_X_Sigma_eta]*invSigma_t_tm1;
+        nu_t_tm1 = [nu_tm1_tm1; nu_eta];
+        Delta11_t_tm1 = Delta_tm1_tm1 + Gamma_tm1_tm1_X_Sigma_tm1_tm1*Gamma_tm1_tm1' - Gamma_tm1_tm1_X_Sigma_tm1_tm1_X_GT*invSigma_t_tm1*Gamma_tm1_tm1_X_Sigma_tm1_tm1_X_GT';
+        Delta22_t_tm1 = Delta22_common - Gamma_eta_X_Sigma_eta*invSigma_t_tm1*Gamma_eta_X_Sigma_eta';
+        Delta12_t_tm1 = -Gamma_tm1_tm1_X_Sigma_tm1_tm1_X_GT*invSigma_t_tm1*Gamma_eta_X_Sigma_eta';
+        Delta_t_tm1 = [Delta11_t_tm1 , Delta12_t_tm1; Delta12_t_tm1' , Delta22_t_tm1];
+        Delta_t_tm1 = 0.5*(Delta_t_tm1 + Delta_t_tm1'); % ensure symmetry
+    end
     y_predicted = F*mu_t_tm1 + mu_eps;
     prediction_error = Y(:,t) - y_predicted;
 
@@ -130,33 +150,35 @@ for t=1:obs_nbr
 
     % Kalman gains
     Omega = F*Sigma_t_tm1*F' + Sigma_eps;
-    Omega = 0.5*(Omega + Omega'); %ensure symmetry
+    Omega = 0.5 * (Omega + Omega'); % ensure symmetry
     badly_conditioned_Omega = false;
     if rcond(Omega)<kalman_tol
         sig=sqrt(diag(Omega));
         if any(diag(Omega)<kalman_tol) || rcond(Omega./(sig*sig'))<kalman_tol
             badly_conditioned_Omega = true;
-            warning('kalman_csn: badly_conditioned_Omega')        
+            %warning('kalman_csn: badly_conditioned_Omega')
         end
     end
     if badly_conditioned_Omega
         if ~all(abs(Omega(:))<kalman_tol)
             % Use univariate filter (will remove observations with zero variance prediction error)
-            error('kalman_csn: you should use an univariate filter, which is not in the replication codes')
+            %warning('kalman_csn: you should use an univariate filter, which is not in the replication codes')
         else
             % Pathological case, discard draw.
-            warning('discard draw due to badly_conditioned_Omega')
+            %warning('discard draw due to badly_conditioned_Omega')
             return
         end
     else
         Omega_singular = false;
         log_detOmega = log(det(Omega));
         invOmega = inv(Omega);
-        K_Gauss = Sigma_t_tm1*F'*invOmega; % Gaussian Kalman Gain
-        K_Skewed = Gamma_t_tm1*K_Gauss;    % Skewed Kalman Gain
-    
+        K_Gauss = Sigma_t_tm1*F'*invOmega;  % Gaussian Kalman Gain
+        K_Skewed = Gamma_t_tm1*K_Gauss;     % Skewed Kalman Gain
+
         if ~skip_lik
-            % log-likelihood contributions        
+            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            % LOG-LIKELIHOOD CONTRIBUTIONS %
+            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
             % The conditional distribution of y(t) given y(t-1) is:
             % (y(t)|y(t-1)) ~ CSN(mu_y,Sigma_y,Gamma_y,nu_y,Delta_y)
             %               = mvncdf(Gamma_y*(y(t)-mu_y),nu_y,Delta_y) / mvncdf(0,nu_y,Delta_y+Gamma_y*Sigma_y*Gamma_y') * mvnpdf(y(t),mu_y,Sigma_y)
@@ -169,30 +191,44 @@ for t=1:obs_nbr
             %             - Gamma_t_tm1*Sigma_t_tm1*F'*inv(F*Sigma_t_tm1*F')*F*Sigma_t_tm1*Gamma_t_tm1'...
             %             + (Gamma_t_tm1*Sigma_t_tm1*F'*inv(F*Sigma_t_tm1*F') - Gamma_t_tm1*Sigma_t_tm1*F'*inv(F*Sigma_t_tm1*F' + Sigma_eps))*F*Sigma_t_tm1*Gamma_t_tm1';
             %           = Delta_t_tm1 + (Gamma_t_tm1-K_Skewed*F)*Sigma_t_tm1*Gamma_t_tm1'
-            Delta_y = Delta_t_tm1 + (Gamma_t_tm1-K_Skewed*F)*Sigma_t_tm1*Gamma_t_tm1';
-            Delta_y = 0.5*(Delta_y + Delta_y'); %ensure symmetry
+            tmp = Gamma_t_tm1*Sigma_t_tm1;
+            Delta_y= Delta_t_tm1 + tmp*Gamma_t_tm1' - K_Skewed*F*tmp';
+            Delta_y = 0.5 * (Delta_y + Delta_y');  %ensure symmetry
 
             % evaluate Gaussian cdfs, i.e.
             %  - bottom one: mvncdf(0,nu_y,Delta_y + Gamma_y*Sigma_y*Gamma_y')
             %  - top one: mvncdf(Gamma_y*(y(t)-mu_y),nu_y,Delta_y)
+
             cdf_bottom_cov = Delta_y + K_Skewed*Omega*K_Skewed';
             cdf_bottom_cov = 0.5*(cdf_bottom_cov + cdf_bottom_cov'); % ensure symmetry
             if strcmp(cdfmvna_fct,'logmvncdf_ME')
-                % requires zero mean and correlation matrix as inputs
-                normalization_bottom_cov = diag(1./sqrt(diag(cdf_bottom_cov)));
-                cdf_bottom_cov = normalization_bottom_cov*cdf_bottom_cov*normalization_bottom_cov; % this is now a correlation matrix!
+                % requires zero mean and correlation matrix as inputs            
+                normalization_Delta_y = diag(1./sqrt(diag(cdf_bottom_cov)));
+                cdf_bottom_cov = normalization_Delta_y*cdf_bottom_cov*normalization_Delta_y; % this is now a correlation matrix!
                 cdf_bottom_cov = 0.5*(cdf_bottom_cov + cdf_bottom_cov'); % ensure symmetry
                 if ~isempty(cdf_bottom_cov)
-                    log_gaussian_cdf_bottom = logmvncdf_ME(-normalization_bottom_cov*nu_t_tm1, cdf_bottom_cov);
+                    try
+                        log_gaussian_cdf_bottom = logmvncdf_ME(-normalization_Delta_y*nu_t_tm1, cdf_bottom_cov);
+                    catch
+                        %warning('kalman_csn_dsge: log_gaussian_cdf_bottom something wrong')
+                        log_lik = -Inf;
+                        return
+                    end
                 else
                     log_gaussian_cdf_bottom = 0;
                 end
-
+    
                 normalization_Delta_y = diag(1./sqrt(diag(Delta_y)));
                 Delta_y = normalization_Delta_y*Delta_y*normalization_Delta_y; % this is now a correlation matrix!
-                Delta_y = 0.5*(Delta_y + Delta_y');
+                Delta_y = 0.5*(Delta_y + Delta_y'); % ensure symmetry
                 if ~isempty(Delta_y)
-                    log_gaussian_cdf_top = logmvncdf_ME(normalization_Delta_y*(K_Skewed*prediction_error - nu_t_tm1), Delta_y);                    
+                    try
+                        log_gaussian_cdf_top = logmvncdf_ME(normalization_Delta_y*(K_Skewed*prediction_error - nu_t_tm1), Delta_y);
+                    catch
+                        %warning('kalman_csn: log_gaussian_cdf_top something wrong')
+                        log_lik = -Inf;
+                        return
+                    end
                 else
                     log_gaussian_cdf_top = 0;
                 end
@@ -223,15 +259,19 @@ for t=1:obs_nbr
             % log_gaussian_pdf = log(mvnpdf(Y(:,t), y_predicted, Omega));
             log_gaussian_pdf = const2pi - 0.5*log_detOmega - 0.5*transpose(prediction_error)*invOmega*prediction_error;
 
+            % likelihood contribution
             log_lik_t(t) = -log_gaussian_cdf_bottom + log_gaussian_pdf + log_gaussian_cdf_top;
             if isnan(log_lik_t(t))
+                %warning('Likelihood value is NaN')
                 log_lik = -Inf;
-                x_filt  = nan;
+                x_filt = nan;
                 return
             end
         end
 
-        % filtering
+        %%%%%%%%%%%%%
+        % FILTERING %
+        %%%%%%%%%%%%%
         mu_t_t    = mu_t_tm1 + K_Gauss*prediction_error;
         Sigma_t_t = Sigma_t_tm1 - K_Gauss*F*Sigma_t_tm1;
         Gamma_t_t = Gamma_t_tm1;
@@ -252,7 +292,7 @@ for t=1:obs_nbr
                 % asymmetric loss, i.e. compute a/(a+b) quantile of CSN distributed x_t_t
                 x_filt.La(:,t) = csnQuantile(loss_fct.params.a/(loss_fct.params.a+loss_fct.params.b), mu_t_t, Sigma_t_t, Gamma_t_t, nu_t_t, Delta_t_t, cdfmvna_fct);
             end
-        end
+        end        
 
         % assign for next time step
         mu_tm1_tm1    = mu_t_t;
@@ -260,7 +300,7 @@ for t=1:obs_nbr
         Gamma_tm1_tm1 = Gamma_t_t;
         nu_tm1_tm1    = nu_t_t;
         Delta_tm1_tm1 = Delta_t_t;
-
+        
         if nargout > 2
             % save the parameters of the predicted and filtered csn states
             pred.mu(:,t)      = mu_t_tm1;
@@ -278,10 +318,21 @@ for t=1:obs_nbr
 end
 
 if Omega_singular
-    error('The variance of the forecast error remains singular until the end of the sample')
+    %warning('The variance of the forecast error remains singular until the end of the sample')
 end
 
 % compute log-likelihood by summing individual contributions
 log_lik = sum(log_lik_t);
 
-end % main function end
+
+%% Auxiliary function
+function res_mat = blkdiag_two(mat1, mat2)
+    % Makes a block diagonal matrix out of two matrices
+    [nrow_mat1, ncol_mat1] = size(mat1); [nrow_mat2, ncol_mat2] = size(mat2);
+    upper_mat = zeros(nrow_mat1, ncol_mat2);
+    lower_mat = zeros(nrow_mat2, ncol_mat1);
+    res_mat = [mat1, upper_mat; lower_mat, mat2];
+end % blkdiag_two
+
+
+end % kalman_csn
