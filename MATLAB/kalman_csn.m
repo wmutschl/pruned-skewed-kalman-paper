@@ -46,7 +46,7 @@ function [log_lik,x_filt,pred,filt] = kalman_csn(Y, mu_tm1_tm1,Sigma_tm1_tm1,Gam
 % - pred            [structure]                    CSN parameters of predicted states (mu_t_tm1,Sigma_t_tm1,Gamma_t_tm1,nu_t_tm1,Delta_t_tm1) needed e.g. for kalman_csn_smoother.m
 % - filt            [structure]                    CSN parameters of filtered states (mu_t_t,Sigma_t_t,Gamma_t_t,nu_t_t,Delta_t_t) needed e.g. for kalman_csn_smoother.m
 % =========================================================================
-% Copyright (C) 2022-2023 Gaygysyz Guljanov, Willi Mutschler, Mark Trede
+% Copyright (C) 2022-2023 Gaygysyz Guljanov, Willi Mutschler
 %
 % This is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by
@@ -59,8 +59,9 @@ function [log_lik,x_filt,pred,filt] = kalman_csn(Y, mu_tm1_tm1,Sigma_tm1_tm1,Gam
 % GNU General Public License for more details.
 % -------------------------------------------------------------------------
 % This file is part of the replication files for the paper "Pruned Skewed
-% Kalman Filter and Smoother: With Application to the Yield Curve" by
-% Gaygysyz Guljanov, Willi Mutschler, Mark Trede (2022)
+% Kalman Filter and Smoother: Pruned Skewed Kalman Filter and Smoother:
+% With Applications to the Yield Curve and Asymmetric Monetary Policy Shocks"
+% by Gaygysyz Guljanov, Willi Mutschler, Mark Trede
 % =========================================================================
 
 % some settings (inspired by kalman_filter.m of Dynare)

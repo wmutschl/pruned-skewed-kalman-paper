@@ -1,11 +1,9 @@
 function DisplayResults_MakeLatexTables_ExpectedLosses(filename,ONLY_LATEX)
-% DisplayResults_MakeLatexTables_ExpectedLosses(filename)
+% DisplayResults_MakeLatexTables_ExpectedLosses(filename,ONLY_LATEX)
 % -------------------------------------------------------------------------
 % Collects and displays the results of the Monte-Carlo assessment of the 
 % accuracy of filtered and smoothed states done in Accuracy_States.m
-% Creates a log file with results and also the Latex code for the rows of
-% Table 1 and Table 2 of the paper "Pruned Skewed Kalman Filter and Smoother:
-% With Application to the Yield Curve" by Gaygysyz Guljanov, Willi Mutschler, Mark Trede
+% Creates a log file with results and also the corresponding Latex code
 % -------------------------------------------------------------------------
 % INPUTS
 % - filename   [string]   load results created with Accuracy_States and saved in results/"filename".mat,
@@ -17,7 +15,7 @@ function DisplayResults_MakeLatexTables_ExpectedLosses(filename,ONLY_LATEX)
 % - latex codes are displayed in the command window
 % - a log file "filename.log" is created in the results folder
 % =========================================================================
-% Copyright (C) 2022-2023 Gaygysyz Guljanov, Willi Mutschler, Mark Trede
+% Copyright (C) 2022-2023 Willi Mutschler
 %
 % This is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by
@@ -30,8 +28,9 @@ function DisplayResults_MakeLatexTables_ExpectedLosses(filename,ONLY_LATEX)
 % GNU General Public License for more details.
 % -------------------------------------------------------------------------
 % This file is part of the replication files for the paper "Pruned Skewed
-% Kalman Filter and Smoother: With Application to the Yield Curve" by
-% Gaygysyz Guljanov, Willi Mutschler, Mark Trede (2022)
+% Kalman Filter and Smoother: Pruned Skewed Kalman Filter and Smoother:
+% With Applications to the Yield Curve and Asymmetric Monetary Policy Shocks"
+% by Gaygysyz Guljanov, Willi Mutschler, Mark Trede
 % =========================================================================
 if nargin < 2
     ONLY_LATEX = false;
@@ -55,11 +54,11 @@ if ~ONLY_LATEX
     % print settings to logfile
     disp(OPT)
     disp(repmat('*',1,60));
-    disp('Parameter Matrix G:'); disp(PARAMS.G);
-    disp('Parameter Matrix F:'); disp(PARAMS.F);
-    disp('Parameter Matrix R:'); disp(PARAMS.R);
-    disp('Parameter Matrix mu_eps:');    disp(PARAMS.mu_eps);
-    disp('Parameter Matrix Sigma_eps:'); disp(PARAMS.Sigma_eps);
+    disp('Parameter Matrix G:');              disp(PARAMS.G);
+    disp('Parameter Matrix F:');              disp(PARAMS.F);
+    disp('Parameter Matrix R:');              disp(PARAMS.R);
+    disp('Parameter Matrix mu_eps:');         disp(PARAMS.mu_eps);
+    disp('Parameter Matrix Sigma_eps:');      disp(PARAMS.Sigma_eps);
     disp('Parameter Matrix mu_eta:');         disp(PARAMS.mu_eta);
     disp('Parameter Matrix Sigma_eta:');      disp(PARAMS.Sigma_eta);
     disp('Parameter Matrix nu_eta:');         disp(PARAMS.nu_eta);

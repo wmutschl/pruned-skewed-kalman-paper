@@ -31,7 +31,7 @@ function [y, x] = simulate_csn_state_space(obs_nbr,burnin, G,R,F, mu_eta,Sigma_e
 % - y           [y_nbr by obs_nbr]     matrix of simulated observable variables
 % - x           [x_nbr by obs_nbr]     matrix of simulated state variables
 % =========================================================================
-% Copyright (C) 2022-2023 Gaygysyz Guljanov, Willi Mutschler, Mark Trede
+% Copyright (C) 2022-2023 Gaygysyz Guljanov, Willi Mutschler
 %
 % This is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by
@@ -44,8 +44,9 @@ function [y, x] = simulate_csn_state_space(obs_nbr,burnin, G,R,F, mu_eta,Sigma_e
 % GNU General Public License for more details.
 % -------------------------------------------------------------------------
 % This file is part of the replication files for the paper "Pruned Skewed
-% Kalman Filter and Smoother: With Application to the Yield Curve" by
-% Gaygysyz Guljanov, Willi Mutschler, Mark Trede (2022)
+% Kalman Filter and Smoother: Pruned Skewed Kalman Filter and Smoother:
+% With Applications to the Yield Curve and Asymmetric Monetary Policy Shocks"
+% by Gaygysyz Guljanov, Willi Mutschler, Mark Trede
 % =========================================================================
 
 % get dimensions

@@ -25,7 +25,7 @@ function [LOSS,SAMPLESTATS] = Accuracy_States(PARAMS,OPT)
 % - LOSS          [structure]   results of Monte Carlo analysis with expected losses for filtered and smoothed states, for field names see bottom of the function
 % - SAMPLESTATS   [structure]   descriptive statistics (sample mean, sample standard deviation and sample skewness coefficient) for simulated data used in Monte Carlo
 % =========================================================================
-% Copyright (C) 2022-2023 Gaygysyz Guljanov, Willi Mutschler, Mark Trede
+% Copyright (C) 2022-2023 Willi Mutschler
 %
 % This is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by
@@ -38,8 +38,9 @@ function [LOSS,SAMPLESTATS] = Accuracy_States(PARAMS,OPT)
 % GNU General Public License for more details.
 % -------------------------------------------------------------------------
 % This file is part of the replication files for the paper "Pruned Skewed
-% Kalman Filter and Smoother: With Application to the Yield Curve" by
-% Gaygysyz Guljanov, Willi Mutschler, Mark Trede (2022)
+% Kalman Filter and Smoother: Pruned Skewed Kalman Filter and Smoother:
+% With Applications to the Yield Curve and Asymmetric Monetary Policy Shocks"
+% by Gaygysyz Guljanov, Willi Mutschler, Mark Trede
 % =========================================================================
 
 %% get options from OPT structure
@@ -107,7 +108,7 @@ smoothL2_csn   = nan(mc_replic,prune_tol_nbr); % stores L2 loss for states smoot
 smoothLa_csn   = nan(mc_replic,prune_tol_nbr); % stores La loss for states smoothed by the Pruned Skewed Kalman smoother
 
 %% Run Monte-Carlo analysis
- % in order to set the seed in the parfor loop, we follow MATLAB's help on "Repeat Random Numbers in parfor-Loops"
+% in order to set the seed in the parfor loop, we follow MATLAB's help on "Repeat Random Numbers in parfor-Loops"
 sc = parallel.pool.Constant(RandStream('Threefry','Seed',seed_nbr));
 fprintf('Seed settings for parpool:\n');
 disp(sc.Value);

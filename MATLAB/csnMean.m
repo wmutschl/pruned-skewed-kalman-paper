@@ -17,7 +17,7 @@ function [E_csn] = csnMean(mu, Sigma, Gamma, nu, Delta, cdfmvna_fct)
 % OUTPUTS
 % - E_csn         [p by 1]   expectation vector of the CSN(mu,Sigma,Gamma,nu,Delta) distribution
 % =========================================================================
-% Copyright (C) 2022-2023 Gaygysyz Guljanov, Willi Mutschler, Mark Trede
+% Copyright (C) 2022-2023 Gaygysyz Guljanov
 %
 % This is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by
@@ -30,8 +30,9 @@ function [E_csn] = csnMean(mu, Sigma, Gamma, nu, Delta, cdfmvna_fct)
 % GNU General Public License for more details.
 % -------------------------------------------------------------------------
 % This file is part of the replication files for the paper "Pruned Skewed
-% Kalman Filter and Smoother: With Application to the Yield Curve" by
-% Gaygysyz Guljanov, Willi Mutschler, Mark Trede (2022)
+% Kalman Filter and Smoother: Pruned Skewed Kalman Filter and Smoother:
+% With Applications to the Yield Curve and Asymmetric Monetary Policy Shocks"
+% by Gaygysyz Guljanov, Willi Mutschler, Mark Trede
 % =========================================================================
 
 if nargin < 6

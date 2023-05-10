@@ -1,10 +1,7 @@
 function [Sigma, Gamma, nu, Delta] = csnPruneParams(Sigma, Gamma, nu, Delta, tol, debug_dim)
 % [Sigma, Gamma, nu, Delta] = csnPruneParams(Sigma, Gamma, nu, Delta, tol, debug_dim)
 % -------------------------------------------------------------------------
-% Reduces the dimension of a CSN distributed random variable according to
-% Algorithm 1 of the paper "Pruned Skewed Kalman Filter and Smoother: With Application
-% to the Yield Curve" by Gaygysyz Guljanov, Willi Mutschler, Mark Trede (2022)
-%
+% Reduces the dimension of a CSN distributed random variable
 % Idea: 
 % 1) Representation of CSN distribution:
 %    X ~ CSN(mu,Sigma,Gamma,nu,Delta) is equivalent to X = W|Z>=0 where
@@ -32,7 +29,7 @@ function [Sigma, Gamma, nu, Delta] = csnPruneParams(Sigma, Gamma, nu, Delta, tol
 % - Delta         [qq by q]   5th parameter of the pruned CSN distribution (enables closure of CSN distribution und marginalization)
 % where qq < q is the skewness dimension of the pruned distribution
 % =========================================================================
-% Copyright (C) 2022-2023 Gaygysyz Guljanov, Willi Mutschler, Mark Trede
+% Copyright (C) 2022-2023 Gaygysyz Guljanov, Willi Mutschler
 %
 % This is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by
@@ -45,8 +42,9 @@ function [Sigma, Gamma, nu, Delta] = csnPruneParams(Sigma, Gamma, nu, Delta, tol
 % GNU General Public License for more details.
 % -------------------------------------------------------------------------
 % This file is part of the replication files for the paper "Pruned Skewed
-% Kalman Filter and Smoother: With Application to the Yield Curve" by
-% Gaygysyz Guljanov, Willi Mutschler, Mark Trede (2022)
+% Kalman Filter and Smoother: Pruned Skewed Kalman Filter and Smoother:
+% With Applications to the Yield Curve and Asymmetric Monetary Policy Shocks"
+% by Gaygysyz Guljanov, Willi Mutschler, Mark Trede
 % =========================================================================
 if nargin < 6
     debug_dim = [];
