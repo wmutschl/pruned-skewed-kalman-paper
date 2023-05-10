@@ -114,15 +114,108 @@ options_.filename = sprintf('results_ireland2004_stderrskew%d_KalmanInit%d_FixAx
 %options_.optim_opt.names = ["fminsearch" "fminsearchbnd"]; % names of optimizer that will be used in parallel ("simulannealbnd" and "sa_resampling" are very time-consuming, "cmaes" and "cmaes_dsge" are mildly time-consuming, fminsearch and fminsearchbnd can be mildly time-consuming, "fmincon" and "fminunc" are fast (but not as good) )
 options_.kalman.csn.initval_search = 0; % 0: use initial values provided in estim_params file
 [oo_, M_] = dsge_maximum_likelihood_estimation_csn(M_,options_,datamat);
+
+%% IRFs
+M_irf = ireland2004_preprocessing;
+M_irf.params(ismember(M_irf.param_names,'BETA'))     = 0.99;
+M_irf.params(ismember(M_irf.param_names,'PSI'))      = 0.1;
+if isfield(options_.parameters.fix,'ALPHA_X') && (options_.parameters.fix.ALPHA_X==1)
+    M_irf.params(ismember(M_irf.param_names,'ALPHA_X')) = 0;
+end
+if isfield(options_.parameters.fix,'ALPHA_PI') && (options_.parameters.fix.ALPHA_PI==1)
+    M_irf.params(ismember(M_irf.param_names,'ALPHA_PI')) = 0;
+end
+[~,best_gauss] = min(oo_.gauss.neg_log_likelihood);
+[~,best_csn] = min(oo_.csn.neg_log_likelihood);
+M_irf_gauss = dsge_set_params(oo_.gauss.xparams_tr(:,best_gauss),     estim_params_gauss,   options_, M_irf);
+M_irf_csn = dsge_set_params(oo_.csn.xparams_tr(:,best_csn),     estim_params_csn,   options_, M_irf);
+[M_irf_gauss.G,M_irf_gauss.R] = dsge_perturbation_solution_order_1(M_irf_gauss);
+[M_irf_csn.G,M_irf_csn.R] = dsge_perturbation_solution_order_1(M_irf_csn);
+options_.irfs = 16;
+plot_vars_idx_DR = [find(M_.endo_names(M_irf.order_var)=="ghat");
+                    find(M_.endo_names(M_irf.order_var)=="pihat");
+                    find(M_.endo_names(M_irf.order_var)=="rhat");
+                    find(M_.endo_names(M_irf.order_var)=="xhat");
+                   ];
+Yhat_gauss_lo = nan(length(plot_vars_idx_DR),options_.irfs,M_irf.exo_nbr);
+Yhat_gauss_hi = nan(length(plot_vars_idx_DR),options_.irfs,M_irf.exo_nbr);
+Yhat_csn_lo = nan(length(plot_vars_idx_DR),options_.irfs,M_irf.exo_nbr);
+Yhat_csn_hi = nan(length(plot_vars_idx_DR),options_.irfs,M_irf.exo_nbr);
+for jexo = 1:M_irf.exo_nbr
+    eta_gauss_lo = zeros(M_irf_gauss.exo_nbr,options_.irfs);
+    eta_gauss_hi = zeros(M_irf_gauss.exo_nbr,options_.irfs);
+    eta_gauss_lo(jexo,1)  = gaussianQuantile(0.16, 0, M_irf_gauss.Cov_eta(jexo,jexo));
+    eta_gauss_hi(jexo,1)  = gaussianQuantile(0.84, 0, M_irf_gauss.Cov_eta(jexo,jexo));
+    eta_csn_lo = zeros(M_irf_csn.exo_nbr,options_.irfs);
+    eta_csn_hi = zeros(M_irf_csn.exo_nbr,options_.irfs);
+    eta_csn_lo(jexo,1)  = csnQuantile(0.16, M_irf_csn.mu_eta(jexo,1), M_irf_csn.Sigma_eta(jexo,jexo), M_irf_csn.Gamma_eta(jexo,jexo), M_irf_csn.nu_eta(jexo,1), M_irf_csn.Delta_eta(jexo,jexo), options_.kalman.csn.cdfmvna_fct);
+    eta_csn_hi(jexo,1)  = csnQuantile(0.84, M_irf_csn.mu_eta(jexo,1), M_irf_csn.Sigma_eta(jexo,jexo), M_irf_csn.Gamma_eta(jexo,jexo), M_irf_csn.nu_eta(jexo,1), M_irf_csn.Delta_eta(jexo,jexo), options_.kalman.csn.cdfmvna_fct);
+    Xhat_gauss_lo = zeros(M_irf_gauss.endo_nbr,options_.irfs); % initialize at steady-state (all zeros)
+    Xhat_gauss_hi = zeros(M_irf_gauss.endo_nbr,options_.irfs); % initialize at steady-state (all zeros)
+    Xhat_csn_lo = zeros(M_irf_csn.endo_nbr,options_.irfs); % initialize at steady-state (all zeros)
+    Xhat_csn_hi = zeros(M_irf_csn.endo_nbr,options_.irfs); % initialize at steady-state (all zeros)
+    for t = 2:options_.irfs
+        Xhat_gauss_lo(:,t) = M_irf_gauss.G*Xhat_gauss_lo(:,t-1) + M_irf_gauss.R*eta_gauss_lo(:,t-1);
+        Xhat_gauss_hi(:,t) = M_irf_gauss.G*Xhat_gauss_hi(:,t-1) + M_irf_gauss.R*eta_gauss_hi(:,t-1);
+        Xhat_csn_lo(:,t) = M_irf_csn.G*Xhat_csn_lo(:,t-1) + M_irf_csn.R*eta_csn_lo(:,t-1);
+        Xhat_csn_hi(:,t) = M_irf_csn.G*Xhat_csn_hi(:,t-1) + M_irf_csn.R*eta_csn_hi(:,t-1);
+    end
+    Yhat_gauss_lo(:,:,jexo) = 100*Xhat_gauss_lo(plot_vars_idx_DR,:);
+    Yhat_gauss_hi(:,:,jexo) = 100*Xhat_gauss_hi(plot_vars_idx_DR,:);
+    Yhat_gauss_lo(2,:,jexo) = 4*Yhat_gauss_lo(2,:,jexo); %definition annualized inflation
+    Yhat_gauss_hi(2,:,jexo) = 4*Yhat_gauss_hi(2,:,jexo); %definition annualized inflation
+    Yhat_gauss_lo(3,:,jexo) = 4*Yhat_gauss_lo(3,:,jexo); %definition annualized interest rate
+    Yhat_gauss_hi(3,:,jexo) = 4*Yhat_gauss_hi(3,:,jexo); %definition annualized interest rate
+
+    Yhat_csn_lo(:,:,jexo) = 100*Xhat_csn_lo(plot_vars_idx_DR,:);
+    Yhat_csn_hi(:,:,jexo) = 100*Xhat_csn_hi(plot_vars_idx_DR,:);
+    Yhat_csn_lo(2,:,jexo) = 4*Yhat_csn_lo(2,:,jexo); %definition annualized inflation
+    Yhat_csn_hi(2,:,jexo) = 4*Yhat_csn_hi(2,:,jexo); %definition annualized inflation
+    Yhat_csn_lo(3,:,jexo) = 4*Yhat_csn_lo(3,:,jexo); %definition annualized interest rate
+    Yhat_csn_hi(3,:,jexo) = 4*Yhat_csn_hi(3,:,jexo); %definition annualized interest rate
+end
+col_hi = "#800080";%"#000000";%"#800080";%"#FF0808";%"#0000FF";
+col_lo = "#69b3a2";%"#FF0808";
+linWidth = 3;
+FontSize = 16;
+strVars = ["output growth", "inflation", "interest rate", "output gap"];
+strShocks = ["preference shock", "cost-push shock", "productivity shock", "policy shock"];
+idxplot = 1;
+setenv('PATH', [getenv('PATH') ':/usr/local/bin:$HOME/.local/bin:/Library/TeX/texbin']);
+for jvar=1:4
+    for jexo=4
+        fig.(erase(strVars(jvar)," ")) = figure(name=strVars(jvar));
+        hold on;
+        p_gauss_lo = plot(0:(options_.irfs-1),squeeze(Yhat_gauss_lo(jvar,:,jexo)),'--','LineWidth',linWidth,'Color',col_lo);
+        p_gauss_hi = plot(0:(options_.irfs-1),squeeze(Yhat_gauss_hi(jvar,:,jexo)),'--','LineWidth',linWidth,'Color',col_hi);
+        p_csn_lo = plot(0:(options_.irfs-1),squeeze(Yhat_csn_lo(jvar,:,jexo)),'-','LineWidth',linWidth,'Color',col_lo);
+        p_csn_hi = plot(0:(options_.irfs-1),squeeze(Yhat_csn_hi(jvar,:,jexo)),'-','LineWidth',linWidth,'Color',col_hi);
+        set(gca,'FontSize',FontSize);
+        %title(strVars(jvar))
+        ylabel(sprintf('Percent'));
+        xlabel('Quarters'); 
+        grid on;
+        hold off;
+        idxplot = idxplot+1;
+    end
+    legend([p_csn_lo, p_gauss_lo, p_csn_hi, p_gauss_hi],["CSN (16th)" "Gaussian (16th)", "CSN (84th)", "Gaussian (84th)"],'NumColumns',2)
+    filename="../Paper/plots/dsge_irfs_"+erase(strVars(jvar)," ")+".pdf";
+    saveas(fig.(erase(strVars(jvar)," ")),filename,'pdf')
+    system(sprintf('pdfcrop %s %s',filename,filename));
 end
 
+    f
+    q_gauss_high = gaussianQuantile(0.84, 0, M_irf.Sigma_eta(jexo,jexo));
+    q_csn(jexo,1)   = csnQuantile(0.16, M_csn.mu_eta(jexo,1), M_csn.Sigma_eta(jexo,jexo), M_csn.Gamma_eta(jexo,jexo), M_csn.nu_eta(jexo,1), M_csn.Delta_eta(jexo,jexo), options_.kalman.csn.cdfmvna_fct);
+    q_csn(jexo,2)   = csnQuantile(0.84, M_csn.mu_eta(jexo,1), M_csn.Sigma_eta(jexo,jexo), M_csn.Gamma_eta(jexo,jexo), M_csn.nu_eta(jexo,1), M_csn.Delta_eta(jexo,jexo), options_.kalman.csn.cdfmvna_fct);
+end
+
+%% display all results and create tables for paper
 if ONLY_LATEX
     load('results/results_ireland2004_stderrskew1_KalmanInit1_FixAx0_FixAp0_R2023a_maci64.mat');
 else
     load("results/" + options_.filename);
 end
-
-%% display all results and create tables for paper
 [~,optim_col] = sort(oo_.csn.neg_log_likelihood); optim_col=optim_col(1);
 xparams_csn = oo_.csn.xparams(:,optim_col);
 xparams_csn_stderr = oo_.csn.xstderr(:,optim_col);
