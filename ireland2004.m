@@ -212,6 +212,15 @@ for jexo = plot_shocks_idx
     end
 end
 
+%% SAVE PARAMETERS FOR PDF PLOTS DONE IN R
+Sigma_gauss = M_gauss.Cov_eta;
+mu_eta = M_csn.mu_eta;
+Sigma_eta = M_csn.Sigma_eta;
+Gamma_eta = M_csn.Gamma_eta;
+nu_eta = M_csn.nu_eta;
+Delta_eta = M_csn.Delta_eta;
+save('results/results_ireland2004_params_for_pdfs','Sigma_gauss','mu_eta','Sigma_eta','Gamma_eta','nu_eta','Delta_eta','-V6');
+
 %% CREATE ESTIMATION TABLE
 % get best CSN estimates to print to table
 [~,optim_col] = sort(oo_gauss.neg_log_likelihood); optim_col=optim_col(1);
