@@ -1,9 +1,6 @@
 # Replicates Figure 3: "Probability density functions and cumulative distribution
 # functions of a CSN distributed random variable with two skewness dimensions
 # and the approximating pruned CSN distribution with one skewness dimenstions"
-# of the paper
-# "Pruned Skewed Kalman Filter and Smoother: With Application to the Yield Curve"
-# by Gaygysyz Guljanov, Willi Mutschler, Mark Trede
 # =========================================================================
 # Copyright © 2022-2023 Gaygysyz Guljanov, Willi Mutschler, Mark Trede
 #
@@ -16,6 +13,11 @@
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
+# -------------------------------------------------------------------------
+# This file is part of the replication files for the paper "Pruned Skewed
+# Kalman Filter and Smoother: Pruned Skewed Kalman Filter and Smoother:
+# With Applications to the Yield Curve and Asymmetric Monetary Policy Shocks"
+# by Gaygysyz Guljanov, Willi Mutschler, Mark Trede
 # =========================================================================
 library(ggplot2)
 library(gridExtra)

@@ -2,9 +2,6 @@ pruned_csn_params <- function(Sigma,Gamma,nu,Delta, tol=0.1){
     # pruned_csn_params <- function(Sigma,Gamma,nu,Delta, tol=0.1)
     # -------------------------------------------------------------------------
     # compute pruned parameters of CSN(mu,Sigma,Gamma,nu,Delta) distribution
-    # as proposed in the paper
-    # "Pruned Skewed Kalman Filter and Smoother: With Application to the Yield Curve"
-    # by Gaygysyz Guljanov, Willi Mutschler, Mark Trede
     # =========================================================================
     # INPUTS
     #   - Sigma: scale parameter of CSN distribution, [p x p] matrix
@@ -27,6 +24,11 @@ pruned_csn_params <- function(Sigma,Gamma,nu,Delta, tol=0.1){
     # but WITHOUT ANY WARRANTY; without even the implied warranty of
     # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     # GNU General Public License for more details.
+    # -------------------------------------------------------------------------
+    # This file is part of the replication files for the paper "Pruned Skewed
+    # Kalman Filter and Smoother: Pruned Skewed Kalman Filter and Smoother:
+    # With Applications to the Yield Curve and Asymmetric Monetary Policy Shocks"
+    # by Gaygysyz Guljanov, Willi Mutschler, Mark Trede
     # =========================================================================
     p <- dim(Sigma)[1]
     q <- dim(Delta)[1]
