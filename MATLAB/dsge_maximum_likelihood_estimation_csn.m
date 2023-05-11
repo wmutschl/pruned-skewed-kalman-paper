@@ -69,6 +69,10 @@ if ~has_optim_toolbox
     options_.optim_opt.names(options_.optim_opt.names=="fmincon") = [];
     options_.optim_opt.names(options_.optim_opt.names=="fminunc") = [];
 end
+has_global_optim_toolbox = any(strcmp(cellstr(char(v.Name)), 'Global Optimization Toolbox'));
+if ~has_global_optim_toolbox
+    options_.optim_opt.names(options_.optim_opt.names=="simulannealbnd") = [];
+end
 % set missing options
 if ~isfield(options_.parameters,'transform')
     options_.parameters.transform = [];
