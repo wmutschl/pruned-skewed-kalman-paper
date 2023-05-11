@@ -62,7 +62,7 @@ if STAGE == "gaussian_initval_from_ireland2004_paper"
     estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_E"),1),    0.9907,  0,  1 ] ];
 
 elseif STAGE == "csn_initval"
-    if options_.computer_arch == "maci64"
+    if (options_.computer_arch == "maca64") || (options_.computer_arch =="maci64")
         if options_.parameters.use_stderr_skew
             % skew parameters
             estim_params_.skew_exo    = [ estim_params_.skew_exo;   [ idx_eta_a,  -0.2148051691244,  options_.parameters.skewness_bounds ] ];
@@ -83,27 +83,6 @@ elseif STAGE == "csn_initval"
         estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_X"),1),    0.289897532758958,  0,  1 ] ];
         estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_A"),1),    0.914017612167537,  0,  1 ] ];
         estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_E"),1),    0.982180201898588,  0,  1 ] ];
-    elseif options_.computer_arch == "maca64"
-        if options_.parameters.use_stderr_skew
-            % skew parameters
-            estim_params_.skew_exo    = [ estim_params_.skew_exo;   [ idx_eta_a,  -0.124468224214679,  options_.parameters.skewness_bounds ] ];
-            estim_params_.skew_exo    = [ estim_params_.skew_exo;   [ idx_eta_e,  -0.149384337394561,  options_.parameters.skewness_bounds ] ];
-            estim_params_.skew_exo    = [ estim_params_.skew_exo;   [ idx_eta_z,  -0.913969465604381,  options_.parameters.skewness_bounds ] ];
-            estim_params_.skew_exo    = [ estim_params_.skew_exo;   [ idx_eta_r,   0.808257209482381,  options_.parameters.skewness_bounds ] ];
-            % stderr parameters
-            estim_params_.var_exo    = [ estim_params_.var_exo;     [ idx_eta_a,   0.024326886682855,  0,  1 ] ];
-            estim_params_.var_exo    = [ estim_params_.var_exo;     [ idx_eta_e,   0.000203663392566,  0,  1 ] ];
-            estim_params_.var_exo    = [ estim_params_.var_exo;     [ idx_eta_z,   0.007940485531863,  0,  1 ] ];
-            estim_params_.var_exo    = [ estim_params_.var_exo;     [ idx_eta_r,   0.002864079912111,  0,  1 ] ];
-        end
-        estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"OMEGA"),1),    0.157773814205025,  0,  1 ] ];
-        estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"ALPHA_X"),1),  0.000010000000054,  1e-5,  1 ] ];
-        estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"ALPHA_PI"),1), 0.000010000004170,  1e-5,  1 ] ];
-        estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_PI"),1),   0.283427527053709,  0,  1 ] ];
-        estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_G"),1),    0.342417096575105,  0,  1 ] ];
-        estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_X"),1),    0.278333295547864,  0,  1 ] ];
-        estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_A"),1),    0.914095505119110,  0,  1 ] ];
-        estim_params_.param_vals = [ estim_params_.param_vals;  [ find(ismember(M_.param_names,"RHO_E"),1),    0.982779569560883,  0,  1 ] ];
     elseif options_.computer_arch == "glnxa64"
         if options_.parameters.use_stderr_skew
             % skew parameters
