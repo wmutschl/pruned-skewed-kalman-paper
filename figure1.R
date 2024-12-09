@@ -39,18 +39,22 @@ f4 <- dcsn(matrix(x,200,1),mu,Sigma,gamma=matrix(5,1,1),-8,Delta)
 p1 <- ggplot(data.frame(x=x,f=f1),aes(x,f))+
     geom_line()+
     ggtitle(TeX("(a) \\Gamma=-5, \\nu=0"))+
+    theme(text = element_text(size=30), plot.title = element_text(size = 40))+
     ylab("density")
 p2 <- ggplot(data.frame(x=x,f=f2),aes(x,f))+
     geom_line()+
     ggtitle(TeX("(b) \\Gamma=0, \\nu=0"))+
+    theme(text = element_text(size=30), plot.title = element_text(size = 40))+
     ylab("")
 p3 <- ggplot(data.frame(x=x,f=f3),aes(x,f))+
     geom_line()+
     ggtitle(TeX("(c) \\Gamma=5, \\nu=0"))+
-    ylab("density")
+    theme(text = element_text(size=30), plot.title = element_text(size = 40))+
+    ylab("")
 p4 <- ggplot(data.frame(x=x,f=f4),aes(x,f))+
     geom_line()+
     ggtitle(TeX("(d) \\Gamma=5, \\nu=-8"))+
+    theme(text = element_text(size=30), plot.title = element_text(size = 40))+  
     ylab("")
 
 grid.arrange(p1, p2, p3, p4, ncol=2)

@@ -38,7 +38,8 @@ pltobj <- function(xx, mu, Sigma, Gamma, nu, Delta, ttl=""){
     scale_fill_gradientn(colours=viridis(10))+
     ggtitle(ttl)+
     geom_vline(xintercept=0, colour="grey")+
-    geom_hline(yintercept=0, colour="grey")
+    geom_hline(yintercept=0, colour="grey")+
+    theme(text = element_text(size=30), plot.title = element_text(size = 40))
   return(p)
 }
 
@@ -55,5 +56,8 @@ p1 <- pltobj(xx, mu=mu_a, Sigma=Sigma_a, Gamma=Gamma_a, nu=nu_a, Delta=Delta_a, 
 p2 <- pltobj(xx, mu=mu_b, Sigma=Sigma_b, Gamma=Gamma_b, nu=nu_b, Delta=Delta_b, "(b)")
 p3 <- pltobj(xx, mu=mu_c, Sigma=Sigma_c, Gamma=Gamma_c, nu=nu_c, Delta=Delta_c, "(c)")
 p4 <- pltobj(xx, mu=mu_d, Sigma=Sigma_d, Gamma=Gamma_d, nu=nu_d, Delta=Delta_d, "(d)")
-
+p1
+p2
+p3
+p4
 grid.arrange(p1,p2,p3,p4,ncol=2)

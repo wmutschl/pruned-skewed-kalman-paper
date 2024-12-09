@@ -83,7 +83,7 @@ M_.exo_names = [
 % similar to Dynare's parameters block
 M_.param_names = [
     "BETA"     , "real"; % discount factor
-    "PSI"      , "real"; % output gap slope in Phillips curve
+    "PSI"      , "real"; % output gap coefficient in Phillips curve
     "ALPHA_PI" , "real"; % slope parameter in Phillips curve
     "ALPHA_X"  , "real"; % slope parameter in IS curve
     "RHO_A"    , "real"; % persistence preference shock
