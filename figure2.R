@@ -23,23 +23,36 @@ library(ggplot2)
 library(gridExtra)
 library(viridis)
 library(latex2exp)
+library(patchwork)
+# set working directory
+setwd(this.path::here())
+
 source("R/csn_prune_params.R")
 
 pltobj <- function(xx, mu, Sigma, Gamma, nu, Delta, ttl=""){
+  text_size = 12
+  title_size = 13
   z <- dcsn(xx, mu, Sigma, Gamma, nu, Delta)
   p <- ggplot(data.frame(x1=xx[,1],
                          x2=xx[,2],
                          f=z),
               aes(x1, x2, fill=f)) +
-    geom_raster(interpolate=TRUE)+
-    scale_x_continuous("X1", expand = c(0, 0)) +
-    scale_y_continuous("X2", expand = c(0, 0)) +
+    geom_raster(interpolate=TRUE) +
+    scale_x_continuous(expand = c(0, 0)) +
+    scale_y_continuous(expand = c(0, 0)) +
+    labs(x = TeX("$x_1$"), y = TeX("$x_2$")) +
     guides(fill="none") + 
-    scale_fill_gradientn(colours=viridis(10))+
+    #scale_fill_gradientn(colours=viridis(10))+
+    scale_fill_gradient(low = "white", high = "black") +
     ggtitle(ttl)+
-    geom_vline(xintercept=0, colour="grey")+
-    geom_hline(yintercept=0, colour="grey")+
-    theme(text = element_text(size=30), plot.title = element_text(size = 40))
+    geom_vline(xintercept=0, colour="black")+
+    geom_hline(yintercept=0, colour="black")+
+    theme(
+      text = element_text(size=text_size),
+      axis.title.y = element_text(size=text_size),
+      axis.title.x = element_text(size=text_size),
+      plot.title = element_text(size=title_size, hjust=0.5)
+    )
   return(p)
 }
 
@@ -56,8 +69,11 @@ p1 <- pltobj(xx, mu=mu_a, Sigma=Sigma_a, Gamma=Gamma_a, nu=nu_a, Delta=Delta_a, 
 p2 <- pltobj(xx, mu=mu_b, Sigma=Sigma_b, Gamma=Gamma_b, nu=nu_b, Delta=Delta_b, "(b)")
 p3 <- pltobj(xx, mu=mu_c, Sigma=Sigma_c, Gamma=Gamma_c, nu=nu_c, Delta=Delta_c, "(c)")
 p4 <- pltobj(xx, mu=mu_d, Sigma=Sigma_d, Gamma=Gamma_d, nu=nu_d, Delta=Delta_d, "(d)")
-p1
-p2
-p3
-p4
 grid.arrange(p1,p2,p3,p4,ncol=2)
+
+fig_2_top    <- (p1 + p2) + plot_layout(guides = "collect") & theme(legend.position = "bottom", legend.box = "horizontal")
+fig_2_bottom <- (p3 + p4) + plot_layout(guides = "collect") & theme(legend.position = "bottom", legend.box = "horizontal")
+fig_2 <- (fig_2_top / fig_2_bottom)
+print(fig_2)
+ggsave(filename = "plots/R/fig_2.pdf", plot = fig_2, dpi = 300, units = "px", width = 3000, height = 2000)
+

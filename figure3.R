@@ -22,6 +22,10 @@
 library(ggplot2)
 library(gridExtra)
 library(csn)
+library(patchwork)
+# set working directory
+setwd(this.path::here())
+
 source("R/csn_prune_params.R")
 
 Sigma <- matrix(1,1,1)
@@ -46,15 +50,34 @@ H <- data.frame(x=x,
                 c1=pcsn(x,0,Sigma,        Gamma,        as.vector(nu),        Delta       ),
                 c2=pcsn(x,0,Sigma_pruned, Gamma_pruned, as.vector(nu_pruned), Delta_pruned)
                 )
+text_size = 12
+title_size = 13
 
 p1 <- ggplot(H, aes(x,f1)) +
-        geom_line()+
-        geom_line(aes(y=f2),linetype="dashed")+
-        ylab("probability density function")
+        geom_line(linewidth=1.2)+
+        geom_line(aes(y=f2),linetype="dashed",linewidth=1.2)+
+        ggtitle("Probability distribution function")+
+        ylab("")+
+        theme(
+          text = element_text(size=text_size),
+          axis.title.y = element_text(size=text_size),
+          axis.title.x = element_text(size=text_size),
+          plot.title = element_text(size=title_size, hjust=0.5)
+        )
 
 p2 <- ggplot(H, aes(x,c1)) +
-        geom_line()+
-        geom_line(aes(y=c2),linetype="dashed")+
-        ylab("cumulative distribution function")
+        geom_line(linewidth=1.2)+
+        geom_line(aes(y=c2),linetype="dashed",linewidth=1.2)+
+        ggtitle("Cumulative distribution function")+
+        ylab("")+
+        theme(
+          text = element_text(size=text_size),
+          axis.title.y = element_text(size=text_size),
+          axis.title.x = element_text(size=text_size),
+          plot.title = element_text(size=title_size, hjust=0.5)
+        )
 
 grid.arrange(p1,p2,ncol=2)
+fig_3 <- (p1 + p2) + plot_layout(guides = "collect") & theme(legend.position = "bottom", legend.box = "horizontal")
+print(fig_3)
+ggsave(filename = "plots/R/fig_3.pdf", plot = fig_3, dpi = 300, units = "px", width = 3000, height = 1000)
