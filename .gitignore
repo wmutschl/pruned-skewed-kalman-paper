@@ -4,3 +4,19 @@
 MATLAB/ireland2004/ireland2004_f.m
 
 MATLAB/ireland2004/ireland2004_g1.m
+
+\+ireland2004_*/
+
+dynareParallelLogFiles/
+
+slaveParallel_input*.mat
+
+slice_iter_info_*.mat
+
+*/model/bytecode/
+
+checksum
+
+*/prior/definition.mat
+
+dynare-csn
