@@ -70,13 +70,13 @@ In the end, the posterior distributions are virtually the same when estimating w
 
 
 #### Task Bayes 1: Bayesian estimation with Slice sampler of Gaussian model
-Estimate the Gaussian model with Bayesian methods using the PSKF to compute the Gaussian likelihood. 
+Estimate the Gaussian model with Bayesian methods using the PSKF to compute the likelihood. 
 The Slice sampler is used to draw from the posterior distribution (8 chains with 5000 draws each, 50% burn-in).
 No fine-tuning is required, approximately 68 function evaluations per iteration.
 ```matlab
 dynare ireland2004_bayes_1_slice_gaussian parallel conffile=__parallelConf.ini
 ```
-Runtime: X minutes on MacBook.
+Runtime: 37 minutes on MacBook.
 
 #### Task Bayes 2: Bayesian estimation with Slice sampler of CSN model
 Estimate the CSN model with Bayesian methods using the PSKF to compute the likelihood.

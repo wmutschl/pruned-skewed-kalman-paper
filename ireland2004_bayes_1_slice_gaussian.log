@@ -1,0 +1,254 @@
+Starting Dynare (version 7-unstable).
+Calling Dynare with arguments: parallel
+Using build directory: /Users/wmutschl/Work/Forschung/Projects/Skewed_Kalman/replication_codes/dynare-csn/matlab/../build-matlab
+Starting preprocessing of the model file ...
+Found 8 equation(s).
+Evaluating expressions...
+Computing static model derivatives (order 1).
+Normalizing the static model...
+Finding the optimal block decomposition of the static model...
+6 block(s) found:
+  5 recursive block(s) and 1 simultaneous block(s).
+  the largest simultaneous block has 2 equation(s)
+                                 and 2 feedback variable(s).
+Computing dynamic model derivatives (order 2).
+Normalizing the dynamic model...
+Finding the optimal block decomposition of the dynamic model...
+2 block(s) found:
+  1 recursive block(s) and 1 simultaneous block(s).
+  the largest simultaneous block has 5 equation(s)
+                                 and 5 feedback variable(s).
+Preprocessing completed.
+Preprocessing time: 0h00m00s.
+
+You did not declare endogenous variables after the estimation/calib_smoother command.
+Initial value of the log posterior (or likelihood): 989.1481
+Estimation::mcmc: Multiple chains mode.
+Estimation::mcmc: Searching for initial values...
+Estimation::mcmc: Initial values found!
+
+Estimation::mcmc: Write details about the MCMC... Ok!
+Estimation::mcmc: Details about the MCMC are available in ireland2004_bayes_1_slice_gaussian/metropolis/ireland2004_bayes_1_slice_gaussian_mh_history_0.mat
+
+
+Estimation::mcmc: Number of mh files: 1 per block.
+Estimation::mcmc: Total number of generated files: 8.
+Estimation::mcmc: Total number of iterations: 5000.
+Estimation::mcmc: Current acceptance ratio per chain:
+                                                       Chain  1: 100%
+                                                       Chain  2: 100%
+                                                       Chain  3: 100%
+                                                       Chain  4: 100%
+                                                       Chain  5: 100%
+                                                       Chain  6: 100%
+                                                       Chain  7: 100%
+                                                       Chain  8: 100%
+Estimation::mcmc: Current function evaluations per iteration:
+                                                       Chain  1: 68.136
+                                                       Chain  2: 68.0824
+                                                       Chain  3: 68.1704
+                                                       Chain  4: 68.3206
+                                                       Chain  5: 68.0928
+                                                       Chain  6: 68.2654
+                                                       Chain  7: 68.1526
+                                                       Chain  8: 68.1236
+Estimation::mcmc: Total number of MH draws per chain: 5000.
+Estimation::mcmc: Total number of generated MH files: 1.
+Estimation::mcmc: I'll use mh-files 1 to 1.
+Estimation::mcmc: In MH-file number 1 I'll start at line 2501.
+Estimation::mcmc: Finally I keep 2500 draws per chain.
+
+
+
+MCMC Inefficiency factors per block
+Parameter       Block 1     Block 2     Block 3     Block 4     Block 5     Block 6     Block 7     Block 8
+SE_eta_a         22.301       5.048       5.810      10.496      14.740      17.395      11.600      46.111
+SE_eta_e          5.166       2.723       3.375       9.820       8.947       5.238       5.705       4.008
+SE_eta_z          3.334       2.399       2.707       2.947       2.844       3.365       3.809       2.511
+SE_eta_r          3.574       3.115       8.340       4.530       2.978       2.665       4.324       3.954
+OMEGA             7.668       2.256       4.671       4.723       5.830       4.788       4.798      14.250
+RHO_PI            2.683       5.580       4.449       5.764       2.616       2.888       6.480       9.530
+RHO_G             4.253       3.966       4.905       3.187       2.679       3.024       3.222       2.922
+RHO_X             6.080       5.655       6.173       7.419       3.124       5.523       4.616       5.990
+RHO_A            22.554       2.702       6.672      10.653      13.003      20.796      14.028      35.514
+RHO_E             6.762       8.256       8.946       4.098       5.595       5.395       8.140       9.385
+
+
+
+Convergence diagnostics results for chain 1.
+
+Geweke (1992) Convergence Tests, based on means of draws 2500 to 3000 vs 3750 to 5000 for chain 1.
+p-values are for Chi2-test for equality of means.
+Parameter         Post. Mean        Post. Std   p-val No Taper   p-val 4% Taper   p-val 8% Taper  p-val 15% Taper
+SE_eta_a               3.255            0.872            0.010            0.440            0.461            0.460
+SE_eta_e               0.061            0.009            0.542            0.755            0.770            0.782
+SE_eta_z               0.790            0.108            0.813            0.840            0.845            0.860
+SE_eta_r               0.295            0.032            0.141            0.384            0.381            0.346
+OMEGA                  0.129            0.049            0.758            0.873            0.869            0.855
+RHO_PI                 0.496            0.097            0.580            0.780            0.773            0.733
+RHO_G                  0.364            0.052            0.433            0.647            0.659            0.662
+RHO_X                  0.207            0.052            0.000            0.059            0.051            0.013
+RHO_A                  0.914            0.028            0.478            0.822            0.824            0.810
+RHO_E                  0.907            0.036            0.029            0.441            0.445            0.366
+
+
+
+
+Convergence diagnostics results for chain 2.
+
+Geweke (1992) Convergence Tests, based on means of draws 2500 to 3000 vs 3750 to 5000 for chain 2.
+p-values are for Chi2-test for equality of means.
+Parameter         Post. Mean        Post. Std   p-val No Taper   p-val 4% Taper   p-val 8% Taper  p-val 15% Taper
+SE_eta_a               3.266            0.944            0.060            0.499            0.499            0.426
+SE_eta_e               0.060            0.008            0.971            0.984            0.984            0.983
+SE_eta_z               0.785            0.105            0.823            0.871            0.863            0.839
+SE_eta_r               0.295            0.036            0.554            0.716            0.713            0.691
+OMEGA                  0.130            0.051            0.468            0.686            0.677            0.618
+RHO_PI                 0.500            0.098            0.000            0.036            0.024            0.005
+RHO_G                  0.362            0.054            0.102            0.284            0.288            0.247
+RHO_X                  0.206            0.053            0.004            0.159            0.141            0.097
+RHO_A                  0.914            0.028            0.814            0.930            0.928            0.915
+RHO_E                  0.910            0.035            0.000            0.079            0.078            0.037
+
+
+
+
+Convergence diagnostics results for chain 3.
+
+Geweke (1992) Convergence Tests, based on means of draws 2500 to 3000 vs 3750 to 5000 for chain 3.
+p-values are for Chi2-test for equality of means.
+Parameter         Post. Mean        Post. Std   p-val No Taper   p-val 4% Taper   p-val 8% Taper  p-val 15% Taper
+SE_eta_a               3.216            0.907            0.000            0.147            0.157            0.135
+SE_eta_e               0.060            0.012            0.039            0.259            0.249            0.220
+SE_eta_z               0.791            0.105            0.746            0.767            0.722            0.694
+SE_eta_r               0.294            0.033            0.004            0.134            0.127            0.125
+OMEGA                  0.129            0.050            0.004            0.090            0.106            0.090
+RHO_PI                 0.502            0.096            0.363            0.632            0.652            0.660
+RHO_G                  0.362            0.053            0.120            0.347            0.311            0.298
+RHO_X                  0.205            0.052            0.065            0.333            0.330            0.344
+RHO_A                  0.912            0.028            0.010            0.343            0.346            0.303
+RHO_E                  0.911            0.036            0.000            0.101            0.110            0.140
+
+
+
+
+Convergence diagnostics results for chain 4.
+
+Geweke (1992) Convergence Tests, based on means of draws 2500 to 3000 vs 3750 to 5000 for chain 4.
+p-values are for Chi2-test for equality of means.
+Parameter         Post. Mean        Post. Std   p-val No Taper   p-val 4% Taper   p-val 8% Taper  p-val 15% Taper
+SE_eta_a               3.266            0.921            0.000            0.249            0.264            0.244
+SE_eta_e               0.060            0.009            0.036            0.329            0.368            0.395
+SE_eta_z               0.789            0.107            0.593            0.693            0.725            0.705
+SE_eta_r               0.295            0.033            0.366            0.602            0.640            0.662
+OMEGA                  0.129            0.049            0.245            0.561            0.591            0.604
+RHO_PI                 0.500            0.098            0.000            0.116            0.120            0.113
+RHO_G                  0.364            0.052            0.302            0.489            0.504            0.511
+RHO_X                  0.202            0.049            0.002            0.198            0.216            0.179
+RHO_A                  0.913            0.029            0.000            0.254            0.275            0.260
+RHO_E                  0.911            0.037            0.010            0.329            0.323            0.282
+
+
+
+
+Convergence diagnostics results for chain 5.
+
+Geweke (1992) Convergence Tests, based on means of draws 2500 to 3000 vs 3750 to 5000 for chain 5.
+p-values are for Chi2-test for equality of means.
+Parameter         Post. Mean        Post. Std   p-val No Taper   p-val 4% Taper   p-val 8% Taper  p-val 15% Taper
+SE_eta_a               3.232            0.896            0.000            0.042            0.040            0.027
+SE_eta_e               0.060            0.008            0.009            0.124            0.143            0.181
+SE_eta_z               0.788            0.106            0.083            0.111            0.074            0.072
+SE_eta_r               0.295            0.032            0.698            0.770            0.756            0.751
+OMEGA                  0.129            0.049            0.761            0.847            0.842            0.829
+RHO_PI                 0.495            0.095            0.706            0.855            0.864            0.862
+RHO_G                  0.362            0.050            0.527            0.620            0.612            0.621
+RHO_X                  0.207            0.050            0.109            0.427            0.458            0.483
+RHO_A                  0.913            0.029            0.005            0.307            0.298            0.286
+RHO_E                  0.908            0.034            0.599            0.840            0.859            0.869
+
+
+
+
+Convergence diagnostics results for chain 6.
+
+Geweke (1992) Convergence Tests, based on means of draws 2500 to 3000 vs 3750 to 5000 for chain 6.
+p-values are for Chi2-test for equality of means.
+Parameter         Post. Mean        Post. Std   p-val No Taper   p-val 4% Taper   p-val 8% Taper  p-val 15% Taper
+SE_eta_a               3.291            1.037            0.053            0.508            0.488            0.476
+SE_eta_e               0.060            0.008            0.003            0.130            0.134            0.125
+SE_eta_z               0.788            0.106            0.133            0.233            0.247            0.283
+SE_eta_r               0.295            0.033            0.188            0.378            0.366            0.327
+OMEGA                  0.128            0.049            0.135            0.431            0.429            0.396
+RHO_PI                 0.502            0.098            0.538            0.761            0.760            0.750
+RHO_G                  0.362            0.052            0.552            0.658            0.639            0.599
+RHO_X                  0.206            0.052            0.035            0.341            0.354            0.377
+RHO_A                  0.912            0.031            0.004            0.313            0.303            0.301
+RHO_E                  0.911            0.034            0.026            0.364            0.351            0.289
+
+
+
+
+Convergence diagnostics results for chain 7.
+
+Geweke (1992) Convergence Tests, based on means of draws 2500 to 3000 vs 3750 to 5000 for chain 7.
+p-values are for Chi2-test for equality of means.
+Parameter         Post. Mean        Post. Std   p-val No Taper   p-val 4% Taper   p-val 8% Taper  p-val 15% Taper
+SE_eta_a               3.216            0.878            0.213            0.701            0.713            0.713
+SE_eta_e               0.060            0.008            0.002            0.048            0.031            0.015
+SE_eta_z               0.785            0.106            0.285            0.432            0.437            0.417
+SE_eta_r               0.296            0.033            0.899            0.942            0.941            0.933
+OMEGA                  0.131            0.050            0.005            0.096            0.087            0.089
+RHO_PI                 0.502            0.094            0.962            0.980            0.982            0.983
+RHO_G                  0.364            0.052            0.476            0.624            0.617            0.565
+RHO_X                  0.203            0.050            0.216            0.561            0.542            0.563
+RHO_A                  0.913            0.029            0.576            0.863            0.873            0.883
+RHO_E                  0.912            0.034            0.006            0.239            0.228            0.261
+
+
+
+
+Convergence diagnostics results for chain 8.
+
+Geweke (1992) Convergence Tests, based on means of draws 2500 to 3000 vs 3750 to 5000 for chain 8.
+p-values are for Chi2-test for equality of means.
+Parameter         Post. Mean        Post. Std   p-val No Taper   p-val 4% Taper   p-val 8% Taper  p-val 15% Taper
+SE_eta_a               3.200            0.844            0.000            0.000            0.000            0.000
+SE_eta_e               0.060            0.008            0.003            0.100            0.100            0.081
+SE_eta_z               0.791            0.105            0.360            0.419            0.410            0.334
+SE_eta_r               0.296            0.033            0.411            0.638            0.641            0.652
+OMEGA                  0.129            0.049            0.000            0.001            0.001            0.002
+RHO_PI                 0.504            0.101            0.000            0.004            0.007            0.008
+RHO_G                  0.364            0.051            0.740            0.818            0.817            0.832
+RHO_X                  0.204            0.051            0.203            0.504            0.492            0.503
+RHO_A                  0.912            0.028            0.000            0.000            0.000            0.000
+RHO_E                  0.911            0.035            0.021            0.324            0.328            0.348
+
+
+Univariate convergence diagnostic, Brooks and Gelman (1998):
+
+marginal density: I'm computing the posterior mean and covariance...  Done!
+marginal density: I'm computing the posterior log marginal density (modified harmonic mean)... Done!
+
+
+ESTIMATION RESULTS
+
+Log data density (Modified Harmonic Mean) is 1182.756775.
+parameters
+         prior mean   post. mean        90% HPD interval    prior       pstdev
+
+OMEGA         0.200       0.1294      0.0511      0.2089     beta       0.1000
+RHO_PI        0.300       0.5006      0.3408      0.6598     gamm       0.1000
+RHO_G         0.300       0.3633      0.2797      0.4475     gamm       0.1000
+RHO_X         0.250       0.2049      0.1254      0.2878     gamm       0.0625
+RHO_A         0.850       0.9117      0.8670      0.9585     beta       0.1000
+RHO_E         0.850       0.9106      0.8569      0.9683     beta       0.1000
+
+standard deviation of shocks
+         prior mean   post. mean        90% HPD interval    prior       pstdev
+
+eta_a         5.477       3.2126      1.8972      4.4605     invg       5.4772
+eta_e         0.283       0.0602      0.0468      0.0735     invg       1.0000
+eta_z         2.236       0.7891      0.6224      0.9675     invg       3.8730
+eta_r         0.707       0.2951      0.2414      0.3454     invg       1.4142
+Total computing time : 0h36m58s
