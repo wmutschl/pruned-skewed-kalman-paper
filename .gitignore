@@ -19,4 +19,14 @@ checksum
 
 */prior/definition.mat
 
+comp_status_posterior_sampler_core*.mat
+
+P_posterior_sampler_core_*End.txt
+
+ConcurrentCommand*.bat
+
+posterior_sampler_core*.log
+
+posterior_sampler_core_input.mat
+
 dynare-csn
