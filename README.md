@@ -55,7 +55,7 @@ The optimizer is initialized with the best initial values (highest log-likelihoo
 ```matlab
 dynare ireland2004_ml_3_csn
 ```
-Runtime: XX minutes on MacBook.
+Runtime: 20 minutes on MacBook.
 
 ### Bayesian estimation
 The easiest estimation strategy is to use the Slice sampler for the full estimation (see *Task Bayes 1* and *Task Bayes 2*), but we also provide several different ways to estimate the model with the Random-Walk Metropolis-Hastings (RWMH) sampler (as this is standard practice).
