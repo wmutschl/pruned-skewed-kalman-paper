@@ -18,8 +18,8 @@ function [log_lik,x_filt,pred,filt] = kalman_csn(Y, mu_tm1_tm1,Sigma_tm1_tm1,Gam
 % - mu_tm1_tm1      [x_nbr by 1]                   initial value of 1st parameter of CSN distributed states x (location). Does not equal expectation vector unless Gamma_tm1_tm1=0.
 % - Sigma_tm1_tm1   [x_nbr by x_nbr]               initial value of 2nd parameter of CSN distributed states x (scale). Does not equal covariance matrix unless Gamma_tm1_tm1=0.
 % - Gamma_tm1_tm1   [skewx_dim by x_nbr]           initial value of 3rd parameter of CSN distributed states x (regulates skewness from Gaussian (Gamma=0) to half normal)
-% - nu_tm1_tm1      [skewx_dim by x_nbr]           initial value of 4th parameter of CSN distributed states x (enables closure of CSN distribution under conditioning)
-% - Delta_tm1_tm1   [skewx_dim by skewx_dim]       initial value of 5th parameter of CSN distributed states x (enables closure of CSN distribution und marginalization)
+% - nu_tm1_tm1      [skewx_dim by 1]               initial value of 4th parameter of CSN distributed states x (enables closure of CSN distribution under conditioning)
+% - Delta_tm1_tm1   [skewx_dim by skewx_dim]       initial value of 5th parameter of CSN distributed states x (enables closure of CSN distribution under marginalization)
 % - G               [x_nbr by x_nbr]               state transition matrix mapping previous states to current states
 % - R               [x_nbr by eta_nbr]             state transition matrix mapping current innovations to current states
 % - F               [y_nbr by x_nbr]               observation equation matrix mapping current states into current observables
