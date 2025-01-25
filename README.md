@@ -47,7 +47,7 @@ Search for initial values for the maximum likelihood estimation of the CSN model
 ```matlab
 dynare ireland2004_ml_2_csn_initval_search
 ```
-Runtime: XX minutes on MacBook.
+Runtime: 23 minutes on MacBook.
 
 #### Task ML 3: maximum likelihood estimation of CSN model
 Estimate the CSN model with maximum likelihood using the PSKF to compute the likelihood.
