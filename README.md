@@ -31,11 +31,11 @@ Note that a comparison between the Gaussian and CSN model versions is not really
 ### Maximum likelihood estimation
 
 #### Task ML 1: maximum likelihood estimation of Gaussian model
-Estimate the Gaussian model with maximum likelihood using the PSKF to compute the Gaussian likelihood.
+Estimate the Gaussian model with maximum likelihood using the PSKF to compute the likelihood.
 ```matlab
 dynare ireland2004_ml_1_gaussian
 ```
-Runtime: X minutes on MacBook.
+Runtime: 2 minutes on MacBook.
 
 #### Task ML 2: initial values search for maximum likelihood estimation of CSN model
 Search for initial values for the maximum likelihood estimation of the CSN model using the PSKF to compute the likelihood. To this end:
