@@ -105,7 +105,7 @@ No fine-tuning is required, approximately 86 function evaluations per iteration.
 ```matlab
 dynare ireland2004_bayes_4_mode_slice_csn parallel conffile=__parallelConf.ini
 ```
-Runtime: X minutes on MacBook.
+Runtime: 42 minutes on MacBook.
 
 #### Task Bayes 5: Bayesian estimation with RWMH sampler of Gaussian model, initialized with short Slice from Task Bayes 3
 Estimate the Gaussian model with Bayesian methods using the PSKF to compute the Gaussian likelihood.
