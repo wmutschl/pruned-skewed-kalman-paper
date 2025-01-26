@@ -95,7 +95,7 @@ No fine-tuning is required, approximately 68 function evaluations per iteration.
 ```matlab
 dynare ireland2004_bayes_3_mode_slice_gaussian parallel conffile=__parallelConf.ini
 ```
-Runtime: X minutes on MacBook.
+Runtime: 3 minutes on MacBook.
 
 #### Task Bayes 4: Bayesian estimation with short Slice sampler of CSN model (to get close to posterior mode)
 Estimate the CSN model with Bayesian methods using the PSKF to compute the likelihood.
