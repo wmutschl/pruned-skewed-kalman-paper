@@ -20,10 +20,11 @@
 @#define TRANSFORM_PARAMETERS    = 0  // new feature to transform selected bounded parameters to unbounded domain using logit transform (only during optimization)
 @#include "_ireland2004_common.inc"
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% BAYESIAN ESTIMATION WITH RWMH SAMPLER OF GAUSSIAN VERSION OF MODEL USING PSKF TO COMPUTE LIKELIHOOD %
-% RWMH SAMPLER IS INITIALIZED AT MODE AND COVARIANCE MATRIX FROM OPTIMIZATION (MODE_COMPUTE=5)        %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% BAYESIAN MODE ESTIMATION OF GAUSSIAN VERSION OF MODEL USING PSKF TO COMPUTE LIKELIHOOD, MODE IS COMPUTED BY: %
+% (1) RUNNING NUMERICAL OPTIMIZATION (MODE_COMPUTE=8) USING SHORT SLICE MODE AS INITIAL GUESS                  %
+% (2) RUNNING MONTE-CARLO OPTIMIZATION (MODE_COMPUTE=5) TO GET POSITIVE DEFINITE INVERSE HESSIAN AT MODE       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 estimated_params;
 stderr eta_a, ,  0, 10, inv_gamma_pdf, (sqrt(30)),   (sqrt(30)) ;
 stderr eta_e, ,  0, 10, inv_gamma_pdf, (sqrt(0.08)), (sqrt(1))  ;

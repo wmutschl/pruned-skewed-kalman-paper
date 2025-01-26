@@ -127,11 +127,16 @@ dynare ireland2004_bayes_6_rwmh_slice_csn parallel conffile=__parallelConf.ini
 ```
 Runtime: 5 hours and 33 minutes on MacBook.
 
-#### Task Bayes 7: Bayesian estimation with RWMH sampler of Gaussian model, initialized at posterior mode from numerical optimization
-Estimate the Gaussian model with Bayesian methods using the PSKF to compute the Gaussian likelihood.
-The RWMH sampler is used to draw from the posterior distribution (8 chains with 150000 draws each, 50% burn-in).
-The sampler is initialized at the posterior mode and covariance matrix found by optimization using the mode from previous Slice sampler in *Task Bayes 3* as initial guess.
-Tuning of *mh_jscale* required to get a desired acceptance ratio (about 30%).
+#### Task Bayes 7: Bayesian mode estimation of Gaussian model
+Estimate the mode of the Gaussian model with numerical optimization using the PSKF to compute the likelihood.
+The optimization is initialized at the posterior mode found from the previous short Slice sampler in *Task Bayes 3*.
+First, a Nelder-Mead simplex-based optimization routine (*mode_compute=8*) is used (fast).
+Second, a Monte-Carlo based optimization routine (*mode_compute=6*) is run that guarantees to yield a positive definite inverse Hessian at the mode (very time-consuming).
+The mode with the highest posterior value is reported in the paper and the mode and covariance matrix from *mode_compute=6* is used to initialize the RWMH sampler in *Task Bayes 9*.
+```matlab
+dynare ireland2004_bayes_7_mode_gaussian
+```
+Runtime: 35 minutes on MacBook.
 ```matlab
 dynare ireland2004_bayes_7_rwmh_mode_gaussian parallel conffile=__parallelConf.ini
 ```
