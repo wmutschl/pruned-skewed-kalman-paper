@@ -108,14 +108,14 @@ dynare ireland2004_bayes_4_mode_slice_csn parallel conffile=__parallelConf.ini
 Runtime: 42 minutes on MacBook.
 
 #### Task Bayes 5: Bayesian estimation with RWMH sampler of Gaussian model, initialized with short Slice from Task Bayes 3
-Estimate the Gaussian model with Bayesian methods using the PSKF to compute the Gaussian likelihood.
+Estimate the Gaussian model with Bayesian methods using the PSKF to compute the likelihood.
 The RWMH sampler is used to draw from the posterior distribution (8 chains with 250000 draws each, 50% burn-in).
-The sampler is initialized at the posterior mode and covariance matrix found by the Slice sampler in *Task Bayes 3*.
+The sampler is initialized at the posterior mode and covariance matrix found by the short Slice sampler in *Task Bayes 3*.
 No additional time-consuming mode-finding step is required, but one still needs to tune *mh_jscale* to get a desired acceptance ratio (about 30%).
 ```matlab
 dynare ireland2004_bayes_5_rwmh_slice_gaussian parallel conffile=__parallelConf.ini
 ```
-Runtime: X minutes on MacBook.
+Runtime: 27 minutes on MacBook.
 
 #### Task Bayes 6: Bayesian estimation with RWMH sampler of CSN model, initialized with short Slice from Task Bayes 4
 Estimate the CSN model with Bayesian methods using the PSKF to compute the Gaussian likelihood.
