@@ -149,6 +149,16 @@ dynare ireland2004_bayes_8_mode_csn
 ```
 Runtime: 6 hours and 11 minutes on MacBook.
 
+#### Task Bayes 9: Bayesian estimation with RWMH sampler of Gaussian model
+Estimate the Gaussian model with Bayesian methods using the PSKF to compute the likelihood.
+The RWMH sampler is used to draw from the posterior distribution (8 chains with 250000 draws each, 50% burn-in).
+The sampler is initialized at the posterior mode and covariance matrix found by the Monte-Carlo optimization (*mode_compute=8*) in *Task Bayes 7*.
+Tuning of *mh_jscale* required to get a desired acceptance ratio (about 33%), which is a by-product of running the Monte-Carlo based optimization routine in *Task Bayes 7*.
+```matlab
+dynare ireland2004_bayes_9_rwmh_gaussian parallel conffile=__parallelConf.ini
+```
+Runtime: 28 minutes on MacBook.
+
 ```matlab
 dynare ireland2004_bayes_7_rwmh_mode_gaussian parallel conffile=__parallelConf.ini
 ```
