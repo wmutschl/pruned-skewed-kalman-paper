@@ -56,6 +56,6 @@ estimation(datafile = 'data/ireland2004_data.m'
           , mh_nblocks = 8
           , mode_compute = 0
           , mode_file = 'ireland2004_bayes_8_mode_csn/Output/ireland2004_bayes_8_mode_csn_mode6.mat'
-          , mh_jscale = 0.4419 % determined by mode_compute 6
+          , mh_jscale = 0.4419 % determined as by-product of mode_compute 6, see ireland2004_bayes_8_mode_csn/Output/ireland2004_bayes_8_mode_csn_optimal_mh_scale_parameter.mat
           , plot_priors = 0
           );

@@ -159,20 +159,16 @@ dynare ireland2004_bayes_9_rwmh_gaussian parallel conffile=__parallelConf.ini
 ```
 Runtime: 28 minutes on MacBook.
 
+#### Task Bayes 10: Bayesian estimation with RWMH sampler of CSN model
+Estimate the CSN model with Bayesian methods using the PSKF to compute the likelihood.
+The RWMH sampler is used to draw from the posterior distribution (8 chains with 250000 draws each, 50% burn-in).
+The sampler is initialized at the posterior mode and covariance matrix found by the Monte-Carlo optimization (*mode_compute=8*) in *Task Bayes 8*.
+Tuning of *mh_jscale* required to get a desired acceptance ratio (about 33%), which is a by-product of running the Monte-Carlo based optimization routine in *Task Bayes 8*.
 ```matlab
-dynare ireland2004_bayes_7_rwmh_mode_gaussian parallel conffile=__parallelConf.ini
+dynare ireland2004_bayes_10_rwmh_csn parallel conffile=__parallelConf.ini
 ```
-Runtime: X minutes on MacBook.
+Runtime: 5 hours and 48 minutes on MacBook.
 
-#### Task Bayes 8: Bayesian estimation with RWMH sampler of CSN model, initialized at posterior mode from Monte Carlo optimization
-Estimate the Gaussian model with Bayesian methods using the PSKF to compute the Gaussian likelihood.
-The RWMH sampler is used to draw from the posterior distribution (8 chains with 150000 draws each, 50% burn-in).
-The sampler is initialized at the posterior mode and covariance matrix found by Monte Carlo optimization.
-Tuning of *mh_jscale* required to get a desired acceptance ratio (about 33%).
-```matlab
-dynare ireland2004_bayes_8_rwmh_mode_gaussian parallel conffile=__parallelConf.ini
-```
-Runtime: X hours X minutes on MacBook.
 
 ## Replicating results from working paper
 In the previous working paper versions we used the same filter to estimate a Dynamic Nelson Siegel model of the yield curve with Maximum Likelihood in MATLAB. We also provide non-Dynare codes for estimating the Ireland (2004) model with Maximum Likelihood in MATLAB, but not with Bayesian methods as above.
