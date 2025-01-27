@@ -137,6 +137,18 @@ The mode with the highest posterior value is reported in the paper and the mode 
 dynare ireland2004_bayes_7_mode_gaussian
 ```
 Runtime: 35 minutes on MacBook.
+
+#### Task Bayes 8: Bayesian mode estimation of CSN model
+Estimate the mode of the CSN model with numerical optimization using the PSKF to compute the likelihood.
+The optimization is initialized at the posterior mode found from the previous short Slice sampler in *Task Bayes 4*.
+First, a Nelder-Mead simplex-based optimization routine (*mode_compute=8*) is used (fast).
+Second, a Monte-Carlo based optimization routine (*mode_compute=6*) is run that guarantees to yield a positive definite inverse Hessian at the mode (very time-consuming).
+The mode with the highest posterior value is reported in the paper and the mode and covariance matrix from *mode_compute=6* is used to initialize the RWMH sampler in *Task Bayes 10*.
+```matlab
+dynare ireland2004_bayes_8_mode_csn
+```
+Runtime: 6 hours and 11 minutes on MacBook.
+
 ```matlab
 dynare ireland2004_bayes_7_rwmh_mode_gaussian parallel conffile=__parallelConf.ini
 ```
