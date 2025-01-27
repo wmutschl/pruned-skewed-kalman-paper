@@ -25,8 +25,10 @@ For Linux please clone the repository and follow the instructions to [build Dyna
 Some parts of the code (e.g. initial value search) also make use of MATLAB's dedicated parallel computing toolbox.
 
 - The reported runtimes are approximate and depend on the number of cores available on and the platform of your machine.
-The reported times are based on an Apple MacBook Pro M2 Max (8 performance, 4 efficiency cores), 64 GB RAM, MacOS Sequoia 15.2, MATLAB R2024b Update 3 (24.2.0.2806996) 64-bit (maca64) with Dynare 7 (dynare-7-unstable-2025-01-22-1305-b32e7530-arm64.pkg).
-Note that a comparison between the Gaussian and CSN model versions is not really meaningful as the CSN model has more parameters to estimate.
+The reported times are based on an
+  - Apple **MacBook** Pro M2 Max (8 performance, 4 efficiency cores), 64 GB RAM, MacOS Sequoia 15.2, MATLAB R2024b Update 3 (24.2.0.2806996) 64-bit (maca64) with Dynare 7 (dynare-7-unstable-2025-01-22-1305-b32e7530-arm64.pkg)
+  - Lenovo ThinkSystem SR655 **Linux server** (AMD EPYC 7402P 24C 2.8GHz), 6x16GB TruDDR4 3200MHz, Pop!_OS 20.04, MATLAB R2024b Update 3 (24.2.0.2806996) 64bit (glnxa64) with Dynare 7 compiled from source
+  - Note that a comparison between the Gaussian and CSN model versions is not really meaningful as the CSN model has more parameters to estimate.
 
 ### Maximum likelihood estimation
 
@@ -35,27 +37,27 @@ Estimate the Gaussian model with maximum likelihood using the PSKF to compute th
 ```matlab
 dynare ireland2004_ml_1_gaussian
 ```
-Runtime: 2 minutes on MacBook.
+Runtime: 2 minutes on MacBook, 1 minute on Linux server.
 
 #### Task ML 2: initial values search for maximum likelihood estimation of CSN model
-Search for initial values for the maximum likelihood estimation of the CSN model using the PSKF to compute the likelihood. To this end:
+Search for initial values for the maximum likelihood estimation of the CSN model (*Task ML 3*) using the PSKF to compute the likelihood.
+To this end:
 1. Fix model and stderr parameters to Gaussian estimates from maximum likelihood from *Task ML 1*.
 1. Create large grid for skew parameters.
 1. Evaluate likelihood (computed by PSKF) on grid using MATLAB's parallel computing toolbox.
-1. Use best five skew parameter combinations as initial guess.
-1. Optimize for each initial guess the likelihood (computed by PSKF) over both stderr and skew parameters.
+1. Use best five skew parameter combinations as initial guess and optimize for each initial guess the likelihood (computed by PSKF) over both stderr and skew parameters.
 ```matlab
 dynare ireland2004_ml_2_csn_initval_search
 ```
-Runtime: 23 minutes on MacBook.
+Runtime: 23 minutes on MacBook, 33 minutes on Linux server.
 
 #### Task ML 3: maximum likelihood estimation of CSN model
 Estimate the CSN model with maximum likelihood using the PSKF to compute the likelihood.
-The optimizer is initialized with the best initial values (highest log-likelihood value) found in *Task ML 2*.
+The optimizer is initialized with the best optimized values (highest log-likelihood value) found in *Task ML 2*.
 ```matlab
 dynare ireland2004_ml_3_csn
 ```
-Runtime: 20 minutes on MacBook.
+Runtime: 20 minutes on MacBook, 36 minutes on Linux server.
 
 ### Bayesian estimation
 The easiest estimation strategy is to use the Slice sampler for the full estimation (see *Task Bayes 1* and *Task Bayes 2*), but we also provide several different ways to estimate the model with the Random-Walk Metropolis-Hastings (RWMH) sampler (as this is standard practice).
@@ -64,9 +66,9 @@ The Slice sampler is usually more efficient (less auto-correlated draws, lower i
 The downside is a longer runtime, because each draw requires many more posterior function evaluations.
 
 The RWMH sampler requires a mode-finding step (with a positive definite inverse Hessian at the mode) and also a tuning of the *mh_jscale* to get a desired acceptance ratio.
-On the upside, once it is fine-tuned, each draw requires only one posterior function evaluation.
+On the upside, once it is initialized and fine-tuned, each draw requires only one posterior function evaluation.
 
-In the end, the posterior distributions are virtually the same when estimating with either the Slice or any fine-tuned RWMH sampler variant.
+Ultimately, the posterior distributions are nearly identical whether estimated using the Slice sampler or any fine-tuned variant of the RWMH sampler.
 
 
 #### Task Bayes 1: Bayesian estimation with Slice sampler of Gaussian model
@@ -76,7 +78,7 @@ No fine-tuning is required, approximately 68 function evaluations per iteration.
 ```matlab
 dynare ireland2004_bayes_1_slice_gaussian parallel conffile=__parallelConf.ini
 ```
-Runtime: 37 minutes on MacBook.
+Runtime: 37 minutes on MacBook, 1 hour and 25 minutes on Linux server.
 
 #### Task Bayes 2: Bayesian estimation with Slice sampler of CSN model
 Estimate the CSN model with Bayesian methods using the PSKF to compute the likelihood.
@@ -85,7 +87,7 @@ No fine-tuning is required, approximately 86 function evaluations per iteration.
 ```matlab
 dynare ireland2004_bayes_2_slice_csn parallel conffile=__parallelConf.ini
 ```
-Runtime: 14 hours and 49 minutes on MacBook.
+Runtime: 14 hours and 49 minutes on MacBook, 18 hours and 3 minutes on Linux server.
 
 #### Task Bayes 3: Bayesian estimation with short Slice sampler of Gaussian model (to get close to posterior mode)
 Estimate the Gaussian model with Bayesian methods using the PSKF to compute the likelihood.
@@ -95,7 +97,7 @@ No fine-tuning is required, approximately 68 function evaluations per iteration.
 ```matlab
 dynare ireland2004_bayes_3_mode_slice_gaussian parallel conffile=__parallelConf.ini
 ```
-Runtime: 3 minutes on MacBook.
+Runtime: 3 minutes on MacBook, 6 minutes on Linux server.
 
 #### Task Bayes 4: Bayesian estimation with short Slice sampler of CSN model (to get close to posterior mode)
 Estimate the CSN model with Bayesian methods using the PSKF to compute the likelihood.
@@ -105,7 +107,7 @@ No fine-tuning is required, approximately 86 function evaluations per iteration.
 ```matlab
 dynare ireland2004_bayes_4_mode_slice_csn parallel conffile=__parallelConf.ini
 ```
-Runtime: 42 minutes on MacBook.
+Runtime: 42 minutes on MacBook, 59 minutes on Linux server.
 
 #### Task Bayes 5: Bayesian estimation with RWMH sampler of Gaussian model, initialized with short Slice from Task Bayes 3
 Estimate the Gaussian model with Bayesian methods using the PSKF to compute the likelihood.
@@ -115,7 +117,7 @@ No additional time-consuming mode-finding step is required, but one still needs 
 ```matlab
 dynare ireland2004_bayes_5_rwmh_slice_gaussian parallel conffile=__parallelConf.ini
 ```
-Runtime: 27 minutes on MacBook.
+Runtime: 27 minutes on MacBook, 1 hour and 2 minutes on Linux server.
 
 #### Task Bayes 6: Bayesian estimation with RWMH sampler of CSN model, initialized with short Slice from Task Bayes 4
 Estimate the CSN model with Bayesian methods using the PSKF to compute the likelihood.
@@ -125,7 +127,7 @@ No additional time-consuming mode-finding step is required, but one still needs 
 ```matlab
 dynare ireland2004_bayes_6_rwmh_slice_csn parallel conffile=__parallelConf.ini
 ```
-Runtime: 5 hours and 33 minutes on MacBook.
+Runtime: 5 hours and 33 minutes on MacBook, 8 hours and 15 minutes on Linux server.
 
 #### Task Bayes 7: Bayesian mode estimation of Gaussian model
 Estimate the mode of the Gaussian model with numerical optimization using the PSKF to compute the likelihood.
@@ -136,7 +138,7 @@ The mode with the highest posterior value is reported in the paper and the mode 
 ```matlab
 dynare ireland2004_bayes_7_mode_gaussian
 ```
-Runtime: 35 minutes on MacBook.
+Runtime: 35 minutes on MacBook, 33 minutes on Linux server.
 
 #### Task Bayes 8: Bayesian mode estimation of CSN model
 Estimate the mode of the CSN model with numerical optimization using the PSKF to compute the likelihood.
@@ -147,7 +149,7 @@ The mode with the highest posterior value is reported in the paper and the mode 
 ```matlab
 dynare ireland2004_bayes_8_mode_csn
 ```
-Runtime: 6 hours and 11 minutes on MacBook.
+Runtime: 6 hours and 11 minutes on MacBook, 7 hours on Linux server.
 
 #### Task Bayes 9: Bayesian estimation with RWMH sampler of Gaussian model
 Estimate the Gaussian model with Bayesian methods using the PSKF to compute the likelihood.
@@ -157,7 +159,7 @@ Tuning of *mh_jscale* required to get a desired acceptance ratio (about 33%), wh
 ```matlab
 dynare ireland2004_bayes_9_rwmh_gaussian parallel conffile=__parallelConf.ini
 ```
-Runtime: 28 minutes on MacBook.
+Runtime: 28 minutes on MacBook, 1 hour and 2 minutes on Linux server.
 
 #### Task Bayes 10: Bayesian estimation with RWMH sampler of CSN model
 Estimate the CSN model with Bayesian methods using the PSKF to compute the likelihood.
@@ -167,7 +169,7 @@ Tuning of *mh_jscale* required to get a desired acceptance ratio (about 33%), wh
 ```matlab
 dynare ireland2004_bayes_10_rwmh_csn parallel conffile=__parallelConf.ini
 ```
-Runtime: 5 hours and 48 minutes on MacBook.
+Runtime: 5 hours and 48 minutes on MacBook, 8 hours and 27 minutes on Linux server.
 
 
 ## Replicating results from working paper
