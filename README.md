@@ -173,4 +173,7 @@ Runtime: 5 hours and 48 minutes on MacBook, 8 hours and 27 minutes on Linux serv
 
 
 ## Replicating results from working paper
-In the previous working paper versions we used the same filter to estimate a Dynamic Nelson Siegel model of the yield curve with Maximum Likelihood in MATLAB. We also provide non-Dynare codes for estimating the Ireland (2004) model with Maximum Likelihood in MATLAB, but not with Bayesian methods as above.
+This repository also contains replication codes for previous versions of the paper.
+Namely, in the working paper versions of the paper, we estimate a Dynamic Nelson-Siegel model (Diebold, Rudebusch and Aruoba, 2006) of the yield curve using maximum likelihood in MATLAB.
+Additionally, we provide non-Dynare codes for estimating the Ireland (2004) model with maximum likelihood in MATLAB, though not with Bayesian methods.
+While the Dynare toolbox is significantly more user-friendly and widely adopted among quantitatively oriented macroeconomists, our alternative approach aims to offer complementary insights.
