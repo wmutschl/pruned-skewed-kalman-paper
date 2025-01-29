@@ -1,0 +1,69 @@
+Starting Dynare (version 7-unstable).
+Calling Dynare with arguments: none
+Using build directory: /Users/wmutschl/Work/Forschung/Projects/Skewed_Kalman/replication_codes/dynare-csn/matlab/../build-matlab
+Starting preprocessing of the model file ...
+Found 8 equation(s).
+Evaluating expressions...
+Computing static model derivatives (order 1).
+Normalizing the static model...
+Finding the optimal block decomposition of the static model...
+6 block(s) found:
+  5 recursive block(s) and 1 simultaneous block(s).
+  the largest simultaneous block has 2 equation(s)
+                                 and 2 feedback variable(s).
+Computing dynamic model derivatives (order 1).
+Normalizing the dynamic model...
+Finding the optimal block decomposition of the dynamic model...
+2 block(s) found:
+  1 recursive block(s) and 1 simultaneous block(s).
+  the largest simultaneous block has 5 equation(s)
+                                 and 5 feedback variable(s).
+Preprocessing completed.
+Preprocessing time: 0h00m00s.
+
+MODEL SUMMARY
+
+  Number of variables:         8
+  Number of stochastic shocks: 4
+  Number of state variables:   6
+  Number of jumpers:           2
+  Number of static variables:  2
+
+
+MATRIX OF COVARIANCE OF EXOGENOUS SHOCKS
+Variables       eta_a     eta_e     eta_z     eta_r
+eta_a        5.922896  0.000000  0.000000  0.000000
+eta_e        0.000000  0.000424  0.000000  0.000000
+eta_z        0.000000  0.000000  0.626156  0.000000
+eta_r        0.000000  0.000000  0.000000  0.081396
+
+
+MODEL SUMMARY
+
+  Number of variables:         8
+  Number of stochastic shocks: 4
+  Number of state variables:   6
+  Number of jumpers:           2
+  Number of static variables:  2
+
+
+MATRIX OF COVARIANCE OF EXOGENOUS SHOCKS
+Variables       eta_a     eta_e     eta_z     eta_r
+eta_a        5.922896  0.000000  0.000000  0.000000
+eta_e        0.000000  0.000424  0.000000  0.000000
+eta_z        0.000000  0.000000  0.626156  0.000000
+eta_r        0.000000  0.000000  0.000000  0.081396
+
+
+SKEWNESS OF EXOGENOUS SHOCKS
+Variables     Skewness
+eta_a        -0.192400
+eta_e        -0.217400
+eta_z        -0.995000
+eta_r         0.817100
+
+Number recessions (\(\hat{g}_{t} \leq -0.5\% \)) & 42564  & 39536  & 14188  & 13179  & 14188  & 13179  \\ 
+Frequency recessions (in \%)                     &   8.51 &   7.91 &   2.84 &   2.64 &   2.84 &   2.64 \\ 
+Mean duration (peak to trough, quarters)         &   3.13 &   3.07 &   4.44 &   4.29 &   2.23 &   2.23 \\ 
+Mean output loss (peak to trough, in \%)         &  -2.29 &  -2.41 &  -3.68 &  -3.93 &  -1.18 &  -1.21 \\ 
+Total computing time : 0h00m06s

@@ -1,5 +1,5 @@
 % Simulates the model of Ireland (2004) with Gaussian and CSN distributed shocks
-% Computes statistics on recessions based on simulated time series
+% and computes statistics on recessions based on simulated time series
 % =========================================================================
 % Copyright (C) 2025 Willi Mutschler
 %
