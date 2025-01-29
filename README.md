@@ -1,34 +1,36 @@
 # Replication codes for paper on *"Pruned skewed Kalman filter and smoother with application to DSGE models"*
 
-This repository contains the replication codes for the paper *"Pruned skewed Kalman filter and smoother with application to DSGE models"* by Gaygysyz Guljanov, Willi Mutschler, and Mark Trede.
-Preprint available at [https://mutschler.eu](https://www.mutschler.eu/files/papers/GuljanovMutschlerTrede_PSKF.pdf).
-Previous versions of the paper were circulated under the title *"Pruned Skewed Kalman Filter and Smoother:
-With Application to the Yield Curve"* ([CQE Working Paper 101](https://www.wiwi.uni-muenster.de/cqe/sites/cqe/files/CQE_Paper/cqe_wp_101_2022.pdf) and [Dynare Working Paper no. 78](https://www.dynare.org/wp-repo/dynarewp078.pdf)).
+This repository contains the replication codes for the paper *"Pruned Skewed Kalman Filter and Smoother with Application to DSGE Models"* authored by Gaygysyz Guljanov, Willi Mutschler, and Mark Trede.
+The preprint is available at [this link](https://mutschler.eu/files/papers/GuljanovMutschlerTrede_PSKF.pdf).
+Previous versions of the paper were circulated under the title *"Pruned Skewed Kalman Filter and Smoother: With Application to the Yield Curve"*, which can be accessed through [CQE Working Paper 101](https://www.wiwi.uni-muenster.de/cqe/sites/cqe/files/CQE_Paper/cqe_wp_101_2022.pdf) and [Dynare Working Paper no. 78](https://www.dynare.org/wp-repo/dynarewp078.pdf).
 
-## Monte-Carlo study
-The Online Appendix contains detailed tables of the Monte-Carlo study.
-The tables can be replicated with the scripts `table1_table2.m`, `table3.m`, and `table4.m`.
-The required scripts are in the folder `MATLAB` and the results can also be accessed in the folder `results`.
+## Monte Carlo Study
+The Online Appendix includes detailed tables from the Monte Carlo study.
+You can replicate these tables using the scripts `table1_table2.m`, `table3.m`, and `table4.m`, which are located in the `MATLAB` folder.
+The results can also be found in the `results` folder.
 
 ## Ireland (2004) with Dynare
-All the results are available in the folders and log files corresponding to the specific mod files.
-You can run any of the following tasks individually or all of them in the specified order.
+All results are organized in folders and log files corresponding to specific mod files.
+You can execute any of the following tasks individually or run them all in the specified order.
 
-- The PSKF toolbox is still in development and planned for release with Dynare 7.0.
-You can follow the development on [Dynare's GitLab](https://git.dynare.org/wmutschl/dynare/-/tree/pskf), the installation files are accessible in the artifacts of the pipelines (under `pkg`, download artifacts for your platform).
-For easier replications and your own studies, you can also directly download the installation packages for [macOS arm64], [macOS x86_64] and [Windows x86_64].
-For Linux please clone the repository and follow the instructions to [build Dynare from source](https://git.dynare.org/Dynare/dynare#building-dynare-from-source), which of course you can also do for macOS and Windows.
+- The PSKF toolbox is currently under development and is expected to be released with Dynare 7.0.
+You can track the development progress on [Dynare's GitLab](https://git.dynare.org/wmutschl/dynare/-/tree/pskf).
+Installation files are available in the artifacts of the pipelines (under `pkg`, download the appropriate artifacts for your platform).
+For easier replication and personal studies, you can directly download installation packages for [macOS arm64], [macOS x86_64], and [Windows x86_64].
+For Linux users, please clone the repository and follow the instructions to [build Dynare from source](https://git.dynare.org/Dynare/dynare#building-dynare-from-source), which is also applicable for macOS and Windows.
 
-- Note that you need to add the `matlab` folder to your PATH in MATLAB or Octave, see these instructions in [the the manual](https://www.dynare.org/manual/installation-and-configuration.html#configuration).
+- Ensure that you add the `matlab` folder to your PATH in MATLAB or Octave.
+Refer to the instructions in [the manual](https://www.dynare.org/manual/installation-and-configuration.html#configuration).
 
-- Make sure to adjust `CPUnbr` and `MatlabOctavePath` in the file `__parallelConf.ini` with respect to your computer's number of cores and path to the MATLAB/Octave binaries, see [Dynare's parallel computing capabilities](https://www.dynare.org/manual/the-configuration-file.html#parallel-configuration) for more details.
-Some parts of the code (e.g. initial value search) also make use of MATLAB's dedicated parallel computing toolbox.
+- Adjust `CPUnbr` and `MatlabOctavePath` in the `__parallelConf.ini` file according to your computer's core count and the path to the MATLAB/Octave binaries.
+For more details, see [Dynare's parallel computing capabilities](https://www.dynare.org/manual/the-configuration-file.html#parallel-configuration).
+Some parts of the code (e.g., initial value search) utilize MATLAB's dedicated parallel computing toolbox.
 
-- The reported runtimes are approximate and depend on the number of cores available on and the platform of your machine.
-The reported times are based on an
-  - Apple **MacBook** Pro M2 Max (8 performance, 4 efficiency cores), 64 GB RAM, MacOS Sequoia 15.2, MATLAB R2024b Update 3 (24.2.0.2806996) 64-bit (maca64) with Dynare 7 (dynare-7-unstable-2025-01-22-1305-b32e7530-arm64.pkg)
-  - Lenovo ThinkSystem SR655 **Linux server** (AMD EPYC 7402P 24C 2.8GHz), 6x16GB TruDDR4 3200MHz, Pop!_OS 20.04, MATLAB R2024b Update 3 (24.2.0.2806996) 64bit (glnxa64) with Dynare 7 compiled from source
-  - Note that a comparison between the Gaussian and CSN model versions is not really meaningful as the CSN model has more parameters to estimate.
+- The reported runtimes are approximate and depend on the number of cores available and the platform of your machine.
+The reported times are based on:
+  - Apple **MacBook** Pro M2 Max (8 performance, 4 efficiency cores), 64 GB RAM, macOS Sequoia 15.2, MATLAB R2024b Update 3 (24.2.0.2806996) 64-bit (maca64) with Dynare 7 (dynare-7-unstable-2025-01-22-1305-b32e7530-arm64.pkg)
+  - Lenovo ThinkSystem SR655 **Linux server** (AMD EPYC 7402P 24C 2.8GHz), 6x16GB TruDDR4 3200MHz, Pop!_OS 20.04, MATLAB R2024b Update 3 (24.2.0.2806996) 64-bit (glnxa64) with Dynare 7 compiled from source
+- Note that comparing the Gaussian and CSN model versions may not be meaningful, as the CSN model has more parameters to estimate.
 
 ### Maximum likelihood estimation
 
@@ -154,8 +156,8 @@ Runtime: 6 hours and 11 minutes on MacBook, 7 hours on Linux server.
 #### Task Bayes 9: Bayesian estimation with RWMH sampler of Gaussian model
 Estimate the Gaussian model with Bayesian methods using the PSKF to compute the likelihood.
 The RWMH sampler is used to draw from the posterior distribution (8 chains with 250000 draws each, 50% burn-in).
-The sampler is initialized at the posterior mode and covariance matrix found by the Monte-Carlo optimization (*mode_compute=8*) in *Task Bayes 7*.
-Tuning of *mh_jscale* required to get a desired acceptance ratio (about 33%), which is a by-product of running the Monte-Carlo based optimization routine in *Task Bayes 7*.
+The sampler is initialized at the posterior mode and covariance matrix found by the Monte-Carlo optimization (*mode_compute=6*) in *Task Bayes 7*.
+Tuning of *mh_jscale* required to get a desired acceptance ratio (about 30%), which is a by-product of running the Monte-Carlo based optimization routine in *Task Bayes 7*.
 ```matlab
 dynare ireland2004_bayes_9_rwmh_gaussian parallel conffile=__parallelConf.ini
 ```
@@ -164,13 +166,31 @@ Runtime: 28 minutes on MacBook, 1 hour and 2 minutes on Linux server.
 #### Task Bayes 10: Bayesian estimation with RWMH sampler of CSN model
 Estimate the CSN model with Bayesian methods using the PSKF to compute the likelihood.
 The RWMH sampler is used to draw from the posterior distribution (8 chains with 250000 draws each, 50% burn-in).
-The sampler is initialized at the posterior mode and covariance matrix found by the Monte-Carlo optimization (*mode_compute=8*) in *Task Bayes 8*.
-Tuning of *mh_jscale* required to get a desired acceptance ratio (about 33%), which is a by-product of running the Monte-Carlo based optimization routine in *Task Bayes 8*.
+The sampler is initialized at the posterior mode and covariance matrix found by the Monte-Carlo optimization (*mode_compute=6*) in *Task Bayes 8*.
+Tuning of *mh_jscale* required to get a desired acceptance ratio (about 30%), which is a by-product of running the Monte-Carlo based optimization routine in *Task Bayes 8*.
 ```matlab
 dynare ireland2004_bayes_10_rwmh_csn parallel conffile=__parallelConf.ini
 ```
 Runtime: 5 hours and 48 minutes on MacBook, 8 hours and 27 minutes on Linux server.
 
+### Impulse response functions
+Compute the impulse response functions of the Gaussian and CSN model using the 16th and 84th percentiles of the estimated distributions.
+```matlab
+dynare ireland2004_irfs
+```
+Runtime: 1 minute on MacBook, 1 minute on Linux server.
+
+### Simulation of recessions
+Simulates large time series with Gaussian and CSN distributed shocks and computes statistics on recessions.
+```matlab
+dynare ireland2004_recessions
+```
+Runtime: 1 minute on MacBook, 1 minute on Linux server.
+
+## Publication quality figures
+The figures reported in the paper have been generated with the scripts in the folder `R`.
+These scripts are written in the `R` programming language and require several packages to be installed.
+The figures are saved as `eps` files.
 
 ## Replicating results from working paper
 This repository also contains replication codes for previous versions of the paper.
