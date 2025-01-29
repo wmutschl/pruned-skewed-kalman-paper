@@ -1,5 +1,6 @@
-% Simulates the model of Ireland (2004) with Gaussian and CSN distributed shocks
-% Computes statistics on recessions based on simulated time series
+% Computes impulse response functions of the Ireland (2004) with
+% Gaussian and CSN distributed shocks using the 16th and 84th percentiles
+% of the maximum likelihood estimates
 % =========================================================================
 % Copyright (C) 2025 Willi Mutschler
 %
@@ -18,41 +19,50 @@
 % With Applications to the Yield Curve and Asymmetric Monetary Policy Shocks"
 % by Gaygysyz Guljanov, Willi Mutschler, Mark Trede
 % =========================================================================
+
+% NOTE:
 % Dynare always computes irfs with respect to a one standard deviation shock,
-% so we abuse the shocks block to set the stderr to the quantile
-% and adjust parameter SIGN_SHOCKS to get the correct sign on shocks (whether positive or negative)
+% which is provided by the user in the shocks block.
+% Therefore, we use the shocks block to set the stderr to the quantiles
+% and adjust the auxiliary parameter SIGN_SHOCKS to get the correct
+% sign on shocks (whether positive or negative).
 
 @#include "_ireland2004_common.inc"
+var rAnnualized piAnnualized;
 
+model;
+rAnnualized = 4*rhat;
+piAnnualized = 4*pihat;
+end;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                GAUSSIAN                                 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 % use maximum likelihood estimates from ireland2004_ml_1_gaussian
-OMEGA    = 0.058086387283355;
-RHO_PI   = 0.386477141360770;
-RHO_G    = 0.396013670264708;
-RHO_X    = 0.165402611432957;
-RHO_A    = 0.904795669581000;
-RHO_E    = 0.990673584292426;
-% shock parameters from ireland2004_ml_1_gaussian
-gauss_std_eta_a = 3.016725412332537;
-gauss_std_eta_e = 0.024764214899394;
-gauss_std_eta_z = 0.886476699633342;
-gauss_std_eta_r = 0.279030970775836;
-% compute quantiles
-gauss_q16 = [norminv(0.16,0,gauss_std_eta_a);
-             norminv(0.16,0,gauss_std_eta_e);
-             norminv(0.16,0,gauss_std_eta_z);
-             norminv(0.16,0,gauss_std_eta_r);
+OMEGA    = 0.0581;
+RHO_PI   = 0.3865;
+RHO_G    = 0.3960;
+RHO_X    = 0.1654;
+RHO_A    = 0.9048;
+RHO_E    = 0.9907;
+gauss_std_eta_a = 3.0167;
+gauss_std_eta_e = 0.0248;
+gauss_std_eta_z = 0.8865;
+gauss_std_eta_r = 0.2790;
+
+% compute quantiles of Gaussian distribution
+gauss_q16 = [norminv(0.16, 0, gauss_std_eta_a);
+             norminv(0.16, 0, gauss_std_eta_e);
+             norminv(0.16, 0, gauss_std_eta_z);
+             norminv(0.16, 0, gauss_std_eta_r);
             ];
-gauss_q84 = [norminv(0.84,0,gauss_std_eta_a);
-             norminv(0.84,0,gauss_std_eta_e);
-             norminv(0.84,0,gauss_std_eta_z);
-             norminv(0.84,0,gauss_std_eta_r);
+gauss_q84 = [norminv(0.84, 0, gauss_std_eta_a);
+             norminv(0.84, 0, gauss_std_eta_e);
+             norminv(0.84, 0, gauss_std_eta_z);
+             norminv(0.84, 0, gauss_std_eta_r);
             ];
 
-
-% negative Gaussian shocks, i.e. 16th quantiles
+% simulate negative Gaussian shocks, i.e. 16th quantiles
 SIGN_SHOCKS = -1; % flip sign of shocks for 16th quantiles as they are negative
 shocks;
 var eta_a; stderr (gauss_q16(1));
@@ -60,10 +70,10 @@ var eta_e; stderr (gauss_q16(2));
 var eta_z; stderr (gauss_q16(3));
 var eta_r; stderr (gauss_q16(4));
 end;
-stoch_simul(order=1,periods=0,irf=15,nodecomposition,nomoments,nocorr,nofunctions);
+stoch_simul(order=1, periods=0, irf=15, nodecomposition, nomoments, nocorr, nofunctions);
 irfs_gaussian_neg = oo_.irfs;
 
-% positive Gaussian shocks, i.e. 84th quantiles
+% simulate positive Gaussian shocks, i.e. 84th quantiles
 SIGN_SHOCKS = 1; % don't flip sign of shocks for 84th quantiles as they are positive
 shocks;
 var eta_a; stderr (gauss_q84(1));
@@ -71,52 +81,53 @@ var eta_e; stderr (gauss_q84(2));
 var eta_z; stderr (gauss_q84(3));
 var eta_r; stderr (gauss_q84(4));
 end;
-stoch_simul(order=1,periods=0,irf=15,nodecomposition,nomoments,nocorr,nofunctions);
+stoch_simul(order=1, periods=0, irf=15, nodecomposition, nomoments, nocorr, nofunctions);
 irfs_gaussian_pos = oo_.irfs;
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                   CSN                                   %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 % use maximum likelihood estimates from ireland2004_ml_3_csn
-OMEGA    = 0.159645725481492;
-RHO_PI   = 0.281005275686837;
-RHO_G    = 0.338457069937301;
-RHO_X    = 0.287099131411956;
-RHO_A    = 0.913905604780658;
-RHO_E    = 0.980518591389153;
-% shock parameters from ireland2004_ml_3_csn
-csn_std_eta_a = 2.433749588176093;
-csn_std_eta_e = 0.020634966505142;
-csn_std_eta_z = 0.791304331135172;
-csn_std_eta_r = 0.285326737196001;
-csn_skew_eta_a = -0.192359778594322;
-csn_skew_eta_e = -0.217383469201676;
-csn_skew_eta_z = -0.994999998739149;
-csn_skew_eta_r =  0.817071416346745;
-% get shock parameters from stderr and skew
-[csn_Sigma_eta_a,csn_Gamma_eta_a] = csnVarSkew_To_SigmaGamma_univariate(csn_std_eta_a,csn_skew_eta_a,false);
-[csn_Sigma_eta_e,csn_Gamma_eta_e] = csnVarSkew_To_SigmaGamma_univariate(csn_std_eta_e,csn_skew_eta_e,false);
-[csn_Sigma_eta_z,csn_Gamma_eta_z] = csnVarSkew_To_SigmaGamma_univariate(csn_std_eta_z,csn_skew_eta_z,false);
-[csn_Sigma_eta_r,csn_Gamma_eta_r] = csnVarSkew_To_SigmaGamma_univariate(csn_std_eta_r,csn_skew_eta_r,false);
-csn_mu_eta_a = -csnMean(0,csn_Sigma_eta_a,csn_Gamma_eta_a,0,1);
-csn_mu_eta_e = -csnMean(0,csn_Sigma_eta_e,csn_Gamma_eta_e,0,1);
-csn_mu_eta_z = -csnMean(0,csn_Sigma_eta_z,csn_Gamma_eta_z,0,1);
-csn_mu_eta_r = -csnMean(0,csn_Sigma_eta_r,csn_Gamma_eta_r,0,1);
-% compute quantiles
-csn_q16 = [csnQuantile(0.16,csn_mu_eta_a,csn_Sigma_eta_a,csn_Gamma_eta_a,0,1);
-           csnQuantile(0.16,csn_mu_eta_e,csn_Sigma_eta_e,csn_Gamma_eta_e,0,1);
-           csnQuantile(0.16,csn_mu_eta_z,csn_Sigma_eta_z,csn_Gamma_eta_z,0,1);
-           csnQuantile(0.16,csn_mu_eta_r,csn_Sigma_eta_r,csn_Gamma_eta_r,0,1);
+OMEGA    = 0.1596;
+RHO_PI   = 0.2810;
+RHO_G    = 0.3385;
+RHO_X    = 0.2871;
+RHO_A    = 0.9139;
+RHO_E    = 0.9805;
+csn_std_eta_a = 2.4337;
+csn_std_eta_e = 0.0206;
+csn_std_eta_z = 0.7913;
+csn_std_eta_r = 0.2853;
+csn_skew_eta_a = -0.1924;
+csn_skew_eta_e = -0.2174;
+csn_skew_eta_z = -0.9950;
+csn_skew_eta_r =  0.8171;
+
+% get CSN parameters from stderr and skew
+[csn_Sigma_eta_a, csn_Gamma_eta_a] = csnVarSkew_To_SigmaGamma_univariate(csn_std_eta_a^2, csn_skew_eta_a, false);
+[csn_Sigma_eta_e, csn_Gamma_eta_e] = csnVarSkew_To_SigmaGamma_univariate(csn_std_eta_e^2, csn_skew_eta_e, false);
+[csn_Sigma_eta_z, csn_Gamma_eta_z] = csnVarSkew_To_SigmaGamma_univariate(csn_std_eta_z^2, csn_skew_eta_z, false);
+[csn_Sigma_eta_r, csn_Gamma_eta_r] = csnVarSkew_To_SigmaGamma_univariate(csn_std_eta_r^2, csn_skew_eta_r, false);
+csn_mu_eta_a = -csnMean(0, csn_Sigma_eta_a, csn_Gamma_eta_a, 0, 1);
+csn_mu_eta_e = -csnMean(0, csn_Sigma_eta_e, csn_Gamma_eta_e, 0, 1);
+csn_mu_eta_z = -csnMean(0, csn_Sigma_eta_z, csn_Gamma_eta_z, 0, 1);
+csn_mu_eta_r = -csnMean(0, csn_Sigma_eta_r, csn_Gamma_eta_r, 0, 1);
+
+% compute quantiles of CSN distribution
+csn_q16 = [csnQuantile(0.16, csn_mu_eta_a, csn_Sigma_eta_a, csn_Gamma_eta_a, 0, 1);
+           csnQuantile(0.16, csn_mu_eta_e, csn_Sigma_eta_e, csn_Gamma_eta_e, 0, 1);
+           csnQuantile(0.16, csn_mu_eta_z, csn_Sigma_eta_z, csn_Gamma_eta_z, 0, 1);
+           csnQuantile(0.16, csn_mu_eta_r, csn_Sigma_eta_r, csn_Gamma_eta_r, 0, 1);
           ];
-csn_q84 = [csnQuantile(0.84,csn_mu_eta_a,csn_Sigma_eta_a,csn_Gamma_eta_a,0,1);
-           csnQuantile(0.84,csn_mu_eta_e,csn_Sigma_eta_e,csn_Gamma_eta_e,0,1);
-           csnQuantile(0.84,csn_mu_eta_z,csn_Sigma_eta_z,csn_Gamma_eta_z,0,1);
-           csnQuantile(0.84,csn_mu_eta_r,csn_Sigma_eta_r,csn_Gamma_eta_r,0,1);
+csn_q84 = [csnQuantile(0.84, csn_mu_eta_a, csn_Sigma_eta_a, csn_Gamma_eta_a, 0, 1);
+           csnQuantile(0.84, csn_mu_eta_e, csn_Sigma_eta_e, csn_Gamma_eta_e, 0, 1);
+           csnQuantile(0.84, csn_mu_eta_z, csn_Sigma_eta_z, csn_Gamma_eta_z, 0, 1);
+           csnQuantile(0.84, csn_mu_eta_r, csn_Sigma_eta_r, csn_Gamma_eta_r, 0, 1);
           ];
 
-
-% negative CSN shocks, i.e. 16th quantiles
+% simulate negative CSN shocks, i.e. 16th quantiles
 SIGN_SHOCKS = -1; % flip sign of shocks for 16th quantiles as they are negative
 shocks;
 var eta_a; stderr (csn_q16(1));
@@ -124,10 +135,10 @@ var eta_e; stderr (csn_q16(2));
 var eta_z; stderr (csn_q16(3));
 var eta_r; stderr (csn_q16(4));
 end;
-stoch_simul(order=1,periods=0,irf=15,nodecomposition,nomoments,nocorr,nofunctions);
+stoch_simul(order=1, periods=0, irf=15, nodecomposition, nomoments, nocorr, nofunctions);
 irfs_csn_neg = oo_.irfs;
 
-% positive CSN shocks, i.e. 84th quantiles
+% simulate positive CSN shocks, i.e. 84th quantiles
 SIGN_SHOCKS = 1; % don't flip sign of shocks for 84th quantiles as they are positive
 shocks;
 var eta_a; stderr (csn_q84(1));
@@ -135,10 +146,11 @@ var eta_e; stderr (csn_q84(2));
 var eta_z; stderr (csn_q84(3));
 var eta_r; stderr (csn_q84(4));
 end;
-stoch_simul(order=1,periods=0,irf=15,nodecomposition,nomoments,nocorr,nofunctions);
+stoch_simul(order=1, periods=0, irf=15, nodecomposition, nomoments, nocorr, nofunctions);
 irfs_csn_pos = oo_.irfs;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                              STORE RESULTS                              %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+CheckPath('Output',M_.dname);
 save([M_.dname filesep 'Output' filesep M_.fname],'irfs_gaussian_neg','irfs_gaussian_pos','irfs_csn_neg','irfs_csn_pos','-v6');
