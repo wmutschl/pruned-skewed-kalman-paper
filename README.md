@@ -16,8 +16,7 @@ You can execute any of the following tasks individually or run them all in the s
 - The PSKF toolbox is currently under development and is expected to be released with Dynare 7.0.
 You can track the development progress on [Dynare's GitLab](https://git.dynare.org/wmutschl/dynare/-/tree/pskf).
 Installation files are available in the artifacts of the pipelines (under `pkg`, download the appropriate artifacts for your platform).
-For easier replication and personal studies, you can directly download installation packages for [macOS arm64], [macOS x86_64], and [Windows x86_64].
-For Linux users, please clone the repository and follow the instructions to [build Dynare from source](https://git.dynare.org/Dynare/dynare#building-dynare-from-source), which is also applicable for macOS and Windows.
+For easy replication and personal studies, you can directly download installation packages in the folder `dynare-installation-files` in this repository.
 
 - Ensure that you add the `matlab` folder to your PATH in MATLAB or Octave.
 Refer to the instructions in [the manual](https://www.dynare.org/manual/installation-and-configuration.html#configuration).
@@ -28,7 +27,7 @@ Some parts of the code (e.g., initial value search) utilize MATLAB's dedicated p
 
 - The reported runtimes are approximate and depend on the number of cores available and the platform of your machine.
 The reported times are based on:
-  - Apple **MacBook** Pro M2 Max (8 performance, 4 efficiency cores), 64 GB RAM, macOS Sequoia 15.2, MATLAB R2024b Update 3 (24.2.0.2806996) 64-bit (maca64) with Dynare 7 (dynare-7-unstable-2025-01-22-1305-b32e7530-arm64.pkg)
+  - Apple **MacBook** Pro M2 Max (8 performance, 4 efficiency cores), 64 GB RAM, macOS Sequoia 15.2, MATLAB R2024b Update 3 (24.2.0.2806996) 64-bit (maca64) with Dynare 7-unstable
   - Lenovo ThinkSystem SR655 **Linux server** (AMD EPYC 7402P 24C 2.8GHz), 6x16GB TruDDR4 3200MHz, Pop!_OS 20.04, MATLAB R2024b Update 3 (24.2.0.2806996) 64-bit (glnxa64) with Dynare 7 compiled from source
 - Note that comparing the Gaussian and CSN model versions may not be meaningful, as the CSN model has more parameters to estimate.
 
