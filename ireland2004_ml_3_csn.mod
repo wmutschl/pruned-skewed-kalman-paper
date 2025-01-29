@@ -66,3 +66,13 @@ estimation(datafile = 'data/ireland2004_data.m'
 % save shock parameters for graphs
 csn = M_.csn;
 save([M_.dname filesep 'Output' filesep M_.fname '_shock_params'],'csn','-v6');
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+% LIKELIHOOD RATIO TEST %
+%%%%%%%%%%%%%%%%%%%%%%%%%
+loglik_csn = 1215.85;
+loglik_gauss = 1207.56;
+lr_stat = 2 * (loglik_csn - loglik_gauss);
+lr_pval = chi2cdf(lr_stat, 4, "upper"); % 4 additional parameters with CSN
+lr_str = sprintf('test statistic of $%.2f$ and a p-value of $%.4f$.', lr_stat,lr_pval);
+fprintf('%s\n',lr_str);
