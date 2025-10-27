@@ -84,11 +84,3 @@ end;
 steady_state_model;
 ahat = 0; ehat = 0; zhat = 0; xhat = 0; pihat = 0; yhat = 0; ghat = 0; rhat = 0;
 end;
-
-// this needs to be initialized by the preprocessor
-M_.Skew_e = zeros(M_.exo_nbr,1);
-M_.csn.mu_e = zeros(M_.exo_nbr,1);
-M_.csn.Sigma_e = zeros(M_.exo_nbr,M_.exo_nbr);
-M_.csn.Gamma_e = zeros(M_.exo_nbr,M_.exo_nbr);
-M_.csn.nu_e = zeros(M_.exo_nbr,1);
-M_.csn.Delta_e = eye(M_.exo_nbr);
