@@ -1,6 +1,6 @@
 Starting Dynare (version 7-unstable).
 Calling Dynare with arguments: none
-Using build directory: /Users/wmutschl/Work/Forschung/Projects/Skewed_Kalman/replication_codes/dynare-csn/matlab/../build-matlab
+Using build directory: /Users/wmutschl/dynare/pskf/matlab/../build-matlab
 Starting preprocessing of the model file ...
 Found 8 equation(s).
 Evaluating expressions...
@@ -24,15 +24,11 @@ Preprocessing time: 0h00m00s.
 You did not declare endogenous variables after the estimation/calib_smoother command.
 Initial value of the log posterior (or likelihood): 1207.5619
 
-Evaluate likelihood on 50625 grid values for skewness parameter combinations using MATLAB's parallel toolbox, takes roughly 5 minutes with 8 cores
+Evaluate likelihood on 50625 grid values for skewness parameter combinations using MATLAB's parallel toolbox, takes less than 10 minutes with 8 cores
 
 Starting parallel pool (parpool) using the 'Processes' profile ...
 Connected to parallel pool with 12 workers.
-
-tEnd =
-
-  393.9753
-
+Best 5 values on grid (runtime 0h07m35s):
                    <strong>best 1</strong>      <strong>best 2</strong>      <strong>best 3</strong>      <strong>best 4</strong>      <strong>best 5</strong> 
                   <strong>________</strong>    <strong>________</strong>    <strong>________</strong>    <strong>________</strong>    <strong>________</strong>
 
@@ -41,13 +37,13 @@ tEnd =
     <strong>skew eta_z</strong>    -0.67857    -0.81429    -0.27143    -0.54286    -0.67857
     <strong>skew eta_r</strong>     0.54286     0.54286     0.54286     0.54286     0.40714
 
-OPTIMIZE SHOCK PARAMETERS: RUN 1 / 5
+
+****************************************
+* OPTIMIZE SHOCK PARAMETERS: RUN 1 / 5 *
+****************************************
 
 You did not declare endogenous variables after the estimation/calib_smoother command.
 Initial value of the log posterior (or likelihood): 1211.7409
-
-CONVERGENCE ACHIEVED AFTER 947 ITERATIONS!
-
 
 Final value of minus the log posterior (or likelihood):-1213.001477 
 
@@ -68,28 +64,33 @@ eta_e    -0.2896     NaN     NaN
 eta_z    -0.8361     NaN     NaN 
 eta_r     0.5200     NaN     NaN 
 
-     1.213001476690749e+03
+Optimization info:
+       runtime: 188.0782
+    iterations: 944
+     funcCount: 2935
+      exitflag: 1
+       message: 'The function converged to a solution x.'
 
+MLE point estimates for stderr parameters:
     eta_a: 2.747697233134916
     eta_e: 0.028882164116404
     eta_z: 0.858196786024231
     eta_r: 0.276196004637038
 
+MLE point estimates for skew parameters:
     eta_a: -0.111987050675084
     eta_e: -0.289566734765780
     eta_z: -0.836095597248922
     eta_r: 0.520016288312854
 
-OPTIMIZE SHOCK PARAMETERS: RUN 2 / 5
+Final value of log-likelihood: 1213.001476690748405
+
+****************************************
+* OPTIMIZE SHOCK PARAMETERS: RUN 2 / 5 *
+****************************************
 
 You did not declare endogenous variables after the estimation/calib_smoother command.
 Initial value of the log posterior (or likelihood): 1211.6535
-
-CONVERGENCE ACHIEVED AFTER 419 ITERATIONS!
-
-
-CONVERGENCE ACHIEVED AFTER 421 ITERATIONS!
-
 
 Final value of minus the log posterior (or likelihood):-1212.927981 
 
@@ -110,31 +111,33 @@ eta_e    -0.1709     NaN     NaN
 eta_z    -0.8817     NaN     NaN 
 eta_r     0.5402     NaN     NaN 
 
-     1.212927981302475e+03
+Optimization info:
+       runtime: 70.3858
+    iterations: 418
+     funcCount: 1029
+      exitflag: 1
+       message: 'The function converged to a solution x.'
 
+MLE point estimates for stderr parameters:
     eta_a: 2.730276697870081
     eta_e: 0.028657339321480
     eta_z: 0.858918837390032
     eta_r: 0.279158448222446
 
+MLE point estimates for skew parameters:
     eta_a: -0.114939029058106
     eta_e: -0.170924087332164
     eta_z: -0.881662668952391
     eta_r: 0.540175913206073
 
-OPTIMIZE SHOCK PARAMETERS: RUN 3 / 5
+Final value of log-likelihood: 1212.927981302475700
+
+****************************************
+* OPTIMIZE SHOCK PARAMETERS: RUN 3 / 5 *
+****************************************
 
 You did not declare endogenous variables after the estimation/calib_smoother command.
 Initial value of the log posterior (or likelihood): 1211.6221
-
-CONVERGENCE ACHIEVED AFTER 348 ITERATIONS!
-
-
-CONVERGENCE ACHIEVED AFTER 350 ITERATIONS!
-
-
-CONVERGENCE ACHIEVED AFTER 508 ITERATIONS!
-
 
 Final value of minus the log posterior (or likelihood):-1212.992894 
 
@@ -155,31 +158,33 @@ eta_e    -0.2827     NaN     NaN
 eta_z    -0.8209     NaN     NaN 
 eta_r     0.5510     NaN     NaN 
 
-     1.212992894074179e+03
+Optimization info:
+       runtime: 89.3845
+    iterations: 505
+     funcCount: 1416
+      exitflag: 1
+       message: 'The function converged to a solution x.'
 
+MLE point estimates for stderr parameters:
     eta_a: 2.744493098391289
     eta_e: 0.028710168449046
     eta_z: 0.857167741872252
     eta_r: 0.279744187107490
 
+MLE point estimates for skew parameters:
     eta_a: -0.125132994709961
     eta_e: -0.282691026262519
     eta_z: -0.820923772143279
     eta_r: 0.551044895787752
 
-OPTIMIZE SHOCK PARAMETERS: RUN 4 / 5
+Final value of log-likelihood: 1212.992894074178821
+
+****************************************
+* OPTIMIZE SHOCK PARAMETERS: RUN 4 / 5 *
+****************************************
 
 You did not declare endogenous variables after the estimation/calib_smoother command.
 Initial value of the log posterior (or likelihood): 1211.7347
-
-CONVERGENCE ACHIEVED AFTER 286 ITERATIONS!
-
-
-CONVERGENCE ACHIEVED AFTER 288 ITERATIONS!
-
-
-CONVERGENCE ACHIEVED AFTER 690 ITERATIONS!
-
 
 Final value of minus the log posterior (or likelihood):-1212.870140 
 
@@ -200,28 +205,33 @@ eta_e    -0.1410     NaN     NaN
 eta_z    -0.9291     NaN     NaN 
 eta_r     0.5534     NaN     NaN 
 
-     1.212870139612290e+03
+Optimization info:
+       runtime: 149.4944
+    iterations: 687
+     funcCount: 2259
+      exitflag: 1
+       message: 'The function converged to a solution x.'
 
+MLE point estimates for stderr parameters:
     eta_a: 2.752269119846341
     eta_e: 0.029058660738348
     eta_z: 0.848487507864687
     eta_r: 0.277824982572960
 
+MLE point estimates for skew parameters:
     eta_a: -0.112791936385278
     eta_e: -0.140980045659965
     eta_z: -0.929132791058448
     eta_r: 0.553392178870500
 
-OPTIMIZE SHOCK PARAMETERS: RUN 5 / 5
+Final value of log-likelihood: 1212.870139612290131
+
+****************************************
+* OPTIMIZE SHOCK PARAMETERS: RUN 5 / 5 *
+****************************************
 
 You did not declare endogenous variables after the estimation/calib_smoother command.
 Initial value of the log posterior (or likelihood): 1211.1821
-
-CONVERGENCE ACHIEVED AFTER 608 ITERATIONS!
-
-
-CONVERGENCE ACHIEVED AFTER 610 ITERATIONS!
-
 
 Final value of minus the log posterior (or likelihood):-1212.412758 
 
@@ -242,16 +252,42 @@ eta_e    -0.0025     NaN     NaN
 eta_z    -0.9697     NaN     NaN 
 eta_r     0.4870     NaN     NaN 
 
-     1.212412757679943e+03
+Optimization info:
+       runtime: 113.6894
+    iterations: 607
+     funcCount: 1855
+      exitflag: 1
+       message: 'The function converged to a solution x.'
 
+MLE point estimates for stderr parameters:
     eta_a: 2.764134815001343
     eta_e: 0.028665938583159
     eta_z: 0.858029134877437
     eta_r: 0.275189585206929
 
+MLE point estimates for skew parameters:
     eta_a: -0.075550923960328
     eta_e: -0.002455840176752
     eta_z: -0.969717267309982
     eta_r: 0.486986168854618
 
-Total computing time : 0h22m24s
+Final value of log-likelihood: 1212.412757679942388
+
+***************************
+* BEST RESULTS WITH RUN=1 *
+***************************
+
+- point estimates for stderr parameters:
+    eta_a: 2.747697233134916
+    eta_e: 0.028882164116404
+    eta_z: 0.858196786024231
+    eta_r: 0.276196004637038
+
+- point estimates for skew parameters:
+    eta_a: -0.111987050675084
+    eta_e: -0.289566734765780
+    eta_z: -0.836095597248922
+    eta_r: 0.520016288312854
+
+
+Total computing time : 0h22m11s
