@@ -1,6 +1,6 @@
 Starting Dynare (version 7-unstable).
 Calling Dynare with arguments: none
-Using build directory: /Users/wmutschl/Work/Forschung/Projects/Skewed_Kalman/replication_codes/dynare-csn/matlab/../build-matlab
+Using build directory: /Users/wmutschl/dynare/pskf/matlab/../build-matlab
 Starting preprocessing of the model file ...
 Found 8 equation(s).
 Evaluating expressions...
@@ -32,10 +32,10 @@ MODEL SUMMARY
 
 MATRIX OF COVARIANCE OF EXOGENOUS SHOCKS
 Variables       eta_a     eta_e     eta_z     eta_r
-eta_a        5.922896  0.000000  0.000000  0.000000
-eta_e        0.000000  0.000424  0.000000  0.000000
-eta_z        0.000000  0.000000  0.626156  0.000000
-eta_r        0.000000  0.000000  0.000000  0.081396
+eta_a        6.366538  0.000000  0.000000  0.000000
+eta_e        0.000000  0.000451  0.000000  0.000000
+eta_z        0.000000  0.000000  0.624132  0.000000
+eta_r        0.000000  0.000000  0.000000  0.080565
 
 
 MODEL SUMMARY
@@ -49,21 +49,33 @@ MODEL SUMMARY
 
 MATRIX OF COVARIANCE OF EXOGENOUS SHOCKS
 Variables       eta_a     eta_e     eta_z     eta_r
-eta_a        5.922896  0.000000  0.000000  0.000000
-eta_e        0.000000  0.000424  0.000000  0.000000
-eta_z        0.000000  0.000000  0.626156  0.000000
-eta_r        0.000000  0.000000  0.000000  0.081396
+eta_a        6.366538  0.000000  0.000000  0.000000
+eta_e        0.000000  0.000451  0.000000  0.000000
+eta_z        0.000000  0.000000  0.624132  0.000000
+eta_r        0.000000  0.000000  0.000000  0.080565
 
 
-SKEWNESS OF EXOGENOUS SHOCKS
-Variables     Skewness
-eta_a        -0.192400
-eta_e        -0.217400
-eta_z        -0.995000
-eta_r         0.817100
+MATRIX OF COSKEWNESS OF EXOGENOUS SHOCKS
+Variables            eta_a      eta_e      eta_z      eta_r
+eta_a * eta_a    -0.194800   0.000000   0.000000   0.000000
+eta_a * eta_e     0.000000   0.000000   0.000000   0.000000
+eta_a * eta_z     0.000000   0.000000   0.000000   0.000000
+eta_a * eta_r     0.000000   0.000000   0.000000   0.000000
+eta_e * eta_a     0.000000   0.000000   0.000000   0.000000
+eta_e * eta_e     0.000000  -0.214010   0.000000   0.000000
+eta_e * eta_z     0.000000   0.000000   0.000000   0.000000
+eta_e * eta_r     0.000000   0.000000   0.000000   0.000000
+eta_z * eta_a     0.000000   0.000000   0.000000   0.000000
+eta_z * eta_e     0.000000   0.000000   0.000000   0.000000
+eta_z * eta_z     0.000000   0.000000  -0.995270   0.000000
+eta_z * eta_r     0.000000   0.000000   0.000000   0.000000
+eta_r * eta_a     0.000000   0.000000   0.000000   0.000000
+eta_r * eta_e     0.000000   0.000000   0.000000   0.000000
+eta_r * eta_z     0.000000   0.000000   0.000000   0.000000
+eta_r * eta_r     0.000000   0.000000   0.000000   0.812750
 
-Number recessions (\(\hat{g}_{t} \leq -0.5\% \)) & 42564  & 39536  & 14188  & 13179  & 14188  & 13179  \\ 
-Frequency recessions (in \%)                     &   8.51 &   7.91 &   2.84 &   2.64 &   2.84 &   2.64 \\ 
-Mean duration (peak to trough, quarters)         &   3.13 &   3.07 &   4.44 &   4.29 &   2.23 &   2.23 \\ 
-Mean output loss (peak to trough, in \%)         &  -2.29 &  -2.41 &  -3.68 &  -3.93 &  -1.18 &  -1.21 \\ 
-Total computing time : 0h00m06s
+Number recessions (\(\hat{g}_{t} \leq -0.5\% \)) & 42524  & 39510  & 14175  & 13170  & 14175  & 13170  \\ 
+Frequency recessions (in \%)                     &   8.50 &   7.90 &   2.83 &   2.63 &   2.83 &   2.63 \\ 
+Mean duration (peak to trough, quarters)         &   3.13 &   3.07 &   4.44 &   4.30 &   2.23 &   2.23 \\ 
+Mean output loss (peak to trough, in \%)         &  -2.29 &  -2.41 &  -3.68 &  -3.92 &  -1.18 &  -1.20 \\ 
+Total computing time : 0h00m14s

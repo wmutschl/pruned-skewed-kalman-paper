@@ -23,28 +23,30 @@
 @#include "_ireland2004_common.inc"
 ALPHA_X  = 0;
 ALPHA_PI = 0;
-OMEGA    = 0.1596;
-RHO_PI   = 0.2810;
-RHO_G    = 0.3385;
-RHO_X    = 0.2871;
-RHO_A    = 0.9139;
-RHO_E    = 0.9805;
+OMEGA    = 0.15356;
+RHO_PI   = 0.28761;
+RHO_G    = 0.33795;
+RHO_X    = 0.28325;
+RHO_A    = 0.91704;
+RHO_E    = 0.98009;
 
 shocks;
-var eta_a; stderr 2.4337;
-var eta_e; stderr 0.0206;
-var eta_z; stderr 0.7913;
-var eta_r; stderr 0.2853;
+var eta_a; stderr 2.5232;
+var eta_e; stderr 0.021228;
+var eta_z; stderr 0.79002;
+var eta_r; stderr 0.28384;
 end;
 
 CheckPath('graphs',M_.dname);
 
 @#for j in ["GAUSSIAN","CSN"]
     @#if j == "CSN"
-M_.Skew_e(find(ismember(M_.exo_names,'eta_a')),1) = -0.1924;
-M_.Skew_e(find(ismember(M_.exo_names,'eta_e')),1) = -0.2174;
-M_.Skew_e(find(ismember(M_.exo_names,'eta_z')),1) = -0.9950;
-M_.Skew_e(find(ismember(M_.exo_names,'eta_r')),1) = +0.8171;
+shocks;
+skew eta_a = -0.1948;
+skew eta_e = -0.21401;
+skew eta_z = -0.99527;
+skew eta_r = +0.81275;
+end;
     @#endif
 %set_dynare_seed('clock'); % uncomment for random draws
 set_dynare_seed(75);
