@@ -1,6 +1,6 @@
 Starting Dynare (version 7-unstable).
 Calling Dynare with arguments: none
-Using build directory: /Users/wmutschl/Work/Forschung/Projects/Skewed_Kalman/replication_codes/dynare-csn/matlab/../build-matlab
+Using build directory: /Users/wmutschl/dynare/pskf/matlab/../build-matlab
 Starting preprocessing of the model file ...
 WARNING: in the 'steady_state_model' block, variable 'rAnnualized' is not assigned a value
 WARNING: in the 'steady_state_model' block, variable 'piAnnualized' is not assigned a value
@@ -68,10 +68,30 @@ MODEL SUMMARY
 
 MATRIX OF COVARIANCE OF EXOGENOUS SHOCKS
 Variables       eta_a     eta_e     eta_z     eta_r
-eta_a        5.770626  0.000000  0.000000  0.000000
-eta_e        0.000000  0.000413  0.000000  0.000000
-eta_z        0.000000  0.000000  0.635261  0.000000
-eta_r        0.000000  0.000000  0.000000  0.083803
+eta_a        6.226185  0.000000  0.000000  0.000000
+eta_e        0.000000  0.000440  0.000000  0.000000
+eta_z        0.000000  0.000000  0.633227  0.000000
+eta_r        0.000000  0.000000  0.000000  0.074596
+
+
+MATRIX OF COSKEWNESS OF EXOGENOUS SHOCKS
+Variables            eta_a      eta_e      eta_z      eta_r
+eta_a * eta_a    -0.194800   0.000000   0.000000   0.000000
+eta_a * eta_e     0.000000   0.000000   0.000000   0.000000
+eta_a * eta_z     0.000000   0.000000   0.000000   0.000000
+eta_a * eta_r     0.000000   0.000000   0.000000   0.000000
+eta_e * eta_a     0.000000   0.000000   0.000000   0.000000
+eta_e * eta_e     0.000000  -0.214010   0.000000   0.000000
+eta_e * eta_z     0.000000   0.000000   0.000000   0.000000
+eta_e * eta_r     0.000000   0.000000   0.000000   0.000000
+eta_z * eta_a     0.000000   0.000000   0.000000   0.000000
+eta_z * eta_e     0.000000   0.000000   0.000000   0.000000
+eta_z * eta_z     0.000000   0.000000  -0.995270   0.000000
+eta_z * eta_r     0.000000   0.000000   0.000000   0.000000
+eta_r * eta_a     0.000000   0.000000   0.000000   0.000000
+eta_r * eta_e     0.000000   0.000000   0.000000   0.000000
+eta_r * eta_z     0.000000   0.000000   0.000000   0.000000
+eta_r * eta_r     0.000000   0.000000   0.000000   0.812750
 
 
 MODEL SUMMARY
@@ -85,10 +105,30 @@ MODEL SUMMARY
 
 MATRIX OF COVARIANCE OF EXOGENOUS SHOCKS
 Variables       eta_a     eta_e     eta_z     eta_r
-eta_a        5.539388  0.000000  0.000000  0.000000
-eta_e        0.000000  0.000398  0.000000  0.000000
-eta_z        0.000000  0.000000  0.771767  0.000000
-eta_r        0.000000  0.000000  0.000000  0.128333
+eta_a        6.211555  0.000000  0.000000  0.000000
+eta_e        0.000000  0.000439  0.000000  0.000000
+eta_z        0.000000  0.000000  0.610090  0.000000
+eta_r        0.000000  0.000000  0.000000  0.080242
 
-Total computing time : 0h00m15s
+
+MATRIX OF COSKEWNESS OF EXOGENOUS SHOCKS
+Variables            eta_a      eta_e      eta_z      eta_r
+eta_a * eta_a    -0.194800   0.000000   0.000000   0.000000
+eta_a * eta_e     0.000000   0.000000   0.000000   0.000000
+eta_a * eta_z     0.000000   0.000000   0.000000   0.000000
+eta_a * eta_r     0.000000   0.000000   0.000000   0.000000
+eta_e * eta_a     0.000000   0.000000   0.000000   0.000000
+eta_e * eta_e     0.000000  -0.214010   0.000000   0.000000
+eta_e * eta_z     0.000000   0.000000   0.000000   0.000000
+eta_e * eta_r     0.000000   0.000000   0.000000   0.000000
+eta_z * eta_a     0.000000   0.000000   0.000000   0.000000
+eta_z * eta_e     0.000000   0.000000   0.000000   0.000000
+eta_z * eta_z     0.000000   0.000000  -0.995270   0.000000
+eta_z * eta_r     0.000000   0.000000   0.000000   0.000000
+eta_r * eta_a     0.000000   0.000000   0.000000   0.000000
+eta_r * eta_e     0.000000   0.000000   0.000000   0.000000
+eta_r * eta_z     0.000000   0.000000   0.000000   0.000000
+eta_r * eta_r     0.000000   0.000000   0.000000   0.812750
+
+Total computing time : 0h00m29s
 Note: 2 warning(s) encountered in the preprocessor
