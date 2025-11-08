@@ -30,3 +30,5 @@ posterior_sampler_core*.log
 posterior_sampler_core_input.mat
 
 dynare-csn
+
+ireland2004_monte_carlo/Output/ireland2004_monte_carlo_results.mat
