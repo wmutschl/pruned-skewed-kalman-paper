@@ -91,7 +91,7 @@ stdh = sqrt(diag(invhess));
 tbl_names = [["" + fieldnames(oo_.mle_mode.parameters)]; ["stderr " + fieldnames(oo_.mle_mode.shocks_std)]; ["skew " + fieldnames(oo_.mle_mode.shocks_skew)]];
 tbl_vals = [struct2array(oo_.mle_mode.parameters) struct2array(oo_.mle_mode.shocks_std) struct2array(oo_.mle_mode.shocks_skew)]';
 tbl_vals = [tbl_vals stdh];
-fprintf('\n%s\n* ESTIMATION RESULTS *\n%s\n', repmat('*',1,23), repmat('*',1,23));
+fprintf('\n%s\n* ESTIMATION RESULTS *\n%s\n', repmat('*',1,22), repmat('*',1,22));
 disp(array2table(tbl_vals, 'RowNames', tbl_names, 'VariableNames', ["Mode", "Std-dev"]))
 
 %%%%%%%%%%%%%%%%%%%%%%%%%
