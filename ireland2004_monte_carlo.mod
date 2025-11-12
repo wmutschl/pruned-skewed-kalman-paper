@@ -28,23 +28,23 @@
 %%%%%%%%%%%%%%%
 ALPHA_X  = 0;
 ALPHA_PI = 0;
-OMEGA    = 0.0581;
-RHO_PI   = 0.3865;
-RHO_G    = 0.3960;
-RHO_X    = 0.1654;
-RHO_A    = 0.9048;
-RHO_E    = 0.9907;
+OMEGA    = 0.1392;
+RHO_PI   = 0.4662;
+RHO_G    = 0.3586;
+RHO_X    = 0.2227;
+RHO_A    = 0.9216;
+RHO_E    = 0.9030;
 
 shocks;
-var eta_a; stderr 3.0167;
-var eta_e; stderr 0.0248;
-var eta_z; stderr 0.8865;
-var eta_r; stderr 0.2790;
+var eta_a; stderr 3.2359;
+var eta_e; stderr 0.0603;
+var eta_z; stderr 0.7975;
+var eta_r; stderr 0.2920;
 @#ifndef GAUSSIAN
-skew eta_a = -0.3;
-skew eta_e = -0;
-skew eta_z = -0.5;
-skew eta_r = +0.8;
+skew eta_a = -0.0819;
+skew eta_e = -0.3584;
+skew eta_z = -0.3808;
+skew eta_r = +0.5183;
 @#endif
 end;
 
@@ -52,9 +52,10 @@ end;
 % SIMULATE DATA %
 %%%%%%%%%%%%%%%%%
 %set_dynare_seed('clock'); % uncomment for random draws
-%set_dynare_seed(75);
+set_dynare_seed(1);
 @#for jlength in DATASETS_LENGTHS
 fprintf('\nSIMULATE @{DATASETS_NBR} DATASETS WITH T=@{jlength}...');
+diary off;
 t_sim = tic;
   @#for jdat in 1:DATASETS_NBR
 stoch_simul(order=1,periods=@{jlength+DATASETS_BURNIN},irf=0,nodecomposition,nomoments,nocorr,nofunctions,nomodelsummary) ghat rhat pihat;
@@ -62,6 +63,7 @@ fprintf('\b');
 oo_.endo_simul = oo_.endo_simul(:,@{DATASETS_BURNIN+1}:end);
 datatomfile('data/ireland2004_sim_data_T@{jlength}_@{jdat}',{'ghat', 'rhat', 'pihat'});
   @#endfor
+diary on;
 fprintf('...DONE (%s)!\n',dynsec2hms(toc(t_sim)));
 @#endfor
 
@@ -69,15 +71,15 @@ fprintf('...DONE (%s)!\n',dynsec2hms(toc(t_sim)));
 % ESTIMATION %
 %%%%%%%%%%%%%%
 estimated_params;
-stderr eta_a, 3.0167;
-stderr eta_e, 0.0248;
-stderr eta_z, 0.8865;
-stderr eta_r, 0.2790;
+stderr eta_a, 3.2359, 0, 10;
+stderr eta_e, 0.0603, 0, 10;
+stderr eta_z, 0.7975, 0, 10;
+stderr eta_r, 0.2920, 0, 10;
 @#ifndef GAUSSIAN
-skew eta_a, -0.3;
-skew eta_e, -0;
-skew eta_z, -0.5;
-skew eta_r, +0.8;
+skew eta_a, -0.0819;
+skew eta_e, -0.3584;
+skew eta_z, -0.3808;
+skew eta_r, +0.5183;
 @#endif
 end;
 
@@ -99,7 +101,8 @@ fprintf('Note: You can watch the progress of the estimation in the data folder:\
 fprintf('\nESTIMATE @{DATASETS_NBR} DATASETS WITH T=@{jlength}...');
 t_opt = tic;
 xparam1_opt_T@{jlength} = nan(estim_params_.nvx + estim_params_.nsx, @{DATASETS_NBR});
-current_optimizer = 5;
+exitflag_T@{jlength} = nan(1, @{DATASETS_NBR});
+current_optimizer = 1;
 parfor jdat = 1:@{DATASETS_NBR}
     % run dynare_estimation_init twice so parfor loop works
     [dataset, datasetInfo, xparam1, hh, M, options, oo, estim_params, bayestopt, BoundsInfo] = dynare_estimation_init(options_.varobs, M_.dname, [], M_, options_, oo_, estim_params_, bayestopt_);
@@ -108,7 +111,7 @@ parfor jdat = 1:@{DATASETS_NBR}
     [dataset, datasetInfo, xparam1, hh, M, options, oo, estim_params, bayestopt, BoundsInfo] = dynare_estimation_init(options.varobs, M.dname, [], M, options, oo, estim_params, bayestopt);
     % run optimization
     warning('off');
-    xparam1_opt_T@{jlength}(:,jdat) = dynare_minimize_objective('dsge_likelihood',xparam1,current_optimizer,options,[BoundsInfo.lb BoundsInfo.ub],bayestopt.name,bayestopt,hh, ...
+    [xparam1_opt_T@{jlength}(:,jdat), ~, exitflag_T@{jlength}(jdat), ~, ~, ~, ~] = dynare_minimize_objective('dsge_likelihood',xparam1,current_optimizer,options,[BoundsInfo.lb BoundsInfo.ub],bayestopt.name,bayestopt,hh, ...
                                                                 dataset,datasetInfo,options,M,estim_params,bayestopt,BoundsInfo,oo.dr, oo.steady_state,oo.exo_steady_state,oo.exo_det_steady_state);
     % delete dataset so we can watch progress of the estimation
     delete(options.datafile);
