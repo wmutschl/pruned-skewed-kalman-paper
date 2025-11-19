@@ -40,9 +40,6 @@ skew eta_z,  -0.836095597248922;
 skew eta_r,   0.520016288312854;
 end;
 
-options_.kalman.pskf.prune_tol = 0.01;
-options_.kalman.pskf.rank_deficiency_transform = false;
-options_.kalman.pskf.skip_smoother = false;
 estimation(datafile = 'data/ireland2004_data.m'
           , mode_compute = 5 % fval=1215.850522
           , additional_optimizer_steps = [8] % fval=1215.852847

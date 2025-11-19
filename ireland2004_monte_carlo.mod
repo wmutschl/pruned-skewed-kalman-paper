@@ -83,9 +83,6 @@ skew eta_r, +0.8;
 @#endif
 end;
 
-options_.kalman.pskf.prune_tol = 0.01;
-options_.kalman.pskf.rank_deficiency_transform = false;
-options_.kalman.pskf.skip_smoother = true;
 % run estimation command without optimization to initialize structures
 estimation(datafile = 'data/ireland2004_data.m'
          , mode_compute = 0
@@ -93,6 +90,7 @@ estimation(datafile = 'data/ireland2004_data.m'
          , kalman_algo = 5  % use pruned skewed Kalman filter
          , lik_init = 1     % initialize Kalman filter at Gaussian steady-state distribution
          , cova_compute = 0
+         , skewed_kalman_smoother_skip
          );
 
 % optimize likelihood for grid values

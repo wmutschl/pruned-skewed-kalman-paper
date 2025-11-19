@@ -36,8 +36,6 @@ RHO_A,        0.9048,  0,     1;
 RHO_E,        0.9907,  0,     1;
 end;
 
-options_.kalman.pskf.rank_deficiency_transform = false;
-options_.kalman.pskf.skip_smoother = false;
 estimation(datafile = 'data/ireland2004_data.m'
           , mode_compute = 8 % 1,2,7,8,101 yield almost the same estimates
           , silent_optimizer % below we display optimization_info, so don't show intermediate optimization output

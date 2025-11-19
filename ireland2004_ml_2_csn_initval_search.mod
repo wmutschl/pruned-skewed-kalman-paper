@@ -54,15 +54,14 @@ skew eta_r, 0;
 end;
 
 % run estimation command without optimization to initialize structures
-options_.kalman.pskf.prune_tol = 0.1; % use high pruning threshold (0.01 is default)
-options_.kalman.pskf.rank_deficiency_transform = false;
-options_.kalman.pskf.skip_smoother = true;
 estimation(datafile = 'data/ireland2004_data.m'
          , dirname = ireland2004_ml_2_csn_initval_search_0 % store results here
          , mode_compute = 0 % no optimization
          , kalman_algo = 5  % use pruned skewed Kalman filter
          , lik_init = 1     % initialize Kalman filter at Gaussian steady-state distribution
          , cova_compute = 0 % skip Hessian computation
+         , skewed_kalman_prune_tol = 0.1 % use high pruning threshold (0.01 is default)
+         , skewed_kalman_smoother_skip
          );
 
 % create grid for skewness coefficients
@@ -83,7 +82,7 @@ fprintf('\nEvaluate likelihood on %u grid values for skewness parameter combinat
 tStart = tic;
 parfor jgrid = 1:(grid.nbr-1)^estim_params_.nsx
     [dataset, datasetInfo, xparam1, ~, M, options, oo, estim_params, bayestopt, BoundsInfo] = dynare_estimation_init(options_.varobs, M_.dname, [], M_, options_, oo_, estim_params_, bayestopt_);
-    estim_params.skew_exo(:,4) = Skew_eta_grid(COMBOS(jgrid,:))';
+    estim_params.skew_exo(:,2) = Skew_eta_grid(COMBOS(jgrid,:))';
     [dataset, datasetInfo, xparam1, ~, M, options, oo, estim_params, bayestopt, BoundsInfo] = dynare_estimation_init(options.varobs, M.dname, [], M, options, oo, estim_params, bayestopt);
     neg_log_likelihood_grid(jgrid) = dsge_likelihood(xparam1,dataset,datasetInfo,options,M,estim_params,bayestopt,BoundsInfo,oo.dr, oo.steady_state,oo.exo_steady_state,oo.exo_det_steady_state);
 end
@@ -113,9 +112,6 @@ skew eta_r, (skew_eta_r);
 end;
 
 fprintf('\n%s\n* OPTIMIZE SHOCK PARAMETERS: RUN @{j} / @{BEST_OF} *\n%s\n', repmat('*',1,40),repmat('*',1,40));
-options_.kalman.pskf.prune_tol = 0.01; % switch back to default pruning threshold
-options_.kalman.pskf.rank_deficiency_transform = false;
-options_.kalman.pskf.skip_smoother = true;
 estimation(datafile = 'data/ireland2004_data.m'
           , dirname = ireland2004_ml_2_csn_initval_search_@{j} % store results here
           , mode_compute = 8 % other optimizers are similar
@@ -123,7 +119,8 @@ estimation(datafile = 'data/ireland2004_data.m'
           , kalman_algo = 5  % use pruned skewed Kalman filter
           , lik_init = 1     % initialize Kalman filter at Gaussian steady-state distribution
           , cova_compute = 0 % skip Hessian computation
-          , nograph          % we don't need the graphs
+          , skewed_kalman_prune_tol = 0.01 % switch back to default pruning threshold
+          , skewed_kalman_smoother_skip
           );
 oo_.initval_search.fval(@{j})          = oo_.posterior.optimization.log_density;
 oo_.initval_search.shocks_stderr{@{j}} = oo_.mle_mode.shocks_std;
