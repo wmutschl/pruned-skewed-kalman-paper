@@ -92,10 +92,10 @@ data_irfs %>%
   pull(value) == csn_pos$xhat.eta.r
 
 # plot options
-axis_size <- 11
-legend_size <- 12
-text_size <- 12
+text_size <- 14
+axis_text_size <- 12
 strip_size <- 13
+legend_size <- 14
 
 # IRFs with respect to monetary policy shock
 p_irfs <- ggplot(
@@ -115,15 +115,35 @@ p_irfs <- ggplot(
     color = "Shock size (percentile)",
     linetype = "Shock distribution"
   ) +
+  theme_minimal(base_size = 14) +
   theme(
+    # Clean white background
+    plot.background = element_rect(fill = "white", color = NA),
+    panel.background = element_rect(fill = "white", color = NA),
+    # Add subtle panel border for better definition
+    panel.border = element_rect(color = "grey85", fill = NA, linewidth = 0.5),
+    # Grid styling for better readability
+    panel.grid.major = element_line(color = "grey90", linewidth = 0.4),
+    panel.grid.minor = element_blank(),
+    # Typography settings
     text = element_text(size = text_size),
-    axis.title.y = element_text(size = axis_size, hjust = 0.5),
-    axis.title.x = element_text(size = axis_size),
+    axis.title.y = element_text(size = text_size, margin = margin(r = 10)),
+    axis.title.x = element_text(size = text_size, margin = margin(t = 10)),
+    axis.text = element_text(size = axis_text_size, color = "grey30"),
     strip.text = element_text(size = strip_size),
+    strip.background = element_blank(),
+    # Legend settings
     legend.title = element_text(size = legend_size),
-    legend.position = "bottom", 
-    legend.key.width = unit(2, "cm"),
-    strip.background = element_blank()
+    legend.text = element_text(size = text_size),
+    legend.key.width = unit(1.5, "cm"),
+    legend.spacing.x = unit(0.5, "cm"),
+    legend.position = "bottom",
+    legend.box = "horizontal",
+    legend.justification = "center",
+    legend.box.spacing = unit(0.5, "cm"),
+    legend.margin = margin(t = 10, b = 5),
+    # Plot margins
+    plot.margin = margin(10, 10, 10, 10)
   ) +
   scale_color_manual(values = c("16th" = "grey50", "84th" = "grey20")) +
   scale_linetype_manual(values = c("Gaussian" = "dotdash", "CSN" = "solid")) +
@@ -132,7 +152,7 @@ p_irfs <- ggplot(
 print(p_irfs)
 
 ggsave(
-  filename = "figure_5.eps",
+  filename = "figure_irfs.pdf",
   plot = p_irfs,
   dpi = 300,
   units = "px",
