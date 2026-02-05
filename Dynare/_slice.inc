@@ -13,12 +13,10 @@ estimation(datafile = '../data/ireland2004_data.m'
           , posterior_sampler_options = ('save_tmp_file',0, 'save_iter_info_file',0)
           , mh_nblocks = 8
           , mh_replic = @{MH_REPLIC}
-          @#ifdef MH_DROP
           , mh_drop = @{MH_DROP}
-          @#endif
           , plot_priors = 0
           );
-copyfile([M_.dname '/Output/' M_.fname '_mh_mode.mat'], ['../results/ireland2004/bayes/ireland2004_@{DISTRIB}_slice_long_mh_mode.mat']);
+copyfile([M_.dname '/Output/' M_.fname '_mh_mode.mat'], sprintf('../results/ireland2004/bayes/ireland2004_@{DISTRIB}_slice_@{MH_REPLIC}_mh_mode_%s_%s.mat', ARCH, MATLAB_VERSION));
 
 %%%%%%%%%%%%%%%%
 % Housekeeping %

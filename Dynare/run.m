@@ -31,8 +31,8 @@ REDO_ML_GAUSSIAN                      = 0;   % |   <00h01m    |   <00h01m    |  
 REDO_ML_CSN_INITVAL_SEARCH            = 0;   % |    00h17m    |    00h13m    |    00h00m   |    00h00m   |
 REDO_ML_CSN                           = 0;   % |    00h13m    |    00h10m    |    00h00m   |    00h00m   |
 % -------------------------------------------% | ------------ | ------------ | ----------- | ----------- |
-REDO_BAYES_SLICE_LONG_GAUSSIAN        = 0;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
-REDO_BAYES_SLICE_LONG_CSN             = 0;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
+REDO_BAYES_SLICE_LONG_GAUSSIAN        = 0;   % |    00h00m    |    00h20m    |    00h00m   |    00h00m   |
+REDO_BAYES_SLICE_LONG_CSN             = 0;   % |    00h00m    |    10h27m    |    00h00m   |    00h00m   |
 REDO_BAYES_SLICE_SHORT_GAUSSIAN       = 0;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
 REDO_BAYES_SLICE_SHORT_CSN            = 0;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
 REDO_BAYES_RWMH_SLICE_SHORT_GAUSSIAN  = 0;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |

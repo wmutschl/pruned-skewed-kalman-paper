@@ -97,7 +97,7 @@ RHO_G,        ,  0,  1, gamma_pdf,     0.30,         0.10       ;
 RHO_X,        ,  0,  1, gamma_pdf,     0.25,         0.0625     ;
 RHO_A,        ,  0,  1, beta_pdf,      0.85,         0.10       ;
 RHO_E,        ,  0,  1, beta_pdf,      0.85,         0.10       ;
-  @#if DISTRIB == "CSN"
+  @#if DISTRIB == "csn"
 skew eta_a,   ,   ,   , beta_pdf,         0,         0.40       , -1, 1;
 skew eta_e,   ,   ,   , beta_pdf,         0,         0.40       , -1, 1;
 skew eta_z,   ,   ,   , beta_pdf,         0,         0.40       , -1, 1;
