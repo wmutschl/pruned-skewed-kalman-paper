@@ -23,21 +23,25 @@ clearvars; clc; close all;
 
 
 %% SETTINGS
-% SET THE FOLLOWING VARIABLES TO 1 TO REPLICATE THE RESULTS, 0 TO SKIP THE REPLICATION
-% -------------------------------------- | ------------------------------ RUNTIME ---------------- |
-% Replication part                       | maca64_m2max | maca64_m4pro |   glnxa64   |    win64    |
-% -------------------------------------- | ------------ | ------------ | ----------- | ----------- |
-REDO_ML_GAUSSIAN                = 0;   % |   <00h01m    |   <00h00m    |   <00h00m   |   <00h00m   |
-REDO_ML_CSN_INITVAL_SEARCH      = 0;   % |    00h17m    |    00h00m    |    00h00m   |    00h00m   |
-REDO_ML_CSN                     = 1;   % |    00h13m    |    00h00m    |    00h00m   |    00h00m   |
-% -------------------------------------- | ------------ | ------------ | ----------- | ----------- |
-REDO_BAYES_SLICE_GAUSSIAN       = 0;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
-REDO_BAYES_SLICE_CSN            = 0;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
-REDO_BAYES_SHORT_SLICE_GAUSSIAN = 0;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
-REDO_BAYES_SHORT_SLICE_CSN      = 0;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
-REDO_BAYES_RWMH_SLICE_GAUSSIAN  = 0;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
-REDO_BAYES_RWMH_SLICE_CSN       = 0;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
-% -------------------------------------- | ------------ | ------------ | ----------- | ----------- |
+% SET VARIABLES TO 1 TO REPLICATE THE RESULTS, 0 TO SKIP THE REPLICATION STEP AND REUSE PREVIOUSLY COMPUTED RESULTS
+% -------------------------------------------% | ------------------------ RUNTIME ---------------------- |
+% Replication part                           % | maca64_m2max | maca64_m4pro |   glnxa64   |    win64    |
+% -------------------------------------------% | ------------ | ------------ | ----------- | ----------- |
+REDO_ML_GAUSSIAN                      = 0;   % |   <00h01m    |   <00h01m    |   <00h00m   |   <00h00m   |
+REDO_ML_CSN_INITVAL_SEARCH            = 0;   % |    00h17m    |    00h13m    |    00h00m   |    00h00m   |
+REDO_ML_CSN                           = 0;   % |    00h13m    |    00h10m    |    00h00m   |    00h00m   |
+% -------------------------------------------% | ------------ | ------------ | ----------- | ----------- |
+REDO_BAYES_SLICE_LONG_GAUSSIAN        = 0;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
+REDO_BAYES_SLICE_LONG_CSN             = 0;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
+REDO_BAYES_SLICE_SHORT_GAUSSIAN       = 0;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
+REDO_BAYES_SLICE_SHORT_CSN            = 0;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
+REDO_BAYES_RWMH_SLICE_SHORT_GAUSSIAN  = 0;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
+REDO_BAYES_RWMH_SLICE_SHORT_CSN       = 0;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
+REDO_BAYES_MODE_GAUSSIAN              = 0;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
+REDO_BAYES_MODE_CSN                   = 0;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
+REDO_BAYES_RWMH_GAUSSIAN              = 0;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
+REDO_BAYES_RWMH_CSN                   = 0;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
+% -------------------------------------------% | ------------ | ------------ | ----------- | ----------- |
 
 
 %% COMMON VARIABLES AND PATHS
@@ -103,67 +107,65 @@ if REDO_ML_CSN
 end
 
 
-%% BAYESIAN ESTIMATION WITH SLICE SAMPLE OF GAUSSIAN MODEL
+%% BAYESIAN ESTIMATION WITH LONG SLICE SAMPLER OF GAUSSIAN MODEL
 % Estimate the Gaussian model with Bayesian methods using the PSKF to compute the likelihood.
 % The Slice sampler is used to draw from the posterior distribution (8 chains with 5000 draws each, 50% burn-in).
 % No fine-tuning is required, approximately 68 function evaluations per iteration.
-if REDO_BAYES_SLICE_GAUSSIAN
-    REDO_BAYES_SLICE_GAUSSIAN = tic;
+if REDO_BAYES_SLICE_LONG_GAUSSIAN
+    REDO_BAYES_SLICE_LONG_GAUSSIAN = tic;
     clearvars -except DYNARE_PATH ARCH MATLAB_VERSION REDO_*; clc; close all;
-    dynare ireland2004_bayes_1_slice_gaussian
+    dynare ireland2004_bayes_1_slice_long_gaussian
     % housekeeping
     pause(1); fclose('all'); movefile([M_.fname '.log'], target_logfile);
     rmdir(['+' M_.fname],'s'); rmdir(M_.fname,'s');
-    REDO_BAYES_SLICE_GAUSSIAN = toc(REDO_BAYES_SLICE_GAUSSIAN);
+    REDO_BAYES_SLICE_LONG_GAUSSIAN = toc(REDO_BAYES_SLICE_LONG_GAUSSIAN);
 end
 
 
-%% BAYESIAN ESTIMATION WITH SLICE SAMPLE OF CSN MODEL
+%% BAYESIAN ESTIMATION WITH LONG SLICER SAMPLER OF CSN MODEL
 % Estimate the CSN model with Bayesian methods using the PSKF to compute the likelihood.
 % The Slice sampler is used to draw from the posterior distribution (8 chains with 5000 draws each, 50% burn-in).
 % No fine-tuning is required, approximately 86 function evaluations per iteration.
-if REDO_BAYES_SLICE_CSN
-    REDO_BAYES_SLICE_CSN = tic;
+if REDO_BAYES_SLICE_LONG_CSN
+    REDO_BAYES_SLICE_LONG_CSN = tic;
     clearvars -except DYNARE_PATH ARCH MATLAB_VERSION REDO_*; clc; close all;
-    dynare ireland2004_bayes_2_slice_csn
+    dynare ireland2004_bayes_2_slice_long_csn
     % housekeeping
     pause(1); fclose('all'); movefile([M_.fname '.log'], target_logfile);
     rmdir(['+' M_.fname],'s'); rmdir(M_.fname,'s');
-    REDO_BAYES_SLICE_CSN = toc(REDO_BAYES_SLICE_CSN);
+    REDO_BAYES_SLICE_LONG_CSN = toc(REDO_BAYES_SLICE_LONG_CSN);
 end
 
 
 %% BAYESIAN ESTIMATION WITH SHORT SLICE SAMPLER OF GAUSSIAN MODEL (TO GET CLOSE TO POSTERIOR MODE)
 % Estimate the Gaussian model with Bayesian methods using the PSKF to compute the likelihood.
 % The Slice sampler is used to draw from the posterior distribution (8 chains with 250 draws each, 20% burn-in).
-% These draws are used to initialize the covariance matrix for the RWMH sampler (ireland2004_bayes_5_rwmh_slice_gaussian.mod)
-% and as initial guess for finding the posterior mode using optimization (ireland2004_bayes_7_mode_gaussian.mod).
+% The posterior mode draw is used to initialize the covariance matrix for the subsequent RWMH sampler and to find the posterior mode below
 % No fine-tuning is required, approximately 68 function evaluations per iteration.
-if REDO_BAYES_SHORT_SLICE_GAUSSIAN
-    REDO_BAYES_SHORT_SLICE_GAUSSIAN = tic;
+if REDO_BAYES_SLICE_SHORT_GAUSSIAN
+    REDO_BAYES_SLICE_SHORT_GAUSSIAN = tic;
     clearvars -except DYNARE_PATH ARCH MATLAB_VERSION REDO_*; clc; close all;
-    dynare ireland2004_bayes_3_mode_slice_gaussian
+    dynare ireland2004_bayes_3_slice_short_gaussian
     % housekeeping
     pause(1); fclose('all'); movefile([M_.fname '.log'], target_logfile);
     rmdir(['+' M_.fname],'s'); rmdir(M_.fname,'s');
-    REDO_BAYES_SHORT_SLICE_GAUSSIAN = toc(REDO_BAYES_SHORT_SLICE_GAUSSIAN);
+    REDO_BAYES_SLICE_SHORT_GAUSSIAN = toc(REDO_BAYES_SLICE_SHORT_GAUSSIAN);
 end
 
 
 %% BAYESIAN ESTIMATION WITH SHORT SLICE SAMPLER OF CSN MODEL (TO GET CLOSE TO POSTERIOR MODE)
 % Estimate the CSN model with Bayesian methods using the PSKF to compute the likelihood.
 % The Slice sampler is used to draw from the posterior distribution (8 chains with 250 draws each, 20% burn-in).
-% These draws are used to initialize the covariance matrix for the RWMH sampler (ireland2004_bayes_6_rwmh_slice_csn.mod)
-% and as initial guess for finding the posterior mode using optimization (ireland2004_bayes_8_mode_csn.mod).
+% The posterior mode draw is used to initialize the covariance matrix for the subsequent RWMH sampler and to find the posterior mode below
 % No fine-tuning is required, approximately 86 function evaluations per iteration.
-if REDO_BAYES_SHORT_SLICE_CSN
-    REDO_BAYES_SHORT_SLICE_CSN = tic;
+if REDO_BAYES_SLICE_SHORT_CSN
+    REDO_BAYES_SLICE_SHORT_CSN = tic;
     clearvars -except DYNARE_PATH ARCH MATLAB_VERSION REDO_*; clc; close all;
-    dynare ireland2004_bayes_4_mode_slice_csn
+    dynare ireland2004_bayes_4_slice_short_csn
     % housekeeping
     pause(1); fclose('all'); movefile([M_.fname '.log'], target_logfile);
     rmdir(['+' M_.fname],'s'); rmdir(M_.fname,'s');
-    REDO_BAYES_SHORT_SLICE_CSN = toc(REDO_BAYES_SHORT_SLICE_CSN);
+    REDO_BAYES_SLICE_SHORT_CSN = toc(REDO_BAYES_SLICE_SHORT_CSN);
 end
 
 
@@ -172,14 +174,14 @@ end
 % The RWMH sampler is used to draw from the posterior distribution (8 chains with 250000 draws each, 50% burn-in).
 % The sampler is initialized at the posterior mode and covariance matrix found by the short Slice sampler in ireland2004_bayes_3_mode_slice_gaussian.mod.
 % No additional time-consuming mode-finding step is required, but one still needs to tune *mh_jscale* to get a desired acceptance ratio (about 30%).
-if REDO_BAYES_RWMH_SLICE_GAUSSIAN
-    REDO_BAYES_RWMH_SLICE_GAUSSIAN = tic;
+if REDO_BAYES_RWMH_SLICE_SHORT_GAUSSIAN
+    REDO_BAYES_RWMH_SLICE_SHORT_GAUSSIAN = tic;
     clearvars -except DYNARE_PATH ARCH MATLAB_VERSION REDO_*; clc; close all;
-    dynare ireland2004_bayes_5_rwmh_slice_gaussian
+    dynare ireland2004_bayes_5_rwmh_slice_short_gaussian
     % housekeeping
     pause(1); fclose('all'); movefile([M_.fname '.log'], target_logfile);
     rmdir(['+' M_.fname],'s'); rmdir(M_.fname,'s');
-    REDO_BAYES_RWMH_SLICE_GAUSSIAN = toc(REDO_BAYES_RWMH_SLICE_GAUSSIAN);
+    REDO_BAYES_RWMH_SLICE_SHORT_GAUSSIAN = toc(REDO_BAYES_RWMH_SLICE_SHORT_GAUSSIAN);
 end
 
 
@@ -188,14 +190,14 @@ end
 % The RWMH sampler is used to draw from the posterior distribution (8 chains with 250000 draws each, 50% burn-in).
 % The sampler is initialized at the posterior mode and covariance matrix found by the short Slice sampler in ireland2004_bayes_4_mode_slice_csn.mod.
 % No additional time-consuming mode-finding step is required, but one still needs to tune *mh_jscale* to get a desired acceptance ratio (about 33%).
-if REDO_BAYES_RWMH_SLICE_CSN
-    REDO_BAYES_RWMH_SLICE_CSN = tic;
+if REDO_BAYES_RWMH_SLICE_SHORT_CSN
+    REDO_BAYES_RWMH_SLICE_SHORT_CSN = tic;
     clearvars -except DYNARE_PATH ARCH MATLAB_VERSION REDO_*; clc; close all;
     dynare ireland2004_bayes_6_rwmh_slice_csn
     % housekeeping
     pause(1); fclose('all'); movefile([M_.fname '.log'], target_logfile);
     rmdir(['+' M_.fname],'s'); rmdir(M_.fname,'s');
-    REDO_BAYES_RWMH_SLICE_CSN = toc(REDO_BAYES_RWMH_SLICE_CSN);
+    REDO_BAYES_RWMH_SLICE_SHORT_CSN = toc(REDO_BAYES_RWMH_SLICE_SHORT_CSN);
 end
 
 
@@ -268,23 +270,34 @@ end
 if REDO_ML_CSN > 0
     fprintf('- Maximum likelihood estimation with CSN shocks: %s\n', dynsec2hms(REDO_ML_CSN));
 end
-if REDO_BAYES_SLICE_GAUSSIAN > 0
-    fprintf('- Bayesian estimation using long Slice sampler with Gaussian shocks: %s\n', dynsec2hms(REDO_BAYES_SLICE_GAUSSIAN));
+if REDO_BAYES_SLICE_LONG_GAUSSIAN > 0
+    fprintf('- Bayesian estimation using long Slice sampler with Gaussian shocks: %s\n', dynsec2hms(REDO_BAYES_SLICE_LONG_GAUSSIAN));
 end
-if REDO_BAYES_SLICE_CSN > 0
-    fprintf('- Bayesian estimation using long Slice sampler with CSN shocks: %s\n', dynsec2hms(REDO_BAYES_SLICE_CSN));
+if REDO_BAYES_SLICE_LONG_CSN > 0
+    fprintf('- Bayesian estimation using long Slice sampler with CSN shocks: %s\n', dynsec2hms(REDO_BAYES_SLICE_LONG_CSN));
 end
-if REDO_BAYES_SHORT_SLICE_GAUSSIAN > 0
-    fprintf('- Bayesian estimation using short Slice sampler with Gaussian shocks: %s\n', dynsec2hms(REDO_BAYES_SHORT_SLICE_GAUSSIAN));
+if REDO_BAYES_SLICE_SHORT_GAUSSIAN > 0
+    fprintf('- Bayesian estimation using short Slice sampler with Gaussian shocks: %s\n', dynsec2hms(REDO_BAYES_SLICE_SHORT_GAUSSIAN));
 end
-if REDO_BAYES_SHORT_SLICE_CSN > 0
-    fprintf('- Bayesian estimation using short Slice sampler with CSN shocks: %s\n', dynsec2hms(REDO_BAYES_SHORT_SLICE_CSN));
+if REDO_BAYES_SLICE_SHORT_CSN > 0
+    fprintf('- Bayesian estimation using short Slice sampler with CSN shocks: %s\n', dynsec2hms(REDO_BAYES_SLICE_SHORT_CSN));
 end
-if REDO_BAYES_RWMH_SLICE_GAUSSIAN > 0
-    fprintf('- Bayesian estimation using RWMH sampler initializes at short Slice sampler mode with Gaussian shocks: %s\n', dynsec2hms(REDO_BAYES_RWMH_SLICE_GAUSSIAN));
+if REDO_BAYES_RWMH_SLICE_SHORT_GAUSSIAN > 0
+    fprintf('- Bayesian estimation using RWMH sampler initializes at short Slice sampler mode with Gaussian shocks: %s\n', dynsec2hms(REDO_BAYES_RWMH_SLICE_SHORT_GAUSSIAN));
 end
-if REDO_BAYES_RWMH_SLICE_CSN > 0
-    fprintf('- Bayesian estimation using RWMH sampler initializes at short Slice sampler mode with CSN shocks: %s\n', dynsec2hms(REDO_BAYES_RWMH_SLICE_CSN));
+if REDO_BAYES_RWMH_SLICE_SHORT_CSN > 0
+    fprintf('- Bayesian estimation using RWMH sampler initializes at short Slice sampler mode with CSN shocks: %s\n', dynsec2hms(REDO_BAYES_RWMH_SLICE_SHORT_CSN));
 end
-
+if REDO_BAYES_MODE_GAUSSIAN > 0
+    fprintf('- Bayesian mode estimation with Gaussian shocks: %s\n', dynsec2hms(REDO_BAYES_MODE_GAUSSIAN));
+end
+if REDO_BAYES_MODE_CSN > 0
+    fprintf('- Bayesian mode estimation with CSN shocks: %s\n', dynsec2hms(REDO_BAYES_MODE_CSN));
+end
+if REDO_BAYES_RWMH_GAUSSIAN > 0
+    fprintf('- Bayesian mode estimation with Gaussian shocks: %s\n', dynsec2hms(REDO_BAYES_RWMH_GAUSSIAN));
+end
+if REDO_BAYES_RWMH_CSN > 0
+    fprintf('- Bayesian mode estimation with CSN shocks: %s\n', dynsec2hms(REDO_BAYES_RWMH_CSN));
+end
 rmpath(DYNARE_PATH);

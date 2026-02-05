@@ -33,10 +33,10 @@ stderr eta_a, 2.747697233134916,        0,    10;
 stderr eta_e, 0.028882164116404,        0,    10;
 stderr eta_z, 0.858196786024231,        0,    10;
 stderr eta_r, 0.276196004637038,        0,    10;
-skew eta_a,  -0.111987050675084,   -0.995, 0.995;
-skew eta_e,  -0.289566734765780,   -0.995, 0.995;
-skew eta_z,  -0.836095597248922,   -0.995, 0.995;
-skew eta_r,   0.520016288312854,   -0.995, 0.995;
+skew eta_a,  -0.111987050675084;
+skew eta_e,  -0.289566734765780;
+skew eta_z,  -0.836095597248922;
+skew eta_r,   0.520016288312854;
 end;
 
 estimation(datafile = '../data/ireland2004_data.m'
@@ -117,8 +117,8 @@ rmpath('_utils');
 %%%%%%%%%%%%%%%%%%%%%%%%%
 % LIKELIHOOD RATIO TEST %
 %%%%%%%%%%%%%%%%%%%%%%%%%
-loglik_csn = oo_.posterior.optimization.log_density;
-loglik_gauss = 1207.561875567026163; % see ireland2004_ml_1_gaussian.log
+loglik_csn = round(oo_.posterior.optimization.log_density,4);
+loglik_gauss = 1207.5619; % see ireland2004_ml_1_gaussian.log
 lr_stat = 2 * (loglik_csn - loglik_gauss);
 lr_pval = chi2cdf(lr_stat, 4, 'upper'); % 4 additional parameters with CSN
 lr_str = sprintf('test statistic of $%.2f$ and a p-value of $%.4f$.', lr_stat, lr_pval);

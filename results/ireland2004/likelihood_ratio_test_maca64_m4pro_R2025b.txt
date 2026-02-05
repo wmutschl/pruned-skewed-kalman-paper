@@ -1,0 +1,7 @@
+
+*************************
+* LIKELIHOOD RATIO TEST *
+*************************
+- unconstrained log-likelihood (CSN): 1215.8528
+- constrained log-likelihood (Gaussian): 1207.5619
+- test statistic of $16.58$ and a p-value of $0.0023$.
