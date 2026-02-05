@@ -1,0 +1,76 @@
+Starting Dynare (version 7-unstable).
+Calling Dynare with arguments: none
+Using build directory: /Users/wmutschl/dynare/7-unstable/matlab/../build-matlab
+Starting preprocessing of the model file ...
+Found 8 equation(s).
+Evaluating expressions...
+Computing static model derivatives (order 1).
+Normalizing the static model...
+Finding the optimal block decomposition of the static model...
+6 block(s) found:
+  5 recursive block(s) and 1 simultaneous block(s).
+  the largest simultaneous block has 2 equation(s)
+                                 and 2 feedback variable(s).
+Computing dynamic model derivatives (order 2).
+Normalizing the dynamic model...
+Finding the optimal block decomposition of the dynamic model...
+2 block(s) found:
+  1 recursive block(s) and 1 simultaneous block(s).
+  the largest simultaneous block has 5 equation(s)
+                                 and 5 feedback variable(s).
+Preprocessing completed.
+Preprocessing time: 0h00m00s.
+
+You did not declare endogenous variables after the estimation/calib_smoother command.
+Initial value of the log posterior (or likelihood): 1206.2242
+
+Final value of minus the log posterior (or likelihood):-1207.561876 
+
+RESULTS FROM MAXIMUM LIKELIHOOD ESTIMATION
+parameters
+         Estimate    s.d. t-stat
+
+OMEGA      0.0581  0.0685  0.8483 
+RHO_PI     0.3865  0.2099  1.8408 
+RHO_G      0.3960  0.0612  6.4657 
+RHO_X      0.1654  0.0976  1.6948 
+RHO_A      0.9048  0.0579 15.6323 
+RHO_E      0.9907  0.0130 75.9715 
+
+standard deviation of shocks
+         Estimate    s.d. t-stat
+
+eta_a      3.0167  1.5568  1.9377 
+eta_e      0.0248  0.0180  1.3745 
+eta_z      0.8865  0.1245  7.1199 
+eta_r      0.2790  0.0374  7.4648 
+
+Optimization info:
+       runtime: 11.7153
+    iterations: 1419
+     funcCount: 2954
+      exitflag: 1
+       message: 'The function converged to a solution x.'
+
+MLE point estimates for structural parameters:
+     OMEGA: 0.058086387283355
+    RHO_PI: 0.386477141360770
+     RHO_G: 0.396013670264708
+     RHO_X: 0.165402611432957
+     RHO_A: 0.904795669581000
+     RHO_E: 0.990673584292426
+
+MLE point estimates for stderr parameters:
+    eta_a: 3.016725412332537
+    eta_e: 0.024764214899394
+    eta_z: 0.886476699633342
+    eta_r: 0.279030970775836
+
+Final value of log-likelihood: 1207.561875567026163
+[Warning: Cannot open file ../results/ireland2004/table_2_maca64_m2max_R2025b.tex, so I make a copy of latex2.tex first.] 
+[> In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('update_table_2', '/Users/wmutschl/Work/Forschung/Projects/Skewed_Kalman/replication_codes/Dynare/_utils/update_table_2.m', 90)" style="font-weight:bold">update_table_2</a> (<a href="matlab: opentoline('/Users/wmutschl/Work/Forschung/Projects/Skewed_Kalman/replication_codes/Dynare/_utils/update_table_2.m',90,0)">line 90</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ireland2004_ml_1_gaussian.driver', '/Users/wmutschl/Work/Forschung/Projects/Skewed_Kalman/replication_codes/Dynare/+ireland2004_ml_1_gaussian/driver.m', 442)" style="font-weight:bold">ireland2004_ml_1_gaussian.driver</a> (<a href="matlab: opentoline('/Users/wmutschl/Work/Forschung/Projects/Skewed_Kalman/replication_codes/Dynare/+ireland2004_ml_1_gaussian/driver.m',442,0)">line 442</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare', '/Users/wmutschl/dynare/7-unstable/matlab/dynare.m', 300)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('/Users/wmutschl/dynare/7-unstable/matlab/dynare.m',300,0)">line 300</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('run', '/Users/wmutschl/Work/Forschung/Projects/Skewed_Kalman/replication_codes/Dynare/run.m', 47)" style="font-weight:bold">run</a> (<a href="matlab: opentoline('/Users/wmutschl/Work/Forschung/Projects/Skewed_Kalman/replication_codes/Dynare/run.m',47,0)">line 47</a>)] 
+Total computing time : 0h00m15s
+Note: warning(s) encountered in MATLAB/Octave code

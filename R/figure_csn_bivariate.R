@@ -3,7 +3,7 @@
 #' This script replicates Figure 2 of the paper, showing density plots for bivariate CSN
 #' distributions with varying skewness parameters.
 #'
-#' @copyright 2022-2025 Gaygysyz Guljanov, Willi Mutschler, Mark Trede
+#' @copyright 2022-2026 Gaygysyz Guljanov, Willi Mutschler, Mark Trede
 #'
 #' @note This is free software: you can redistribute it and/or modify
 #' it under the terms of the GNU General Public License as published by
@@ -141,7 +141,7 @@ fig_2_top <- (p_a + p_b + p_c)
 fig_2_bottom <- (p_d + p_e + p_f)
 fig_2 <- (fig_2_top / fig_2_bottom) +
   plot_layout(guides = "collect") &
-  theme( 
+  theme(
     legend.position = "bottom",
     legend.box = "horizontal",
     legend.justification = "center",

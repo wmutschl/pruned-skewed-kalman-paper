@@ -15,12 +15,12 @@
 % "Pruned skewed Kalman filter and smoother with application to DSGE models"
 % by Gaygysyz Guljanov, Willi Mutschler, Mark Trede
 % =========================================================================
+@#include "_ireland2004_common.inc"
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % MAXIMUM LIKELIHOOD ESTIMATION OF GAUSSIAN VERSION OF MODEL USING PSKF TO COMPUTE LIKELIHOOD %
 % NOTE THAT WE DON'T USE DYNARE'S KALMAN FILTER FUNCTION FOR A FAIR COMPARISON                %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-@#include "_ireland2004_common.inc"
 
 estimated_params;
 stderr eta_a, 3.0200,  0,    10;
@@ -65,3 +65,15 @@ writematrix(M_.csn.Sigma_e, ['../results/ireland2004/ml/' M_.fname '_csn_Sigma_e
 writematrix(M_.csn.Gamma_e, ['../results/ireland2004/ml/' M_.fname '_csn_Gamma_e.csv']);
 writematrix(M_.csn.nu_e, ['../results/ireland2004/ml/' M_.fname '_csn_nu_e.csv']);
 writematrix(M_.csn.Delta_e, ['../results/ireland2004/ml/' M_.fname '_csn_Delta_e.csv']);
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+% UPDATE LATEX TABLE 2 %
+%%%%%%%%%%%%%%%%%%%%%%%%
+addpath('_utils');
+update_table_2('../results/ireland2004', 'ML_Gaussian', oo_, ARCH, MATLAB_VERSION);
+rmpath('_utils');
+
+%%%%%%%%%%%%%%%%
+% Housekeeping %
+%%%%%%%%%%%%%%%%
+target_logfile = sprintf('../results/ireland2004/logs/%s_%s_%s.log', M_.fname, ARCH, MATLAB_VERSION);

@@ -1,0 +1,48 @@
+\begin{table}[htbp]
+\caption{Distribution of parameter estimates}\label{tbl:MonteCarloEstimation}
+\centering
+\begin{tabular}{l c c c}
+\toprule
+      &        & \multicolumn{2}{c}{\emph{Pruned Skewed KF ($10^{-2}$)}} \\\cmidrule(lr){3-4}
+Param & Truth  & $T=100$ & $T=500$ \\
+\midrule
+stderr($\eta_a$) & 3.0167
+& $\underset{\{0.093\}}{\underset{[2.58;3.50]}{3.029}}$
+& $\underset{\{0.039\}}{\underset{[2.84;3.23]}{3.029}}$
+\\
+stderr($\eta_e$) & 0.0248
+& $\underset{\{0.160\}}{\underset{[0.02;0.03]}{0.025}}$
+& $\underset{\{0.057\}}{\underset{[0.02;0.03]}{0.025}}$
+\\
+stderr($\eta_z$) & 0.8865
+& $\underset{\{0.108\}}{\underset{[0.74;1.04]}{0.891}}$
+& $\underset{\{0.047\}}{\underset{[0.83;0.96]}{0.893}}$
+\\
+stderr($\eta_r$) & 0.2790
+& $\underset{\{0.085\}}{\underset{[0.24;0.31]}{0.275}}$
+& $\underset{\{0.041\}}{\underset{[0.26;0.30]}{0.279}}$
+\\
+skew($\eta_a$) & -0.3000
+& $\underset{\{1.262\}}{\underset{[-1.00;0.14]}{-0.421}}$
+& $\underset{\{0.662\}}{\underset{[-0.67;-0.17]}{-0.428}}$
+\\
+skew($\eta_e$) & 0.0000
+& $\underset{\{~\}}{\underset{[-1.00;0.81]}{-0.321}}$
+& $\underset{\{~\}}{\underset{[-0.57;-0.12]}{-0.306}}$
+\\
+skew($\eta_z$) & -0.5000
+& $\underset{\{0.829\}}{\underset{[-1.00;0.30]}{-0.495}}$
+& $\underset{\{0.327\}}{\underset{[-0.78;-0.25]}{-0.505}}$
+\\
+skew($\eta_r$) & 0.8000
+& $\underset{\{0.256\}}{\underset{[0.40;1.00]}{0.764}}$
+& $\underset{\{0.109\}}{\underset{[0.64;0.92]}{0.798}}$
+\\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\small
+Note: Cells contain average on top, [5,95] percentiles in square brackets, and \{NRMSE\} in curly brackets.
+For $\gamma_{\eta_e}$, NRMSE is not defined due to division by zero.
+\end{tablenotes}
+\end{table}

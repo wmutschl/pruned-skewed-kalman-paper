@@ -1,0 +1,937 @@
+Starting Dynare (version 7-unstable).
+Calling Dynare with arguments: none
+Using build directory: /Users/wmutschl/dynare/7-unstable/matlab/../build-matlab
+Starting preprocessing of the model file ...
+Found 8 equation(s).
+Evaluating expressions...
+Computing static model derivatives (order 1).
+Normalizing the static model...
+Finding the optimal block decomposition of the static model...
+6 block(s) found:
+  5 recursive block(s) and 1 simultaneous block(s).
+  the largest simultaneous block has 2 equation(s)
+                                 and 2 feedback variable(s).
+Computing dynamic model derivatives (order 2).
+Normalizing the dynamic model...
+Finding the optimal block decomposition of the dynamic model...
+2 block(s) found:
+  1 recursive block(s) and 1 simultaneous block(s).
+  the largest simultaneous block has 5 equation(s)
+                                 and 5 feedback variable(s).
+Preprocessing completed.
+Preprocessing time: 0h00m00s.
+
+
+###############################################################################################
+# GAUSSIAN (ME=40%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.1) #
+###############################################################################################
+You did not declare endogenous variables after the estimation/calib_smoother command.
+Time to evaluate likelihood with Pruned Skewed Kalman Filter with tol=0.1000: 0h00m00s
+Initial value of the log posterior (or likelihood): 1148.4682
+
+
+################################################################################################
+# GAUSSIAN (ME=40%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.01) #
+################################################################################################
+You did not declare endogenous variables after the estimation/calib_smoother command.
+Time to evaluate likelihood with Pruned Skewed Kalman Filter with tol=0.0100: 0h00m00s
+Initial value of the log posterior (or likelihood): 1148.4682
+
+
+#################################################################################################
+# GAUSSIAN (ME=40%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.001) #
+#################################################################################################
+You did not declare endogenous variables after the estimation/calib_smoother command.
+Time to evaluate likelihood with Pruned Skewed Kalman Filter with tol=0.0010: 0h00m00s
+Initial value of the log posterior (or likelihood): 1148.4682
+
+
+##################################################################################################
+# GAUSSIAN (ME=40%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.0001) #
+##################################################################################################
+You did not declare endogenous variables after the estimation/calib_smoother command.
+Time to evaluate likelihood with Pruned Skewed Kalman Filter with tol=0.0001: 0h00m00s
+Initial value of the log posterior (or likelihood): 1148.4682
+
+
+##################################################################################
+# GAUSSIAN (ME=40%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=2000) #
+##################################################################################
+You did not declare endogenous variables after the estimation/calib_smoother command.
+
+Estimation using a non linear filter!
+
+Time to evaluate likelihood with particle filter with N=2000: 0h00m00s
+Initial value of the log posterior (or likelihood): 1147.5695
+
+RESULTS FROM MAXIMUM LIKELIHOOD ESTIMATION
+parameters
+         Estimate    s.d. t-stat
+
+OMEGA      0.1392     NaN     NaN 
+RHO_PI     0.4662     NaN     NaN 
+RHO_G      0.3586     NaN     NaN 
+RHO_X      0.2227     NaN     NaN 
+RHO_A      0.9216     NaN     NaN 
+RHO_E      0.9030     NaN     NaN 
+
+standard deviation of shocks
+         Estimate    s.d. t-stat
+
+eta_a      3.2359     NaN     NaN 
+eta_e      0.0603     NaN     NaN 
+eta_z      0.7975     NaN     NaN 
+eta_r      0.2920     NaN     NaN 
+
+standard deviation of measurement errors
+         Estimate    s.d. t-stat
+
+ghat       0.0031     NaN     NaN 
+rhat       0.0031     NaN     NaN 
+pihat      0.0021     NaN     NaN 
+
+
+
+###################################################################################
+# GAUSSIAN (ME=40%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=20000) #
+###################################################################################
+You did not declare endogenous variables after the estimation/calib_smoother command.
+
+Estimation using a non linear filter!
+
+Time to evaluate likelihood with particle filter with N=20000: 0h00m00s
+Initial value of the log posterior (or likelihood): 1147.199
+
+RESULTS FROM MAXIMUM LIKELIHOOD ESTIMATION
+parameters
+         Estimate    s.d. t-stat
+
+OMEGA      0.1392     NaN     NaN 
+RHO_PI     0.4662     NaN     NaN 
+RHO_G      0.3586     NaN     NaN 
+RHO_X      0.2227     NaN     NaN 
+RHO_A      0.9216     NaN     NaN 
+RHO_E      0.9030     NaN     NaN 
+
+standard deviation of shocks
+         Estimate    s.d. t-stat
+
+eta_a      3.2359     NaN     NaN 
+eta_e      0.0603     NaN     NaN 
+eta_z      0.7975     NaN     NaN 
+eta_r      0.2920     NaN     NaN 
+
+standard deviation of measurement errors
+         Estimate    s.d. t-stat
+
+ghat       0.0031     NaN     NaN 
+rhat       0.0031     NaN     NaN 
+pihat      0.0021     NaN     NaN 
+
+
+
+####################################################################################
+# GAUSSIAN (ME=40%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=200000) #
+####################################################################################
+You did not declare endogenous variables after the estimation/calib_smoother command.
+
+Estimation using a non linear filter!
+
+Time to evaluate likelihood with particle filter with N=200000: 0h00m02s
+Initial value of the log posterior (or likelihood): 1148.3562
+
+RESULTS FROM MAXIMUM LIKELIHOOD ESTIMATION
+parameters
+         Estimate    s.d. t-stat
+
+OMEGA      0.1392     NaN     NaN 
+RHO_PI     0.4662     NaN     NaN 
+RHO_G      0.3586     NaN     NaN 
+RHO_X      0.2227     NaN     NaN 
+RHO_A      0.9216     NaN     NaN 
+RHO_E      0.9030     NaN     NaN 
+
+standard deviation of shocks
+         Estimate    s.d. t-stat
+
+eta_a      3.2359     NaN     NaN 
+eta_e      0.0603     NaN     NaN 
+eta_z      0.7975     NaN     NaN 
+eta_r      0.2920     NaN     NaN 
+
+standard deviation of measurement errors
+         Estimate    s.d. t-stat
+
+ghat       0.0031     NaN     NaN 
+rhat       0.0031     NaN     NaN 
+pihat      0.0021     NaN     NaN 
+
+
+
+#####################################################################################
+# GAUSSIAN (ME=40%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=2000000) #
+#####################################################################################
+You did not declare endogenous variables after the estimation/calib_smoother command.
+
+Estimation using a non linear filter!
+
+Time to evaluate likelihood with particle filter with N=2000000: 0h00m13s
+Initial value of the log posterior (or likelihood): 1148.3733
+
+RESULTS FROM MAXIMUM LIKELIHOOD ESTIMATION
+parameters
+         Estimate    s.d. t-stat
+
+OMEGA      0.1392     NaN     NaN 
+RHO_PI     0.4662     NaN     NaN 
+RHO_G      0.3586     NaN     NaN 
+RHO_X      0.2227     NaN     NaN 
+RHO_A      0.9216     NaN     NaN 
+RHO_E      0.9030     NaN     NaN 
+
+standard deviation of shocks
+         Estimate    s.d. t-stat
+
+eta_a      3.2359     NaN     NaN 
+eta_e      0.0603     NaN     NaN 
+eta_z      0.7975     NaN     NaN 
+eta_r      0.2920     NaN     NaN 
+
+standard deviation of measurement errors
+         Estimate    s.d. t-stat
+
+ghat       0.0031     NaN     NaN 
+rhat       0.0031     NaN     NaN 
+pihat      0.0021     NaN     NaN 
+
+
+
+###############################################################################################
+# GAUSSIAN (ME=20%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.1) #
+###############################################################################################
+You did not declare endogenous variables after the estimation/calib_smoother command.
+Time to evaluate likelihood with Pruned Skewed Kalman Filter with tol=0.1000: 0h00m00s
+Initial value of the log posterior (or likelihood): 1186.9689
+
+
+################################################################################################
+# GAUSSIAN (ME=20%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.01) #
+################################################################################################
+You did not declare endogenous variables after the estimation/calib_smoother command.
+Time to evaluate likelihood with Pruned Skewed Kalman Filter with tol=0.0100: 0h00m00s
+Initial value of the log posterior (or likelihood): 1186.9689
+
+
+#################################################################################################
+# GAUSSIAN (ME=20%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.001) #
+#################################################################################################
+You did not declare endogenous variables after the estimation/calib_smoother command.
+Time to evaluate likelihood with Pruned Skewed Kalman Filter with tol=0.0010: 0h00m00s
+Initial value of the log posterior (or likelihood): 1186.9689
+
+
+##################################################################################################
+# GAUSSIAN (ME=20%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.0001) #
+##################################################################################################
+You did not declare endogenous variables after the estimation/calib_smoother command.
+Time to evaluate likelihood with Pruned Skewed Kalman Filter with tol=0.0001: 0h00m00s
+Initial value of the log posterior (or likelihood): 1186.9689
+
+
+##################################################################################
+# GAUSSIAN (ME=20%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=2000) #
+##################################################################################
+You did not declare endogenous variables after the estimation/calib_smoother command.
+
+Estimation using a non linear filter!
+
+Time to evaluate likelihood with particle filter with N=2000: 0h00m00s
+Initial value of the log posterior (or likelihood): 1165.4071
+
+RESULTS FROM MAXIMUM LIKELIHOOD ESTIMATION
+parameters
+         Estimate    s.d. t-stat
+
+OMEGA      0.1392     NaN     NaN 
+RHO_PI     0.4662     NaN     NaN 
+RHO_G      0.3586     NaN     NaN 
+RHO_X      0.2227     NaN     NaN 
+RHO_A      0.9216     NaN     NaN 
+RHO_E      0.9030     NaN     NaN 
+
+standard deviation of shocks
+         Estimate    s.d. t-stat
+
+eta_a      3.2359     NaN     NaN 
+eta_e      0.0603     NaN     NaN 
+eta_z      0.7975     NaN     NaN 
+eta_r      0.2920     NaN     NaN 
+
+standard deviation of measurement errors
+         Estimate    s.d. t-stat
+
+ghat       0.0016     NaN     NaN 
+rhat       0.0015     NaN     NaN 
+pihat      0.0010     NaN     NaN 
+
+
+
+###################################################################################
+# GAUSSIAN (ME=20%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=20000) #
+###################################################################################
+You did not declare endogenous variables after the estimation/calib_smoother command.
+
+Estimation using a non linear filter!
+
+Time to evaluate likelihood with particle filter with N=20000: 0h00m00s
+Initial value of the log posterior (or likelihood): 1186.6011
+
+RESULTS FROM MAXIMUM LIKELIHOOD ESTIMATION
+parameters
+         Estimate    s.d. t-stat
+
+OMEGA      0.1392     NaN     NaN 
+RHO_PI     0.4662     NaN     NaN 
+RHO_G      0.3586     NaN     NaN 
+RHO_X      0.2227     NaN     NaN 
+RHO_A      0.9216     NaN     NaN 
+RHO_E      0.9030     NaN     NaN 
+
+standard deviation of shocks
+         Estimate    s.d. t-stat
+
+eta_a      3.2359     NaN     NaN 
+eta_e      0.0603     NaN     NaN 
+eta_z      0.7975     NaN     NaN 
+eta_r      0.2920     NaN     NaN 
+
+standard deviation of measurement errors
+         Estimate    s.d. t-stat
+
+ghat       0.0016     NaN     NaN 
+rhat       0.0015     NaN     NaN 
+pihat      0.0010     NaN     NaN 
+
+
+
+####################################################################################
+# GAUSSIAN (ME=20%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=200000) #
+####################################################################################
+You did not declare endogenous variables after the estimation/calib_smoother command.
+
+Estimation using a non linear filter!
+
+Time to evaluate likelihood with particle filter with N=200000: 0h00m01s
+Initial value of the log posterior (or likelihood): 1186.8056
+
+RESULTS FROM MAXIMUM LIKELIHOOD ESTIMATION
+parameters
+         Estimate    s.d. t-stat
+
+OMEGA      0.1392     NaN     NaN 
+RHO_PI     0.4662     NaN     NaN 
+RHO_G      0.3586     NaN     NaN 
+RHO_X      0.2227     NaN     NaN 
+RHO_A      0.9216     NaN     NaN 
+RHO_E      0.9030     NaN     NaN 
+
+standard deviation of shocks
+         Estimate    s.d. t-stat
+
+eta_a      3.2359     NaN     NaN 
+eta_e      0.0603     NaN     NaN 
+eta_z      0.7975     NaN     NaN 
+eta_r      0.2920     NaN     NaN 
+
+standard deviation of measurement errors
+         Estimate    s.d. t-stat
+
+ghat       0.0016     NaN     NaN 
+rhat       0.0015     NaN     NaN 
+pihat      0.0010     NaN     NaN 
+
+
+
+#####################################################################################
+# GAUSSIAN (ME=20%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=2000000) #
+#####################################################################################
+You did not declare endogenous variables after the estimation/calib_smoother command.
+
+Estimation using a non linear filter!
+
+Time to evaluate likelihood with particle filter with N=2000000: 0h00m12s
+Initial value of the log posterior (or likelihood): 1186.7291
+
+RESULTS FROM MAXIMUM LIKELIHOOD ESTIMATION
+parameters
+         Estimate    s.d. t-stat
+
+OMEGA      0.1392     NaN     NaN 
+RHO_PI     0.4662     NaN     NaN 
+RHO_G      0.3586     NaN     NaN 
+RHO_X      0.2227     NaN     NaN 
+RHO_A      0.9216     NaN     NaN 
+RHO_E      0.9030     NaN     NaN 
+
+standard deviation of shocks
+         Estimate    s.d. t-stat
+
+eta_a      3.2359     NaN     NaN 
+eta_e      0.0603     NaN     NaN 
+eta_z      0.7975     NaN     NaN 
+eta_r      0.2920     NaN     NaN 
+
+standard deviation of measurement errors
+         Estimate    s.d. t-stat
+
+ghat       0.0016     NaN     NaN 
+rhat       0.0015     NaN     NaN 
+pihat      0.0010     NaN     NaN 
+
+
+
+###############################################################################################
+# GAUSSIAN (ME=10%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.1) #
+###############################################################################################
+You did not declare endogenous variables after the estimation/calib_smoother command.
+Time to evaluate likelihood with Pruned Skewed Kalman Filter with tol=0.1000: 0h00m00s
+Initial value of the log posterior (or likelihood): 1198.7259
+
+
+################################################################################################
+# GAUSSIAN (ME=10%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.01) #
+################################################################################################
+You did not declare endogenous variables after the estimation/calib_smoother command.
+Time to evaluate likelihood with Pruned Skewed Kalman Filter with tol=0.0100: 0h00m00s
+Initial value of the log posterior (or likelihood): 1198.7259
+
+
+#################################################################################################
+# GAUSSIAN (ME=10%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.001) #
+#################################################################################################
+You did not declare endogenous variables after the estimation/calib_smoother command.
+Time to evaluate likelihood with Pruned Skewed Kalman Filter with tol=0.0010: 0h00m00s
+Initial value of the log posterior (or likelihood): 1198.7259
+
+
+##################################################################################################
+# GAUSSIAN (ME=10%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.0001) #
+##################################################################################################
+You did not declare endogenous variables after the estimation/calib_smoother command.
+Time to evaluate likelihood with Pruned Skewed Kalman Filter with tol=0.0001: 0h00m00s
+Initial value of the log posterior (or likelihood): 1198.7259
+
+
+##################################################################################
+# GAUSSIAN (ME=10%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=2000) #
+##################################################################################
+You did not declare endogenous variables after the estimation/calib_smoother command.
+
+Estimation using a non linear filter!
+
+Time to evaluate likelihood with particle filter with N=2000: 0h00m00s
+Initial value of the log posterior (or likelihood): 1071.9715
+
+RESULTS FROM MAXIMUM LIKELIHOOD ESTIMATION
+parameters
+         Estimate    s.d. t-stat
+
+OMEGA      0.1392     NaN     NaN 
+RHO_PI     0.4662     NaN     NaN 
+RHO_G      0.3586     NaN     NaN 
+RHO_X      0.2227     NaN     NaN 
+RHO_A      0.9216     NaN     NaN 
+RHO_E      0.9030     NaN     NaN 
+
+standard deviation of shocks
+         Estimate    s.d. t-stat
+
+eta_a      3.2359     NaN     NaN 
+eta_e      0.0603     NaN     NaN 
+eta_z      0.7975     NaN     NaN 
+eta_r      0.2920     NaN     NaN 
+
+standard deviation of measurement errors
+         Estimate    s.d. t-stat
+
+ghat       0.0008     NaN     NaN 
+rhat       0.0008     NaN     NaN 
+pihat      0.0005     NaN     NaN 
+
+
+
+###################################################################################
+# GAUSSIAN (ME=10%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=20000) #
+###################################################################################
+You did not declare endogenous variables after the estimation/calib_smoother command.
+
+Estimation using a non linear filter!
+
+Time to evaluate likelihood with particle filter with N=20000: 0h00m00s
+Initial value of the log posterior (or likelihood): 1171.3762
+
+RESULTS FROM MAXIMUM LIKELIHOOD ESTIMATION
+parameters
+         Estimate    s.d. t-stat
+
+OMEGA      0.1392     NaN     NaN 
+RHO_PI     0.4662     NaN     NaN 
+RHO_G      0.3586     NaN     NaN 
+RHO_X      0.2227     NaN     NaN 
+RHO_A      0.9216     NaN     NaN 
+RHO_E      0.9030     NaN     NaN 
+
+standard deviation of shocks
+         Estimate    s.d. t-stat
+
+eta_a      3.2359     NaN     NaN 
+eta_e      0.0603     NaN     NaN 
+eta_z      0.7975     NaN     NaN 
+eta_r      0.2920     NaN     NaN 
+
+standard deviation of measurement errors
+         Estimate    s.d. t-stat
+
+ghat       0.0008     NaN     NaN 
+rhat       0.0008     NaN     NaN 
+pihat      0.0005     NaN     NaN 
+
+
+
+####################################################################################
+# GAUSSIAN (ME=10%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=200000) #
+####################################################################################
+You did not declare endogenous variables after the estimation/calib_smoother command.
+
+Estimation using a non linear filter!
+
+Time to evaluate likelihood with particle filter with N=200000: 0h00m01s
+Initial value of the log posterior (or likelihood): 1192.2322
+
+RESULTS FROM MAXIMUM LIKELIHOOD ESTIMATION
+parameters
+         Estimate    s.d. t-stat
+
+OMEGA      0.1392     NaN     NaN 
+RHO_PI     0.4662     NaN     NaN 
+RHO_G      0.3586     NaN     NaN 
+RHO_X      0.2227     NaN     NaN 
+RHO_A      0.9216     NaN     NaN 
+RHO_E      0.9030     NaN     NaN 
+
+standard deviation of shocks
+         Estimate    s.d. t-stat
+
+eta_a      3.2359     NaN     NaN 
+eta_e      0.0603     NaN     NaN 
+eta_z      0.7975     NaN     NaN 
+eta_r      0.2920     NaN     NaN 
+
+standard deviation of measurement errors
+         Estimate    s.d. t-stat
+
+ghat       0.0008     NaN     NaN 
+rhat       0.0008     NaN     NaN 
+pihat      0.0005     NaN     NaN 
+
+
+
+#####################################################################################
+# GAUSSIAN (ME=10%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=2000000) #
+#####################################################################################
+You did not declare endogenous variables after the estimation/calib_smoother command.
+
+Estimation using a non linear filter!
+
+Time to evaluate likelihood with particle filter with N=2000000: 0h00m11s
+Initial value of the log posterior (or likelihood): 1191.4519
+
+RESULTS FROM MAXIMUM LIKELIHOOD ESTIMATION
+parameters
+         Estimate    s.d. t-stat
+
+OMEGA      0.1392     NaN     NaN 
+RHO_PI     0.4662     NaN     NaN 
+RHO_G      0.3586     NaN     NaN 
+RHO_X      0.2227     NaN     NaN 
+RHO_A      0.9216     NaN     NaN 
+RHO_E      0.9030     NaN     NaN 
+
+standard deviation of shocks
+         Estimate    s.d. t-stat
+
+eta_a      3.2359     NaN     NaN 
+eta_e      0.0603     NaN     NaN 
+eta_z      0.7975     NaN     NaN 
+eta_r      0.2920     NaN     NaN 
+
+standard deviation of measurement errors
+         Estimate    s.d. t-stat
+
+ghat       0.0008     NaN     NaN 
+rhat       0.0008     NaN     NaN 
+pihat      0.0005     NaN     NaN 
+
+
+
+##############################################################################################
+# GAUSSIAN (ME=5%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.1) #
+##############################################################################################
+You did not declare endogenous variables after the estimation/calib_smoother command.
+Time to evaluate likelihood with Pruned Skewed Kalman Filter with tol=0.1000: 0h00m00s
+Initial value of the log posterior (or likelihood): 1200.5227
+
+
+###############################################################################################
+# GAUSSIAN (ME=5%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.01) #
+###############################################################################################
+You did not declare endogenous variables after the estimation/calib_smoother command.
+Time to evaluate likelihood with Pruned Skewed Kalman Filter with tol=0.0100: 0h00m00s
+Initial value of the log posterior (or likelihood): 1200.5227
+
+
+################################################################################################
+# GAUSSIAN (ME=5%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.001) #
+################################################################################################
+You did not declare endogenous variables after the estimation/calib_smoother command.
+Time to evaluate likelihood with Pruned Skewed Kalman Filter with tol=0.0010: 0h00m00s
+Initial value of the log posterior (or likelihood): 1200.5227
+
+
+#################################################################################################
+# GAUSSIAN (ME=5%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.0001) #
+#################################################################################################
+You did not declare endogenous variables after the estimation/calib_smoother command.
+Time to evaluate likelihood with Pruned Skewed Kalman Filter with tol=0.0001: 0h00m00s
+Initial value of the log posterior (or likelihood): 1200.5227
+
+
+#################################################################################
+# GAUSSIAN (ME=5%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=2000) #
+#################################################################################
+You did not declare endogenous variables after the estimation/calib_smoother command.
+
+Estimation using a non linear filter!
+
+Time to evaluate likelihood with particle filter with N=2000: 0h00m00s
+Initial value of the log posterior (or likelihood): 665.4364
+
+RESULTS FROM MAXIMUM LIKELIHOOD ESTIMATION
+parameters
+         Estimate    s.d. t-stat
+
+OMEGA      0.1392     NaN     NaN 
+RHO_PI     0.4662     NaN     NaN 
+RHO_G      0.3586     NaN     NaN 
+RHO_X      0.2227     NaN     NaN 
+RHO_A      0.9216     NaN     NaN 
+RHO_E      0.9030     NaN     NaN 
+
+standard deviation of shocks
+         Estimate    s.d. t-stat
+
+eta_a      3.2359     NaN     NaN 
+eta_e      0.0603     NaN     NaN 
+eta_z      0.7975     NaN     NaN 
+eta_r      0.2920     NaN     NaN 
+
+standard deviation of measurement errors
+         Estimate    s.d. t-stat
+
+ghat       0.0004     NaN     NaN 
+rhat       0.0004     NaN     NaN 
+pihat      0.0003     NaN     NaN 
+
+
+
+##################################################################################
+# GAUSSIAN (ME=5%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=20000) #
+##################################################################################
+You did not declare endogenous variables after the estimation/calib_smoother command.
+
+Estimation using a non linear filter!
+
+Time to evaluate likelihood with particle filter with N=20000: 0h00m00s
+Initial value of the log posterior (or likelihood): 946.1665
+
+RESULTS FROM MAXIMUM LIKELIHOOD ESTIMATION
+parameters
+         Estimate    s.d. t-stat
+
+OMEGA      0.1392     NaN     NaN 
+RHO_PI     0.4662     NaN     NaN 
+RHO_G      0.3586     NaN     NaN 
+RHO_X      0.2227     NaN     NaN 
+RHO_A      0.9216     NaN     NaN 
+RHO_E      0.9030     NaN     NaN 
+
+standard deviation of shocks
+         Estimate    s.d. t-stat
+
+eta_a      3.2359     NaN     NaN 
+eta_e      0.0603     NaN     NaN 
+eta_z      0.7975     NaN     NaN 
+eta_r      0.2920     NaN     NaN 
+
+standard deviation of measurement errors
+         Estimate    s.d. t-stat
+
+ghat       0.0004     NaN     NaN 
+rhat       0.0004     NaN     NaN 
+pihat      0.0003     NaN     NaN 
+
+
+
+###################################################################################
+# GAUSSIAN (ME=5%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=200000) #
+###################################################################################
+You did not declare endogenous variables after the estimation/calib_smoother command.
+
+Estimation using a non linear filter!
+
+Time to evaluate likelihood with particle filter with N=200000: 0h00m01s
+Initial value of the log posterior (or likelihood): 1146.0459
+
+RESULTS FROM MAXIMUM LIKELIHOOD ESTIMATION
+parameters
+         Estimate    s.d. t-stat
+
+OMEGA      0.1392     NaN     NaN 
+RHO_PI     0.4662     NaN     NaN 
+RHO_G      0.3586     NaN     NaN 
+RHO_X      0.2227     NaN     NaN 
+RHO_A      0.9216     NaN     NaN 
+RHO_E      0.9030     NaN     NaN 
+
+standard deviation of shocks
+         Estimate    s.d. t-stat
+
+eta_a      3.2359     NaN     NaN 
+eta_e      0.0603     NaN     NaN 
+eta_z      0.7975     NaN     NaN 
+eta_r      0.2920     NaN     NaN 
+
+standard deviation of measurement errors
+         Estimate    s.d. t-stat
+
+ghat       0.0004     NaN     NaN 
+rhat       0.0004     NaN     NaN 
+pihat      0.0003     NaN     NaN 
+
+
+
+####################################################################################
+# GAUSSIAN (ME=5%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=2000000) #
+####################################################################################
+You did not declare endogenous variables after the estimation/calib_smoother command.
+
+Estimation using a non linear filter!
+
+Time to evaluate likelihood with particle filter with N=2000000: 0h00m12s
+Initial value of the log posterior (or likelihood): 1170.9353
+
+RESULTS FROM MAXIMUM LIKELIHOOD ESTIMATION
+parameters
+         Estimate    s.d. t-stat
+
+OMEGA      0.1392     NaN     NaN 
+RHO_PI     0.4662     NaN     NaN 
+RHO_G      0.3586     NaN     NaN 
+RHO_X      0.2227     NaN     NaN 
+RHO_A      0.9216     NaN     NaN 
+RHO_E      0.9030     NaN     NaN 
+
+standard deviation of shocks
+         Estimate    s.d. t-stat
+
+eta_a      3.2359     NaN     NaN 
+eta_e      0.0603     NaN     NaN 
+eta_z      0.7975     NaN     NaN 
+eta_r      0.2920     NaN     NaN 
+
+standard deviation of measurement errors
+         Estimate    s.d. t-stat
+
+ghat       0.0004     NaN     NaN 
+rhat       0.0004     NaN     NaN 
+pihat      0.0003     NaN     NaN 
+
+
+
+##########################################################################################
+# CSN (ME=40%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.1) #
+##########################################################################################
+You did not declare endogenous variables after the estimation/calib_smoother command.
+Time to evaluate likelihood with Pruned Skewed Kalman Filter with tol=0.1000: 0h00m00s
+Initial value of the log posterior (or likelihood): 1147.1243
+
+
+###########################################################################################
+# CSN (ME=40%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.01) #
+###########################################################################################
+You did not declare endogenous variables after the estimation/calib_smoother command.
+Time to evaluate likelihood with Pruned Skewed Kalman Filter with tol=0.0100: 0h00m00s
+Initial value of the log posterior (or likelihood): 1150.4738
+
+
+############################################################################################
+# CSN (ME=40%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.001) #
+############################################################################################
+You did not declare endogenous variables after the estimation/calib_smoother command.
+Time to evaluate likelihood with Pruned Skewed Kalman Filter with tol=0.0010: 0h00m00s
+Initial value of the log posterior (or likelihood): 1150.6218
+
+
+#############################################################################################
+# CSN (ME=40%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.0001) #
+#############################################################################################
+You did not declare endogenous variables after the estimation/calib_smoother command.
+Time to evaluate likelihood with Pruned Skewed Kalman Filter with tol=0.0001: 0h00m00s
+Initial value of the log posterior (or likelihood): 1150.6307
+
+
+#############################################################################
+# CSN (ME=40%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=2000) #
+#############################################################################
+You did not declare endogenous variables after the estimation/calib_smoother command.
+
+Estimation using a non linear filter!
+
+Time to evaluate likelihood with particle filter with N=2000: 0h00m01s
+Initial value of the log posterior (or likelihood): 1146.2895
+
+RESULTS FROM MAXIMUM LIKELIHOOD ESTIMATION
+parameters
+             Estimate    s.d. t-stat
+
+OMEGA          0.1392     NaN     NaN 
+RHO_PI         0.4662     NaN     NaN 
+RHO_G          0.3586     NaN     NaN 
+RHO_X          0.2227     NaN     NaN 
+RHO_A          0.9216     NaN     NaN 
+RHO_E          0.9030     NaN     NaN 
+
+standard deviation of shocks
+             Estimate    s.d. t-stat
+
+eta_a          3.2359     NaN     NaN 
+eta_e          0.0603     NaN     NaN 
+eta_z          0.7975     NaN     NaN 
+eta_r          0.2920     NaN     NaN 
+
+standard deviation of measurement errors
+             Estimate    s.d. t-stat
+
+ghat           0.0031     NaN     NaN 
+rhat           0.0031     NaN     NaN 
+pihat          0.0021     NaN     NaN 
+
+skewness of shocks
+             Estimate    s.d. t-stat
+
+eta_a         -0.0819     NaN     NaN 
+eta_e         -0.3584     NaN     NaN 
+eta_z         -0.3808     NaN     NaN 
+eta_r          0.5183     NaN     NaN 
+
+
+
+##############################################################################
+# CSN (ME=40%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=20000) #
+##############################################################################
+You did not declare endogenous variables after the estimation/calib_smoother command.
+
+Estimation using a non linear filter!
+
+Time to evaluate likelihood with particle filter with N=20000: 0h00m07s
+Initial value of the log posterior (or likelihood): 1150.3106
+
+RESULTS FROM MAXIMUM LIKELIHOOD ESTIMATION
+parameters
+             Estimate    s.d. t-stat
+
+OMEGA          0.1392     NaN     NaN 
+RHO_PI         0.4662     NaN     NaN 
+RHO_G          0.3586     NaN     NaN 
+RHO_X          0.2227     NaN     NaN 
+RHO_A          0.9216     NaN     NaN 
+RHO_E          0.9030     NaN     NaN 
+
+standard deviation of shocks
+             Estimate    s.d. t-stat
+
+eta_a          3.2359     NaN     NaN 
+eta_e          0.0603     NaN     NaN 
+eta_z          0.7975     NaN     NaN 
+eta_r          0.2920     NaN     NaN 
+
+standard deviation of measurement errors
+             Estimate    s.d. t-stat
+
+ghat           0.0031     NaN     NaN 
+rhat           0.0031     NaN     NaN 
+pihat          0.0021     NaN     NaN 
+
+skewness of shocks
+             Estimate    s.d. t-stat
+
+eta_a         -0.0819     NaN     NaN 
+eta_e         -0.3584     NaN     NaN 
+eta_z         -0.3808     NaN     NaN 
+eta_r          0.5183     NaN     NaN 
+
+
+
+###############################################################################
+# CSN (ME=40%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=200000) #
+###############################################################################
+You did not declare endogenous variables after the estimation/calib_smoother command.
+
+Estimation using a non linear filter!
+
+Time to evaluate likelihood with particle filter with N=200000: 0h01m09s
+Initial value of the log posterior (or likelihood): 1150.6824
+
+RESULTS FROM MAXIMUM LIKELIHOOD ESTIMATION
+parameters
+             Estimate    s.d. t-stat
+
+OMEGA          0.1392     NaN     NaN 
+RHO_PI         0.4662     NaN     NaN 
+RHO_G          0.3586     NaN     NaN 
+RHO_X          0.2227     NaN     NaN 
+RHO_A          0.9216     NaN     NaN 
+RHO_E          0.9030     NaN     NaN 
+
+standard deviation of shocks
+             Estimate    s.d. t-stat
+
+eta_a          3.2359     NaN     NaN 
+eta_e          0.0603     NaN     NaN 
+eta_z          0.7975     NaN     NaN 
+eta_r          0.2920     NaN     NaN 
+
+standard deviation of measurement errors
+             Estimate    s.d. t-stat
+
+ghat           0.0031     NaN     NaN 
+rhat           0.0031     NaN     NaN 
+pihat          0.0021     NaN     NaN 
+
+skewness of shocks
+             Estimate    s.d. t-stat
+
+eta_a         -0.0819     NaN     NaN 
+eta_e         -0.3584     NaN     NaN 
+eta_z         -0.3808     NaN     NaN 
+eta_r          0.5183     NaN     NaN 
+
+
+
+################################################################################
+# CSN (ME=40%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=2000000) #
+################################################################################
+You did not declare endogenous variables after the estimation/calib_smoother command.
+
+Estimation using a non linear filter!
+

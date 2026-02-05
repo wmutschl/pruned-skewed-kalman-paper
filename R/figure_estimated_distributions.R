@@ -60,7 +60,7 @@ eta_r_t_T_csn <- data.frame(value = as.numeric(params_csn$eta.r.t.T)) # smoothed
 
 # define grid for plotting based on actual smoothed values with padding
 # and compute optimal binwidth using Freedman-Diaconis rule
-compute_grid <- function(gauss_vals, csn_vals, n_points = 200, padding_factor = 0.2, 
+compute_grid <- function(gauss_vals, csn_vals, n_points = 200, padding_factor = 0.2,
                          binwidth_rule = c("fd", "scott", "sturges")) {
   binwidth_rule <- match.arg(binwidth_rule)
   all_vals <- c(gauss_vals, csn_vals)
@@ -110,11 +110,11 @@ title_size <- 15 - 1
 axis_text_size <- 12 - 3
 
 # preference shock plot
-create_shock_plot <- function(csn_data, gauss_data, grid_info, densities, x_col, f_csn_col, f_gauss_col, 
+create_shock_plot <- function(csn_data, gauss_data, grid_info, densities, x_col, f_csn_col, f_gauss_col,
                               x_label, plot_title, show_legend = FALSE, show_y_label = TRUE) {
   p <- ggplot(data = densities, aes(x = .data[[x_col]])) +
     geom_histogram(data = csn_data, aes(x = .data[["value"]], y = after_stat(density)), inherit.aes = FALSE,
-                   binwidth = grid_info$binwidth, alpha = 0.4, color = "white", fill = "steelblue", 
+                   binwidth = grid_info$binwidth, alpha = 0.4, color = "white", fill = "steelblue",
                    linewidth = 0.3) +
     geom_histogram(data = gauss_data, aes(x = .data[["value"]], y = after_stat(density)), inherit.aes = FALSE,
                    binwidth = grid_info$binwidth, alpha = 0.4, color = "white", fill = "darkorange",
@@ -142,7 +142,7 @@ create_shock_plot <- function(csn_data, gauss_data, grid_info, densities, x_col,
       axis.title.y = element_text(size = text_size, margin = margin(r = 10)),
       axis.title.x = element_text(size = text_size, margin = margin(t = 10)),
       axis.text = element_text(size = axis_text_size, color = "grey30"),
-      plot.title = element_text(size = title_size, hjust = 0.5, face = "plain", 
+      plot.title = element_text(size = title_size, hjust = 0.5, face = "plain",
                                 margin = margin(b = 10)),
       # Legend settings
       legend.title = element_blank(),
@@ -219,7 +219,7 @@ print(p_monp)
 
 # create figure
 fig_4 <- (p_pref + p_cost) / (p_prod + p_monp) +
-  plot_layout(guides = "collect", heights = c(1, 1)) & 
+  plot_layout(guides = "collect", heights = c(1, 1)) &
   theme(
     legend.position = "bottom",
     legend.box = "horizontal",

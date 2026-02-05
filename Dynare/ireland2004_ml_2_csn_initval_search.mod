@@ -16,7 +16,6 @@
 % by Gaygysyz Guljanov, Willi Mutschler, Mark Trede
 % =========================================================================
 @#define BEST_OF = 5
-
 @#include "_ireland2004_common.inc"
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -146,3 +145,8 @@ fprintf('- point estimates for skew parameters:\n');
 disp(oo_.initval_search.shocks_skew{idx_best});
 format short
 fprintf('\n');
+
+%%%%%%%%%%%%%%%%
+% Housekeeping %
+%%%%%%%%%%%%%%%%
+target_logfile = sprintf('../results/ireland2004/logs/%s_%s_%s.log', M_.fname, ARCH, MATLAB_VERSION);

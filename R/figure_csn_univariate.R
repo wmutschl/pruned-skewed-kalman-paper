@@ -3,7 +3,7 @@
 #' This script replicates Figure 1 of the paper, showing density plots for CSN distributions
 #' with varying skewness parameters.
 #'
-#' @copyright 2022-2025 Gaygysyz Guljanov, Willi Mutschler, Mark Trede
+#' @copyright 2022-2026 Gaygysyz Guljanov, Willi Mutschler, Mark Trede
 #'
 #' @note This is free software: you can redistribute it and/or modify
 #' it under the terms of the GNU General Public License as published by

@@ -3,7 +3,7 @@
 #' This script replicates Figure 3 of the paper, comparing the pdf and cdf
 #' of an univariate CSN distributed variable with its pruned approximation.
 #'
-#' @copyright 2022-2025 Gaygysyz Guljanov, Willi Mutschler, Mark Trede
+#' @copyright 2022-2026 Gaygysyz Guljanov, Willi Mutschler, Mark Trede
 #'
 #' @note This is free software: you can redistribute it and/or modify
 #' it under the terms of the GNU General Public License as published by

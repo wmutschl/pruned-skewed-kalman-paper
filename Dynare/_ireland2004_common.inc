@@ -84,3 +84,24 @@ end;
 steady_state_model;
 ahat = 0; ehat = 0; zhat = 0; xhat = 0; pihat = 0; yhat = 0; ghat = 0; rhat = 0;
 end;
+
+@#ifdef BAYESIAN
+estimated_params;
+stderr eta_a, ,  0, 10, inv_gamma_pdf, (sqrt(30)),   (sqrt(30)) ;
+stderr eta_e, ,  0, 10, inv_gamma_pdf, (sqrt(0.08)), (sqrt(1))  ;
+stderr eta_z, ,  0, 10, inv_gamma_pdf, (sqrt(5)),    (sqrt(15)) ;
+stderr eta_r, ,  0, 10, inv_gamma_pdf, (sqrt(0.50)), (sqrt(2))  ;
+OMEGA,        ,  0,  1, beta_pdf,      0.20,         0.10       ;
+RHO_PI,       ,  0,  1, gamma_pdf,     0.30,         0.10       ;
+RHO_G,        ,  0,  1, gamma_pdf,     0.30,         0.10       ;
+RHO_X,        ,  0,  1, gamma_pdf,     0.25,         0.0625     ;
+RHO_A,        ,  0,  1, beta_pdf,      0.85,         0.10       ;
+RHO_E,        ,  0,  1, beta_pdf,      0.85,         0.10       ;
+  @#if DISTRIB == "CSN"
+skew eta_a,   ,   ,   , beta_pdf,         0,         0.40       , -1, 1;
+skew eta_e,   ,   ,   , beta_pdf,         0,         0.40       , -1, 1;
+skew eta_z,   ,   ,   , beta_pdf,         0,         0.40       , -1, 1;
+skew eta_r,   ,   ,   , beta_pdf,         0,         0.40       , -1, 1;
+  @#endif
+end;
+@#endif
