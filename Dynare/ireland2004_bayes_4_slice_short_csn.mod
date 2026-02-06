@@ -16,7 +16,7 @@
 % by Gaygysyz Guljanov, Willi Mutschler, Mark Trede
 % =========================================================================
 @#define BAYESIAN = 1
-@#define DISTRIB == "csn"
+@#define DISTRIB = "csn"
 @#define MH_REPLIC = 250
 @#define MH_DROP = 0.2
 @#include "_ireland2004_common.inc"
