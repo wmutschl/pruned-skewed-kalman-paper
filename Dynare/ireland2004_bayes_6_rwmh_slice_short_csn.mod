@@ -16,7 +16,8 @@
 % by Gaygysyz Guljanov, Willi Mutschler, Mark Trede
 % =========================================================================
 @#define BAYESIAN = 1
-@#define DISTRIB == "gaussian"
-@#define MH_JSCALE = 0.55
+@#define DISTRIB = "csn"
+@#define MODE_FILE = "../results/ireland2004/bayes/ireland2004_" + DISTRIB + "_slice_250_mh_mode"
+@#define MH_JSCALE = 0.45
 @#include "_ireland2004_common.inc"
 @#include "_rwmh.inc"

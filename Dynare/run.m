@@ -35,8 +35,8 @@ REDO_BAYES_SLICE_LONG_GAUSSIAN        = 0;   % |    00h00m    |    00h20m    |  
 REDO_BAYES_SLICE_LONG_CSN             = 0;   % |    00h00m    |    10h27m    |    00h00m   |    00h00m   |
 REDO_BAYES_SLICE_SHORT_GAUSSIAN       = 0;   % |    00h00m    |    00h01m    |    00h00m   |    00h00m   |
 REDO_BAYES_SLICE_SHORT_CSN            = 0;   % |    00h00m    |    00h33m    |    00h00m   |    00h00m   |
-REDO_BAYES_RWMH_SLICE_SHORT_GAUSSIAN  = 0;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
-REDO_BAYES_RWMH_SLICE_SHORT_CSN       = 0;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
+REDO_BAYES_RWMH_SLICE_SHORT_GAUSSIAN  = 0;   % |    00h00m    |    00h16m    |    00h00m   |    00h00m   |
+REDO_BAYES_RWMH_SLICE_SHORT_CSN       = 0;   % |    00h00m    |    04h30m    |    00h00m   |    00h00m   |
 REDO_BAYES_MODE_GAUSSIAN              = 0;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
 REDO_BAYES_MODE_CSN                   = 0;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
 REDO_BAYES_RWMH_GAUSSIAN              = 0;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
@@ -193,7 +193,7 @@ end
 if REDO_BAYES_RWMH_SLICE_SHORT_CSN
     REDO_BAYES_RWMH_SLICE_SHORT_CSN = tic;
     clearvars -except DYNARE_PATH ARCH MATLAB_VERSION REDO_*; clc; close all;
-    dynare ireland2004_bayes_6_rwmh_slice_csn
+    dynare ireland2004_bayes_6_rwmh_slice_short_csn
     % housekeeping
     pause(1); fclose('all'); movefile([M_.fname '.log'], target_logfile);
     rmdir(['+' M_.fname],'s'); rmdir(M_.fname,'s');
