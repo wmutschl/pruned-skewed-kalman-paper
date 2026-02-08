@@ -37,8 +37,8 @@ REDO_BAYES_SLICE_SHORT_GAUSSIAN       = 0;   % |    00h00m    |    00h01m    |  
 REDO_BAYES_SLICE_SHORT_CSN            = 0;   % |    00h00m    |    00h33m    |    00h00m   |    00h00m   |
 REDO_BAYES_RWMH_SLICE_SHORT_GAUSSIAN  = 0;   % |    00h00m    |    00h16m    |    00h00m   |    00h00m   |
 REDO_BAYES_RWMH_SLICE_SHORT_CSN       = 0;   % |    00h00m    |    04h30m    |    00h00m   |    00h00m   |
-REDO_BAYES_MODE_GAUSSIAN              = 0;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
-REDO_BAYES_MODE_CSN                   = 0;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
+REDO_BAYES_MODE_GAUSSIAN              = 0;   % |    00h00m    |    00h06m    |    00h00m   |    00h00m   |
+REDO_BAYES_MODE_CSN                   = 0;   % |    00h00m    |    02h10m    |    00h00m   |    00h00m   |
 REDO_BAYES_RWMH_GAUSSIAN              = 0;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
 REDO_BAYES_RWMH_CSN                   = 0;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
 % -------------------------------------------% | ------------ | ------------ | ----------- | ----------- |
@@ -201,29 +201,40 @@ if REDO_BAYES_RWMH_SLICE_SHORT_CSN
 end
 
 
-% #### Task Bayes 7: Bayesian mode estimation of Gaussian model
+%% BAYESIAN MODE ESTIMATION OF GAUSSIAN MODEL
 % Estimate the mode of the Gaussian model with numerical optimization using the PSKF to compute the likelihood.
-% The optimization is initialized at the posterior mode found from the previous short Slice sampler in *Task Bayes 3*.
+% The optimization is initialized at the posterior mode found from the previous short Slice sampler.
 % First, a Nelder-Mead simplex-based optimization routine (*mode_compute=8*) is used (fast).
 % Second, a Monte-Carlo based optimization routine (*mode_compute=6*) is run that guarantees to yield a positive definite inverse Hessian at the mode (very time-consuming).
-% The mode with the highest posterior value is reported in the paper and the mode and covariance matrix from *mode_compute=6* is used to initialize the RWMH sampler in *Task Bayes 9*.
-% ```matlab
-% dynare ireland2004_bayes_7_mode_gaussian
-% ```
-% Runtime: 35 minutes on MacBook, 33 minutes on Linux server.
-% 
-% #### Task Bayes 8: Bayesian mode estimation of CSN model
+% The mode with the highest posterior value is reported in the paper and the mode and covariance matrix from *mode_compute=6* is used to initialize the RWMH sampler below.
+if REDO_BAYES_MODE_GAUSSIAN
+    REDO_BAYES_MODE_GAUSSIAN = tic;
+    clearvars -except DYNARE_PATH ARCH MATLAB_VERSION REDO_*; clc; close all;
+    dynare ireland2004_bayes_7_mode_gaussian
+    % housekeeping
+    pause(1); fclose('all'); movefile([M_.fname '.log'], target_logfile);
+    rmdir(['+' M_.fname],'s'); rmdir(M_.fname,'s');
+    REDO_BAYES_MODE_GAUSSIAN = toc(REDO_BAYES_MODE_GAUSSIAN);
+end
+
+
+%% BAYESIAN MODE ESTIMATION OF CSN MODEL
 % Estimate the mode of the CSN model with numerical optimization using the PSKF to compute the likelihood.
-% The optimization is initialized at the posterior mode found from the previous short Slice sampler in *Task Bayes 4*.
+% The optimization is initialized at the posterior mode found from the previous short Slice sampler.
 % First, a Nelder-Mead simplex-based optimization routine (*mode_compute=8*) is used (fast).
 % Second, a Monte-Carlo based optimization routine (*mode_compute=6*) is run that guarantees to yield a positive definite inverse Hessian at the mode (very time-consuming).
-% The mode with the highest posterior value is reported in the paper and the mode and covariance matrix from *mode_compute=6* is used to initialize the RWMH sampler in *Task Bayes 10*.
-% ```matlab
-% dynare ireland2004_bayes_8_mode_csn
-% ```
-% Runtime: 6 hours and 11 minutes on MacBook, 7 hours on Linux server.
-% 
-% #### Task Bayes 9: Bayesian estimation with RWMH sampler of Gaussian model
+% The mode with the highest posterior value is reported in the paper and the mode and covariance matrix from *mode_compute=6* is used to initialize the RWMH sampler below.
+if REDO_BAYES_MODE_CSN
+    REDO_BAYES_MODE_CSN = tic;
+    clearvars -except DYNARE_PATH ARCH MATLAB_VERSION REDO_*; clc; close all;
+    dynare ireland2004_bayes_8_mode_csn
+    % housekeeping
+    pause(1); fclose('all'); movefile([M_.fname '.log'], target_logfile);
+    rmdir(['+' M_.fname],'s'); rmdir(M_.fname,'s');
+    REDO_BAYES_MODE_CSN = toc(REDO_BAYES_MODE_CSN);
+end
+
+
 % Estimate the Gaussian model with Bayesian methods using the PSKF to compute the likelihood.
 % The RWMH sampler is used to draw from the posterior distribution (8 chains with 250000 draws each, 50% burn-in).
 % The sampler is initialized at the posterior mode and covariance matrix found by the Monte-Carlo optimization (*mode_compute=6*) in *Task Bayes 7*.
