@@ -70,7 +70,7 @@ writematrix(M_.csn.Delta_e, ['../results/ireland2004/ml/' M_.fname '_csn_Delta_e
 % UPDATE LATEX TABLE 2 %
 %%%%%%%%%%%%%%%%%%%%%%%%
 addpath('_utils');
-update_table_2('../results/ireland2004', 'ML_Gaussian', oo_, ARCH, MATLAB_VERSION);
+update_table_2('../results/ireland2004', 'ML_GAUSSIAN', oo_, ARCH, MATLAB_VERSION);
 rmpath('_utils');
 
 %%%%%%%%%%%%%%%%

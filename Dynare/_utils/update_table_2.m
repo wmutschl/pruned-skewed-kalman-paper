@@ -59,7 +59,7 @@ bayes_hpdsup = [];
 ml_mode = [];
 ml_std = [];
 
-if strcmp(model_type, 'ML_Gaussian') || strcmp(model_type, 'ML_CSN')
+if strcmp(model_type, 'ML_GAUSSIAN') || strcmp(model_type, 'ML_CSN')
     % MLE results
     if isfield(oo_.mle_mode, 'parameters')
         pnames = fieldnames(oo_.mle_mode.parameters);
@@ -84,7 +84,7 @@ if strcmp(model_type, 'ML_Gaussian') || strcmp(model_type, 'ML_CSN')
             ml_mode(end+1) = oo_.mle_mode.shocks_skew.(sknames{j});
         end
     end
-elseif strcmp(model_type, 'Bayesian_Gaussian') || strcmp(model_type, 'Bayesian_CSN')
+elseif strcmp(model_type, 'BAYESIAN_GAUSSIAN') || strcmp(model_type, 'BAYESIAN_CSN')
     % Bayesian results
     if isfield(oo_.posterior_mode, 'parameters')
         pnames = fieldnames(oo_.posterior_mode.parameters);
@@ -144,20 +144,16 @@ for i = 1:length(lines)
     parts = strsplit(line, '&');
     % Check if this is the Obj(mode) line
     if contains(line, 'Obj(mode)')
-        if strcmp(model_type, 'ML_Gaussian')
+        if strcmp(model_type, 'ML_GAUSSIAN')
             multicolumn_idx = 2; span = 2;
         elseif strcmp(model_type, 'ML_CSN')
             multicolumn_idx = 3; span = 2;
-        elseif strcmp(model_type, 'Bayesian_Gaussian')
+        elseif strcmp(model_type, 'BAYESIAN_GAUSSIAN')
             multicolumn_idx = 4; span = 3;
-        elseif strcmp(model_type, 'Bayesian_CSN')
+        elseif strcmp(model_type, 'BAYESIAN_CSN')
             multicolumn_idx = 5; span = 3;
         end
-        if strcmp(model_type, 'ML_Gaussian') ||  strcmp(model_type, 'ML_CSN')
-            objval = sprintf('%.2f', oo_.posterior.optimization.log_density);
-        else
-            objval = sprintf('%.2f', oo_.posterior.optimization.log_density);
-        end
+        objval = sprintf('%.2f', oo_.posterior.optimization.log_density);
         parts{multicolumn_idx} = sprintf(' \\multicolumn{%d}{c}{%s} ', span, objval);
         lines{i} = strjoin(parts, '&');
         continue;
@@ -166,7 +162,7 @@ for i = 1:length(lines)
     param_latex = strtrim(parts{1});
     param_idx = find(ismember(param_map(:,2), param_latex),1);
     param_dynare = param_map{param_idx,1};
-    if strcmp(model_type, 'ML_Gaussian')
+    if strcmp(model_type, 'ML_GAUSSIAN')
         if contains(param_latex, 'skew')
             parts{2} = sprintf(' --- ');
             parts{3} = sprintf(' --- ');
@@ -188,7 +184,7 @@ for i = 1:length(lines)
             parts{4} = sprintf(' %.4f ', oo_.mle_mode.parameters.(param_dynare));
             parts{5} = sprintf(' %.4f ', oo_.mle_std_at_mode.parameters.(param_dynare));
         end
-    elseif strcmp(model_type, 'Bayesian_Gaussian')
+    elseif strcmp(model_type, 'BAYESIAN_GAUSSIAN')
         if contains(param_latex, 'skew')
             parts{6} = sprintf(' --- ');
             parts{7} = sprintf(' --- ');
@@ -201,6 +197,20 @@ for i = 1:length(lines)
             parts{6} = sprintf(' %.4f ', oo_.posterior_mean.parameters.(param_dynare));
             parts{7} = sprintf(' %.4f ', oo_.posterior_mode.parameters.(param_dynare));
             parts{8} = sprintf(' [%.2f;%.2f] ', oo_.posterior_hpdinf.parameters.(param_dynare), oo_.posterior_hpdsup.parameters.(param_dynare));
+        end
+    elseif strcmp(model_type, 'BAYESIAN_CSN')
+        if contains(param_latex, 'skew')
+            parts{9} = sprintf(' %.4f ', oo_.posterior_mean.shocks_skew.(param_dynare));
+            parts{10} = sprintf(' %.4f ', oo_.posterior_mode.shocks_skew.(param_dynare));
+            parts{11} = sprintf(' [%.2f;%.2f] ', oo_.posterior_hpdinf.shocks_skew.(param_dynare), oo_.posterior_hpdsup.shocks_skew.(param_dynare));
+        elseif contains(param_latex, 'stderr')
+            parts{9} = sprintf(' %.4f ', oo_.posterior_mean.shocks_std.(param_dynare));
+            parts{10} = sprintf(' %.4f ', oo_.posterior_mode.shocks_std.(param_dynare));
+            parts{11} = sprintf(' [%.2f;%.2f] ', oo_.posterior_hpdinf.shocks_std.(param_dynare), oo_.posterior_hpdsup.shocks_std.(param_dynare));
+        else
+            parts{9} = sprintf(' %.4f ', oo_.posterior_mean.parameters.(param_dynare));
+            parts{10} = sprintf(' %.4f ', oo_.posterior_mode.parameters.(param_dynare));
+            parts{11} = sprintf(' [%.2f;%.2f] ', oo_.posterior_hpdinf.parameters.(param_dynare), oo_.posterior_hpdsup.parameters.(param_dynare));
         end
     end
     lines{i} = strjoin(parts, '&');
