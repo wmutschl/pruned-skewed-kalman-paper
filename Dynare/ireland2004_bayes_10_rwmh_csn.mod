@@ -15,34 +15,10 @@
 % "Pruned skewed Kalman filter and smoother with application to DSGE models"
 % by Gaygysyz Guljanov, Willi Mutschler, Mark Trede
 % =========================================================================
+@#define BAYESIAN = 1
+@#define DISTRIB = "csn"
+@#define MODE_FILE = "../results/ireland2004/bayes/ireland2004_" + DISTRIB + "_mode6"
+@#define MH_JSCALE = 0.47861 // determined as by-product of mode_compute 6
+@#define UPDATE_TABLE_2 = true
 @#include "_ireland2004_common.inc"
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% BAYESIAN ESTIMATION WITH RWMH SAMPLER OF CSN VERSION OF MODEL USING PSKF TO COMPUTE LIKELIHOOD           %
-% RWMH SAMPLER IS INITIALIZED AT MODE AND COVARIANCE MATRIX FROM MONTE-CARLO OPTIMIZATION (MODE_COMPUTE=6) %
-% BECAUSE THIS GAVE THE HIGHEST MODE AND A POSITIVE DEFINITE INVERSE HESSIAN AT THE MODE                   %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-% run estimation in parallel with 8 workers
-poolobj = gcp('nocreate');
-if isempty(poolobj)
-    parpool('local', 8);
-end
-estimation(datafile = '../data/ireland2004_data.m'
-          , lik_init = 1
-          , posterior_sampling_method = 'random_walk_metropolis_hastings'
-          , posterior_sampler_options = ('proposal_distribution','rand_multivariate_normal')
-          , mh_replic = 250000
-          , mh_nblocks = 8
-          , mode_compute = 0
-          , mode_file = '../results/ireland2004/bayes/ireland2004_csn_mode6.mat'
-          , mh_jscale = 0.4419 % determined as by-product of mode_compute 6, see ireland2004_csn_optimal_mh_scale_parameter.mat
-          , plot_priors = 0
-          , kalman_algo = 5  % use pruned skewed Kalman filter
-          );
-
-%%%%%%%%%%%%%%%%
-% Housekeeping %
-%%%%%%%%%%%%%%%%
-target_logfile = sprintf('../results/ireland2004/logs/%s_%s_%s.log', M_.fname, ARCH, MATLAB_VERSION);
+@#include "_rwmh.inc"

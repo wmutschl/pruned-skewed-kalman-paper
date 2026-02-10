@@ -19,6 +19,17 @@ estimation(datafile = '../data/ireland2004_data.m'
           , plot_priors = 0
           );
 
+@#ifdef UPDATE_TABLE_2
+%%%%%%%%%%%%%%%%%%%%%%%%
+% UPDATE LATEX TABLE 2 %
+%%%%%%%%%%%%%%%%%%%%%%%%
+load(options_.mode_file, 'fval');
+oo_.posterior.optimization.log_density = -1 * fval;
+addpath('_utils');
+update_table_2('../results/ireland2004', upper('BAYESIAN_@{DISTRIB}'), oo_, ARCH, MATLAB_VERSION);
+rmpath('_utils');
+@#endif
+
 %%%%%%%%%%%%%%%%
 % Housekeeping %
 %%%%%%%%%%%%%%%%

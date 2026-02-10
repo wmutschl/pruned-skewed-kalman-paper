@@ -39,8 +39,8 @@ REDO_BAYES_RWMH_SLICE_SHORT_GAUSSIAN  = 0;   % |    00h00m    |    00h16m    |  
 REDO_BAYES_RWMH_SLICE_SHORT_CSN       = 0;   % |    00h00m    |    04h30m    |    00h00m   |    00h00m   |
 REDO_BAYES_MODE_GAUSSIAN              = 0;   % |    00h00m    |    00h06m    |    00h00m   |    00h00m   |
 REDO_BAYES_MODE_CSN                   = 0;   % |    00h00m    |    02h10m    |    00h00m   |    00h00m   |
-REDO_BAYES_RWMH_GAUSSIAN              = 0;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
-REDO_BAYES_RWMH_CSN                   = 0;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
+REDO_BAYES_RWMH_GAUSSIAN              = 0;   % |    00h00m    |    00h15m    |    00h00m   |    00h00m   |
+REDO_BAYES_RWMH_CSN                   = 0;   % |    00h00m    |    04h32m    |    00h00m   |    00h00m   |
 % -------------------------------------------% | ------------ | ------------ | ----------- | ----------- |
 
 
@@ -235,25 +235,37 @@ if REDO_BAYES_MODE_CSN
 end
 
 
+%% BAYESIAN ESTIMATION WITH RWMH SAMPLER OF GAUSSIAN MODEL
 % Estimate the Gaussian model with Bayesian methods using the PSKF to compute the likelihood.
 % The RWMH sampler is used to draw from the posterior distribution (8 chains with 250000 draws each, 50% burn-in).
-% The sampler is initialized at the posterior mode and covariance matrix found by the Monte-Carlo optimization (*mode_compute=6*) in *Task Bayes 7*.
-% Tuning of *mh_jscale* required to get a desired acceptance ratio (about 30%), which is a by-product of running the Monte-Carlo based optimization routine in *Task Bayes 7*.
-% ```matlab
-% dynare ireland2004_bayes_9_rwmh_gaussian parallel conffile=__parallelConf.ini
-% ```
-% Runtime: 28 minutes on MacBook, 1 hour and 2 minutes on Linux server.
-% 
-% #### Task Bayes 10: Bayesian estimation with RWMH sampler of CSN model
+% The sampler is initialized at the posterior mode and covariance matrix found by the Monte-Carlo optimization (*mode_compute=6*).
+% Tuning of *mh_jscale* required to get a desired acceptance ratio (about 30%), which is a by-product of running the Monte-Carlo based optimization routine.
+if REDO_BAYES_RWMH_GAUSSIAN
+    REDO_BAYES_RWMH_GAUSSIAN = tic;
+    clearvars -except DYNARE_PATH ARCH MATLAB_VERSION REDO_*; clc; close all;
+    dynare ireland2004_bayes_9_rwmh_gaussian
+    % housekeeping
+    pause(1); fclose('all'); movefile([M_.fname '.log'], target_logfile);
+    rmdir(['+' M_.fname],'s'); rmdir(M_.fname,'s');
+    REDO_BAYES_RWMH_GAUSSIAN = toc(REDO_BAYES_RWMH_GAUSSIAN);
+end
+
+
+%% BAYESIAN ESTIMATION WITH RWMH SAMPLER OF CSN MODEL
 % Estimate the CSN model with Bayesian methods using the PSKF to compute the likelihood.
 % The RWMH sampler is used to draw from the posterior distribution (8 chains with 250000 draws each, 50% burn-in).
-% The sampler is initialized at the posterior mode and covariance matrix found by the Monte-Carlo optimization (*mode_compute=6*) in *Task Bayes 8*.
-% Tuning of *mh_jscale* required to get a desired acceptance ratio (about 30%), which is a by-product of running the Monte-Carlo based optimization routine in *Task Bayes 8*.
-% ```matlab
-% dynare ireland2004_bayes_10_rwmh_csn parallel conffile=__parallelConf.ini
-% ```
-% Runtime: 5 hours and 48 minutes on MacBook, 8 hours and 27 minutes on Linux server.
-% 
+% The sampler is initialized at the posterior mode and covariance matrix found by the Monte-Carlo optimization (*mode_compute=6*).
+% Tuning of *mh_jscale* required to get a desired acceptance ratio (about 30%), which is a by-product of running the Monte-Carlo based optimization routine.
+if REDO_BAYES_RWMH_CSN
+    REDO_BAYES_RWMH_CSN = tic;
+    clearvars -except DYNARE_PATH ARCH MATLAB_VERSION REDO_*; clc; close all;
+    dynare ireland2004_bayes_10_rwmh_csn
+    % housekeeping
+    pause(1); fclose('all'); movefile([M_.fname '.log'], target_logfile);
+    rmdir(['+' M_.fname],'s'); rmdir(M_.fname,'s');
+    REDO_BAYES_RWMH_CSN = toc(REDO_BAYES_RWMH_CSN);
+end
+
 % ### Impulse response functions
 % Compute the impulse response functions of the Gaussian and CSN model using the 16th and 84th percentiles of the estimated distributions.
 % ```matlab
@@ -270,7 +282,6 @@ end
 
 
 %% HOUSEKEEPING
-
 fprintf('\n%s\n* RUNTIMES *\n%s\n', repmat('*',1,12), repmat('*',1,12))
 if REDO_ML_GAUSSIAN > 0
     fprintf('- Maximum likelihood estimation with Gaussian shocks: %s\n', dynsec2hms(REDO_ML_GAUSSIAN));
