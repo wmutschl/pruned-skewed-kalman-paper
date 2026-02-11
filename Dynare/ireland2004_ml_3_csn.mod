@@ -74,10 +74,10 @@ neg_log_likelihood = dsge_likelihood(xparam1,dataset,datasetInfo,options,M,estim
 if ~isequal(neg_log_likelihood, -oo_.posterior.optimization.log_density)
     error('one-sided Hessian: something wrong in dsge_likelihood')
 end
-addpath('../MATLAB/external')
+addpath('_utils')
 hh = hessian_with_bounds('dsge_likelihood', xparam1, options.gstep, BoundsInfo, ...
                          dataset, datasetInfo, options, M, estim_params, bayestopt, BoundsInfo, oo.dr, oo.steady_state, oo.exo_steady_state, oo.exo_det_steady_state);
-rmpath('../MATLAB/external');
+rmpath('_utils');
 hh = reshape(hh, length(xparam1), length(xparam1));
 hsd = sqrt(diag(hh));
 invhess = inv(hh./(hsd*hsd'))./(hsd*hsd');
