@@ -1,10 +1,10 @@
 #' Estimated probability density functions of shocks
 #'
-#' This script replicates Figure 4 of the paper, comparing the
+#' This script replicates Figure 5 of the paper, comparing the
 #' estimated probability density functions of shocks based on the
 #' maximum likelihood estimates for the Gaussian and CSN models.
 #'
-#' @copyright 2025 Gaygysyz Guljanov, Willi Mutschler, Mark Trede
+#' @copyright 2026 Gaygysyz Guljanov, Willi Mutschler, Mark Trede
 #'
 #' @note This is free software: you can redistribute it and/or modify
 #' it under the terms of the GNU General Public License as published by
@@ -28,35 +28,36 @@ rm(list = ls()) # clear all variables and unload libraries
 library(ggplot2)
 library(csn)
 library(latex2exp)
-library(R.matlab)
 library(patchwork)
+utils::globalVariables(c("value")) # suppress R CMD check notes for ggplot2 non-standard evaluation
 
-# suppress R CMD check notes for ggplot2 non-standard evaluation
-utils::globalVariables(c("value"))
+# define architecture and MATLAB version
+arch <- "maca64_m4pro"
+matlab_version <- "R2025b"
 
 # load Gaussian estimates
-params_gauss <- readMat("../ireland2004_ml_1_gaussian/Output/ireland2004_ml_1_gaussian_shock_params.mat")
-mu_gauss <- params_gauss$csn[1][[1]]    # zero mean vector
-sigma_gauss <- params_gauss$csn[2][[1]] # covariance matrix
-gamma_gauss <- params_gauss$csn[3][[1]] # zero skewness matrix
-nu_gauss <- params_gauss$csn[4][[1]]    # zero closure vector (irrelevant for Gaussian)
-delta_gauss <- params_gauss$csn[5][[1]] # identity marginalization matrix (irrelevant for Gaussian)
-eta_a_t_T_gauss <- data.frame(value = as.numeric(params_gauss$eta.a.t.T)) # smoothed normally distributed preference shock values
-eta_e_t_T_gauss <- data.frame(value = as.numeric(params_gauss$eta.e.t.T)) # smoothed normally distributed cost-push shock values
-eta_z_t_T_gauss <- data.frame(value = as.numeric(params_gauss$eta.z.t.T)) # smoothed normally distributed productivity shock values
-eta_r_t_T_gauss <- data.frame(value = as.numeric(params_gauss$eta.r.t.T)) # smoothed normally distributed monetary policy shock values
+mu_gauss <- as.matrix(read.csv(paste0("../results/ireland2004/ml/ireland2004_ml_1_gaussian_mu_e_", arch, "_", matlab_version, ".csv"), header = FALSE))
+sigma_gauss <- as.matrix(read.csv(paste0("../results/ireland2004/ml/ireland2004_ml_1_gaussian_Sigma_e_", arch, "_", matlab_version, ".csv"), header = FALSE))
+gamma_gauss <- as.matrix(read.csv(paste0("../results/ireland2004/ml/ireland2004_ml_1_gaussian_Gamma_e_", arch, "_", matlab_version, ".csv"), header = FALSE))
+nu_gauss <- as.matrix(read.csv(paste0("../results/ireland2004/ml/ireland2004_ml_1_gaussian_nu_e_", arch, "_", matlab_version, ".csv"), header = FALSE))
+delta_gauss <- as.matrix(read.csv(paste0("../results/ireland2004/ml/ireland2004_ml_1_gaussian_Delta_e_", arch, "_", matlab_version, ".csv"), header = FALSE))
+smoothed_shocks_gauss <- read.csv(paste0("../results/ireland2004/ml/ireland2004_ml_1_gaussian_smoothed_shocks_", arch, "_", matlab_version, ".csv"))
+eta_a_t_T_gauss <- data.frame(value = smoothed_shocks_gauss$eta_a) # smoothed normally distributed preference shock values
+eta_e_t_T_gauss <- data.frame(value = smoothed_shocks_gauss$eta_e) # smoothed normally distributed cost-push shock values
+eta_z_t_T_gauss <- data.frame(value = smoothed_shocks_gauss$eta_z) # smoothed normally distributed productivity shock values
+eta_r_t_T_gauss <- data.frame(value = smoothed_shocks_gauss$eta_r) # smoothed normally distributed monetary policy shock values
 
 # load CSN estimates
-params_csn <- readMat("../ireland2004_ml_3_csn/Output/ireland2004_ml_3_csn_shock_params.mat")
-mu_csn <- params_csn$csn[1][[1]]
-sigma_csn <- params_csn$csn[2][[1]]
-gamma_csn <- params_csn$csn[3][[1]]
-nu_csn <- params_csn$csn[4][[1]]
-delta_csn <- params_csn$csn[5][[1]]
-eta_a_t_T_csn <- data.frame(value = as.numeric(params_csn$eta.a.t.T)) # smoothed skew-normally distributed preference shock values
-eta_e_t_T_csn <- data.frame(value = as.numeric(params_csn$eta.e.t.T)) # smoothed skew-normally distributed cost-push shock values
-eta_z_t_T_csn <- data.frame(value = as.numeric(params_csn$eta.z.t.T)) # smoothed skew-normally distributed productivity shock values
-eta_r_t_T_csn <- data.frame(value = as.numeric(params_csn$eta.r.t.T)) # smoothed skew-normally distributed monetary policy shock values
+mu_csn <- as.matrix(read.csv(paste0("../results/ireland2004/ml/ireland2004_ml_3_csn_mu_e_", arch, "_", matlab_version, ".csv"), header = FALSE))
+sigma_csn <- as.matrix(read.csv(paste0("../results/ireland2004/ml/ireland2004_ml_3_csn_Sigma_e_", arch, "_", matlab_version, ".csv"), header = FALSE))
+gamma_csn <- as.matrix(read.csv(paste0("../results/ireland2004/ml/ireland2004_ml_3_csn_Gamma_e_", arch, "_", matlab_version, ".csv"), header = FALSE))
+nu_csn <- as.matrix(read.csv(paste0("../results/ireland2004/ml/ireland2004_ml_3_csn_nu_e_", arch, "_", matlab_version, ".csv"), header = FALSE))
+delta_csn <- as.matrix(read.csv(paste0("../results/ireland2004/ml/ireland2004_ml_3_csn_Delta_e_", arch, "_", matlab_version, ".csv"), header = FALSE))
+smoothed_shocks_csn <- read.csv(paste0("../results/ireland2004/ml/ireland2004_ml_3_csn_smoothed_shocks_", arch, "_", matlab_version, ".csv"))
+eta_a_t_T_csn <- data.frame(value = smoothed_shocks_csn$eta_a) # smoothed skew-normally distributed preference shock values
+eta_e_t_T_csn <- data.frame(value = smoothed_shocks_csn$eta_e) # smoothed skew-normally distributed cost-push shock values
+eta_z_t_T_csn <- data.frame(value = smoothed_shocks_csn$eta_z) # smoothed skew-normally distributed productivity shock values
+eta_r_t_T_csn <- data.frame(value = smoothed_shocks_csn$eta_r) # smoothed skew-normally distributed monetary policy shock values
 
 # define grid for plotting based on actual smoothed values with padding
 # and compute optimal binwidth using Freedman-Diaconis rule
