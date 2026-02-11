@@ -4,7 +4,7 @@
 #' impulse response functions to a monetary policy shock estimated
 #' using the Gaussian and CSN model variants.
 #'
-#' @copyright 2025 Gaygysyz Guljanov, Willi Mutschler, Mark Trede
+#' @copyright 2025-2026 Gaygysyz Guljanov, Willi Mutschler, Mark Trede
 #'
 #' @note This is free software: you can redistribute it and/or modify
 #' it under the terms of the GNU General Public License as published by
@@ -26,70 +26,48 @@ rm(list = ls()) # clear all variables and unload libraries
 
 # load libraries
 library(ggplot2)
-library(csn)
-library(latex2exp)
-library(R.matlab)
 library(dplyr)
-library(tidyr)
 
-irfs <- readMat("../ireland2004_irfs/Output/ireland2004_irfs.mat")
-gaussian_neg <- irfs$irfs.gaussian.neg[, , 1]
-gaussian_pos <- irfs$irfs.gaussian.pos[, , 1]
-csn_neg <- irfs$irfs.csn.neg[, , 1]
-csn_pos <- irfs$irfs.csn.pos[, , 1]
+# define architecture and MATLAB version
+arch <- "maca64_m4pro"
+matlab_version <- "R2025b"
 
-# get impulse response functions from simulations done in Dynare
-irf_length <- 15
-
-shock_suffix <- c(
-  "Preference" = "a",
-  "Cost-Push" = "e",
-  "Productivity" = "z",
-  "Monetary Policy" = "r"
+# load IRF data from tidy CSV (produced by ireland2004_irfs.mod)
+data_irfs <- read.csv(
+  paste0("../results/ireland2004/irfs_", arch, "_", matlab_version, ".csv"),
+  stringsAsFactors = FALSE
 )
 
-variable_prefix <- c(
-  "Annualized Interest Rate" = "rAnnualized.eta",
-  "Output Gap" = "xhat.eta",
-  "Output Growth" = "ghat.eta",
-  "Annualized Inflation" = "piAnnualized.eta"
+# get IRF length from data
+irf_length <- max(data_irfs$time)
+
+# map raw names to human-readable display labels
+shock_labels <- c(
+  "eta_a" = "Preference",
+  "eta_e" = "Cost-Push",
+  "eta_z" = "Productivity",
+  "eta_r" = "Monetary Policy"
 )
 
-models <- c("Gaussian" = "gaussian", "CSN" = "csn")
-signs  <- c("16th" = "neg", "84th" = "pos")
-
-# Create the "skeleton" tibble:
-data_irfs <- expand.grid(
-  distribution = names(models),
-  sign         = names(signs),
-  shock        = names(shock_suffix),
-  variable     = names(variable_prefix),
-  time         = seq_len(irf_length),
-  stringsAsFactors = TRUE
+variable_labels <- c(
+  "rAnnualized" = "Annualized Interest Rate",
+  "xhat"        = "Output Gap",
+  "ghat"        = "Output Growth",
+  "piAnnualized" = "Annualized Inflation"
 )
 
-# Fill in the `value` column using rowwise + get().
-# This approach constructs the object name (e.g. "gaussian_neg")
-# and the column name (e.g. "rhat.eta.a") for each row.
+sign_labels <- c(
+  "neg" = "16th",
+  "pos" = "84th"
+)
+
 data_irfs <- data_irfs %>%
-  rowwise() %>%
   mutate(
-    dataset_name = paste0(models[distribution], "_", signs[sign]),
-    col_name     = paste0(variable_prefix[variable], ".", shock_suffix[shock]),
-    value        = get(dataset_name)[[col_name]][time]
+    shock    = shock_labels[shock],
+    variable = variable_labels[variable],
+    sign     = sign_labels[sign]
   ) %>%
-  ungroup() %>%
-  select(distribution, sign, shock, variable, time, value)
-
-# check if the value is correct (also check in MATLAB irfs_csn_pos.xhat_eta_r)
-data_irfs %>%
-  filter(
-    distribution == "CSN",
-    sign         == "84th",
-    shock        == "Monetary Policy",
-    variable     == "Output Gap"
-  ) %>%
-  pull(value) == csn_pos$xhat.eta.r
+  filter(!is.na(shock), !is.na(variable), !is.na(sign))
 
 # plot options
 text_size <- 14
@@ -107,7 +85,7 @@ p_irfs <- ggplot(
                              levels = c("Annualized Interest Rate", "Annualized Inflation", "Output Gap"))),
   aes(x = time, y = value, color = sign, linetype = distribution)
 ) +
-  geom_line(size = 1.2) +
+  geom_line(linewidth = 1.2) +
   facet_wrap(~variable, scales = "free", ncol = 3) +
   labs(
     x = "Time horizon (in quarters)",

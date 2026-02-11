@@ -43,6 +43,7 @@ REDO_BAYES_RWMH_GAUSSIAN              = 0;   % |    00h00m    |    00h15m    |  
 REDO_BAYES_RWMH_CSN                   = 0;   % |    00h00m    |    04h32m    |    00h00m   |    00h00m   |
 % -------------------------------------------% | ------------ | ------------ | ----------- | ----------- |
 REDO_RECESSIONS                       = 0;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
+REDO_IRFS                             = 0;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
 % -------------------------------------------% | ------------ | ------------ | ----------- | ----------- |
 
 
@@ -286,6 +287,20 @@ if REDO_RECESSIONS
 end
 
 
+%% IMPULSE RESPONSE FUNCTIONS
+% Compute impulse response functions of the Gaussian and CSN model variants
+% using the 16th and 84th percentiles of the estimated ML shock distributions.
+% Results are stored in a tidy-format CSV file for plotting in R.
+if REDO_IRFS
+    REDO_IRFS = tic;
+    clearvars -except DYNARE_PATH ARCH MATLAB_VERSION REDO_*; clc; close all;
+    dynare ireland2004_irfs
+    % housekeeping
+    pause(1); fclose('all'); movefile([M_.fname '.log'], target_logfile);
+    rmdir(['+' M_.fname],'s'); rmdir(M_.fname,'s');
+    REDO_IRFS = toc(REDO_IRFS);
+end
+
 
 %% HOUSEKEEPING
 fprintf('\n%s\n* RUNTIMES *\n%s\n', repmat('*',1,12), repmat('*',1,12))
@@ -330,5 +345,8 @@ if REDO_BAYES_RWMH_CSN > 0
 end
 if REDO_RECESSIONS > 0
     fprintf('- Simulations and statistics on recessions: %s\n', dynsec2hms(REDO_RECESSIONS));
+end
+if REDO_IRFS > 0
+    fprintf('- Impulse response functions: %s\n', dynsec2hms(REDO_IRFS));
 end
 rmpath(DYNARE_PATH);
