@@ -95,7 +95,8 @@ for fid = [1, fid_tex] % 1 = stdout (console)
     fprintf(fid, '%s\n', row1);
     fprintf(fid, '%s\n', row2);
     fprintf(fid, '%s\n', row3);
-    fprintf(fid, '%s\n', row4);
+    fprintf(fid, '%s', row4);
+    if fid == 1, fprintf('\n'); end
 end
 fclose(fid_tex);
 
