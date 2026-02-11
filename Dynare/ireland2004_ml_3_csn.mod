@@ -57,12 +57,12 @@ disp(oo_.posterior.optimization.optimization_info.stage_2);
 writetable(table(oo_.SmoothedShocks.eta_a, oo_.SmoothedShocks.eta_e, ...
                  oo_.SmoothedShocks.eta_z, oo_.SmoothedShocks.eta_r, ...
                  'VariableNames', {'eta_a', 'eta_e', 'eta_z', 'eta_r'}), ...
-           ['../results/ireland2004/ml/' M_.fname '_smoothed_shocks.csv']);
-writematrix(M_.csn.mu_e, ['../results/ireland2004/ml/' M_.fname '_csn_mu_e.csv']);
-writematrix(M_.csn.Sigma_e, ['../results/ireland2004/ml/' M_.fname '_csn_Sigma_e.csv']);
-writematrix(M_.csn.Gamma_e, ['../results/ireland2004/ml/' M_.fname '_csn_Gamma_e.csv']);
-writematrix(M_.csn.nu_e, ['../results/ireland2004/ml/' M_.fname '_csn_nu_e.csv']);
-writematrix(M_.csn.Delta_e, ['../results/ireland2004/ml/' M_.fname '_csn_Delta_e.csv']);
+           sprintf('../results/ireland2004/ml/%s_smoothed_shocks_%s_%s.csv', M_.fname, ARCH, MATLAB_VERSION));
+writematrix(M_.csn.mu_e, sprintf('../results/ireland2004/ml/%s_csn_mu_e_%s_%s.csv', M_.fname, ARCH, MATLAB_VERSION));
+writematrix(M_.csn.Sigma_e, sprintf('../results/ireland2004/ml/%s_csn_Sigma_e_%s_%s.csv', M_.fname, ARCH, MATLAB_VERSION));
+writematrix(M_.csn.Gamma_e, sprintf('../results/ireland2004/ml/%s_csn_Gamma_e_%s_%s.csv', M_.fname, ARCH, MATLAB_VERSION));
+writematrix(M_.csn.nu_e, sprintf('../results/ireland2004/ml/%s_csn_nu_e_%s_%s.csv', M_.fname, ARCH, MATLAB_VERSION));
+writematrix(M_.csn.Delta_e, sprintf('../results/ireland2004/ml/%s_csn_Delta_e_%s_%s.csv', M_.fname, ARCH, MATLAB_VERSION));
 
 %%%%%%%%%%%%%%%%%%%%%
 % ONE-SIDED HESSIAN %
