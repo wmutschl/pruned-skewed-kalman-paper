@@ -15,6 +15,7 @@ estimation(datafile = '../data/ireland2004_data.m'
           , mh_replic = @{MH_REPLIC}
           , mh_drop = @{MH_DROP}
           , plot_priors = 0
+          , use_pct
           );
 copyfile([M_.dname '/Output/' M_.fname '_mh_mode.mat'], sprintf('../results/ireland2004/bayes/ireland2004_@{DISTRIB}_slice_@{MH_REPLIC}_mh_mode_%s_%s.mat', ARCH, MATLAB_VERSION));
 

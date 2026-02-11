@@ -17,6 +17,7 @@ estimation(datafile = '../data/ireland2004_data.m'
           , mode_compute = 0
           , mh_jscale = @{MH_JSCALE}
           , plot_priors = 0
+          , use_pct
           );
 
 @#ifdef UPDATE_TABLE_2
