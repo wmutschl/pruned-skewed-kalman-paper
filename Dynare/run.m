@@ -1,51 +1,74 @@
-% All results are organized in folders and log files corresponding to specific mod files.
-% You can execute any of the following tasks individually or run them all in the specified order.
-% Ensure that you add the `matlab` folder to your PATH in MATLAB or Octave.
-% Refer to the instructions in [the manual](https://www.dynare.org/manual/installation-and-configuration.html#configuration).
-% The reported runtimes are approximate and depend on the number of cores available and the platform of your machine.
-% The reported times are based on:
-%   - Apple **MacBook** Pro M2 Max (8 performance, 4 efficiency cores), 64 GB RAM, macOS Sequoia 15.2, MATLAB R2024b Update 3 (24.2.0.2806996) 64-bit (maca64) with Dynare 7-unstable
-%   - Lenovo ThinkSystem SR655 **Linux server** (AMD EPYC 7402P 24C 2.8GHz), 6x16GB TruDDR4 3200MHz, Pop!_OS 20.04, MATLAB R2024b Update 3 (24.2.0.2806996) 64-bit (glnxa64) with Dynare 7 compiled from source
-% - Note that comparing the Gaussian and CSN model versions may not be meaningful, as the CSN model has more parameters to estimate.
-% Bayesian estimation
-% The easiest estimation strategy is to use the Slice sampler for the full estimation (see *Task Bayes 1* and *Task Bayes 2*), but we also provide several different ways to estimate the model with the Random-Walk Metropolis-Hastings (RWMH) sampler (as this is standard practice).
-% 
-% The Slice sampler is usually more efficient (less auto-correlated draws, lower inefficiency factors) and more importantly requires no fine-tuning.
-% The downside is a longer runtime, because each draw requires many more posterior function evaluations.
-% 
-% The RWMH sampler requires a mode-finding step (with a positive definite inverse Hessian at the mode) and also a tuning of the *mh_jscale* to get a desired acceptance ratio.
-% On the upside, once it is initialized and fine-tuned, each draw requires only one posterior function evaluation.
-% 
-% Ultimately, the posterior distributions are nearly identical whether estimated using the Slice sampler or any fine-tuned variant of the RWMH sampler.
-% 
-% 
+% =========================================================================
+% Replication script for the Dynare-based estimation of the Ireland (2004)
+% model with Gaussian and skew-normal distributed shocks.
+% This requires Dynare 7.0 (or later); if installed to default locations
+% it will be picked up automatically, otherwise adjust DYNARE_PATH below.
+% All results (log files, tables, figures) are organized in the results
+% folder. Set the corresponding flag to 1 to recompute results. Tasks can
+% be run individually or sequentially in the order given below.
+%
+% MAXIMUM LIKELIHOOD:
+% - REDO_ML_GAUSSIAN           - ML estimation of Gaussian model using PSKF
+% - REDO_ML_CSN_INITVAL_SEARCH - grid search + optimization over skew and
+%                                stderr parameters to find initial values
+%                                for CSN ML estimation (uses parpool)
+% - REDO_ML_CSN                - ML estimation of CSN model using PSKF,
+%                                initialized at best values from grid search;
+%                                also computes likelihood ratio test
+%
+% BAYESIAN SLICE SAMPLER (no tuning required)
+% - REDO_BAYES_SLICE_LONG_GAUSSIAN  - long Slice sampler, 8x5000 draws, 50% burn-in (Gaussian)
+% - REDO_BAYES_SLICE_LONG_CSN       - long Slice sampler, 8x5000 draws, 50% burn-in (skew-normal)
+% - REDO_BAYES_SLICE_SHORT_GAUSSIAN - short Slice sampler, 8x250 draws, 20% burn-in (Gaussian)
+% - REDO_BAYES_SLICE_SHORT_CSN      - short Slice sampler, 8x250 draws, 20% burn-in (skew-normal)
+% - REDO_BAYES_RWMH_SLICE_SHORT_GAUSSIAN - RWMH, 8x250000 draws, initalized at mode found by short Slice sampler (Gaussian)
+% - REDO_BAYES_RWMH_SLICE_SHORT_CSN      - RWMH, 8x250000 draws, initalized at mode found by short Slice sampler (skew-normal)
+%
+% BAYESIAN (standard RWMH workflow: mode-finding then RWMH):
+% REDO_BAYES_MODE_GAUSSIAN  - numerical mode-finding (mode_compute=8 then 6) (Gaussian)
+% REDO_BAYES_MODE_CSN       - numerical mode-finding (mode_compute=8 then 6) (skew-normal)
+% REDO_BAYES_RWMH_GAUSSIAN  - RWMH, 8x250000 draws, mode from mode_compute=6 (Gaussian)
+% REDO_BAYES_RWMH_CSN       - RWMH, 8x250000 draws, mode from mode_compute=6 (skew-normal)
+%
+% ADDITIONAL ANALYSES:
+% REDO_RECESSIONS                      - simulate 500000 periods, compute recession statistics
+% REDO_COMPARISON_WITH_PARTICLE_FILTER - compare PSKF log-likelihood with particle filter
+% REDO_IRFS                            - IRFs at 16th/84th percentiles of ML shock distributions
+%
+% Runtimes are approximate and depend on the number of cores and platform.
+% The reported times below are based on the following machines:
+%   - Apple MacBook Pro M2 Max (8P+4E cores), 64 GB, macOS 26.2, MATLAB R2025b, Dynare 7.0
+%   - Apple Mac mini M4 Pro (10P+4E cores), 64 GB, macOS 26.2, MATLAB R2025b, Dynare 7.0
+%   - Lenovo ThinkSystem SR655 (AMD EPYC 7402P 24C), 96 GB, Ubuntu 24.04, MATLAB R2025b, Dynare 7.0
+%   - HP Elite Tower 800 G9 (Intel Core i7-12700 12C 2.1GHz), 64 GB, Windows 11 25H2, MATLAB R2025b, Dynare 7.0
+
 clearvars; clc; close all;
 
 
 %% SETTINGS
-% SET VARIABLES TO 1 TO REPLICATE THE RESULTS, 0 TO SKIP THE REPLICATION STEP AND REUSE PREVIOUSLY COMPUTED RESULTS
-% -------------------------------------------% | ------------------------ RUNTIME ---------------------- |
-% Replication part                           % | maca64_m2max | maca64_m4pro |   glnxa64   |    win64    |
-% -------------------------------------------% | ------------ | ------------ | ----------- | ----------- |
+%========================================================================================================|
+% Replication part                           % |                         RUNTIMES                        |
+% Set to 1 to recompute results              % | maca64_m2max | maca64_m4pro |   glnxa64   |    win64    |
+%========================================================================================================|
 REDO_ML_GAUSSIAN                      = 0;   % |   <00h01m    |   <00h01m    |   <00h00m   |   <00h00m   |
-REDO_ML_CSN_INITVAL_SEARCH            = 0;   % |    00h17m    |    00h13m    |    00h00m   |    00h00m   |
+REDO_ML_CSN_INITVAL_SEARCH            = 0;   % |    00h18m    |    00h13m    |    00h00m   |    00h00m   |
 REDO_ML_CSN                           = 0;   % |    00h13m    |    00h10m    |    00h00m   |    00h00m   |
-% -------------------------------------------% | ------------ | ------------ | ----------- | ----------- |
-REDO_BAYES_SLICE_LONG_GAUSSIAN        = 0;   % |    00h00m    |    00h20m    |    00h00m   |    00h00m   |
-REDO_BAYES_SLICE_LONG_CSN             = 0;   % |    00h00m    |    10h27m    |    00h00m   |    00h00m   |
-REDO_BAYES_SLICE_SHORT_GAUSSIAN       = 0;   % |    00h00m    |    00h01m    |    00h00m   |    00h00m   |
-REDO_BAYES_SLICE_SHORT_CSN            = 0;   % |    00h00m    |    00h33m    |    00h00m   |    00h00m   |
-REDO_BAYES_RWMH_SLICE_SHORT_GAUSSIAN  = 0;   % |    00h00m    |    00h16m    |    00h00m   |    00h00m   |
+%--------------------------------------------------------------------------------------------------------|
+REDO_BAYES_SLICE_LONG_GAUSSIAN        = 0;   % |    00h27m    |    00h20m    |    00h00m   |    00h00m   |
+REDO_BAYES_SLICE_LONG_CSN             = 0;   % |    14h33m    |    10h27m    |    00h00m   |    00h00m   |
+REDO_BAYES_SLICE_SHORT_GAUSSIAN       = 0;   % |    00h02m    |    00h01m    |    00h00m   |    00h00m   |
+REDO_BAYES_SLICE_SHORT_CSN            = 0;   % |    00h46m    |    00h33m    |    00h00m   |    00h00m   |
+REDO_BAYES_RWMH_SLICE_SHORT_GAUSSIAN  = 0;   % |    00h22m    |    00h16m    |    00h00m   |    00h00m   |
 REDO_BAYES_RWMH_SLICE_SHORT_CSN       = 0;   % |    00h00m    |    04h30m    |    00h00m   |    00h00m   |
 REDO_BAYES_MODE_GAUSSIAN              = 0;   % |    00h00m    |    00h06m    |    00h00m   |    00h00m   |
 REDO_BAYES_MODE_CSN                   = 0;   % |    00h00m    |    02h10m    |    00h00m   |    00h00m   |
 REDO_BAYES_RWMH_GAUSSIAN              = 0;   % |    00h00m    |    00h15m    |    00h00m   |    00h00m   |
 REDO_BAYES_RWMH_CSN                   = 0;   % |    00h00m    |    04h32m    |    00h00m   |    00h00m   |
-% -------------------------------------------% | ------------ | ------------ | ----------- | ----------- |
-REDO_RECESSIONS                       = 0;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
-REDO_COMPARISON_WITH_PARTICLE_FILTER  = 0;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
-REDO_IRFS                             = 0;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
-% -------------------------------------------% | ------------ | ------------ | ----------- | ----------- |
+%--------------------------------------------------------------------------------------------------------|
+REDO_RECESSIONS                       = 0;   % |   <00h01m    |    00h00m    |    00h00m   |    00h00m   |
+REDO_COMPARISON_WITH_PARTICLE_FILTER  = 0;   % |    00h48m    |    00h00m    |    00h00m   |    00h00m   |
+REDO_IRFS                             = 0;   % |   <00h01m    |    00h00m    |    00h00m   |    00h00m   |
+%--------------------------------------------------------------------------------------------------------|
 
 
 %% COMMON VARIABLES AND PATHS
