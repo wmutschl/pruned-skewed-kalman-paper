@@ -78,12 +78,17 @@ end
 neg_log_likelihood_grid = nan(1,(grid.nbr-1)^estim_params_.nsx);
 fprintf('\nEvaluate likelihood on %u grid values for skewness parameter combinations using MATLAB''s parallel toolbox, takes less than 10 minutes with 8 cores\n\n', (grid.nbr-1)^estim_params_.nsx);
 tStart = tic;
+poolobj = gcp('nocreate');
+if isempty(poolobj)
+    parpool('local'); % open parpool
+end
 parfor jgrid = 1:(grid.nbr-1)^estim_params_.nsx
     [dataset, datasetInfo, xparam1, ~, M, options, oo, estim_params, bayestopt, BoundsInfo] = dynare_estimation_init(options_.varobs, M_.dname, [], M_, options_, oo_, estim_params_, bayestopt_);
     estim_params.skew_exo(:,2) = Skew_eta_grid(COMBOS(jgrid,:))';
     [dataset, datasetInfo, xparam1, ~, M, options, oo, estim_params, bayestopt, BoundsInfo] = dynare_estimation_init(options.varobs, M.dname, [], M, options, oo, estim_params, bayestopt);
     neg_log_likelihood_grid(jgrid) = dsge_likelihood(xparam1,dataset,datasetInfo,options,M,estim_params,bayestopt,BoundsInfo,oo.dr, oo.steady_state,oo.exo_steady_state,oo.exo_det_steady_state);
 end
+delete(gcp('nocreate')); % close parpool
 fprintf('Best @{BEST_OF} values on grid (runtime %s):\n', dynsec2hms(toc(tStart)));
 [~,idx_best_grid] = sort(neg_log_likelihood_grid);
 disp(array2table([Skew_eta_grid(COMBOS(idx_best_grid(1:@{BEST_OF}),:))'],...
