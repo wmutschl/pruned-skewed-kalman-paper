@@ -43,6 +43,7 @@ REDO_BAYES_RWMH_GAUSSIAN              = 0;   % |    00h00m    |    00h15m    |  
 REDO_BAYES_RWMH_CSN                   = 0;   % |    00h00m    |    04h32m    |    00h00m   |    00h00m   |
 % -------------------------------------------% | ------------ | ------------ | ----------- | ----------- |
 REDO_RECESSIONS                       = 0;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
+REDO_COMPARISON_WITH_PARTICLE_FILTER  = 0;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
 REDO_IRFS                             = 0;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
 % -------------------------------------------% | ------------ | ------------ | ----------- | ----------- |
 
@@ -287,6 +288,18 @@ if REDO_RECESSIONS
 end
 
 
+%% COMPARISON WITH PARTICLE FILTER
+if REDO_COMPARISON_WITH_PARTICLE_FILTER
+    REDO_COMPARISON_WITH_PARTICLE_FILTER = tic;
+    clearvars -except DYNARE_PATH ARCH MATLAB_VERSION REDO_*; clc; close all;
+    dynare ireland2004_particle_filter_comparison
+    % housekeeping
+    pause(1); fclose('all'); movefile([M_.fname '.log'], target_logfile);
+    rmdir(['+' M_.fname],'s'); rmdir(M_.fname,'s');
+    REDO_COMPARISON_WITH_PARTICLE_FILTER = toc(REDO_COMPARISON_WITH_PARTICLE_FILTER);
+end
+
+
 %% IMPULSE RESPONSE FUNCTIONS
 % Compute impulse response functions of the Gaussian and CSN model variants
 % using the 16th and 84th percentiles of the estimated ML shock distributions.
@@ -345,6 +358,9 @@ if REDO_BAYES_RWMH_CSN > 0
 end
 if REDO_RECESSIONS > 0
     fprintf('- Simulations and statistics on recessions: %s\n', dynsec2hms(REDO_RECESSIONS));
+end
+if REDO_COMPARISON_WITH_PARTICLE_FILTER > 0
+    fprintf('- Comparison with particle filter: %s\n', dynsec2hms(REDO_COMPARISON_WITH_PARTICLE_FILTER));
 end
 if REDO_IRFS > 0
     fprintf('- Impulse response functions: %s\n', dynsec2hms(REDO_IRFS));

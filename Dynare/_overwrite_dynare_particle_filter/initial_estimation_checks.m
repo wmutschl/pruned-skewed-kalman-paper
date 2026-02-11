@@ -214,7 +214,10 @@ if ~isequal(options_.mode_compute,11) || ...
     %purpose of checking stochastic singularity
     use_univariate_filters_if_singularity_is_detected_old=options_.use_univariate_filters_if_singularity_is_detected;
     options_.use_univariate_filters_if_singularity_is_detected=0;
+    startTime = tic;
     [fval,info] = feval(objective_function,xparam1,dataset_,dataset_info,options_,M_,estim_params_,bayestopt_,BoundsInfo,oo_.dr,oo_.steady_state,oo_.exo_steady_state,oo_.exo_det_steady_state);
+    oo_.particle_comparison.fval = fval;
+    oo_.particle_comparison.time = toc(startTime);
     if info(1)==50
         fprintf('\ninitial_estimation_checks:: The forecast error variance in the multivariate Kalman filter became singular.\n')
         fprintf('initial_estimation_checks:: This is often a sign of stochastic singularity, but can also sometimes happen by chance\n')
@@ -268,7 +271,8 @@ if options_.prefilter==1
 end
 
 if ~isequal(options_.mode_compute,11)
-    disp(['Initial value of the log posterior (or likelihood): ' num2str(-fval)]);
+    disp(['Value of the log likelihood: ' num2str(-fval)]);
+    fprintf('Time to evaluate likelihood: %s\n', dynsec2hms(oo_.particle_comparison.time));
 end
 
 if options_.mh_tune_jscale.status && (options_.mh_tune_jscale.maxiter<options_.mh_tune_jscale.stepsize)

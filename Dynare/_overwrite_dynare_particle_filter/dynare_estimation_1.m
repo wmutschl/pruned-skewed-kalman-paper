@@ -71,31 +71,31 @@ end
 if options_.order > 1 && ~options_.particle.status
     error('For estimating the model with a higher-order approximation using a nonlinear filter, one should have options_.particle.status=true;')
 end
-if options_.particle.status
-    skipline()
-        disp('Estimation using a non linear filter!')
-    skipline()
-    if ~options_.nointeractive && ismember(options_.mode_compute,[1,3,4]) && ~strcmpi(options_.particle.filter_algorithm,'gf')% Known gradient-based optimizers
-        disp('You are using a gradient-based mode-finder. Particle filtering introduces discontinuities in the')
-        disp('objective function w.r.t the parameters. Thus, should use a non-gradient based optimizer.')
-        fprintf('\nPlease choose a mode-finder:\n')
-        fprintf('\t 0 - Continue using gradient-based method (it is most likely that you will no get any sensible result).\n')
-        fprintf('\t 6 - Monte Carlo based algorithm\n')
-        fprintf('\t 7 - Nelder-Mead simplex based optimization routine (MATLAB optimization toolbox required)\n')
-        fprintf('\t 8 - Nelder-Mead simplex based optimization routine (Dynare''s implementation)\n')
-        fprintf('\t 9 - CMA-ES (Covariance Matrix Adaptation Evolution Strategy) algorithm\n')
-        choice = [];
-        while isempty(choice)
-            choice = input('Please enter your choice: ');
-            if isnumeric(choice) && isint(choice) && ismember(choice,[0 6 7 8 9])
-                if choice
-                    options_.mode_compute = choice;
+    if options_.particle.status
+        %skipline()
+        %disp('Estimation using a non linear filter!')
+        %skipline()
+        if ~options_.nointeractive && ismember(options_.mode_compute,[1,3,4]) && ~strcmpi(options_.particle.filter_algorithm,'gf')% Known gradient-based optimizers
+            disp('You are using a gradient-based mode-finder. Particle filtering introduces discontinuities in the')
+            disp('objective function w.r.t the parameters. Thus, should use a non-gradient based optimizer.')
+            fprintf('\nPlease choose a mode-finder:\n')
+            fprintf('\t 0 - Continue using gradient-based method (it is most likely that you will no get any sensible result).\n')
+            fprintf('\t 6 - Monte Carlo based algorithm\n')
+            fprintf('\t 7 - Nelder-Mead simplex based optimization routine (MATLAB optimization toolbox required)\n')
+            fprintf('\t 8 - Nelder-Mead simplex based optimization routine (Dynare''s implementation)\n')
+            fprintf('\t 9 - CMA-ES (Covariance Matrix Adaptation Evolution Strategy) algorithm\n')
+            choice = [];
+            while isempty(choice)
+                choice = input('Please enter your choice: ');
+                if isnumeric(choice) && isint(choice) && ismember(choice,[0 6 7 8 9])
+                    if choice
+                        options_.mode_compute = choice;
+                    end
+                else
+                    fprintf('\nThis is an invalid choice (you have to choose between 0, 6, 7, 8 and 9).\n')
+                    choice = [];
                 end
-            else
-                fprintf('\nThis is an invalid choice (you have to choose between 0, 6, 7, 8 and 9).\n')
-                choice = [];
             end
-        end
     end
 end
 
@@ -393,6 +393,7 @@ if ~issmc(options_) && any(bayestopt_.pshape > 0) && ~options_.mh_posterior_mode
             feval(objective_function,xparam1,dataset_,dataset_info,options_,M_,estim_params_,bayestopt_,bounds,oo_.dr,oo_.steady_state,oo_.exo_steady_state,oo_.exo_det_steady_state);
     end
 elseif ~issmc(options_) && ~any(bayestopt_.pshape > 0) && ~options_.mh_posterior_mode_estimation
+    return
     oo_=display_estimation_results_table(xparam1, stdh, M_, options_, estim_params_, bayestopt_, oo_, prior_dist_names, 'Maximum Likelihood', 'mle');
 end
 

@@ -126,7 +126,7 @@ ReducedForm.steadystate = dr.ys(dr.order_var(restrict_variables_idx));
 if options_.order == 1
     ReducedForm.constant = ReducedForm.steadystate;
 else
-    ReducedForm.constant = ReducedForm.steadystate + .5*dr.ghs2(restrict_variables_idx);
+ReducedForm.constant = ReducedForm.steadystate + .5*dr.ghs2(restrict_variables_idx);
 end
 ReducedForm.state_variables_steady_state = dr.ys(dr.order_var(state_variables_idx));
 ReducedForm.Q = Q;
@@ -146,10 +146,10 @@ else
     ReducedForm.ghx  = dr.ghx(restrict_variables_idx,:);
     ReducedForm.ghu  = dr.ghu(restrict_variables_idx,:);
     if options_.order > 1
-        ReducedForm.ghxx = dr.ghxx(restrict_variables_idx,:);
-        ReducedForm.ghuu = dr.ghuu(restrict_variables_idx,:);
-        ReducedForm.ghxu = dr.ghxu(restrict_variables_idx,:);
-        ReducedForm.ghs2 = dr.ghs2(restrict_variables_idx,:);
+    ReducedForm.ghxx = dr.ghxx(restrict_variables_idx,:);
+    ReducedForm.ghuu = dr.ghuu(restrict_variables_idx,:);
+    ReducedForm.ghxu = dr.ghxu(restrict_variables_idx,:);
+    ReducedForm.ghs2 = dr.ghs2(restrict_variables_idx,:);
     end
     if options_.order==3
         ReducedForm.ghxxx = dr.ghxxx(restrict_variables_idx,:);
@@ -199,25 +199,22 @@ ReducedForm.StateVectorMean = StateVectorMean;
 ReducedForm.StateVectorVariance = StateVectorVariance;
 
 if ~options_.particle.use_reduced_rank_cholesky
-    [~, flag] = chol(ReducedForm.StateVectorVariance);%reduced_rank_cholesky(ReducedForm.StateVectorVariance)';
-    if flag 
-        fval = Inf;
-        info(1) = 201;
-        info(4) = 0.1;
-        exit_flag = 0;    
-        return;
-    end
+[~, flag] = chol(ReducedForm.StateVectorVariance);%reduced_rank_cholesky(ReducedForm.StateVectorVariance)';
+if flag
+    fval = Inf;
+    info(1) = 201;
+    info(4) = 0.1;
+    exit_flag = 0;    
+    return;
 end
-
+end
 %------------------------------------------------------------------------------
 % 4. Likelihood evaluation
 %------------------------------------------------------------------------------
 options_.warning_for_steadystate = 0;
 [s1,s2,current_stream] = get_dynare_random_generator_state();
 
-startTime = tic;
 LIK = feval(options_.particle.algorithm, ReducedForm, Y, start, options_.particle, options_.threads, options_, M_);
-fprintf('Time to evaluate likelihood with particle filter with N=%d: %s\n', options_.particle.number_of_particles, dynsec2hms(toc(startTime)));
 set_dynare_random_generator_state(s1,s2,current_stream);
 if imag(LIK)
     fval = Inf; info(1) = 46; info(4) = 0.1; exit_flag = 0;
