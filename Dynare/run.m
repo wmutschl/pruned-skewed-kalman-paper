@@ -42,6 +42,8 @@ REDO_BAYES_MODE_CSN                   = 0;   % |    00h00m    |    02h10m    |  
 REDO_BAYES_RWMH_GAUSSIAN              = 0;   % |    00h00m    |    00h15m    |    00h00m   |    00h00m   |
 REDO_BAYES_RWMH_CSN                   = 0;   % |    00h00m    |    04h32m    |    00h00m   |    00h00m   |
 % -------------------------------------------% | ------------ | ------------ | ----------- | ----------- |
+REDO_RECESSIONS                       = 0;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
+% -------------------------------------------% | ------------ | ------------ | ----------- | ----------- |
 
 
 %% COMMON VARIABLES AND PATHS
@@ -266,19 +268,23 @@ if REDO_BAYES_RWMH_CSN
     REDO_BAYES_RWMH_CSN = toc(REDO_BAYES_RWMH_CSN);
 end
 
-% ### Impulse response functions
-% Compute the impulse response functions of the Gaussian and CSN model using the 16th and 84th percentiles of the estimated distributions.
-% ```matlab
-% dynare ireland2004_irfs
-% ```
-% Runtime: 1 minute on MacBook, 1 minute on Linux server.
-% 
-% ### Simulation of recessions
-% Simulates large time series with Gaussian and CSN distributed shocks and computes statistics on recessions.
-% ```matlab
-% dynare ireland2004_recessions
-% ```
-% Runtime: 1 minute on MacBook, 1 minute on Linux server.
+
+%% STATISTICS ON RECESSIONS
+% Simulate 500000 time periods of model with (i) Gaussian and (ii) CSN distributed shocks
+% and count number of total, severe and mild recessions.  Recessions are defined by a period
+% where output growth falls below -0.5% per quarter and stays negative for at least two quarters.
+% Severe and mild recessions are determined by the top and bottom terciles of the implied
+% distribution of peak-to-trough output losses.
+if REDO_RECESSIONS
+    REDO_RECESSIONS = tic;
+    clearvars -except DYNARE_PATH ARCH MATLAB_VERSION REDO_*; clc; close all;
+    dynare ireland2004_recessions
+    % housekeeping
+    pause(1); fclose('all'); movefile([M_.fname '.log'], target_logfile);
+    rmdir(['+' M_.fname],'s'); rmdir(M_.fname,'s');
+    REDO_RECESSIONS = toc(REDO_RECESSIONS);
+end
+
 
 
 %% HOUSEKEEPING
@@ -321,5 +327,8 @@ if REDO_BAYES_RWMH_GAUSSIAN > 0
 end
 if REDO_BAYES_RWMH_CSN > 0
     fprintf('- Bayesian mode estimation with CSN shocks: %s\n', dynsec2hms(REDO_BAYES_RWMH_CSN));
+end
+if REDO_RECESSIONS > 0
+    fprintf('- Simulations and statistics on recessions: %s\n', dynsec2hms(REDO_RECESSIONS));
 end
 rmpath(DYNARE_PATH);
