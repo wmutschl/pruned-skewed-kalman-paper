@@ -122,8 +122,8 @@ end
 tex_file = sprintf('%s/table_2_%s_%s.tex', results_folder, ARCH, MATLAB_VERSION);
 fid = fopen(tex_file, 'r');
 if fid == -1
-    warning('Cannot open file %s, so I make a copy of latex2.tex first.', tex_file);
-    copyfile([results_folder '/table_2.tex'], tex_file);
+    warning('Cannot open file %s, so I make a copy of table_2_maca64_m4pro_R2025b.tex first and then update it.', tex_file);
+    copyfile([results_folder '/table_2_maca64_m4pro_R2025b.tex'], tex_file);
     fid = fopen(tex_file, 'r');
 end
 lines = {};
@@ -226,7 +226,7 @@ for i = 1:length(lines)
     if i < length(lines)
         fprintf(fid, '%s\n', lines{i});
     else
-        fprintf(fid, '%s', lines{i}); % no newline at end
+        fprintf(fid, '%s', lines{i});
     end
 end
 fclose(fid);
