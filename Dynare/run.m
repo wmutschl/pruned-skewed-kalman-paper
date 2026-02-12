@@ -36,11 +36,12 @@
 % REDO_IRFS                            - IRFs at 16th/84th percentiles of ML shock distributions
 %
 % Runtimes are approximate and depend on the number of cores and platform.
-% The reported times below are based on the following machines:
-%   - Apple MacBook Pro M2 Max (8P+4E cores), 64 GB, macOS 26.2, MATLAB R2025b, Dynare 7.0
-%   - Apple Mac mini M4 Pro (10P+4E cores), 64 GB, macOS 26.2, MATLAB R2025b, Dynare 7.0
-%   - Lenovo ThinkSystem SR655 (AMD EPYC 7402P 24C), 96 GB, Ubuntu 24.04, MATLAB R2025b, Dynare 7.0
-%   - HP Elite Tower 800 G9 (Intel Core i7-12700 12C 2.1GHz), 64 GB, Windows 11 25H2, MATLAB R2025b, Dynare 7.0
+% The reported times below are based on the following machines and software versions:
+% - [maca64_m2max] Apple MacBook Pro M2 Max (8P+4E cores), 64 GB, macOS 26.2, MATLAB R2025b, Dynare 7.0
+% - [maca64_m4pro] Apple Mac mini M4 Pro (10P+4E cores), 64 GB, macOS 26.2, MATLAB R2025b, Dynare 7.0
+% - [glnxa64]      Lenovo ThinkSystem SR655 (AMD EPYC 7402P 24C), 96 GB, Ubuntu 25.10, MATLAB R2025b, Dynare 7.0
+% - [win64]        HP Elite Tower 800 G9 (Intel Core i7-12700 12C 2.1GHz), 64 GB, Windows 11 25H2, MATLAB R2025b, Dynare 7.0
+% The paper uses the [maca64_m4pro] results.
 
 clearvars; clc; close all;
 
