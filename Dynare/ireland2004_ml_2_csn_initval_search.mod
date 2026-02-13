@@ -76,7 +76,7 @@ end
 
 % evaluate likelihood for grid values
 neg_log_likelihood_grid = nan(1,(grid.nbr-1)^estim_params_.nsx);
-fprintf('\nEvaluate likelihood on %u grid values for skewness parameter combinations using MATLAB''s parallel toolbox, takes less than 10 minutes with 8 cores\n\n', (grid.nbr-1)^estim_params_.nsx);
+fprintf('\nEvaluate likelihood on %u grid values for skewness parameter combinations using MATLAB''s parallel toolbox\n\n', (grid.nbr-1)^estim_params_.nsx);
 tStart = tic;
 poolobj = gcp('nocreate');
 if isempty(poolobj)
