@@ -28,7 +28,8 @@ Evaluate likelihood on 50625 grid values for skewness parameter combinations usi
 
 Starting parallel pool (parpool) using the 'Processes' profile ...
 Connected to parallel pool with 12 workers.
-Best 5 values on grid (runtime 0h05m12s):
+Parallel pool using the 'Processes' profile is shutting down.
+Best 5 values on grid (runtime 0h06m16s):
                    <strong>best 1</strong>      <strong>best 2</strong>      <strong>best 3</strong>      <strong>best 4</strong>      <strong>best 5</strong> 
                   <strong>________</strong>    <strong>________</strong>    <strong>________</strong>    <strong>________</strong>    <strong>________</strong>
     <strong>skew eta_a</strong>    -0.13571    -0.13571    -0.13571    -0.13571    -0.13571
@@ -63,7 +64,7 @@ eta_z    -0.8361     NaN     NaN
 eta_r     0.5200     NaN     NaN 
 
 Optimization info:
-       runtime: 138.0421
+       runtime: 140.6641
     iterations: 944
      funcCount: 2935
       exitflag: 1
@@ -107,7 +108,7 @@ eta_z    -0.8817     NaN     NaN
 eta_r     0.5402     NaN     NaN 
 
 Optimization info:
-       runtime: 53.4500
+       runtime: 51.4767
     iterations: 418
      funcCount: 1029
       exitflag: 1
@@ -151,7 +152,7 @@ eta_z    -0.8209     NaN     NaN
 eta_r     0.5510     NaN     NaN 
 
 Optimization info:
-       runtime: 65.8774
+       runtime: 66.1795
     iterations: 505
      funcCount: 1416
       exitflag: 1
@@ -195,7 +196,7 @@ eta_z    -0.9291     NaN     NaN
 eta_r     0.5534     NaN     NaN 
 
 Optimization info:
-       runtime: 109.4458
+       runtime: 110.8218
     iterations: 687
      funcCount: 2259
       exitflag: 1
@@ -239,7 +240,7 @@ eta_z    -0.9697     NaN     NaN
 eta_r     0.4870     NaN     NaN 
 
 Optimization info:
-       runtime: 83.5580
+       runtime: 84.0462
     iterations: 607
      funcCount: 1855
       exitflag: 1
@@ -271,4 +272,4 @@ Final value of log-likelihood: 1212.412757679942388
     eta_z: -0.836095597248922
     eta_r: 0.520016288312854
 
-Total computing time : 0h12m43s
+Total computing time : 0h13m50s

@@ -54,20 +54,6 @@ Estimation::mcmc: Initial values found!
 Estimation::mcmc: Write details about the MCMC... Ok!
 Estimation::mcmc: Details about the MCMC are available in ireland2004_bayes_9_rwmh_gaussian/metropolis/ireland2004_bayes_9_rwmh_gaussian_mh_history_0.mat
 
-[Warning: Your parallel setup might be inefficient, you are using 12 Workers, but you only have 8 blocks, please consider using less workers and optionally
-more threads:
-
-c = parcluster('Processes');
-c.NumThreads = <NumThreads>;
-parpool(c,8);
-] 
-[> In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('posterior_sampler_core', '/Applications/Dynare/7-unstable-arm64/matlab/estimation/posterior_sampler_core.m', 130)" style="font-weight:bold">posterior_sampler_core</a> (<a href="matlab: opentoline('/Applications/Dynare/7-unstable-arm64/matlab/estimation/posterior_sampler_core.m',130,0)">line 130</a>)
-In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('posterior_sampler', '/Applications/Dynare/7-unstable-arm64/matlab/estimation/posterior_sampler.m', 126)" style="font-weight:bold">posterior_sampler</a> (<a href="matlab: opentoline('/Applications/Dynare/7-unstable-arm64/matlab/estimation/posterior_sampler.m',126,0)">line 126</a>)
-In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare_estimation_1', '/Applications/Dynare/7-unstable-arm64/matlab/estimation/dynare_estimation_1.m', 451)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('/Applications/Dynare/7-unstable-arm64/matlab/estimation/dynare_estimation_1.m',451,0)">line 451</a>)
-In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare_estimation', '/Applications/Dynare/7-unstable-arm64/matlab/estimation/dynare_estimation.m', 105)" style="font-weight:bold">dynare_estimation</a> (<a href="matlab: opentoline('/Applications/Dynare/7-unstable-arm64/matlab/estimation/dynare_estimation.m',105,0)">line 105</a>)
-In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ireland2004_bayes_9_rwmh_gaussian.driver', '/Users/wmutschl/pruned-skewed-kalman-paper/Dynare/+ireland2004_bayes_9_rwmh_gaussian/driver.m', 432)" style="font-weight:bold">ireland2004_bayes_9_rwmh_gaussian.driver</a> (<a href="matlab: opentoline('/Users/wmutschl/pruned-skewed-kalman-paper/Dynare/+ireland2004_bayes_9_rwmh_gaussian/driver.m',432,0)">line 432</a>)
-In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare', '/Applications/Dynare/7-unstable-arm64/matlab/dynare.m', 300)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('/Applications/Dynare/7-unstable-arm64/matlab/dynare.m',300,0)">line 300</a>)
-In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('run', '/Users/wmutschl/pruned-skewed-kalman-paper/Dynare/run.m', 246)" style="font-weight:bold">run</a> (<a href="matlab: opentoline('/Users/wmutschl/pruned-skewed-kalman-paper/Dynare/run.m',246,0)">line 246</a>)] 
 
 Estimation::mcmc: Number of mh files: 1 per block.
 Estimation::mcmc: Total number of generated files: 8.
@@ -290,5 +276,4 @@ eta_a         5.477       3.2958      1.9189      4.6413     invg       5.4772
 eta_e         0.283       0.0602      0.0468      0.0736     invg       1.0000
 eta_z         2.236       0.7884      0.6135      0.9587     invg       3.8730
 eta_r         0.707       0.2951      0.2423      0.3463     invg       1.4142
-Total computing time : 0h14m59s
-Note: warning(s) encountered in MATLAB/Octave code
+Total computing time : 0h14m29s

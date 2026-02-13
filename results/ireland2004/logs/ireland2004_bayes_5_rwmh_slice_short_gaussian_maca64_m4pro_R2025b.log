@@ -20,8 +20,6 @@ Finding the optimal block decomposition of the dynamic model...
                                  and 5 feedback variable(s).
 Preprocessing completed.
 Preprocessing time: 0h00m00s.
-Starting parallel pool (parpool) using the 'Processes' profile ...
-Connected to parallel pool with 8 workers.
 
 You did not declare endogenous variables after the estimation/calib_smoother command.
 
@@ -278,4 +276,4 @@ eta_a         5.477       3.2801      1.9076      4.6005     invg       5.4772
 eta_e         0.283       0.0600      0.0465      0.0731     invg       1.0000
 eta_z         2.236       0.7878      0.6141      0.9585     invg       3.8730
 eta_r         0.707       0.2948      0.2418      0.3462     invg       1.4142
-Total computing time : 0h15m29s
+Total computing time : 0h14m42s

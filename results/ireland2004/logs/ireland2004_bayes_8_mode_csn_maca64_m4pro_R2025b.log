@@ -23,15 +23,15 @@ Preprocessing time: 0h00m00s.
 
 You did not declare endogenous variables after the estimation/calib_smoother command.
 
-[Warning: Your prior allows for skewness parameters larger than +-0.995272, which is outside the theoretical bound of the skew normal distribution, and thus will not integrate to 1 due to
-truncation. Please change your prior!] 
+[Warning: Your prior allows for skewness parameters larger than +-0.995272, which is outside the theoretical bound of the skew normal distribution, and thus will not
+integrate to 1 due to truncation. Please change your prior!] 
 [> In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('check_prior_stderr_corr_skew', '/Applications/Dynare/7-unstable-arm64/matlab/utilities/estimation/check_prior_stderr_corr_skew.m', 64)" style="font-weight:bold">check_prior_stderr_corr_skew</a> (<a href="matlab: opentoline('/Applications/Dynare/7-unstable-arm64/matlab/utilities/estimation/check_prior_stderr_corr_skew.m',64,0)">line 64</a>)
 In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('initial_estimation_checks', '/Applications/Dynare/7-unstable-arm64/matlab/estimation/initial_estimation_checks.m', 179)" style="font-weight:bold">initial_estimation_checks</a> (<a href="matlab: opentoline('/Applications/Dynare/7-unstable-arm64/matlab/estimation/initial_estimation_checks.m',179,0)">line 179</a>)
 In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare_estimation_1', '/Applications/Dynare/7-unstable-arm64/matlab/estimation/dynare_estimation_1.m', 164)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('/Applications/Dynare/7-unstable-arm64/matlab/estimation/dynare_estimation_1.m',164,0)">line 164</a>)
 In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare_estimation', '/Applications/Dynare/7-unstable-arm64/matlab/estimation/dynare_estimation.m', 105)" style="font-weight:bold">dynare_estimation</a> (<a href="matlab: opentoline('/Applications/Dynare/7-unstable-arm64/matlab/estimation/dynare_estimation.m',105,0)">line 105</a>)
-In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ireland2004_bayes_8_mode_csn.driver', '/Users/wmutschl/pruned-skewed-kalman-paper/Dynare/+ireland2004_bayes_8_mode_csn/driver.m', 442)" style="font-weight:bold">ireland2004_bayes_8_mode_csn.driver</a> (<a href="matlab: opentoline('/Users/wmutschl/pruned-skewed-kalman-paper/Dynare/+ireland2004_bayes_8_mode_csn/driver.m',442,0)">line 442</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ireland2004_bayes_8_mode_csn.driver', '/Users/wmutschl/pruned-skewed-kalman-paper/Dynare/+ireland2004_bayes_8_mode_csn/driver.m', 441)" style="font-weight:bold">ireland2004_bayes_8_mode_csn.driver</a> (<a href="matlab: opentoline('/Users/wmutschl/pruned-skewed-kalman-paper/Dynare/+ireland2004_bayes_8_mode_csn/driver.m',441,0)">line 441</a>)
 In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare', '/Applications/Dynare/7-unstable-arm64/matlab/dynare.m', 300)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('/Applications/Dynare/7-unstable-arm64/matlab/dynare.m',300,0)">line 300</a>)
-In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('run', '/Users/wmutschl/pruned-skewed-kalman-paper/Dynare/run.m', 230)" style="font-weight:bold">run</a> (<a href="matlab: opentoline('/Users/wmutschl/pruned-skewed-kalman-paper/Dynare/run.m',230,0)">line 230</a>)] 
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('run', '/Users/wmutschl/pruned-skewed-kalman-paper/Dynare/run.m', 234)" style="font-weight:bold">run</a> (<a href="matlab: opentoline('/Users/wmutschl/pruned-skewed-kalman-paper/Dynare/run.m',234,0)">line 234</a>)] 
 Initial value of the log posterior (or likelihood): 1210.1907
 
 Final value of minus the log posterior (or likelihood):-1211.471958 
@@ -45,9 +45,9 @@ the estimated_params_init block, or use another optimization routine.
 [> In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('check_hessian_at_the_mode', '/Applications/Dynare/7-unstable-arm64/matlab/utilities/estimation/check_hessian_at_the_mode.m', 68)" style="font-weight:bold">check_hessian_at_the_mode</a> (<a href="matlab: opentoline('/Applications/Dynare/7-unstable-arm64/matlab/utilities/estimation/check_hessian_at_the_mode.m',68,0)">line 68</a>)
 In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare_estimation_1', '/Applications/Dynare/7-unstable-arm64/matlab/estimation/dynare_estimation_1.m', 325)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('/Applications/Dynare/7-unstable-arm64/matlab/estimation/dynare_estimation_1.m',325,0)">line 325</a>)
 In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare_estimation', '/Applications/Dynare/7-unstable-arm64/matlab/estimation/dynare_estimation.m', 105)" style="font-weight:bold">dynare_estimation</a> (<a href="matlab: opentoline('/Applications/Dynare/7-unstable-arm64/matlab/estimation/dynare_estimation.m',105,0)">line 105</a>)
-In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ireland2004_bayes_8_mode_csn.driver', '/Users/wmutschl/pruned-skewed-kalman-paper/Dynare/+ireland2004_bayes_8_mode_csn/driver.m', 442)" style="font-weight:bold">ireland2004_bayes_8_mode_csn.driver</a> (<a href="matlab: opentoline('/Users/wmutschl/pruned-skewed-kalman-paper/Dynare/+ireland2004_bayes_8_mode_csn/driver.m',442,0)">line 442</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ireland2004_bayes_8_mode_csn.driver', '/Users/wmutschl/pruned-skewed-kalman-paper/Dynare/+ireland2004_bayes_8_mode_csn/driver.m', 441)" style="font-weight:bold">ireland2004_bayes_8_mode_csn.driver</a> (<a href="matlab: opentoline('/Users/wmutschl/pruned-skewed-kalman-paper/Dynare/+ireland2004_bayes_8_mode_csn/driver.m',441,0)">line 441</a>)
 In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare', '/Applications/Dynare/7-unstable-arm64/matlab/dynare.m', 300)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('/Applications/Dynare/7-unstable-arm64/matlab/dynare.m',300,0)">line 300</a>)
-In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('run', '/Users/wmutschl/pruned-skewed-kalman-paper/Dynare/run.m', 230)" style="font-weight:bold">run</a> (<a href="matlab: opentoline('/Users/wmutschl/pruned-skewed-kalman-paper/Dynare/run.m',230,0)">line 230</a>)] 
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('run', '/Users/wmutschl/pruned-skewed-kalman-paper/Dynare/run.m', 234)" style="font-weight:bold">run</a> (<a href="matlab: opentoline('/Users/wmutschl/pruned-skewed-kalman-paper/Dynare/run.m',234,0)">line 234</a>)] 
 
 RESULTS FROM POSTERIOR ESTIMATION
 parameters
@@ -80,7 +80,7 @@ eta_r          0.0000   0.6085  0.0214   beta 0.4000
 Log data density [Laplace approximation] is NaN.
 
 Optimization info (mode_compute=8):
-       runtime: 182.2688
+       runtime: 178.6424
     iterations: 1631
      funcCount: 3449
       exitflag: 1
@@ -88,15 +88,15 @@ Optimization info (mode_compute=8):
 
 You did not declare endogenous variables after the estimation/calib_smoother command.
 
-[Warning: Your prior allows for skewness parameters larger than +-0.995272, which is outside the theoretical bound of the skew normal distribution, and thus will not integrate to 1 due to
-truncation. Please change your prior!] 
+[Warning: Your prior allows for skewness parameters larger than +-0.995272, which is outside the theoretical bound of the skew normal distribution, and thus will not
+integrate to 1 due to truncation. Please change your prior!] 
 [> In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('check_prior_stderr_corr_skew', '/Applications/Dynare/7-unstable-arm64/matlab/utilities/estimation/check_prior_stderr_corr_skew.m', 64)" style="font-weight:bold">check_prior_stderr_corr_skew</a> (<a href="matlab: opentoline('/Applications/Dynare/7-unstable-arm64/matlab/utilities/estimation/check_prior_stderr_corr_skew.m',64,0)">line 64</a>)
 In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('initial_estimation_checks', '/Applications/Dynare/7-unstable-arm64/matlab/estimation/initial_estimation_checks.m', 179)" style="font-weight:bold">initial_estimation_checks</a> (<a href="matlab: opentoline('/Applications/Dynare/7-unstable-arm64/matlab/estimation/initial_estimation_checks.m',179,0)">line 179</a>)
 In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare_estimation_1', '/Applications/Dynare/7-unstable-arm64/matlab/estimation/dynare_estimation_1.m', 164)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('/Applications/Dynare/7-unstable-arm64/matlab/estimation/dynare_estimation_1.m',164,0)">line 164</a>)
 In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare_estimation', '/Applications/Dynare/7-unstable-arm64/matlab/estimation/dynare_estimation.m', 105)" style="font-weight:bold">dynare_estimation</a> (<a href="matlab: opentoline('/Applications/Dynare/7-unstable-arm64/matlab/estimation/dynare_estimation.m',105,0)">line 105</a>)
-In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ireland2004_bayes_8_mode_csn.driver', '/Users/wmutschl/pruned-skewed-kalman-paper/Dynare/+ireland2004_bayes_8_mode_csn/driver.m', 457)" style="font-weight:bold">ireland2004_bayes_8_mode_csn.driver</a> (<a href="matlab: opentoline('/Users/wmutschl/pruned-skewed-kalman-paper/Dynare/+ireland2004_bayes_8_mode_csn/driver.m',457,0)">line 457</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ireland2004_bayes_8_mode_csn.driver', '/Users/wmutschl/pruned-skewed-kalman-paper/Dynare/+ireland2004_bayes_8_mode_csn/driver.m', 456)" style="font-weight:bold">ireland2004_bayes_8_mode_csn.driver</a> (<a href="matlab: opentoline('/Users/wmutschl/pruned-skewed-kalman-paper/Dynare/+ireland2004_bayes_8_mode_csn/driver.m',456,0)">line 456</a>)
 In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare', '/Applications/Dynare/7-unstable-arm64/matlab/dynare.m', 300)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('/Applications/Dynare/7-unstable-arm64/matlab/dynare.m',300,0)">line 300</a>)
-In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('run', '/Users/wmutschl/pruned-skewed-kalman-paper/Dynare/run.m', 230)" style="font-weight:bold">run</a> (<a href="matlab: opentoline('/Users/wmutschl/pruned-skewed-kalman-paper/Dynare/run.m',230,0)">line 230</a>)] 
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('run', '/Users/wmutschl/pruned-skewed-kalman-paper/Dynare/run.m', 234)" style="font-weight:bold">run</a> (<a href="matlab: opentoline('/Users/wmutschl/pruned-skewed-kalman-paper/Dynare/run.m',234,0)">line 234</a>)] 
 Initial value of the log posterior (or likelihood): 1211.472
 
 ==========================================================
@@ -159,10 +159,10 @@ eta_r          0.0000   0.6074  0.1743   beta 0.4000
 Log data density [Laplace approximation] is 1187.723616.
 
 Optimization info (mode_compute=6):
-       runtime: 7.6090e+03
+       runtime: 7.4666e+03
     iterations: NaN
      funcCount: 139795
       exitflag: 1
        message: 'Optimization successful.'
-Total computing time : 2h10m02s
+Total computing time : 2h07m36s
 Note: warning(s) encountered in MATLAB/Octave code

@@ -1,0 +1,110 @@
+Starting Dynare (version 7-unstable).
+Calling Dynare with arguments: none
+Using build directory: /Applications/Dynare/7-unstable-arm64/matlab/../build-matlab
+Starting preprocessing of the model file ...
+WARNING: in the 'steady_state_model' block, variable 'rAnnualized' is not assigned a value
+WARNING: in the 'steady_state_model' block, variable 'piAnnualized' is not assigned a value
+Found 10 equation(s).
+Evaluating expressions...
+Computing static model derivatives (order 1).
+Normalizing the static model...
+Finding the optimal block decomposition of the static model...
+7 block(s) found:
+  6 recursive block(s) and 1 simultaneous block(s).
+  the largest simultaneous block has 2 equation(s)
+                                 and 2 feedback variable(s).
+Computing dynamic model derivatives (order 1).
+Normalizing the dynamic model...
+Finding the optimal block decomposition of the dynamic model...
+3 block(s) found:
+  2 recursive block(s) and 1 simultaneous block(s).
+  the largest simultaneous block has 5 equation(s)
+                                 and 5 feedback variable(s).
+Preprocessing completed.
+Preprocessing time: 0h00m00s.
+
+MODEL SUMMARY
+
+  Number of variables:         10
+  Number of stochastic shocks: 4
+  Number of state variables:   6
+  Number of jumpers:           2
+  Number of static variables:  4
+
+
+MATRIX OF COVARIANCE OF EXOGENOUS SHOCKS
+Variables       eta_a     eta_e     eta_z     eta_r
+eta_a        8.999887  0.000000  0.000000  0.000000
+eta_e        0.000000  0.000608  0.000000  0.000000
+eta_z        0.000000  0.000000  0.777195  0.000000
+eta_r        0.000000  0.000000  0.000000  0.076981
+
+
+MODEL SUMMARY
+
+  Number of variables:         10
+  Number of stochastic shocks: 4
+  Number of state variables:   6
+  Number of jumpers:           2
+  Number of static variables:  4
+
+
+MATRIX OF COVARIANCE OF EXOGENOUS SHOCKS
+Variables       eta_a     eta_e     eta_z     eta_r
+eta_a        8.999887  0.000000  0.000000  0.000000
+eta_e        0.000000  0.000608  0.000000  0.000000
+eta_z        0.000000  0.000000  0.777195  0.000000
+eta_r        0.000000  0.000000  0.000000  0.076981
+
+
+MODEL SUMMARY
+
+  Number of variables:         10
+  Number of stochastic shocks: 4
+  Number of state variables:   6
+  Number of jumpers:           2
+  Number of static variables:  4
+
+
+MATRIX OF COVARIANCE OF EXOGENOUS SHOCKS
+Variables       eta_a     eta_e     eta_z     eta_r
+eta_a        6.226185  0.000000  0.000000  0.000000
+eta_e        0.000000  0.000440  0.000000  0.000000
+eta_z        0.000000  0.000000  0.633227  0.000000
+eta_r        0.000000  0.000000  0.000000  0.074596
+
+
+COSKEWNESS OF EXOGENOUS SHOCKS
+Entry             Value
+Skew(eta_a)     -0.1948
+Skew(eta_e)     -0.2140
+Skew(eta_z)     -0.9953
+Skew(eta_r)      0.8127
+
+
+MODEL SUMMARY
+
+  Number of variables:         10
+  Number of stochastic shocks: 4
+  Number of state variables:   6
+  Number of jumpers:           2
+  Number of static variables:  4
+
+
+MATRIX OF COVARIANCE OF EXOGENOUS SHOCKS
+Variables       eta_a     eta_e     eta_z     eta_r
+eta_a        6.211555  0.000000  0.000000  0.000000
+eta_e        0.000000  0.000439  0.000000  0.000000
+eta_z        0.000000  0.000000  0.610090  0.000000
+eta_r        0.000000  0.000000  0.000000  0.080242
+
+
+COSKEWNESS OF EXOGENOUS SHOCKS
+Entry             Value
+Skew(eta_a)     -0.1948
+Skew(eta_e)     -0.2140
+Skew(eta_z)     -0.9953
+Skew(eta_r)      0.8127
+
+Total computing time : 0h00m21s
+Note: 2 warning(s) encountered in the preprocessor

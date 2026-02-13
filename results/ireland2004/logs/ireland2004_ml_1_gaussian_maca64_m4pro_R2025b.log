@@ -46,7 +46,7 @@ eta_z      0.8865  0.1245  7.1199
 eta_r      0.2790  0.0374  7.4648 
 
 Optimization info:
-       runtime: 8.7619
+       runtime: 7.9502
     iterations: 1419
      funcCount: 2954
       exitflag: 1
@@ -64,4 +64,4 @@ MLE point estimates for stderr parameters:
     eta_z: 0.886476699633342
     eta_r: 0.279030970775836
 Final value of log-likelihood: 1207.561875567026163
-Total computing time : 0h00m12s
+Total computing time : 0h00m13s

@@ -1,0 +1,69 @@
+Starting Dynare (version 7-unstable).
+Calling Dynare with arguments: none
+Using build directory: /Applications/Dynare/7-unstable-arm64/matlab/../build-matlab
+Starting preprocessing of the model file ...
+Found 8 equation(s).
+Evaluating expressions...
+Computing static model derivatives (order 1).
+Normalizing the static model...
+Finding the optimal block decomposition of the static model...
+6 block(s) found:
+  5 recursive block(s) and 1 simultaneous block(s).
+  the largest simultaneous block has 2 equation(s)
+                                 and 2 feedback variable(s).
+Computing dynamic model derivatives (order 1).
+Normalizing the dynamic model...
+Finding the optimal block decomposition of the dynamic model...
+2 block(s) found:
+  1 recursive block(s) and 1 simultaneous block(s).
+  the largest simultaneous block has 5 equation(s)
+                                 and 5 feedback variable(s).
+Preprocessing completed.
+Preprocessing time: 0h00m00s.
+
+MODEL SUMMARY
+
+  Number of variables:         8
+  Number of stochastic shocks: 4
+  Number of state variables:   6
+  Number of jumpers:           2
+  Number of static variables:  2
+
+
+MATRIX OF COVARIANCE OF EXOGENOUS SHOCKS
+Variables       eta_a     eta_e     eta_z     eta_r
+eta_a        6.366538  0.000000  0.000000  0.000000
+eta_e        0.000000  0.000451  0.000000  0.000000
+eta_z        0.000000  0.000000  0.624132  0.000000
+eta_r        0.000000  0.000000  0.000000  0.080565
+
+
+MODEL SUMMARY
+
+  Number of variables:         8
+  Number of stochastic shocks: 4
+  Number of state variables:   6
+  Number of jumpers:           2
+  Number of static variables:  2
+
+
+MATRIX OF COVARIANCE OF EXOGENOUS SHOCKS
+Variables       eta_a     eta_e     eta_z     eta_r
+eta_a        6.366538  0.000000  0.000000  0.000000
+eta_e        0.000000  0.000451  0.000000  0.000000
+eta_z        0.000000  0.000000  0.624132  0.000000
+eta_r        0.000000  0.000000  0.000000  0.080565
+
+
+COSKEWNESS OF EXOGENOUS SHOCKS
+Entry             Value
+Skew(eta_a)     -0.1948
+Skew(eta_e)     -0.2140
+Skew(eta_z)     -0.9953
+Skew(eta_r)      0.8127
+
+Number recessions (\(\hat{g}_{t} \leq -0.5\% \)) & 42524 & 39510 & -7.09 & 14175 & 13170 & -7.09 & 14175 & 13170 & -7.09 \\
+Frequency recessions (in \%)                     & 8.50 & 7.90 & -7.09 & 2.83 & 2.63 & -7.09 & 2.83 & 2.63 & -7.09 \\
+Mean duration (quarters)                         & 3.13 & 3.07 & -1.78 & 4.44 & 4.30 & -3.23 & 2.23 & 2.23 & -0.04 \\
+Mean output loss (in \%)                         & -2.29 & -2.41 & 5.00 & -3.68 & -3.92 & 6.65 & -1.18 & -1.20 & 2.18 \\
+Total computing time : 0h00m02s
