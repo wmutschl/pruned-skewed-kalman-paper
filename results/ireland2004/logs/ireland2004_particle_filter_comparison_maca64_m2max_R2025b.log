@@ -1,0 +1,489 @@
+Starting Dynare (version 7-unstable).
+Calling Dynare with arguments: none
+Using build directory: /Applications/Dynare/7-unstable-arm64/matlab/../build-matlab
+Starting preprocessing of the model file ...
+Found 8 equation(s).
+Evaluating expressions...
+Computing static model derivatives (order 1).
+Normalizing the static model...
+Finding the optimal block decomposition of the static model...
+6 block(s) found:
+  5 recursive block(s) and 1 simultaneous block(s).
+  the largest simultaneous block has 2 equation(s)
+                                 and 2 feedback variable(s).
+Computing dynamic model derivatives (order 2).
+Normalizing the dynamic model...
+Finding the optimal block decomposition of the dynamic model...
+2 block(s) found:
+  1 recursive block(s) and 1 simultaneous block(s).
+  the largest simultaneous block has 5 equation(s)
+                                 and 5 feedback variable(s).
+Preprocessing completed.
+Preprocessing time: 0h00m00s.
+
+
+###############################################################################################
+# GAUSSIAN (ME=40%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.1) #
+###############################################################################################
+Value of the log likelihood: 1148.4682
+Time to evaluate likelihood: 0h00m00s
+
+
+################################################################################################
+# GAUSSIAN (ME=40%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.01) #
+################################################################################################
+Value of the log likelihood: 1148.4682
+Time to evaluate likelihood: 0h00m00s
+
+
+#################################################################################################
+# GAUSSIAN (ME=40%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.001) #
+#################################################################################################
+Value of the log likelihood: 1148.4682
+Time to evaluate likelihood: 0h00m00s
+
+
+##################################################################################################
+# GAUSSIAN (ME=40%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.0001) #
+##################################################################################################
+Value of the log likelihood: 1148.4682
+Time to evaluate likelihood: 0h00m00s
+
+
+##################################################################################
+# GAUSSIAN (ME=40%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=2000) #
+##################################################################################
+Value of the log likelihood: 1147.5695
+Time to evaluate likelihood: 0h00m00s
+
+
+###################################################################################
+# GAUSSIAN (ME=40%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=20000) #
+###################################################################################
+Value of the log likelihood: 1147.199
+Time to evaluate likelihood: 0h00m00s
+
+
+####################################################################################
+# GAUSSIAN (ME=40%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=200000) #
+####################################################################################
+Value of the log likelihood: 1148.3562
+Time to evaluate likelihood: 0h00m02s
+
+
+#####################################################################################
+# GAUSSIAN (ME=40%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=2000000) #
+#####################################################################################
+Value of the log likelihood: 1148.3733
+Time to evaluate likelihood: 0h00m13s
+
+
+###############################################################################################
+# GAUSSIAN (ME=20%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.1) #
+###############################################################################################
+Value of the log likelihood: 1186.9689
+Time to evaluate likelihood: 0h00m00s
+
+
+################################################################################################
+# GAUSSIAN (ME=20%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.01) #
+################################################################################################
+Value of the log likelihood: 1186.9689
+Time to evaluate likelihood: 0h00m00s
+
+
+#################################################################################################
+# GAUSSIAN (ME=20%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.001) #
+#################################################################################################
+Value of the log likelihood: 1186.9689
+Time to evaluate likelihood: 0h00m00s
+
+
+##################################################################################################
+# GAUSSIAN (ME=20%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.0001) #
+##################################################################################################
+Value of the log likelihood: 1186.9689
+Time to evaluate likelihood: 0h00m00s
+
+
+##################################################################################
+# GAUSSIAN (ME=20%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=2000) #
+##################################################################################
+Value of the log likelihood: 1165.4071
+Time to evaluate likelihood: 0h00m00s
+
+
+###################################################################################
+# GAUSSIAN (ME=20%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=20000) #
+###################################################################################
+Value of the log likelihood: 1186.6011
+Time to evaluate likelihood: 0h00m00s
+
+
+####################################################################################
+# GAUSSIAN (ME=20%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=200000) #
+####################################################################################
+Value of the log likelihood: 1186.8056
+Time to evaluate likelihood: 0h00m02s
+
+
+#####################################################################################
+# GAUSSIAN (ME=20%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=2000000) #
+#####################################################################################
+Value of the log likelihood: 1186.7291
+Time to evaluate likelihood: 0h00m12s
+
+
+###############################################################################################
+# GAUSSIAN (ME=10%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.1) #
+###############################################################################################
+Value of the log likelihood: 1198.7259
+Time to evaluate likelihood: 0h00m00s
+
+
+################################################################################################
+# GAUSSIAN (ME=10%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.01) #
+################################################################################################
+Value of the log likelihood: 1198.7259
+Time to evaluate likelihood: 0h00m00s
+
+
+#################################################################################################
+# GAUSSIAN (ME=10%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.001) #
+#################################################################################################
+Value of the log likelihood: 1198.7259
+Time to evaluate likelihood: 0h00m00s
+
+
+##################################################################################################
+# GAUSSIAN (ME=10%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.0001) #
+##################################################################################################
+Value of the log likelihood: 1198.7259
+Time to evaluate likelihood: 0h00m00s
+
+
+##################################################################################
+# GAUSSIAN (ME=10%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=2000) #
+##################################################################################
+Value of the log likelihood: 1071.9715
+Time to evaluate likelihood: 0h00m00s
+
+
+###################################################################################
+# GAUSSIAN (ME=10%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=20000) #
+###################################################################################
+Value of the log likelihood: 1171.3762
+Time to evaluate likelihood: 0h00m00s
+
+
+####################################################################################
+# GAUSSIAN (ME=10%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=200000) #
+####################################################################################
+Value of the log likelihood: 1192.2322
+Time to evaluate likelihood: 0h00m01s
+
+
+#####################################################################################
+# GAUSSIAN (ME=10%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=2000000) #
+#####################################################################################
+Value of the log likelihood: 1191.4519
+Time to evaluate likelihood: 0h00m11s
+
+
+##############################################################################################
+# GAUSSIAN (ME=5%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.1) #
+##############################################################################################
+Value of the log likelihood: 1200.5227
+Time to evaluate likelihood: 0h00m00s
+
+
+###############################################################################################
+# GAUSSIAN (ME=5%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.01) #
+###############################################################################################
+Value of the log likelihood: 1200.5227
+Time to evaluate likelihood: 0h00m00s
+
+
+################################################################################################
+# GAUSSIAN (ME=5%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.001) #
+################################################################################################
+Value of the log likelihood: 1200.5227
+Time to evaluate likelihood: 0h00m00s
+
+
+#################################################################################################
+# GAUSSIAN (ME=5%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.0001) #
+#################################################################################################
+Value of the log likelihood: 1200.5227
+Time to evaluate likelihood: 0h00m00s
+
+
+#################################################################################
+# GAUSSIAN (ME=5%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=2000) #
+#################################################################################
+Value of the log likelihood: 665.4364
+Time to evaluate likelihood: 0h00m00s
+
+
+##################################################################################
+# GAUSSIAN (ME=5%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=20000) #
+##################################################################################
+Value of the log likelihood: 946.1665
+Time to evaluate likelihood: 0h00m00s
+
+
+###################################################################################
+# GAUSSIAN (ME=5%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=200000) #
+###################################################################################
+Value of the log likelihood: 1146.0459
+Time to evaluate likelihood: 0h00m01s
+
+
+####################################################################################
+# GAUSSIAN (ME=5%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=2000000) #
+####################################################################################
+Value of the log likelihood: 1170.9353
+Time to evaluate likelihood: 0h00m11s
+
+
+##########################################################################################
+# CSN (ME=40%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.1) #
+##########################################################################################
+Value of the log likelihood: 1147.1243
+Time to evaluate likelihood: 0h00m00s
+
+
+###########################################################################################
+# CSN (ME=40%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.01) #
+###########################################################################################
+Value of the log likelihood: 1150.4738
+Time to evaluate likelihood: 0h00m00s
+
+
+############################################################################################
+# CSN (ME=40%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.001) #
+############################################################################################
+Value of the log likelihood: 1150.6218
+Time to evaluate likelihood: 0h00m00s
+
+
+#############################################################################################
+# CSN (ME=40%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.0001) #
+#############################################################################################
+Value of the log likelihood: 1150.6307
+Time to evaluate likelihood: 0h00m00s
+
+
+#############################################################################
+# CSN (ME=40%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=2000) #
+#############################################################################
+Value of the log likelihood: 1146.2895
+Time to evaluate likelihood: 0h00m01s
+
+
+##############################################################################
+# CSN (ME=40%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=20000) #
+##############################################################################
+Value of the log likelihood: 1150.3106
+Time to evaluate likelihood: 0h00m07s
+
+
+###############################################################################
+# CSN (ME=40%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=200000) #
+###############################################################################
+Value of the log likelihood: 1150.6824
+Time to evaluate likelihood: 0h01m09s
+
+
+################################################################################
+# CSN (ME=40%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=2000000) #
+################################################################################
+Value of the log likelihood: 1150.423
+Time to evaluate likelihood: 0h11m26s
+
+
+##########################################################################################
+# CSN (ME=20%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.1) #
+##########################################################################################
+Value of the log likelihood: 1188.6383
+Time to evaluate likelihood: 0h00m00s
+
+
+###########################################################################################
+# CSN (ME=20%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.01) #
+###########################################################################################
+Value of the log likelihood: 1190.7857
+Time to evaluate likelihood: 0h00m00s
+
+
+############################################################################################
+# CSN (ME=20%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.001) #
+############################################################################################
+Value of the log likelihood: 1190.893
+Time to evaluate likelihood: 0h00m00s
+
+
+#############################################################################################
+# CSN (ME=20%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.0001) #
+#############################################################################################
+Value of the log likelihood: 1190.8965
+Time to evaluate likelihood: 0h00m00s
+
+
+#############################################################################
+# CSN (ME=20%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=2000) #
+#############################################################################
+Value of the log likelihood: 1169.1192
+Time to evaluate likelihood: 0h00m01s
+
+
+##############################################################################
+# CSN (ME=20%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=20000) #
+##############################################################################
+Value of the log likelihood: 1188.9901
+Time to evaluate likelihood: 0h00m07s
+
+
+###############################################################################
+# CSN (ME=20%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=200000) #
+###############################################################################
+Value of the log likelihood: 1190.1579
+Time to evaluate likelihood: 0h01m08s
+
+
+################################################################################
+# CSN (ME=20%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=2000000) #
+################################################################################
+Value of the log likelihood: 1190.8506
+Time to evaluate likelihood: 0h11m20s
+
+
+##########################################################################################
+# CSN (ME=10%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.1) #
+##########################################################################################
+Value of the log likelihood: 1203.1917
+Time to evaluate likelihood: 0h00m00s
+
+
+###########################################################################################
+# CSN (ME=10%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.01) #
+###########################################################################################
+Value of the log likelihood: 1204.4742
+Time to evaluate likelihood: 0h00m00s
+
+
+############################################################################################
+# CSN (ME=10%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.001) #
+############################################################################################
+Value of the log likelihood: 1204.5546
+Time to evaluate likelihood: 0h00m00s
+
+
+#############################################################################################
+# CSN (ME=10%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.0001) #
+#############################################################################################
+Value of the log likelihood: 1204.5569
+Time to evaluate likelihood: 0h00m00s
+
+
+#############################################################################
+# CSN (ME=10%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=2000) #
+#############################################################################
+Value of the log likelihood: 1051.031
+Time to evaluate likelihood: 0h00m01s
+
+
+##############################################################################
+# CSN (ME=10%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=20000) #
+##############################################################################
+Value of the log likelihood: 1186.3711
+Time to evaluate likelihood: 0h00m07s
+
+
+###############################################################################
+# CSN (ME=10%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=200000) #
+###############################################################################
+Value of the log likelihood: 1199.0268
+Time to evaluate likelihood: 0h01m08s
+
+
+################################################################################
+# CSN (ME=10%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=2000000) #
+################################################################################
+Value of the log likelihood: 1204.721
+Time to evaluate likelihood: 0h11m17s
+
+
+#########################################################################################
+# CSN (ME=5%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.1) #
+#########################################################################################
+Value of the log likelihood: 1206.0063
+Time to evaluate likelihood: 0h00m00s
+
+
+##########################################################################################
+# CSN (ME=5%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.01) #
+##########################################################################################
+Value of the log likelihood: 1207.2918
+Time to evaluate likelihood: 0h00m00s
+
+
+###########################################################################################
+# CSN (ME=5%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.001) #
+###########################################################################################
+Value of the log likelihood: 1207.3449
+Time to evaluate likelihood: 0h00m00s
+
+
+############################################################################################
+# CSN (ME=5%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=0.0001) #
+############################################################################################
+Value of the log likelihood: 1207.3467
+Time to evaluate likelihood: 0h00m00s
+
+
+############################################################################
+# CSN (ME=5%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=2000) #
+############################################################################
+Value of the log likelihood: 299.9044
+Time to evaluate likelihood: 0h00m01s
+
+
+#############################################################################
+# CSN (ME=5%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=20000) #
+#############################################################################
+Value of the log likelihood: 1028.4642
+Time to evaluate likelihood: 0h00m07s
+
+
+##############################################################################
+# CSN (ME=5%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=200000) #
+##############################################################################
+Value of the log likelihood: 1127.1614
+Time to evaluate likelihood: 0h01m08s
+
+
+###############################################################################
+# CSN (ME=5%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=2000000) #
+###############################################################################
+Value of the log likelihood: 1206.9388
+Time to evaluate likelihood: 0h11m21s
+
+
+##########################################
+# Log-Likelihood and CPU Time Comparison #
+##########################################
+
+Panel A: Gaussian Shocks
+40\% & 1148.47 & 1148.47 & 1148.47 & 1148.47 & 1147.57 & 1147.20 & 1148.36 & 1148.37 \\
+20\% & 1186.97 & 1186.97 & 1186.97 & 1186.97 & 1165.41 & 1186.60 & 1186.81 & 1186.73 \\
+10\% & 1198.73 & 1198.73 & 1198.73 & 1198.73 & 1071.97 & 1171.38 & 1192.23 & 1191.45 \\
+5\% & 1200.52 & 1200.52 & 1200.52 & 1200.52 & 665.44 & 946.17 & 1146.05 & 1170.94 \\
+\textit{Avg. CPU Time} & \textit{\(<\)0.1s} & \textit{\(<\)0.1s} & \textit{\(<\)0.1s} & \textit{\(<\)0.1s} & \textit{\(<\)0.1s} & \textit{\(<\)1s} & \textit{\(\approx \)2s} & \textit{\(\approx \)12s} \\
+
+Panel B: Skew-Normal (CSN) Shocks
+40\% & 1147.12 & 1150.47 & 1150.62 & 1150.63 & 1146.29 & 1150.31 & 1150.68 & 1150.42 \\
+20\% & 1188.64 & 1190.79 & 1190.89 & 1190.90 & 1169.12 & 1188.99 & 1190.16 & 1190.85 \\
+10\% & 1203.19 & 1204.47 & 1204.55 & 1204.56 & 1051.03 & 1186.37 & 1199.03 & 1204.72 \\
+5\% & 1206.01 & 1207.29 & 1207.34 & 1207.35 & 299.90 & 1028.46 & 1127.16 & 1206.94 \\
+\textit{Avg. CPU Time} & \textit{\(<\)0.1s} & \textit{\(<\)0.1s} & \textit{\(<\)1s} & \textit{\(<\)1s} & \textit{\(<\)1s} & \textit{\(\approx \)7s} & \textit{\(\approx \)1m} & \textit{\(\approx \)11m} \\Total computing time : 0h51m27s

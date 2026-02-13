@@ -1,6 +1,6 @@
 Starting Dynare (version 7-unstable).
 Calling Dynare with arguments: none
-Using build directory: /Users/wmutschl/dynare/7-unstable/matlab/../build-matlab
+Using build directory: /Applications/Dynare/7-unstable-arm64/matlab/../build-matlab
 Starting preprocessing of the model file ...
 Found 8 equation(s).
 Evaluating expressions...
@@ -46,7 +46,7 @@ eta_z      0.8865  0.1245  7.1199
 eta_r      0.2790  0.0374  7.4648 
 
 Optimization info:
-       runtime: 11.7153
+       runtime: 11.7550
     iterations: 1419
      funcCount: 2954
       exitflag: 1
@@ -67,10 +67,4 @@ MLE point estimates for stderr parameters:
     eta_r: 0.279030970775836
 
 Final value of log-likelihood: 1207.561875567026163
-[Warning: Cannot open file ../results/ireland2004/table_2_maca64_m2max_R2025b.tex, so I make a copy of latex2.tex first.] 
-[> In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('update_table_2', '/Users/wmutschl/Work/Forschung/Projects/Skewed_Kalman/replication_codes/Dynare/_utils/update_table_2.m', 90)" style="font-weight:bold">update_table_2</a> (<a href="matlab: opentoline('/Users/wmutschl/Work/Forschung/Projects/Skewed_Kalman/replication_codes/Dynare/_utils/update_table_2.m',90,0)">line 90</a>)
-In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ireland2004_ml_1_gaussian.driver', '/Users/wmutschl/Work/Forschung/Projects/Skewed_Kalman/replication_codes/Dynare/+ireland2004_ml_1_gaussian/driver.m', 442)" style="font-weight:bold">ireland2004_ml_1_gaussian.driver</a> (<a href="matlab: opentoline('/Users/wmutschl/Work/Forschung/Projects/Skewed_Kalman/replication_codes/Dynare/+ireland2004_ml_1_gaussian/driver.m',442,0)">line 442</a>)
-In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare', '/Users/wmutschl/dynare/7-unstable/matlab/dynare.m', 300)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('/Users/wmutschl/dynare/7-unstable/matlab/dynare.m',300,0)">line 300</a>)
-In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('run', '/Users/wmutschl/Work/Forschung/Projects/Skewed_Kalman/replication_codes/Dynare/run.m', 47)" style="font-weight:bold">run</a> (<a href="matlab: opentoline('/Users/wmutschl/Work/Forschung/Projects/Skewed_Kalman/replication_codes/Dynare/run.m',47,0)">line 47</a>)] 
-Total computing time : 0h00m15s
-Note: warning(s) encountered in MATLAB/Octave code
+Total computing time : 0h00m16s

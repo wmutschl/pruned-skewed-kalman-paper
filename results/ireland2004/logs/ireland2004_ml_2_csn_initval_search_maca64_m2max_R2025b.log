@@ -24,11 +24,12 @@ Preprocessing time: 0h00m00s.
 You did not declare endogenous variables after the estimation/calib_smoother command.
 Initial value of the log posterior (or likelihood): 1207.5619
 
-Evaluate likelihood on 50625 grid values for skewness parameter combinations using MATLAB's parallel toolbox, takes less than 10 minutes with 8 cores
+Evaluate likelihood on 50625 grid values for skewness parameter combinations using MATLAB's parallel toolbox
 
 Starting parallel pool (parpool) using the 'Processes' profile ...
 Connected to parallel pool with 12 workers.
-Best 5 values on grid (runtime 0h06m48s):
+Parallel pool using the 'Processes' profile is shutting down.
+Best 5 values on grid (runtime 0h07m27s):
                    <strong>best 1</strong>      <strong>best 2</strong>      <strong>best 3</strong>      <strong>best 4</strong>      <strong>best 5</strong> 
                   <strong>________</strong>    <strong>________</strong>    <strong>________</strong>    <strong>________</strong>    <strong>________</strong>
 
@@ -65,7 +66,7 @@ eta_z    -0.8361     NaN     NaN
 eta_r     0.5200     NaN     NaN 
 
 Optimization info:
-       runtime: 195.6410
+       runtime: 194.6134
     iterations: 944
      funcCount: 2935
       exitflag: 1
@@ -112,7 +113,7 @@ eta_z    -0.8817     NaN     NaN
 eta_r     0.5402     NaN     NaN 
 
 Optimization info:
-       runtime: 72.6974
+       runtime: 71.1403
     iterations: 418
      funcCount: 1029
       exitflag: 1
@@ -159,7 +160,7 @@ eta_z    -0.8209     NaN     NaN
 eta_r     0.5510     NaN     NaN 
 
 Optimization info:
-       runtime: 92.7697
+       runtime: 92.8532
     iterations: 505
      funcCount: 1416
       exitflag: 1
@@ -206,7 +207,7 @@ eta_z    -0.9291     NaN     NaN
 eta_r     0.5534     NaN     NaN 
 
 Optimization info:
-       runtime: 153.5231
+       runtime: 152.3605
     iterations: 687
      funcCount: 2259
       exitflag: 1
@@ -253,7 +254,7 @@ eta_z    -0.9697     NaN     NaN
 eta_r     0.4870     NaN     NaN 
 
 Optimization info:
-       runtime: 120.0562
+       runtime: 115.5198
     iterations: 607
      funcCount: 1855
       exitflag: 1
@@ -290,4 +291,4 @@ Final value of log-likelihood: 1212.412757679942388
     eta_r: 0.520016288312854
 
 
-Total computing time : 0h17m24s
+Total computing time : 0h17m54s

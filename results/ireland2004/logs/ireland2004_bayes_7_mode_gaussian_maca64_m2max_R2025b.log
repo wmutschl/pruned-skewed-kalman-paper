@@ -1,0 +1,122 @@
+Starting Dynare (version 7-unstable).
+Calling Dynare with arguments: none
+Using build directory: /Applications/Dynare/7-unstable-arm64/matlab/../build-matlab
+Starting preprocessing of the model file ...
+Found 8 equation(s).
+Evaluating expressions...
+Computing static model derivatives (order 1).
+Normalizing the static model...
+Finding the optimal block decomposition of the static model...
+6 block(s) found:
+  5 recursive block(s) and 1 simultaneous block(s).
+  the largest simultaneous block has 2 equation(s)
+                                 and 2 feedback variable(s).
+Computing dynamic model derivatives (order 2).
+Normalizing the dynamic model...
+Finding the optimal block decomposition of the dynamic model...
+2 block(s) found:
+  1 recursive block(s) and 1 simultaneous block(s).
+  the largest simultaneous block has 5 equation(s)
+                                 and 5 feedback variable(s).
+Preprocessing completed.
+Preprocessing time: 0h00m00s.
+
+You did not declare endogenous variables after the estimation/calib_smoother command.
+
+Initial value of the log posterior (or likelihood): 1204.3727
+
+Final value of minus the log posterior (or likelihood):-1205.109528 
+
+RESULTS FROM POSTERIOR ESTIMATION
+parameters
+       prior mean     mode    s.d.  prior pstdev
+
+OMEGA      0.2000   0.1231  0.0484   beta 0.1000 
+RHO_PI     0.3000   0.4939  0.0916   gamm 0.1000 
+RHO_G      0.3000   0.3495  0.0479   gamm 0.1000 
+RHO_X      0.2500   0.1813  0.0488   gamm 0.0625 
+RHO_A      0.8500   0.9189  0.0287   beta 0.1000 
+RHO_E      0.8500   0.9241  0.0351   beta 0.1000 
+
+standard deviation of shocks
+       prior mean     mode    s.d.  prior pstdev
+
+eta_a      5.4772   3.1661  0.8521   invg 5.4772 
+eta_e      0.2828   0.0572  0.0077   invg 1.0000 
+eta_z      2.2361   0.7647  0.1055   invg 3.8730 
+eta_r      0.7071   0.2796  0.0292   invg 1.4142 
+
+
+Log data density [Laplace approximation] is 1182.637252.
+
+Optimization info (mode_compute=8):
+       runtime: 8.0761
+    iterations: 954
+     funcCount: 1711
+      exitflag: 1
+       message: 'The function converged to a solution x.'
+
+
+You did not declare endogenous variables after the estimation/calib_smoother command.
+
+Initial value of the log posterior (or likelihood): 1205.1095
+
+==========================================================
+   Change in the posterior covariance matrix = 0.34438.
+   Change in the posterior mean = 0.17944.
+   Current mode = -1205.1095
+   Mode improvement = 0
+   New value of jscale = 0.63927
+==========================================================
+
+==========================================================
+   Change in the posterior covariance matrix = 0.40244.
+   Change in the posterior mean = 0.1173.
+   Current mode = -1205.1095
+   Mode improvement = 0
+   New value of jscale = 0.47822
+==========================================================
+
+==========================================================
+   Change in the posterior covariance matrix = 0.11728.
+   Change in the posterior mean = 0.052603.
+   Current mode = -1205.1095
+   Mode improvement = 4.6555e-07
+   New value of jscale = 0.56685
+==========================================================
+
+Optimal value of the scale parameter = 0.56685
+
+
+Final value of minus the log posterior (or likelihood):-1205.109529 
+
+RESULTS FROM POSTERIOR ESTIMATION
+parameters
+       prior mean     mode    s.d.  prior pstdev
+
+OMEGA      0.2000   0.1231  0.0499   beta 0.1000 
+RHO_PI     0.3000   0.4938  0.0968   gamm 0.1000 
+RHO_G      0.3000   0.3495  0.0501   gamm 0.1000 
+RHO_X      0.2500   0.1813  0.0531   gamm 0.0625 
+RHO_A      0.8500   0.9189  0.0257   beta 0.1000 
+RHO_E      0.8500   0.9241  0.0364   beta 0.1000 
+
+standard deviation of shocks
+       prior mean     mode    s.d.  prior pstdev
+
+eta_a      5.4772   3.1659  0.7421   invg 5.4772 
+eta_e      0.2828   0.0572  0.0082   invg 1.0000 
+eta_z      2.2361   0.7648  0.1058   invg 3.8730 
+eta_r      0.7071   0.2796  0.0329   invg 1.4142 
+
+
+Log data density [Laplace approximation] is 1183.346077.
+
+Optimization info (mode_compute=6):
+       runtime: 569.3098
+    iterations: NaN
+     funcCount: 125656
+      exitflag: 1
+       message: 'Optimization successful.'
+
+Total computing time : 0h09m38s

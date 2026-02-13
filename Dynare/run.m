@@ -60,14 +60,14 @@ REDO_BAYES_SLICE_LONG_CSN             = 0;   % |    14h33m    |    10h27m    |  
 REDO_BAYES_SLICE_SHORT_GAUSSIAN       = 0;   % |    00h02m    |    00h01m    |    00h00m   |    00h00m   |
 REDO_BAYES_SLICE_SHORT_CSN            = 0;   % |    00h46m    |    00h33m    |    00h00m   |    00h00m   |
 REDO_BAYES_RWMH_SLICE_SHORT_GAUSSIAN  = 0;   % |    00h22m    |    00h16m    |    00h00m   |    00h00m   |
-REDO_BAYES_RWMH_SLICE_SHORT_CSN       = 0;   % |    00h00m    |    04h30m    |    00h00m   |    00h00m   |
-REDO_BAYES_MODE_GAUSSIAN              = 0;   % |    00h00m    |    00h06m    |    00h00m   |    00h00m   |
-REDO_BAYES_MODE_CSN                   = 0;   % |    00h00m    |    02h10m    |    00h00m   |    00h00m   |
-REDO_BAYES_RWMH_GAUSSIAN              = 0;   % |    00h00m    |    00h15m    |    00h00m   |    00h00m   |
-REDO_BAYES_RWMH_CSN                   = 0;   % |    00h00m    |    04h32m    |    00h00m   |    00h00m   |
+REDO_BAYES_RWMH_SLICE_SHORT_CSN       = 0;   % |    08h16m    |    04h30m    |    00h00m   |    00h00m   |
+REDO_BAYES_MODE_GAUSSIAN              = 0;   % |    00h10m    |    00h06m    |    00h00m   |    00h00m   |
+REDO_BAYES_MODE_CSN                   = 0;   % |    03h13m    |    02h10m    |    00h00m   |    00h00m   |
+REDO_BAYES_RWMH_GAUSSIAN              = 0;   % |    00h20m    |    00h15m    |    00h00m   |    00h00m   |
+REDO_BAYES_RWMH_CSN                   = 0;   % |    07h17m    |    04h32m    |    00h00m   |    00h00m   |
 %--------------------------------------------------------------------------------------------------------|
 REDO_RECESSIONS                       = 0;   % |   <00h01m    |    00h00m    |    00h00m   |    00h00m   |
-REDO_COMPARISON_WITH_PARTICLE_FILTER  = 0;   % |    00h48m    |    00h00m    |    00h00m   |    00h00m   |
+REDO_COMPARISON_WITH_PARTICLE_FILTER  = 0;   % |    00h51m    |    00h00m    |    00h00m   |    00h00m   |
 REDO_IRFS                             = 0;   % |   <00h01m    |    00h00m    |    00h00m   |    00h00m   |
 %--------------------------------------------------------------------------------------------------------|
 
