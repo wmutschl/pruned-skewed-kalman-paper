@@ -1,0 +1,192 @@
+Starting Dynare (version wmutschl-2026-02-11-2032-573958cd).
+Calling Dynare with arguments: none
+Starting preprocessing of the model file ... 
+Found 8 equation(s). 
+Evaluating expressions... 
+Computing static model derivatives (order 1). 
+Normalizing the static model... 
+Finding the optimal block decomposition of the static model... 
+6 block(s) found: 
+  5 recursive block(s) and 1 simultaneous block(s). 
+  the largest simultaneous block has 2 equation(s) 
+                                 and 2 feedback variable(s). 
+Computing dynamic model derivatives (order 2). 
+Normalizing the dynamic model... 
+Finding the optimal block decomposition of the dynamic model... 
+2 block(s) found: 
+  1 recursive block(s) and 1 simultaneous block(s). 
+  the largest simultaneous block has 5 equation(s) 
+                                 and 5 feedback variable(s). 
+Preprocessing completed. 
+Preprocessing time: 0h00m00s.
+
+You did not declare endogenous variables after the estimation/calib_smoother command.
+Initial value of the log posterior (or likelihood): 1213.0015
+[Warning: Matrix is close to singular or badly scaled. Results may be inaccurate. RCOND =  7.726512e-20.] 
+[> In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('mr_hessian', 'C:\dynare\7-unstable\matlab\optimization\mr_hessian.m', 268)" style="font-weight:bold">mr_hessian</a> (<a href="matlab: opentoline('C:\dynare\7-unstable\matlab\optimization\mr_hessian.m',268,0)">line 268</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('newrat', 'C:\dynare\7-unstable\matlab\optimization\newrat.m', 298)" style="font-weight:bold">newrat</a> (<a href="matlab: opentoline('C:\dynare\7-unstable\matlab\optimization\newrat.m',298,0)">line 298</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare_minimize_objective', 'C:\dynare\7-unstable\matlab\optimization\dynare_minimize_objective.m', 372)" style="font-weight:bold">dynare_minimize_objective</a> (<a href="matlab: opentoline('C:\dynare\7-unstable\matlab\optimization\dynare_minimize_objective.m',372,0)">line 372</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare_estimation_1', 'C:\dynare\7-unstable\matlab\estimation\dynare_estimation_1.m', 244)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('C:\dynare\7-unstable\matlab\estimation\dynare_estimation_1.m',244,0)">line 244</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare_estimation', 'C:\dynare\7-unstable\matlab\estimation\dynare_estimation.m', 105)" style="font-weight:bold">dynare_estimation</a> (<a href="matlab: opentoline('C:\dynare\7-unstable\matlab\estimation\dynare_estimation.m',105,0)">line 105</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ireland2004_ml_3_csn.driver', 'C:\Users\micro\Documents\pruned-skewed-kalman-paper\Dynare\+ireland2004_ml_3_csn\driver.m', 438)" style="font-weight:bold">ireland2004_ml_3_csn.driver</a> (<a href="matlab: opentoline('C:\Users\micro\Documents\pruned-skewed-kalman-paper\Dynare\+ireland2004_ml_3_csn\driver.m',438,0)">line 438</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare', 'C:\dynare\7-unstable\matlab\dynare.m', 300)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('C:\dynare\7-unstable\matlab\dynare.m',300,0)">line 300</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('run', 'C:\Users\micro\Documents\pruned-skewed-kalman-paper\Dynare\run.m', 130)" style="font-weight:bold">run</a> (<a href="matlab: opentoline('C:\Users\micro\Documents\pruned-skewed-kalman-paper\Dynare\run.m',130,0)">line 130</a>)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be inaccurate. RCOND =  6.576804e-20.] 
+[> In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('mr_hessian', 'C:\dynare\7-unstable\matlab\optimization\mr_hessian.m', 268)" style="font-weight:bold">mr_hessian</a> (<a href="matlab: opentoline('C:\dynare\7-unstable\matlab\optimization\mr_hessian.m',268,0)">line 268</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('newrat', 'C:\dynare\7-unstable\matlab\optimization\newrat.m', 298)" style="font-weight:bold">newrat</a> (<a href="matlab: opentoline('C:\dynare\7-unstable\matlab\optimization\newrat.m',298,0)">line 298</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare_minimize_objective', 'C:\dynare\7-unstable\matlab\optimization\dynare_minimize_objective.m', 372)" style="font-weight:bold">dynare_minimize_objective</a> (<a href="matlab: opentoline('C:\dynare\7-unstable\matlab\optimization\dynare_minimize_objective.m',372,0)">line 372</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare_estimation_1', 'C:\dynare\7-unstable\matlab\estimation\dynare_estimation_1.m', 244)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('C:\dynare\7-unstable\matlab\estimation\dynare_estimation_1.m',244,0)">line 244</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare_estimation', 'C:\dynare\7-unstable\matlab\estimation\dynare_estimation.m', 105)" style="font-weight:bold">dynare_estimation</a> (<a href="matlab: opentoline('C:\dynare\7-unstable\matlab\estimation\dynare_estimation.m',105,0)">line 105</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ireland2004_ml_3_csn.driver', 'C:\Users\micro\Documents\pruned-skewed-kalman-paper\Dynare\+ireland2004_ml_3_csn\driver.m', 438)" style="font-weight:bold">ireland2004_ml_3_csn.driver</a> (<a href="matlab: opentoline('C:\Users\micro\Documents\pruned-skewed-kalman-paper\Dynare\+ireland2004_ml_3_csn\driver.m',438,0)">line 438</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare', 'C:\dynare\7-unstable\matlab\dynare.m', 300)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('C:\dynare\7-unstable\matlab\dynare.m',300,0)">line 300</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('run', 'C:\Users\micro\Documents\pruned-skewed-kalman-paper\Dynare\run.m', 130)" style="font-weight:bold">run</a> (<a href="matlab: opentoline('C:\Users\micro\Documents\pruned-skewed-kalman-paper\Dynare\run.m',130,0)">line 130</a>)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be inaccurate. RCOND =  2.351554e-20.] 
+[> In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('mr_hessian', 'C:\dynare\7-unstable\matlab\optimization\mr_hessian.m', 268)" style="font-weight:bold">mr_hessian</a> (<a href="matlab: opentoline('C:\dynare\7-unstable\matlab\optimization\mr_hessian.m',268,0)">line 268</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('newrat', 'C:\dynare\7-unstable\matlab\optimization\newrat.m', 298)" style="font-weight:bold">newrat</a> (<a href="matlab: opentoline('C:\dynare\7-unstable\matlab\optimization\newrat.m',298,0)">line 298</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare_minimize_objective', 'C:\dynare\7-unstable\matlab\optimization\dynare_minimize_objective.m', 372)" style="font-weight:bold">dynare_minimize_objective</a> (<a href="matlab: opentoline('C:\dynare\7-unstable\matlab\optimization\dynare_minimize_objective.m',372,0)">line 372</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare_estimation_1', 'C:\dynare\7-unstable\matlab\estimation\dynare_estimation_1.m', 244)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('C:\dynare\7-unstable\matlab\estimation\dynare_estimation_1.m',244,0)">line 244</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare_estimation', 'C:\dynare\7-unstable\matlab\estimation\dynare_estimation.m', 105)" style="font-weight:bold">dynare_estimation</a> (<a href="matlab: opentoline('C:\dynare\7-unstable\matlab\estimation\dynare_estimation.m',105,0)">line 105</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ireland2004_ml_3_csn.driver', 'C:\Users\micro\Documents\pruned-skewed-kalman-paper\Dynare\+ireland2004_ml_3_csn\driver.m', 438)" style="font-weight:bold">ireland2004_ml_3_csn.driver</a> (<a href="matlab: opentoline('C:\Users\micro\Documents\pruned-skewed-kalman-paper\Dynare\+ireland2004_ml_3_csn\driver.m',438,0)">line 438</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare', 'C:\dynare\7-unstable\matlab\dynare.m', 300)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('C:\dynare\7-unstable\matlab\dynare.m',300,0)">line 300</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('run', 'C:\Users\micro\Documents\pruned-skewed-kalman-paper\Dynare\run.m', 130)" style="font-weight:bold">run</a> (<a href="matlab: opentoline('C:\Users\micro\Documents\pruned-skewed-kalman-paper\Dynare\run.m',130,0)">line 130</a>)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be inaccurate. RCOND =  7.984212e-20.] 
+[> In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('mr_hessian', 'C:\dynare\7-unstable\matlab\optimization\mr_hessian.m', 268)" style="font-weight:bold">mr_hessian</a> (<a href="matlab: opentoline('C:\dynare\7-unstable\matlab\optimization\mr_hessian.m',268,0)">line 268</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('newrat', 'C:\dynare\7-unstable\matlab\optimization\newrat.m', 298)" style="font-weight:bold">newrat</a> (<a href="matlab: opentoline('C:\dynare\7-unstable\matlab\optimization\newrat.m',298,0)">line 298</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare_minimize_objective', 'C:\dynare\7-unstable\matlab\optimization\dynare_minimize_objective.m', 372)" style="font-weight:bold">dynare_minimize_objective</a> (<a href="matlab: opentoline('C:\dynare\7-unstable\matlab\optimization\dynare_minimize_objective.m',372,0)">line 372</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare_estimation_1', 'C:\dynare\7-unstable\matlab\estimation\dynare_estimation_1.m', 244)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('C:\dynare\7-unstable\matlab\estimation\dynare_estimation_1.m',244,0)">line 244</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare_estimation', 'C:\dynare\7-unstable\matlab\estimation\dynare_estimation.m', 105)" style="font-weight:bold">dynare_estimation</a> (<a href="matlab: opentoline('C:\dynare\7-unstable\matlab\estimation\dynare_estimation.m',105,0)">line 105</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ireland2004_ml_3_csn.driver', 'C:\Users\micro\Documents\pruned-skewed-kalman-paper\Dynare\+ireland2004_ml_3_csn\driver.m', 438)" style="font-weight:bold">ireland2004_ml_3_csn.driver</a> (<a href="matlab: opentoline('C:\Users\micro\Documents\pruned-skewed-kalman-paper\Dynare\+ireland2004_ml_3_csn\driver.m',438,0)">line 438</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare', 'C:\dynare\7-unstable\matlab\dynare.m', 300)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('C:\dynare\7-unstable\matlab\dynare.m',300,0)">line 300</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('run', 'C:\Users\micro\Documents\pruned-skewed-kalman-paper\Dynare\run.m', 130)" style="font-weight:bold">run</a> (<a href="matlab: opentoline('C:\Users\micro\Documents\pruned-skewed-kalman-paper\Dynare\run.m',130,0)">line 130</a>)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be inaccurate. RCOND =  7.561138e-20.] 
+[> In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('mr_hessian', 'C:\dynare\7-unstable\matlab\optimization\mr_hessian.m', 268)" style="font-weight:bold">mr_hessian</a> (<a href="matlab: opentoline('C:\dynare\7-unstable\matlab\optimization\mr_hessian.m',268,0)">line 268</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('newrat', 'C:\dynare\7-unstable\matlab\optimization\newrat.m', 298)" style="font-weight:bold">newrat</a> (<a href="matlab: opentoline('C:\dynare\7-unstable\matlab\optimization\newrat.m',298,0)">line 298</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare_minimize_objective', 'C:\dynare\7-unstable\matlab\optimization\dynare_minimize_objective.m', 372)" style="font-weight:bold">dynare_minimize_objective</a> (<a href="matlab: opentoline('C:\dynare\7-unstable\matlab\optimization\dynare_minimize_objective.m',372,0)">line 372</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare_estimation_1', 'C:\dynare\7-unstable\matlab\estimation\dynare_estimation_1.m', 244)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('C:\dynare\7-unstable\matlab\estimation\dynare_estimation_1.m',244,0)">line 244</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare_estimation', 'C:\dynare\7-unstable\matlab\estimation\dynare_estimation.m', 105)" style="font-weight:bold">dynare_estimation</a> (<a href="matlab: opentoline('C:\dynare\7-unstable\matlab\estimation\dynare_estimation.m',105,0)">line 105</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ireland2004_ml_3_csn.driver', 'C:\Users\micro\Documents\pruned-skewed-kalman-paper\Dynare\+ireland2004_ml_3_csn\driver.m', 438)" style="font-weight:bold">ireland2004_ml_3_csn.driver</a> (<a href="matlab: opentoline('C:\Users\micro\Documents\pruned-skewed-kalman-paper\Dynare\+ireland2004_ml_3_csn\driver.m',438,0)">line 438</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare', 'C:\dynare\7-unstable\matlab\dynare.m', 300)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('C:\dynare\7-unstable\matlab\dynare.m',300,0)">line 300</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('run', 'C:\Users\micro\Documents\pruned-skewed-kalman-paper\Dynare\run.m', 130)" style="font-weight:bold">run</a> (<a href="matlab: opentoline('C:\Users\micro\Documents\pruned-skewed-kalman-paper\Dynare\run.m',130,0)">line 130</a>)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be inaccurate. RCOND =  3.306895e-20.] 
+[> In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('mr_hessian', 'C:\dynare\7-unstable\matlab\optimization\mr_hessian.m', 268)" style="font-weight:bold">mr_hessian</a> (<a href="matlab: opentoline('C:\dynare\7-unstable\matlab\optimization\mr_hessian.m',268,0)">line 268</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('newrat', 'C:\dynare\7-unstable\matlab\optimization\newrat.m', 298)" style="font-weight:bold">newrat</a> (<a href="matlab: opentoline('C:\dynare\7-unstable\matlab\optimization\newrat.m',298,0)">line 298</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare_minimize_objective', 'C:\dynare\7-unstable\matlab\optimization\dynare_minimize_objective.m', 372)" style="font-weight:bold">dynare_minimize_objective</a> (<a href="matlab: opentoline('C:\dynare\7-unstable\matlab\optimization\dynare_minimize_objective.m',372,0)">line 372</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare_estimation_1', 'C:\dynare\7-unstable\matlab\estimation\dynare_estimation_1.m', 244)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('C:\dynare\7-unstable\matlab\estimation\dynare_estimation_1.m',244,0)">line 244</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare_estimation', 'C:\dynare\7-unstable\matlab\estimation\dynare_estimation.m', 105)" style="font-weight:bold">dynare_estimation</a> (<a href="matlab: opentoline('C:\dynare\7-unstable\matlab\estimation\dynare_estimation.m',105,0)">line 105</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ireland2004_ml_3_csn.driver', 'C:\Users\micro\Documents\pruned-skewed-kalman-paper\Dynare\+ireland2004_ml_3_csn\driver.m', 438)" style="font-weight:bold">ireland2004_ml_3_csn.driver</a> (<a href="matlab: opentoline('C:\Users\micro\Documents\pruned-skewed-kalman-paper\Dynare\+ireland2004_ml_3_csn\driver.m',438,0)">line 438</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare', 'C:\dynare\7-unstable\matlab\dynare.m', 300)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('C:\dynare\7-unstable\matlab\dynare.m',300,0)">line 300</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('run', 'C:\Users\micro\Documents\pruned-skewed-kalman-paper\Dynare\run.m', 130)" style="font-weight:bold">run</a> (<a href="matlab: opentoline('C:\Users\micro\Documents\pruned-skewed-kalman-paper\Dynare\run.m',130,0)">line 130</a>)
+] 
+
+Final value of minus the log posterior (or likelihood):-1215.836640 
+
+Final value of minus the log posterior (or likelihood):-1215.845943 
+
+OPTIMIZATION PROBLEM!
+ (minus) the Hessian matrix at the "mode" is not positive definite!
+=> variance of the estimated parameters are not positive.
+You should try to change the initial values of the parameters using
+the estimated_params_init block, or use another optimization routine.
+
+The following parameters are at the bound: SKEW_eta_z
+Some potential solutions are:
+   - Check your model for mistakes.
+   - Check whether model and data are consistent (correct observation equation).
+   - Shut off prior_trunc.
+   - Change the optimization bounds.
+   - Use a different mode_compute like 6 or 9.
+   - Check whether the parameters estimated are identified.
+   - Check prior shape (e.g. Inf density at bound(s)).
+   - Increase the informativeness of the prior.
+[Warning: The results below are most likely wrong!] 
+[> In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('check_hessian_at_the_mode', 'C:\dynare\7-unstable\matlab\utilities\estimation\check_hessian_at_the_mode.m', 68)" style="font-weight:bold">check_hessian_at_the_mode</a> (<a href="matlab: opentoline('C:\dynare\7-unstable\matlab\utilities\estimation\check_hessian_at_the_mode.m',68,0)">line 68</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare_estimation_1', 'C:\dynare\7-unstable\matlab\estimation\dynare_estimation_1.m', 325)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('C:\dynare\7-unstable\matlab\estimation\dynare_estimation_1.m',325,0)">line 325</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare_estimation', 'C:\dynare\7-unstable\matlab\estimation\dynare_estimation.m', 105)" style="font-weight:bold">dynare_estimation</a> (<a href="matlab: opentoline('C:\dynare\7-unstable\matlab\estimation\dynare_estimation.m',105,0)">line 105</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ireland2004_ml_3_csn.driver', 'C:\Users\micro\Documents\pruned-skewed-kalman-paper\Dynare\+ireland2004_ml_3_csn\driver.m', 438)" style="font-weight:bold">ireland2004_ml_3_csn.driver</a> (<a href="matlab: opentoline('C:\Users\micro\Documents\pruned-skewed-kalman-paper\Dynare\+ireland2004_ml_3_csn\driver.m',438,0)">line 438</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare', 'C:\dynare\7-unstable\matlab\dynare.m', 300)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('C:\dynare\7-unstable\matlab\dynare.m',300,0)">line 300</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('run', 'C:\Users\micro\Documents\pruned-skewed-kalman-paper\Dynare\run.m', 130)" style="font-weight:bold">run</a> (<a href="matlab: opentoline('C:\Users\micro\Documents\pruned-skewed-kalman-paper\Dynare\run.m',130,0)">line 130</a>)] 
+[Warning: Matrix is singular, close to singular or badly scaled. Results may be inaccurate. RCOND = NaN.] 
+[> In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare_estimation_1', 'C:\dynare\7-unstable\matlab\estimation\dynare_estimation_1.m', 354)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('C:\dynare\7-unstable\matlab\estimation\dynare_estimation_1.m',354,0)">line 354</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare_estimation', 'C:\dynare\7-unstable\matlab\estimation\dynare_estimation.m', 105)" style="font-weight:bold">dynare_estimation</a> (<a href="matlab: opentoline('C:\dynare\7-unstable\matlab\estimation\dynare_estimation.m',105,0)">line 105</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ireland2004_ml_3_csn.driver', 'C:\Users\micro\Documents\pruned-skewed-kalman-paper\Dynare\+ireland2004_ml_3_csn\driver.m', 438)" style="font-weight:bold">ireland2004_ml_3_csn.driver</a> (<a href="matlab: opentoline('C:\Users\micro\Documents\pruned-skewed-kalman-paper\Dynare\+ireland2004_ml_3_csn\driver.m',438,0)">line 438</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare', 'C:\dynare\7-unstable\matlab\dynare.m', 300)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('C:\dynare\7-unstable\matlab\dynare.m',300,0)">line 300</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('run', 'C:\Users\micro\Documents\pruned-skewed-kalman-paper\Dynare\run.m', 130)" style="font-weight:bold">run</a> (<a href="matlab: opentoline('C:\Users\micro\Documents\pruned-skewed-kalman-paper\Dynare\run.m',130,0)">line 130</a>)
+] 
+
+RESULTS FROM MAXIMUM LIKELIHOOD ESTIMATION
+parameters
+             Estimate    s.d. t-stat
+
+OMEGA          0.1486     NaN     NaN 
+RHO_PI         0.3037     NaN     NaN 
+RHO_G          0.3376     NaN     NaN 
+RHO_X          0.2770     NaN     NaN 
+RHO_A          0.9192     NaN     NaN 
+RHO_E          0.9792     NaN     NaN 
+
+standard deviation of shocks
+             Estimate    s.d. t-stat
+
+eta_a          2.6021     NaN     NaN 
+eta_e          0.0225     NaN     NaN 
+eta_z          0.7859     NaN     NaN 
+eta_r          0.2830     NaN     NaN 
+
+skewness of shocks
+             Estimate    s.d. t-stat
+
+eta_a         -0.1940     NaN     NaN 
+eta_e         -0.2187     NaN     NaN 
+eta_z         -0.9953     NaN     NaN 
+eta_r          0.8084     NaN     NaN 
+
+Optimization info (stage 1, mode_compute=5):
+       runtime: 255.6909
+    iterations: 16
+     funcCount: 3496
+      exitflag: 1
+       message: 'No further improvement is possible! Estimation successful.'
+
+Optimization info (stage 2, mode_compute=8):
+       runtime: 183.9892
+    iterations: 790
+     funcCount: 3273
+      exitflag: 1
+       message: 'The function converged to a solution x.'
+
+
+**********************
+* ESTIMATION RESULTS *
+**********************
+                      <strong>Mode</strong>       <strong>Std-dev</strong> 
+                    <strong>________</strong>    <strong>_________</strong>
+
+    <strong>OMEGA       </strong>     0.14862     0.048005
+    <strong>RHO_PI      </strong>     0.30374    0.0014677
+    <strong>RHO_G       </strong>     0.33762     0.014277
+    <strong>RHO_X       </strong>     0.27701    0.0050492
+    <strong>RHO_A       </strong>     0.91924    0.0025336
+    <strong>RHO_E       </strong>     0.97923    0.0081335
+    <strong>stderr eta_a</strong>      2.6021      0.17241
+    <strong>stderr eta_e</strong>    0.022497     0.014889
+    <strong>stderr eta_z</strong>     0.78588    0.0027175
+    <strong>stderr eta_r</strong>       0.283      0.01082
+    <strong>skew eta_a  </strong>      -0.194    0.0063409
+    <strong>skew eta_e  </strong>    -0.21874    0.0048003
+    <strong>skew eta_z  </strong>    -0.99527    0.0095713
+    <strong>skew eta_r  </strong>     0.80844    0.0082599
+
+
+*************************
+* LIKELIHOOD RATIO TEST *
+*************************
+- unconstrained log-likelihood (CSN): 1215.8459
+- constrained log-likelihood (Gaussian): 1207.5619
+- test statistic of $16.57$ and a p-value of $0.0023$.
+Total computing time : 0h09m03s
+Note: warning(s) encountered in MATLAB/Octave code
