@@ -1,0 +1,172 @@
+Starting Dynare (version 7-unstable).
+Calling Dynare with arguments: none
+Using build directory: /home/wmutschl/dynare/7-unstable/matlab/../build-matlab
+Starting preprocessing of the model file ...
+Found 8 equation(s).
+Evaluating expressions...
+Computing static model derivatives (order 1).
+Normalizing the static model...
+Finding the optimal block decomposition of the static model...
+6 block(s) found:
+  5 recursive block(s) and 1 simultaneous block(s).
+  the largest simultaneous block has 2 equation(s)
+                                 and 2 feedback variable(s).
+Computing dynamic model derivatives (order 2).
+Normalizing the dynamic model...
+Finding the optimal block decomposition of the dynamic model...
+2 block(s) found:
+  1 recursive block(s) and 1 simultaneous block(s).
+  the largest simultaneous block has 5 equation(s)
+                                 and 5 feedback variable(s).
+Preprocessing completed.
+Preprocessing time: 0h00m00s.
+
+You did not declare endogenous variables after the estimation/calib_smoother command.
+
+[Warning: Your prior allows for skewness parameters larger than +-0.995272, which is outside the theoretical bound of the skew normal distribution, and thus will not integrate
+to 1 due to truncation. Please change your prior!] 
+[> In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('check_prior_stderr_corr_skew', '/home/wmutschl/dynare/7-unstable/matlab/utilities/estimation/check_prior_stderr_corr_skew.m', 64)" style="font-weight:bold">check_prior_stderr_corr_skew</a> (<a href="matlab: opentoline('/home/wmutschl/dynare/7-unstable/matlab/utilities/estimation/check_prior_stderr_corr_skew.m',64,0)">line 64</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('initial_estimation_checks', '/home/wmutschl/dynare/7-unstable/matlab/estimation/initial_estimation_checks.m', 179)" style="font-weight:bold">initial_estimation_checks</a> (<a href="matlab: opentoline('/home/wmutschl/dynare/7-unstable/matlab/estimation/initial_estimation_checks.m',179,0)">line 179</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare_estimation_1', '/home/wmutschl/dynare/7-unstable/matlab/estimation/dynare_estimation_1.m', 164)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('/home/wmutschl/dynare/7-unstable/matlab/estimation/dynare_estimation_1.m',164,0)">line 164</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare_estimation', '/home/wmutschl/dynare/7-unstable/matlab/estimation/dynare_estimation.m', 105)" style="font-weight:bold">dynare_estimation</a> (<a href="matlab: opentoline('/home/wmutschl/dynare/7-unstable/matlab/estimation/dynare_estimation.m',105,0)">line 105</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ireland2004_bayes_8_mode_csn.driver', '/home/wmutschl/vm/pruned-skewed-kalman-paper/Dynare/+ireland2004_bayes_8_mode_csn/driver.m', 441)" style="font-weight:bold">ireland2004_bayes_8_mode_csn.driver</a> (<a href="matlab: opentoline('/home/wmutschl/vm/pruned-skewed-kalman-paper/Dynare/+ireland2004_bayes_8_mode_csn/driver.m',441,0)">line 441</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare', '/home/wmutschl/dynare/7-unstable/matlab/dynare.m', 300)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('/home/wmutschl/dynare/7-unstable/matlab/dynare.m',300,0)">line 300</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('run', '/home/wmutschl/vm/pruned-skewed-kalman-paper/Dynare/run.m', 258)" style="font-weight:bold">run</a> (<a href="matlab: opentoline('/home/wmutschl/vm/pruned-skewed-kalman-paper/Dynare/run.m',258,0)">line 258</a>)] 
+Initial value of the log posterior (or likelihood): 1210.1907
+
+Final value of minus the log posterior (or likelihood):-1211.471958 
+
+OPTIMIZATION PROBLEM!
+ (minus) the Hessian matrix at the "mode" is not positive definite!
+=> variance of the estimated parameters are not positive.
+You should try to change the initial values of the parameters using
+the estimated_params_init block, or use another optimization routine.
+[Warning: The results below are most likely wrong!] 
+[> In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('check_hessian_at_the_mode', '/home/wmutschl/dynare/7-unstable/matlab/utilities/estimation/check_hessian_at_the_mode.m', 68)" style="font-weight:bold">check_hessian_at_the_mode</a> (<a href="matlab: opentoline('/home/wmutschl/dynare/7-unstable/matlab/utilities/estimation/check_hessian_at_the_mode.m',68,0)">line 68</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare_estimation_1', '/home/wmutschl/dynare/7-unstable/matlab/estimation/dynare_estimation_1.m', 325)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('/home/wmutschl/dynare/7-unstable/matlab/estimation/dynare_estimation_1.m',325,0)">line 325</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare_estimation', '/home/wmutschl/dynare/7-unstable/matlab/estimation/dynare_estimation.m', 105)" style="font-weight:bold">dynare_estimation</a> (<a href="matlab: opentoline('/home/wmutschl/dynare/7-unstable/matlab/estimation/dynare_estimation.m',105,0)">line 105</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ireland2004_bayes_8_mode_csn.driver', '/home/wmutschl/vm/pruned-skewed-kalman-paper/Dynare/+ireland2004_bayes_8_mode_csn/driver.m', 441)" style="font-weight:bold">ireland2004_bayes_8_mode_csn.driver</a> (<a href="matlab: opentoline('/home/wmutschl/vm/pruned-skewed-kalman-paper/Dynare/+ireland2004_bayes_8_mode_csn/driver.m',441,0)">line 441</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare', '/home/wmutschl/dynare/7-unstable/matlab/dynare.m', 300)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('/home/wmutschl/dynare/7-unstable/matlab/dynare.m',300,0)">line 300</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('run', '/home/wmutschl/vm/pruned-skewed-kalman-paper/Dynare/run.m', 258)" style="font-weight:bold">run</a> (<a href="matlab: opentoline('/home/wmutschl/vm/pruned-skewed-kalman-paper/Dynare/run.m',258,0)">line 258</a>)] 
+
+RESULTS FROM POSTERIOR ESTIMATION
+parameters
+           prior mean     mode    s.d.  prior pstdev
+
+OMEGA          0.2000   0.1375  0.0033   beta 0.1000 
+RHO_PI         0.3000   0.4522  0.0145   gamm 0.1000 
+RHO_G          0.3000   0.3442  0.0039   gamm 0.1000 
+RHO_X          0.2500   0.2018  0.0015   gamm 0.0625 
+RHO_A          0.8500   0.9338  0.0070   beta 0.1000 
+RHO_E          0.8500   0.9154  0.0144   beta 0.1000 
+
+standard deviation of shocks
+           prior mean     mode    s.d.  prior pstdev
+
+eta_a          5.4772   3.2479  0.0925   invg 5.4772 
+eta_e          0.2828   0.0572  0.0016   invg 1.0000 
+eta_z          2.2361   0.7557  0.0000   invg 3.8730 
+eta_r          0.7071   0.2776  0.0003   invg 1.4142 
+
+skewness of shocks
+           prior mean     mode    s.d.  prior pstdev
+
+eta_a          0.0000  -0.2002  0.0065   beta 0.4000 
+eta_e          0.0000  -0.3955  0.0000   beta 0.4000 
+eta_z          0.0000  -0.5196  0.0154   beta 0.4000 
+eta_r          0.0000   0.6085  0.0214   beta 0.4000 
+
+
+Log data density [Laplace approximation] is NaN.
+
+Optimization info (mode_compute=8):
+       runtime: 615.7479
+    iterations: 1631
+     funcCount: 3449
+      exitflag: 1
+       message: 'The function converged to a solution x.'
+
+
+You did not declare endogenous variables after the estimation/calib_smoother command.
+
+[Warning: Your prior allows for skewness parameters larger than +-0.995272, which is outside the theoretical bound of the skew normal distribution, and thus will not integrate
+to 1 due to truncation. Please change your prior!] 
+[> In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('check_prior_stderr_corr_skew', '/home/wmutschl/dynare/7-unstable/matlab/utilities/estimation/check_prior_stderr_corr_skew.m', 64)" style="font-weight:bold">check_prior_stderr_corr_skew</a> (<a href="matlab: opentoline('/home/wmutschl/dynare/7-unstable/matlab/utilities/estimation/check_prior_stderr_corr_skew.m',64,0)">line 64</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('initial_estimation_checks', '/home/wmutschl/dynare/7-unstable/matlab/estimation/initial_estimation_checks.m', 179)" style="font-weight:bold">initial_estimation_checks</a> (<a href="matlab: opentoline('/home/wmutschl/dynare/7-unstable/matlab/estimation/initial_estimation_checks.m',179,0)">line 179</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare_estimation_1', '/home/wmutschl/dynare/7-unstable/matlab/estimation/dynare_estimation_1.m', 164)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('/home/wmutschl/dynare/7-unstable/matlab/estimation/dynare_estimation_1.m',164,0)">line 164</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare_estimation', '/home/wmutschl/dynare/7-unstable/matlab/estimation/dynare_estimation.m', 105)" style="font-weight:bold">dynare_estimation</a> (<a href="matlab: opentoline('/home/wmutschl/dynare/7-unstable/matlab/estimation/dynare_estimation.m',105,0)">line 105</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ireland2004_bayes_8_mode_csn.driver', '/home/wmutschl/vm/pruned-skewed-kalman-paper/Dynare/+ireland2004_bayes_8_mode_csn/driver.m', 456)" style="font-weight:bold">ireland2004_bayes_8_mode_csn.driver</a> (<a href="matlab: opentoline('/home/wmutschl/vm/pruned-skewed-kalman-paper/Dynare/+ireland2004_bayes_8_mode_csn/driver.m',456,0)">line 456</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare', '/home/wmutschl/dynare/7-unstable/matlab/dynare.m', 300)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('/home/wmutschl/dynare/7-unstable/matlab/dynare.m',300,0)">line 300</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('run', '/home/wmutschl/vm/pruned-skewed-kalman-paper/Dynare/run.m', 258)" style="font-weight:bold">run</a> (<a href="matlab: opentoline('/home/wmutschl/vm/pruned-skewed-kalman-paper/Dynare/run.m',258,0)">line 258</a>)] 
+Initial value of the log posterior (or likelihood): 1211.472
+IdleTimeout has been reached.
+Parallel pool using the 'Processes' profile is shutting down.
+
+==========================================================
+   Change in the posterior covariance matrix = 0.095432.
+   Change in the posterior mean = 0.38983.
+   Current mode = -1211.472
+   Mode improvement = 0
+   New value of jscale = 0.0088348
+==========================================================
+
+==========================================================
+   Change in the posterior covariance matrix = 1.224.
+   Change in the posterior mean = 0.67236.
+   Current mode = -1211.472
+   Mode improvement = 0
+   New value of jscale = 0.58042
+==========================================================
+
+==========================================================
+   Change in the posterior covariance matrix = 0.40022.
+   Change in the posterior mean = 0.22716.
+   Current mode = -1211.4724
+   Mode improvement = 0.00041727
+   New value of jscale = 0.47861
+==========================================================
+
+Optimal value of the scale parameter = 0.47861
+
+
+Final value of minus the log posterior (or likelihood):-1211.472375 
+
+RESULTS FROM POSTERIOR ESTIMATION
+parameters
+           prior mean     mode    s.d.  prior pstdev
+
+OMEGA          0.2000   0.1380  0.0552   beta 0.1000 
+RHO_PI         0.3000   0.4532  0.0937   gamm 0.1000 
+RHO_G          0.3000   0.3440  0.0456   gamm 0.1000 
+RHO_X          0.2500   0.2013  0.0515   gamm 0.0625 
+RHO_A          0.8500   0.9335  0.0268   beta 0.1000 
+RHO_E          0.8500   0.9157  0.0339   beta 0.1000 
+
+standard deviation of shocks
+           prior mean     mode    s.d.  prior pstdev
+
+eta_a          5.4772   3.2349  0.9632   invg 5.4772 
+eta_e          0.2828   0.0572  0.0082   invg 1.0000 
+eta_z          2.2361   0.7544  0.1108   invg 3.8730 
+eta_r          0.7071   0.2774  0.0330   invg 1.4142 
+
+skewness of shocks
+           prior mean     mode    s.d.  prior pstdev
+
+eta_a          0.0000  -0.1972  0.2495   beta 0.4000 
+eta_e          0.0000  -0.3938  0.2216   beta 0.4000 
+eta_z          0.0000  -0.5182  0.3501   beta 0.4000 
+eta_r          0.0000   0.6074  0.1743   beta 0.4000 
+
+
+Log data density [Laplace approximation] is 1187.723616.
+
+Optimization info (mode_compute=6):
+       runtime: 2.4767e+04
+    iterations: NaN
+     funcCount: 139795
+      exitflag: 1
+       message: 'Optimization successful.'
+
+Total computing time : 7h03m41s
+Note: warning(s) encountered in MATLAB/Octave code

@@ -1,0 +1,294 @@
+Starting Dynare (version 7-unstable).
+Calling Dynare with arguments: none
+Using build directory: /home/wmutschl/dynare/7-unstable/matlab/../build-matlab
+Starting preprocessing of the model file ...
+Found 8 equation(s).
+Evaluating expressions...
+Computing static model derivatives (order 1).
+Normalizing the static model...
+Finding the optimal block decomposition of the static model...
+6 block(s) found:
+  5 recursive block(s) and 1 simultaneous block(s).
+  the largest simultaneous block has 2 equation(s)
+                                 and 2 feedback variable(s).
+Computing dynamic model derivatives (order 2).
+Normalizing the dynamic model...
+Finding the optimal block decomposition of the dynamic model...
+2 block(s) found:
+  1 recursive block(s) and 1 simultaneous block(s).
+  the largest simultaneous block has 5 equation(s)
+                                 and 5 feedback variable(s).
+Preprocessing completed.
+Preprocessing time: 0h00m00s.
+
+You did not declare endogenous variables after the estimation/calib_smoother command.
+Initial value of the log posterior (or likelihood): 1207.5619
+
+Evaluate likelihood on 50625 grid values for skewness parameter combinations using MATLAB's parallel toolbox
+
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Connected to parallel pool with 24 workers.
+Parallel pool using the 'Processes' profile is shutting down.
+Best 5 values on grid (runtime 0h03m27s):
+                   <strong>best 1</strong>      <strong>best 2</strong>      <strong>best 3</strong>      <strong>best 4</strong>      <strong>best 5</strong> 
+                  <strong>________</strong>    <strong>________</strong>    <strong>________</strong>    <strong>________</strong>    <strong>________</strong>
+
+    <strong>skew eta_a</strong>    -0.13571    -0.13571    -0.13571    -0.13571    -0.13571
+    <strong>skew eta_e</strong>    -0.13571    -0.13571    -0.27143    -0.13571           0
+    <strong>skew eta_z</strong>    -0.67857    -0.81429    -0.27143    -0.54286    -0.67857
+    <strong>skew eta_r</strong>     0.54286     0.54286     0.54286     0.54286     0.40714
+
+
+****************************************
+* OPTIMIZE SHOCK PARAMETERS: RUN 1 / 5 *
+****************************************
+
+You did not declare endogenous variables after the estimation/calib_smoother command.
+Initial value of the log posterior (or likelihood): 1211.7409
+
+Final value of minus the log posterior (or likelihood):-1213.001477 
+
+RESULTS FROM MAXIMUM LIKELIHOOD ESTIMATION
+standard deviation of shocks
+        Estimate    s.d. t-stat
+
+eta_a     2.7477     NaN     NaN 
+eta_e     0.0289     NaN     NaN 
+eta_z     0.8582     NaN     NaN 
+eta_r     0.2762     NaN     NaN 
+
+skewness of shocks
+        Estimate    s.d. t-stat
+
+eta_a    -0.1120     NaN     NaN 
+eta_e    -0.2896     NaN     NaN 
+eta_z    -0.8361     NaN     NaN 
+eta_r     0.5200     NaN     NaN 
+
+Optimization info:
+       runtime: 492.4452
+    iterations: 944
+     funcCount: 2935
+      exitflag: 1
+       message: 'The function converged to a solution x.'
+
+MLE point estimates for stderr parameters:
+    eta_a: 2.747697233134916
+    eta_e: 0.028882164116404
+    eta_z: 0.858196786024231
+    eta_r: 0.276196004637038
+
+MLE point estimates for skew parameters:
+    eta_a: -0.111987050675084
+    eta_e: -0.289566734765780
+    eta_z: -0.836095597248922
+    eta_r: 0.520016288312854
+
+Final value of log-likelihood: 1213.001476690748859
+
+****************************************
+* OPTIMIZE SHOCK PARAMETERS: RUN 2 / 5 *
+****************************************
+
+You did not declare endogenous variables after the estimation/calib_smoother command.
+Initial value of the log posterior (or likelihood): 1211.6535
+
+Final value of minus the log posterior (or likelihood):-1212.927981 
+
+RESULTS FROM MAXIMUM LIKELIHOOD ESTIMATION
+standard deviation of shocks
+        Estimate    s.d. t-stat
+
+eta_a     2.7303     NaN     NaN 
+eta_e     0.0287     NaN     NaN 
+eta_z     0.8589     NaN     NaN 
+eta_r     0.2792     NaN     NaN 
+
+skewness of shocks
+        Estimate    s.d. t-stat
+
+eta_a    -0.1149     NaN     NaN 
+eta_e    -0.1709     NaN     NaN 
+eta_z    -0.8817     NaN     NaN 
+eta_r     0.5402     NaN     NaN 
+
+Optimization info:
+       runtime: 180.3652
+    iterations: 418
+     funcCount: 1029
+      exitflag: 1
+       message: 'The function converged to a solution x.'
+
+MLE point estimates for stderr parameters:
+    eta_a: 2.730276697870081
+    eta_e: 0.028657339321480
+    eta_z: 0.858918837390032
+    eta_r: 0.279158448222446
+
+MLE point estimates for skew parameters:
+    eta_a: -0.114939029058106
+    eta_e: -0.170924087332164
+    eta_z: -0.881662668952391
+    eta_r: 0.540175913206073
+
+Final value of log-likelihood: 1212.927981302475928
+
+****************************************
+* OPTIMIZE SHOCK PARAMETERS: RUN 3 / 5 *
+****************************************
+
+You did not declare endogenous variables after the estimation/calib_smoother command.
+Initial value of the log posterior (or likelihood): 1211.6221
+
+Final value of minus the log posterior (or likelihood):-1212.992894 
+
+RESULTS FROM MAXIMUM LIKELIHOOD ESTIMATION
+standard deviation of shocks
+        Estimate    s.d. t-stat
+
+eta_a     2.7445     NaN     NaN 
+eta_e     0.0287     NaN     NaN 
+eta_z     0.8572     NaN     NaN 
+eta_r     0.2797     NaN     NaN 
+
+skewness of shocks
+        Estimate    s.d. t-stat
+
+eta_a    -0.1251     NaN     NaN 
+eta_e    -0.2827     NaN     NaN 
+eta_z    -0.8209     NaN     NaN 
+eta_r     0.5510     NaN     NaN 
+
+Optimization info:
+       runtime: 234.6100
+    iterations: 505
+     funcCount: 1416
+      exitflag: 1
+       message: 'The function converged to a solution x.'
+
+MLE point estimates for stderr parameters:
+    eta_a: 2.744493098391289
+    eta_e: 0.028710168449046
+    eta_z: 0.857167741872252
+    eta_r: 0.279744187107490
+
+MLE point estimates for skew parameters:
+    eta_a: -0.125132994709961
+    eta_e: -0.282691026262519
+    eta_z: -0.820923772143279
+    eta_r: 0.551044895787752
+
+Final value of log-likelihood: 1212.992894074179048
+
+****************************************
+* OPTIMIZE SHOCK PARAMETERS: RUN 4 / 5 *
+****************************************
+
+You did not declare endogenous variables after the estimation/calib_smoother command.
+Initial value of the log posterior (or likelihood): 1211.7347
+
+Final value of minus the log posterior (or likelihood):-1212.870140 
+
+RESULTS FROM MAXIMUM LIKELIHOOD ESTIMATION
+standard deviation of shocks
+        Estimate    s.d. t-stat
+
+eta_a     2.7523     NaN     NaN 
+eta_e     0.0291     NaN     NaN 
+eta_z     0.8485     NaN     NaN 
+eta_r     0.2778     NaN     NaN 
+
+skewness of shocks
+        Estimate    s.d. t-stat
+
+eta_a    -0.1128     NaN     NaN 
+eta_e    -0.1410     NaN     NaN 
+eta_z    -0.9291     NaN     NaN 
+eta_r     0.5534     NaN     NaN 
+
+Optimization info:
+       runtime: 393.2031
+    iterations: 687
+     funcCount: 2259
+      exitflag: 1
+       message: 'The function converged to a solution x.'
+
+MLE point estimates for stderr parameters:
+    eta_a: 2.752269119846341
+    eta_e: 0.029058660738348
+    eta_z: 0.848487507864687
+    eta_r: 0.277824982572960
+
+MLE point estimates for skew parameters:
+    eta_a: -0.112791936385278
+    eta_e: -0.140980045659965
+    eta_z: -0.929132791058448
+    eta_r: 0.553392178870500
+
+Final value of log-likelihood: 1212.870139612290359
+
+****************************************
+* OPTIMIZE SHOCK PARAMETERS: RUN 5 / 5 *
+****************************************
+
+You did not declare endogenous variables after the estimation/calib_smoother command.
+Initial value of the log posterior (or likelihood): 1211.1821
+
+Final value of minus the log posterior (or likelihood):-1212.412758 
+
+RESULTS FROM MAXIMUM LIKELIHOOD ESTIMATION
+standard deviation of shocks
+        Estimate    s.d. t-stat
+
+eta_a     2.7641     NaN     NaN 
+eta_e     0.0287     NaN     NaN 
+eta_z     0.8580     NaN     NaN 
+eta_r     0.2752     NaN     NaN 
+
+skewness of shocks
+        Estimate    s.d. t-stat
+
+eta_a    -0.0756     NaN     NaN 
+eta_e    -0.0025     NaN     NaN 
+eta_z    -0.9697     NaN     NaN 
+eta_r     0.4870     NaN     NaN 
+
+Optimization info:
+       runtime: 301.0535
+    iterations: 607
+     funcCount: 1855
+      exitflag: 1
+       message: 'The function converged to a solution x.'
+
+MLE point estimates for stderr parameters:
+    eta_a: 2.764134815001343
+    eta_e: 0.028665938583159
+    eta_z: 0.858029134877437
+    eta_r: 0.275189585206929
+
+MLE point estimates for skew parameters:
+    eta_a: -0.075550923960328
+    eta_e: -0.002455840176752
+    eta_z: -0.969717267309982
+    eta_r: 0.486986168854618
+
+Final value of log-likelihood: 1212.412757679942615
+
+***************************
+* BEST RESULTS WITH RUN=1 *
+***************************
+
+- point estimates for stderr parameters:
+    eta_a: 2.747697233134916
+    eta_e: 0.028882164116404
+    eta_z: 0.858196786024231
+    eta_r: 0.276196004637038
+
+- point estimates for skew parameters:
+    eta_a: -0.111987050675084
+    eta_e: -0.289566734765780
+    eta_z: -0.836095597248922
+    eta_r: 0.520016288312854
+
+
+Total computing time : 0h30m10s
