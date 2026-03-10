@@ -51,6 +51,9 @@ clearvars; clc; close all;
 % Replication part                           % |                         RUNTIMES                        |
 % Set to 1 to recompute results              % | maca64_m2max | maca64_m4pro |   glnxa64   |    win64    |
 %========================================================================================================|
+REDO_MONTECARLO_GAUSSIAN              = 1;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
+REDO_MONTECARLO_CSN                   = 0;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
+%--------------------------------------------------------------------------------------------------------|
 REDO_ML_GAUSSIAN                      = 0;   % |   <00h01m    |   <00h01m    |   <00h01m   |   <00h01m   |
 REDO_ML_CSN_INITVAL_SEARCH            = 0;   % |    00h18m    |    00h14m    |    00h30m   |    00h23m   |
 REDO_ML_CSN                           = 0;   % |    00h13m    |    00h10m    |    00h26m   |    00h09m   |
@@ -82,12 +85,39 @@ if strcmp(ARCH,'glnxa64')
     DYNARE_PATH = [getenv('HOME') '/dynare/' DYNARE_VERSION '/matlab'];
 elseif strcmp(ARCH,'maca64')
     DYNARE_PATH = ['/Applications/dynare/' DYNARE_VERSION '-arm64/matlab'];
-    [~,ARCH] = system('system_profiler SPHardwareDataType | egrep "Chip"'); % distinguish between MacBook Pro M2 Max (maca64_m2max) and Mac mini M4 Pro (maca64_m4pro)
-    ARCH = ['maca64_' lower(regexprep(strtrim(erase(ARCH,'Chip: Apple')),'\s+',''))];
+    [~,chip_info] = system('system_profiler SPHardwareDataType 2>/dev/null | grep "Chip:"');
+    chip_name = regexp(chip_info, 'Chip:\s*Apple\s+(.*)', 'tokens', 'once');
+    ARCH = ['maca64_' lower(regexprep(strtrim(chip_name{1}),'\s+',''))];
 elseif strcmp(ARCH,'win64')
     DYNARE_PATH = ['c:/dynare/' DYNARE_VERSION '/matlab'];
 end
 if isempty(which('dynare')); addpath(DYNARE_PATH); end % add path if not already available
+
+
+%% MONTE CARLO ESTIMATION WITH GAUSSIAN MODEL
+% Monte Carlo study: simulate datasets and estimate Gaussian model using PSKF
+if REDO_MONTECARLO_GAUSSIAN
+    REDO_MONTECARLO_GAUSSIAN = tic;
+    clearvars -except DYNARE_PATH ARCH MATLAB_VERSION REDO_*; clc; close all;
+    dynare ireland2004_monte_carlo -DGAUSSIAN
+    % housekeeping
+    pause(1); fclose('all'); movefile([M_.fname '.log'], target_logfile);
+    rmdir(['+' M_.fname],'s'); rmdir(M_.fname,'s');
+    REDO_MONTECARLO_GAUSSIAN = toc(REDO_MONTECARLO_GAUSSIAN);
+end
+
+
+%% MONTE CARLO ESTIMATION WITH CSN MODEL
+% Monte Carlo study: simulate datasets and estimate CSN model using PSKF
+if REDO_MONTECARLO_CSN
+    REDO_MONTECARLO_CSN = tic;
+    clearvars -except DYNARE_PATH ARCH MATLAB_VERSION REDO_*; clc; close all;
+    dynare ireland2004_monte_carlo
+    % housekeeping
+    pause(1); fclose('all'); movefile([M_.fname '.log'], target_logfile);
+    rmdir(['+' M_.fname],'s'); rmdir(M_.fname,'s');
+    REDO_MONTECARLO_CSN = toc(REDO_MONTECARLO_CSN);
+end
 
 
 %% MAXIMUM LIKELIHOOD ESTIMATION OF GAUSSIAN MODEL
@@ -341,6 +371,12 @@ end
 
 %% HOUSEKEEPING
 fprintf('\n%s\n* RUNTIMES *\n%s\n', repmat('*',1,12), repmat('*',1,12))
+if REDO_MONTECARLO_GAUSSIAN > 0
+    fprintf('- Monte Carlo estimation with Gaussian shocks: %s\n', dynsec2hms(REDO_MONTECARLO_GAUSSIAN));
+end
+if REDO_MONTECARLO_CSN > 0
+    fprintf('- Monte Carlo estimation with CSN shocks: %s\n', dynsec2hms(REDO_MONTECARLO_CSN));
+end
 if REDO_ML_GAUSSIAN > 0
     fprintf('- Maximum likelihood estimation with Gaussian shocks: %s\n', dynsec2hms(REDO_ML_GAUSSIAN));
 end
