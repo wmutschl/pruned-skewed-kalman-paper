@@ -51,8 +51,8 @@ clearvars; clc; close all;
 % Replication part                           % |                         RUNTIMES                        |
 % Set to 1 to recompute results              % | maca64_m2max | maca64_m4pro |   glnxa64   |    win64    |
 %========================================================================================================|
-REDO_MONTECARLO_GAUSSIAN              = 1;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
-REDO_MONTECARLO_CSN                   = 0;   % |    00h00m    |    00h00m    |    00h00m   |    00h00m   |
+REDO_MONTECARLO_GAUSSIAN              = 0;   % |    00h09m    |    00h00m    |    00h00m   |    00h00m   |
+REDO_MONTECARLO_CSN                   = 0;   % |    12h40m    |    00h00m    |    00h00m   |    00h00m   |
 %--------------------------------------------------------------------------------------------------------|
 REDO_ML_GAUSSIAN                      = 0;   % |   <00h01m    |   <00h01m    |   <00h01m   |   <00h01m   |
 REDO_ML_CSN_INITVAL_SEARCH            = 0;   % |    00h18m    |    00h14m    |    00h30m   |    00h23m   |

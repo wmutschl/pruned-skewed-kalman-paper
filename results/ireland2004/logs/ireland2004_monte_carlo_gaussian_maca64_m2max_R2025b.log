@@ -1,0 +1,42 @@
+Starting Dynare (version 7.0).
+Calling Dynare with arguments: -DGAUSSIAN
+Using build directory: /Applications/Dynare/7.0-arm64/matlab/../build-matlab
+Starting preprocessing of the model file ...
+Found 8 equation(s).
+Evaluating expressions...
+Computing static model derivatives (order 1).
+Normalizing the static model...
+Finding the optimal block decomposition of the static model...
+6 block(s) found:
+  5 recursive block(s) and 1 simultaneous block(s).
+  the largest simultaneous block has 2 equation(s)
+                                 and 2 feedback variable(s).
+Computing dynamic model derivatives (order 1).
+Normalizing the dynamic model...
+Finding the optimal block decomposition of the dynamic model...
+2 block(s) found:
+  1 recursive block(s) and 1 simultaneous block(s).
+  the largest simultaneous block has 5 equation(s)
+                                 and 5 feedback variable(s).
+Preprocessing completed.
+Preprocessing time: 0h00m00s.
+
+SIMULATE 1000 DATASETS WITH T=200...DONE!
+SIMULATE 1000 DATASETS WITH T=500...DONE!
+
+You did not declare endogenous variables after the estimation/calib_smoother command.
+Initial value of the log posterior (or likelihood): 1202.4731
+
+ESTIMATE 1000 DATASETS WITH T=200...DONE (0h02m06s)!
+ESTIMATE 1000 DATASETS WITH T=500...DONE (0h04m34s)!
+
+=== MONTE CARLO SUMMARY (GAUSSIAN) ===
+Parameter               Truth   Mean_200    [p5;p95]_200  NRMSE_200   Mean_500    [p5;p95]_500  NRMSE_500
+--------------------------------------------------------------------------------------------------------
+stderr eta_a           2.5232     2.5222 [ 2.44; 2.60]     0.0197     2.5231 [ 2.46; 2.59]     0.0157
+stderr eta_e           0.0212     0.0209 [ 0.02; 0.02]     0.0608     0.0211 [ 0.02; 0.02]     0.0411
+stderr eta_z           0.7900     0.7924 [ 0.75; 0.84]     0.0334     0.7898 [ 0.76; 0.82]     0.0243
+stderr eta_r           0.2838     0.2843 [ 0.27; 0.29]     0.0200     0.2840 [ 0.28; 0.29]     0.0129
+
+Monte Carlo table updated: ../results/ireland2004/montecarlo/montecarlo_table_maca64_m2max_R2025b.tex (columns for GAUSSIAN)
+Total computing time : 0h08m42s
