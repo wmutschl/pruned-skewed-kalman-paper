@@ -76,7 +76,7 @@ REDO_IRFS                             = 0;   % |   <00h01m    |   <00h01m    |  
 % please adjust Dynare path and machine identifiers accordingly
 MATLAB_VERSION = ['R' version('-release')]; % used for filenames
 ARCH           = computer('arch');          % used for filenames
-DYNARE_VERSION = '7-unstable';
+DYNARE_VERSION = '7.0';
 if strcmp(ARCH,'glnxa64')
     ARCH = 'glnxa64';
     DYNARE_PATH = [getenv('HOME') '/dynare/' DYNARE_VERSION '/matlab'];
