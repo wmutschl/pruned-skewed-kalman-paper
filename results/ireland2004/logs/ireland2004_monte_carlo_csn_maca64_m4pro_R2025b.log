@@ -1,0 +1,46 @@
+Starting Dynare (version 7.0).
+Calling Dynare with arguments: none
+Using build directory: /Applications/Dynare/7.0-arm64/matlab/../build-matlab
+Starting preprocessing of the model file ...
+Found 8 equation(s).
+Evaluating expressions...
+Computing static model derivatives (order 1).
+Normalizing the static model...
+Finding the optimal block decomposition of the static model...
+6 block(s) found:
+  5 recursive block(s) and 1 simultaneous block(s).
+  the largest simultaneous block has 2 equation(s)
+                                 and 2 feedback variable(s).
+Computing dynamic model derivatives (order 1).
+Normalizing the dynamic model...
+Finding the optimal block decomposition of the dynamic model...
+2 block(s) found:
+  1 recursive block(s) and 1 simultaneous block(s).
+  the largest simultaneous block has 5 equation(s)
+                                 and 5 feedback variable(s).
+Preprocessing completed.
+Preprocessing time: 0h00m00s.
+
+SIMULATE 1200 DATASETS WITH T=200...DONE!
+SIMULATE 1200 DATASETS WITH T=500...DONE!
+
+You did not declare endogenous variables after the estimation/calib_smoother command.
+Initial value of the log posterior (or likelihood): 1204.9652
+
+ESTIMATE 1200 DATASETS WITH T=200...DONE (2h35m02s)!
+ESTIMATE 1200 DATASETS WITH T=500...DONE (7h23m24s)!
+
+=== MONTE CARLO SUMMARY (CSN) ===
+Parameter               Truth   Mean_200    [p5;p95]_200  NRMSE_200   Mean_500    [p5;p95]_500  NRMSE_500
+--------------------------------------------------------------------------------------------------------
+stderr eta_a           2.5232     2.5242 [ 2.44; 2.61]     0.0207     2.5295 [ 2.47; 2.59]     0.0145
+stderr eta_e           0.0212     0.0208 [ 0.02; 0.02]     0.1157     0.0210 [ 0.02; 0.02]     0.1037
+stderr eta_z           0.7900     0.7937 [ 0.75; 0.84]     0.0339     0.7937 [ 0.76; 0.83]     0.0238
+stderr eta_r           0.2838     0.2844 [ 0.28; 0.29]     0.0193     0.2839 [ 0.28; 0.29]     0.0119
+skew eta_a             0.0000    -0.0843 [-0.44; 0.10]        N/A    -0.0706 [-0.32; 0.03]        N/A
+skew eta_e            -0.4000    -0.5332 [-0.97;-0.11]     0.7261    -0.5152 [-0.84;-0.23]     0.5420
+skew eta_z            -0.9500    -0.8796 [-1.00;-0.64]     0.1437    -0.9002 [-1.00;-0.76]     0.1046
+skew eta_r             0.5500     0.5822 [ 0.39; 0.79]     0.2328     0.5657 [ 0.42; 0.72]     0.1592
+
+Monte Carlo table updated: ../results/ireland2004/montecarlo/montecarlo_table_maca64_m4pro_R2025b.tex (columns for CSN)
+Total computing time : 10h18m58s
