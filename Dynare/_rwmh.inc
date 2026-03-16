@@ -31,6 +31,12 @@ update_table_2('../results/ireland2004', upper('BAYESIAN_@{DISTRIB}'), oo_, ARCH
 rmpath('_utils');
 @#endif
 
+@#ifdef EXPORT_PRIOR_POSTERIOR_DENSITY
+addpath('_utils');
+density_table = export_prior_posterior_density_csv(oo_, '@{DISTRIB}', ARCH, MATLAB_VERSION);
+rmpath('_utils');
+@#endif
+
 %%%%%%%%%%%%%%%%
 % Housekeeping %
 %%%%%%%%%%%%%%%%

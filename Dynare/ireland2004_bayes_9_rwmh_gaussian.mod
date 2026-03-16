@@ -20,5 +20,6 @@
 @#define MODE_FILE = "../results/ireland2004/bayes/ireland2004_" + DISTRIB + "_mode6"
 @#define MH_JSCALE = 0.56685 // determined as by-product of mode_compute 6
 @#define UPDATE_TABLE_2 = true
+@#define EXPORT_PRIOR_POSTERIOR_DENSITY = true
 @#include "_ireland2004_common.inc"
 @#include "_rwmh.inc"
