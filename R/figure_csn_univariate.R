@@ -129,11 +129,11 @@ p_d <- plot_csn_density(
 )
 print(p_d)
 
-#################################
-# Figure 1 (e): CSN(0,1,-5,0,1) #
-#################################
+##################################
+# Figure 1 (e): CSN(0,1,-5,0,10) #
+##################################
 p_e <- plot_csn_density(
-  mu = 0, sigma = 1, gamma = -5, nu = 0, delta = 1,
+  mu = 0, sigma = 1, gamma = -5, nu = 0, delta = 10,
   subplot_label = "(e)", x_label = "x", y_label = ""
 )
 print(p_e)

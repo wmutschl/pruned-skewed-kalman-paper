@@ -130,7 +130,7 @@ p_d <- pltobj(xx, mu = mu, sigma = sigma, gamma = gamma_d, nu = nu_d, delta = de
               x_label = TeX("$x_1$"), y_label = TeX("$x_2$"))
 
 p_e <- pltobj(xx, mu = mu, sigma = sigma, gamma = gamma_e, nu = nu_e, delta = delta_e,
-              ttl = TeX("(e) $\\Gamma = diag(6,6)$, $\\nu = (0,0)'$, $\\Delta = I_{2}$"),
+              ttl = TeX("(e) $\\Gamma_{ij} = 6$, $\\nu = (0,0)'$, $\\Delta = I_{2}$"),
               x_label = TeX("$x_1$"), y_label = "")
 
 p_f <- pltobj(xx, mu = mu, sigma = sigma, gamma = gamma_f, nu = nu_f, delta = delta_f,
