@@ -217,6 +217,11 @@ for i = 1:length(lines)
 
 end
 
+% Ensure the last line ends with \\ \bottomrule%
+lastline = lines{end};
+lastline = regexprep(lastline, '\s*\\\\?\s*(\\bottomrule)?\s*%?\s*$', '');
+lines{end} = [lastline ' \\ \bottomrule'];
+
 % Write the updated tex file
 fid = fopen(tex_file, 'w');
 if fid == -1
