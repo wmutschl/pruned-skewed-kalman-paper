@@ -1,6 +1,6 @@
-Starting Dynare (version 7-unstable).
+Starting Dynare (version 7.0).
 Calling Dynare with arguments: none
-Using build directory: /Applications/Dynare/7-unstable-arm64/matlab/../build-matlab
+Using build directory: /Applications/Dynare/7.0-arm64/matlab/../build-matlab
 Starting preprocessing of the model file ...
 Found 8 equation(s).
 Evaluating expressions...
@@ -20,29 +20,33 @@ Finding the optimal block decomposition of the dynamic model...
                                  and 5 feedback variable(s).
 Preprocessing completed.
 Preprocessing time: 0h00m00s.
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Connected to parallel pool with 8 workers.
 
 You did not declare endogenous variables after the estimation/calib_smoother command.
+
+The 'mode_file' ../results/ireland2004/bayes/ireland2004_gaussian_mode6_maca64_m2max_R2025b.mat has been generated using another specification of the model or another model!
 
 Initial value of the log posterior (or likelihood): 1205.1095
 
 RESULTS FROM POSTERIOR ESTIMATION
 parameters
-       prior mean     mode    s.d.  prior pstdev
+             prior mean     mode    s.d.  prior pstdev
 
-OMEGA      0.2000   0.1231  0.0499   beta 0.1000 
-RHO_PI     0.3000   0.4938  0.0968   gamm 0.1000 
-RHO_G      0.3000   0.3495  0.0501   gamm 0.1000 
-RHO_X      0.2500   0.1813  0.0531   gamm 0.0625 
-RHO_A      0.8500   0.9189  0.0257   beta 0.1000 
-RHO_E      0.8500   0.9241  0.0364   beta 0.1000 
+OMEGA            0.2000   0.1231  0.0499   beta 0.1000 
+RHO_PI           0.3000   0.4938  0.0968   gamm 0.1000 
+RHO_G            0.3000   0.3495  0.0501   gamm 0.1000 
+RHO_X            0.2500   0.1813  0.0531   gamm 0.0625 
+RHO_A            0.8500   0.9189  0.0257   beta 0.1000 
+RHO_E            0.8500   0.9241  0.0364   beta 0.1000 
 
 standard deviation of shocks
-       prior mean     mode    s.d.  prior pstdev
+             prior mean     mode    s.d.  prior pstdev
 
-eta_a      5.4772   3.1659  0.7421   invg 5.4772 
-eta_e      0.2828   0.0572  0.0082   invg 1.0000 
-eta_z      2.2361   0.7648  0.1058   invg 3.8730 
-eta_r      0.7071   0.2796  0.0329   invg 1.4142 
+eta_a            5.4772   3.1659  0.7421   invg 5.4772 
+eta_e            0.2828   0.0572  0.0082   invg 1.0000 
+eta_z            2.2361   0.7648  0.1058   invg 3.8730 
+eta_r            0.7071   0.2796  0.0329   invg 1.4142 
 
 
 Log data density [Laplace approximation] is 1183.346077.
@@ -260,20 +264,21 @@ ESTIMATION RESULTS
 
 Log data density (Modified Harmonic Mean) is 1182.773000.
 parameters
-         prior mean   post. mean        90% HPD interval    prior       pstdev
+               prior mean   post. mean        90% HPD interval    prior       pstdev
 
-OMEGA         0.200       0.1273      0.0476      0.2039     beta       0.1000
-RHO_PI        0.300       0.4998      0.3438      0.6600     gamm       0.1000
-RHO_G         0.300       0.3626      0.2766      0.4454     gamm       0.1000
-RHO_X         0.250       0.2050      0.1215      0.2846     gamm       0.0625
-RHO_A         0.850       0.9138      0.8690      0.9610     beta       0.1000
-RHO_E         0.850       0.9105      0.8559      0.9688     beta       0.1000
+OMEGA               0.200       0.1273      0.0476      0.2039     beta       0.1000
+RHO_PI              0.300       0.4998      0.3438      0.6600     gamm       0.1000
+RHO_G               0.300       0.3626      0.2766      0.4454     gamm       0.1000
+RHO_X               0.250       0.2050      0.1215      0.2846     gamm       0.0625
+RHO_A               0.850       0.9138      0.8690      0.9610     beta       0.1000
+RHO_E               0.850       0.9105      0.8559      0.9688     beta       0.1000
 
 standard deviation of shocks
-         prior mean   post. mean        90% HPD interval    prior       pstdev
+               prior mean   post. mean        90% HPD interval    prior       pstdev
 
-eta_a         5.477       3.2958      1.9189      4.6413     invg       5.4772
-eta_e         0.283       0.0602      0.0468      0.0736     invg       1.0000
-eta_z         2.236       0.7884      0.6135      0.9587     invg       3.8730
-eta_r         0.707       0.2951      0.2423      0.3463     invg       1.4142
-Total computing time : 0h20m22s
+eta_a               5.477       3.2958      1.9189      4.6413     invg       5.4772
+eta_e               0.283       0.0602      0.0468      0.0736     invg       1.0000
+eta_z               2.236       0.7884      0.6135      0.9587     invg       3.8730
+eta_r               0.707       0.2951      0.2423      0.3463     invg       1.4142
+Density data saved to: ../results/ireland2004/density_gaussian_maca64_m2max_R2025b.csv
+Total computing time : 0h21m07s
