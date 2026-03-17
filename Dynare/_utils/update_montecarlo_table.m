@@ -90,6 +90,14 @@ for i = 1:length(lines)
         continue;
     end
 
+    % Preserve line ending (\\ and optional \midrule/\bottomrule) from last part
+    line_ending = '';
+    bs_pos = strfind(parts{end}, '\\');
+    if ~isempty(bs_pos)
+        line_ending = parts{end}(bs_pos(end):end);
+        parts{end} = parts{end}(1:bs_pos(end)-1);
+    end
+
     param_latex = strtrim(parts{1});
 
     % Find which parameter this row corresponds to
@@ -132,17 +140,19 @@ for i = 1:length(lines)
         end
     end
 
-    % Reconstruct line
-    reconstructed = strjoin(parts, '&');
-    % Ensure line ends with \\
-    if ~endsWith(strtrim(reconstructed), '\\')
-        reconstructed = [reconstructed ' \\'];
-    end
-    lines{i} = reconstructed;
+    lines{i} = [strjoin(parts, '&') line_ending];
 end
+
+% Ensure the last line ends with \\ \bottomrule
+lastline = lines{end};
+lastline = regexprep(lastline, '\s*\\\\?\s*(\\bottomrule)?\s*%?\s*$', '');
+lines{end} = [lastline ' \\ \bottomrule'];
 
 % Write the updated tex file
 fid = fopen(tex_file, 'w');
+if fid == -1
+    error('Cannot write to file: %s', tex_file);
+end
 for i = 1:length(lines)
     if i < length(lines)
         fprintf(fid, '%s\n', lines{i});
