@@ -182,3 +182,10 @@ ggsave(
   width = 2400,
   height = 1100
 )
+ggsave(
+  filename = "figure_data.svg",
+  plot = fig_data,
+  units = "px",
+  width = 2400,
+  height = 1100
+)

@@ -137,3 +137,10 @@ ggsave(
   width = 3000,
   height = 1500
 )
+ggsave(
+  filename = "figure_irfs.svg",
+  plot = p_irfs,
+  units = "px",
+  width = 3000,
+  height = 1500
+)

@@ -176,3 +176,10 @@ ggsave(
   width = 4000,
   height = 2000
 )
+ggsave(
+  filename = "figure_csn_univariate.svg",
+  plot = fig_1,
+  units = "px",
+  width = 4000,
+  height = 2000
+)

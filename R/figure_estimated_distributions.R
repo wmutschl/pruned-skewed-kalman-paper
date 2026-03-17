@@ -240,3 +240,10 @@ ggsave(
   width = 3200,
   height = 2800
 )
+ggsave(
+  filename = "figure_estimated_distributions.svg",
+  plot = fig_4,
+  units = "px",
+  width = 3200,
+  height = 2800
+)

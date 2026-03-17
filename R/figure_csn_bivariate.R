@@ -160,3 +160,10 @@ ggsave(
   width = 4500,
   height = 3000
 )
+ggsave(
+  filename = "figure_csn_bivariate.svg",
+  plot = fig_2,
+  units = "px",
+  width = 4500,
+  height = 3000
+)

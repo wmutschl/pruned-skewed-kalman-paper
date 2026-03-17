@@ -211,6 +211,13 @@ ggsave(
   width = 3400,
   height = 2200
 )
+ggsave(
+  filename = "figure_prior_posterior_shocks.svg",
+  plot = fig_shocks,
+  units = "px",
+  width = 3400,
+  height = 2200
+)
 
 # --- Deep parameters (Gaussian + CSN) ---
 deep_param_labeller <- as_labeller(deep_labels, default = label_parsed)
@@ -246,6 +253,13 @@ ggsave(
   filename = "figure_prior_posterior_deep.pdf",
   plot = fig_deep,
   dpi = 300,
+  units = "px",
+  width = 3400,
+  height = 2200
+)
+ggsave(
+  filename = "figure_prior_posterior_deep.svg",
+  plot = fig_deep,
   units = "px",
   width = 3400,
   height = 2200

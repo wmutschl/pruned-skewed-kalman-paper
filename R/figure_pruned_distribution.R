@@ -167,6 +167,13 @@ ggsave(
   width = 3000,
   height = 1300
 )
+ggsave(
+  filename = "figure_pruned_distribution.svg",
+  plot = fig_3,
+  units = "px",
+  width = 3000,
+  height = 1300
+)
 
 # =========================================================================
 # COMPUTE KULLBACK-LEIBLER DIVERGENCE
