@@ -142,6 +142,15 @@ for i = 1:length(lines)
     end
 
     parts = strsplit(line, '&');
+
+    % Preserve line ending (\\ and optional \midrule/\bottomrule) from last part
+    line_ending = '';
+    bs_pos = strfind(parts{end}, '\\');
+    if ~isempty(bs_pos)
+        line_ending = parts{end}(bs_pos(end):end);
+        parts{end} = parts{end}(1:bs_pos(end)-1);
+    end
+
     % Check if this is the Obj(mode) line
     if contains(line, 'Obj(mode)')
         if strcmp(model_type, 'ML_GAUSSIAN')
@@ -155,7 +164,7 @@ for i = 1:length(lines)
         end
         objval = sprintf('%.2f', oo_.posterior.optimization.log_density);
         parts{multicolumn_idx} = sprintf(' \\multicolumn{%d}{c}{%s} ', span, objval);
-        lines{i} = strjoin(parts, '&');
+        lines{i} = [strjoin(parts, '&') line_ending];
         continue;
     end
 
@@ -213,7 +222,7 @@ for i = 1:length(lines)
             parts{11} = sprintf(' [%.2f;%.2f] ', oo_.posterior_hpdinf.parameters.(param_dynare), oo_.posterior_hpdsup.parameters.(param_dynare));
         end
     end
-    lines{i} = strjoin(parts, '&');
+    lines{i} = [strjoin(parts, '&') line_ending];
 
 end
 
