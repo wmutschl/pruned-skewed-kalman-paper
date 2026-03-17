@@ -411,10 +411,10 @@ if REDO_BAYES_MODE_CSN > 0
     fprintf('- Bayesian mode estimation with CSN shocks: %s\n', dynsec2hms(REDO_BAYES_MODE_CSN));
 end
 if REDO_BAYES_RWMH_GAUSSIAN > 0
-    fprintf('- Bayesian mode estimation with Gaussian shocks: %s\n', dynsec2hms(REDO_BAYES_RWMH_GAUSSIAN));
+    fprintf('- Bayesian RWMH estimation with Gaussian shocks: %s\n', dynsec2hms(REDO_BAYES_RWMH_GAUSSIAN));
 end
 if REDO_BAYES_RWMH_CSN > 0
-    fprintf('- Bayesian mode estimation with CSN shocks: %s\n', dynsec2hms(REDO_BAYES_RWMH_CSN));
+    fprintf('- Bayesian RWMH estimation with CSN shocks: %s\n', dynsec2hms(REDO_BAYES_RWMH_CSN));
 end
 if REDO_RECESSIONS > 0
     fprintf('- Simulations and statistics on recessions: %s\n', dynsec2hms(REDO_RECESSIONS));
