@@ -10,7 +10,7 @@ estimation(datafile = '../data/ireland2004_data.m'
           , mode_compute = 8, silent_optimizer
           , plot_priors = 0
           , kalman_algo = 5  % use pruned skewed Kalman filter routine even in Gaussian case for comparability
-          , skewed_kalman_smoother_skip
+          , frequentist_smoother = false
           );
 fprintf('Optimization info (mode_compute=8):\n');
 disp(oo_.posterior.optimization.optimization_info);
@@ -24,7 +24,7 @@ estimation(datafile = '../data/ireland2004_data.m'
           , mode_compute = 6
           , plot_priors = 0
           , kalman_algo = 5  % use pruned skewed Kalman filter routine even in Gaussian case for comparability
-          , skewed_kalman_smoother_skip
+          , frequentist_smoother = false
           );
 fprintf('Optimization info (mode_compute=6):\n');
 disp(oo_.posterior.optimization.optimization_info);

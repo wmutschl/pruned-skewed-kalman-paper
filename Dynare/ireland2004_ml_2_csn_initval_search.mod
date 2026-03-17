@@ -59,7 +59,7 @@ estimation(datafile = '../data/ireland2004_data.m'
          , lik_init = 1     % initialize Kalman filter at Gaussian steady-state distribution
          , cova_compute = 0 % skip Hessian computation
          , skewed_kalman_prune_tol = 0.1 % use high pruning threshold (0.01 is default)
-         , skewed_kalman_smoother_skip
+         , frequentist_smoother = false
          );
 
 % create grid for skewness coefficients
@@ -123,7 +123,7 @@ estimation(datafile = '../data/ireland2004_data.m'
           , lik_init = 1     % initialize Kalman filter at Gaussian steady-state distribution
           , cova_compute = 0 % skip Hessian computation
           , skewed_kalman_prune_tol = 0.01 % switch back to default pruning threshold
-          , skewed_kalman_smoother_skip
+          , frequentist_smoother = false
           );
 oo_.initval_search.fval(@{j})          = oo_.posterior.optimization.log_density;
 oo_.initval_search.shocks_stderr{@{j}} = oo_.mle_mode.shocks_std;

@@ -72,7 +72,7 @@ end;
 msg = sprintf('# %s (ME=@{MEAS_ERROR[ME]}%%): EVALUATE LOG-LIKELIHOOD VALUE WITH PRUNED SKEWED KALMAN FILTER (TOL=@{PSKF_TOL[TOL]}) #', upper('@{DISTRIBUTION[DIST]}'));
 fprintf('\n\n%s\n%s\n%s\n', repmat('#',1,length(msg)), msg, repmat('#',1,length(msg)));
 options_.particle.status = false;
-estimation(datafile = '../data/ireland2004_data.m', mode_compute = 0, cova_compute = 0, kalman_algo = 5, skewed_kalman_prune_tol = @{PSKF_TOL[TOL]}, skewed_kalman_smoother_skip) ghat rhat pihat;
+estimation(datafile = '../data/ireland2004_data.m', mode_compute = 0, cova_compute = 0, kalman_algo = 5, skewed_kalman_prune_tol = @{PSKF_TOL[TOL]}, frequentist_smoother = false) ghat rhat pihat;
 @{DISTRIBUTION[DIST]}_pskf.fval(@{ME},@{TOL}) = oo_.particle_comparison.fval;
 @{DISTRIBUTION[DIST]}_pskf.time(@{ME},@{TOL}) = oo_.particle_comparison.time;
     @#endfor // TOL
