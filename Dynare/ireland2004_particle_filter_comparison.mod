@@ -135,7 +135,7 @@ for d = 1:2
     end
     rows{5} = sprintf('\\textit{Avg. CPU Time} & \\textit{%s} & \\textit{%s} & \\textit{%s} & \\textit{%s} & \\textit{%s} & \\textit{%s} & \\textit{%s} & \\textit{%s} \\\\', time_strs{:});
     % print to console and write to tex file
-    fid_tex = fopen(sprintf('../results/ireland2004/online_appendix_table_5%s_%s_%s.tex', panel_labels{d}, ARCH, MATLAB_VERSION), 'w');
+    fid_tex = fopen(sprintf('../results/ireland2004/online_appendix_table_6%s_%s_%s.tex', panel_labels{d}, ARCH, MATLAB_VERSION), 'w');
     for fid = [1, fid_tex]
         for r = 1:5
             if r < 5
