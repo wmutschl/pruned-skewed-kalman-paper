@@ -1,6 +1,6 @@
 function [LIK,lik] = sequential_importance_particle_filter(ReducedForm,Y,start,ParticleOptions,ThreadsOptions, options_, M_)
 % [LIK,lik] = sequential_importance_particle_filter(ReducedForm,Y,start,ParticleOptions,ThreadsOptions, options_, M_)
-% Evaluates the likelihood of a nonlinear model with a particle filter employing a sequential importance sampling approach 
+% Evaluates the likelihood of a nonlinear model with a particle filter employing a sequential importance sampling approach
 %
 % INPUTS
 %  - ReducedForm            [structure] decision rules
@@ -16,11 +16,11 @@ function [LIK,lik] = sequential_importance_particle_filter(ReducedForm,Y,start,P
 % - lik                [double]    (T-s+1)×1 vector, density of observations in each period.
 %
 % References:
-% Implementation is e.g. described in Godsill/Doucet/West (2004): "Monte Carlo Smoothing for Nonlinear Time Series", 
+% Implementation is e.g. described in Godsill/Doucet/West (2004): "Monte Carlo Smoothing for Nonlinear Time Series",
 % Journal of the American Statistical Association, March 2004, 99(465)
 
 
-% Copyright © 2011-2025 Dynare Team
+% Copyright © 2011-2026 Dynare Team
 %
 % This file is part of Dynare.
 %
@@ -84,7 +84,7 @@ if ParticleOptions.pruning && ~(options_.order ==1)
         mf0_ = ReducedForm.mf0;
     elseif options_.order == 3
         StateVectors_ = repmat(StateVectors,3,1);
-        mf0_ = repmat(ReducedForm.mf0,1,3); 
+        mf0_ = repmat(ReducedForm.mf0,1,3);
         mask2 = number_of_state_variables+1:2*number_of_state_variables;
         mask3 = 2*number_of_state_variables+1:3*number_of_state_variables;
         mf0_(mask2) = mf0_(mask2)+size(ReducedForm.ghx,1);
@@ -113,7 +113,7 @@ for t=1:sample_size
     PredictionError = bsxfun(@minus,Y(:,t),tmp(ReducedForm.mf1,:));
 
     lnw = -.5*(const_lik+sum(PredictionError.*(ReducedForm.H\PredictionError),1));
-    
+
     dfac = max(lnw);
     wtilde = weights.*exp(lnw-dfac);
     lik(t) = log(sum(wtilde))+dfac;

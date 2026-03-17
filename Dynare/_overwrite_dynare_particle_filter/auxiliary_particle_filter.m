@@ -15,7 +15,7 @@ function [LIK,lik] = auxiliary_particle_filter(ReducedForm,Y,start,ParticleOptio
 % - LIK                [double]    scalar, likelihood
 % - lik                [double]    (T-s+1)×1 vector, density of observations in each period.
 
-% Copyright © 2011-2025 Dynare Team
+% Copyright © 2011-2026 Dynare Team
 %
 % This file is part of Dynare.
 %
@@ -84,7 +84,7 @@ if ParticleOptions.pruning && ~(options_.order==1)
         mf0_ = mf0;
     elseif options_.order == 3
         StateVectors_ = repmat(StateVectors,3,1);
-        mf0_ = repmat(mf0,1,3); 
+        mf0_ = repmat(mf0,1,3);
         mask2 = number_of_state_variables+1:2*number_of_state_variables;
         mask3 = 2*number_of_state_variables+1:3*number_of_state_variables;
         mf0_(mask2) = mf0_(mask2)+size(ghx,1);
@@ -114,7 +114,7 @@ for t=1:sample_size
     if ParticleOptions.pruning
         [tmp, tmp_]=iterate_law_of_motion(StateVectors(:,indx),epsilon,ReducedForm,M_,options_,ReducedForm.use_k_order_solver,ParticleOptions.pruning,StateVectors_(:,indx));
         StateVectors_ = tmp_(mf0_,:);
-    else 
+    else
         [tmp]=iterate_law_of_motion(StateVectors(:,indx),epsilon,ReducedForm,M_,options_,ReducedForm.use_k_order_solver,ParticleOptions.pruning);
     end
     StateVectors = tmp(mf0,:);

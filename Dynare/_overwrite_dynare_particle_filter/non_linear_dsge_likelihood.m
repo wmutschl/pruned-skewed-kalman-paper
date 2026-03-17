@@ -29,7 +29,7 @@ function [fval,info,exit_flag,DLIK,Hess,ys,trend_coeff,M_,bayestopt_,dr] = non_l
 % - bayestopt_              [struct]              See INPUTS section.
 % - dr                      [struct]              decision rule structure described in INPUTS section.
 
-% Copyright © 2010-2023 Dynare Team
+% Copyright © 2010-2026 Dynare Team
 %
 % This file is part of Dynare.
 %
@@ -182,9 +182,9 @@ switch options_.particle.initialization
         info(1) = 202;
         info(4) = 0.1;
         exit_flag = 0;
-        return;        
+        return;
     end
-    StateVectorVariance = cov(y_');       
+    StateVectorVariance = cov(y_');
     options_.periods = old_DynareOptionsperiods;
     options_.pruning = old_DynareOptionspruning;
     clear('old_DynareOptionsperiods','y_');
@@ -204,7 +204,7 @@ if flag
     fval = Inf;
     info(1) = 201;
     info(4) = 0.1;
-    exit_flag = 0;    
+    exit_flag = 0;
     return;
 end
 end

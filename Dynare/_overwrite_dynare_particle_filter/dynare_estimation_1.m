@@ -12,7 +12,7 @@ function dynare_estimation_1(var_list_,dname)
 % SPECIAL REQUIREMENTS
 %   none
 
-% Copyright © 2003-2025 Dynare Team
+% Copyright © 2003-2026 Dynare Team
 %
 % This file is part of Dynare.
 %
@@ -235,7 +235,9 @@ if ~isequal(options_.mode_compute,0) && ~options_.mh_posterior_mode_estimation &
             if current_optimizer==5
                 if options_.analytic_derivation
                     old_analytic_derivation = options_.analytic_derivation;
-                    options_.analytic_derivation=-1; %force analytic outer product gradient Hessian for each iteration
+                    old_analytic_Hessian = options_.analytic_Hessian;
+                    options_.analytic_derivation = true;
+                    options_.analytic_Hessian = 'opg'; %force analytic outer product gradient Hessian for each iteration
                 end
             end
         end
@@ -253,6 +255,7 @@ if ~isequal(options_.mode_compute,0) && ~options_.mh_posterior_mode_estimation &
                 new_rat_hess_info = new_rat_hess_info.new_rat_hess_info;
                 if options_.analytic_derivation
                     options_.analytic_derivation = old_analytic_derivation;
+                    options_.analytic_Hessian = old_analytic_Hessian;
                 end
             elseif current_optimizer==6 %save scaling factor
                 save([M_.dname filesep 'Output' filesep M_.fname '_optimal_mh_scale_parameter.mat'],'Scale');
@@ -264,10 +267,13 @@ if ~isequal(options_.mode_compute,0) && ~options_.mh_posterior_mode_estimation &
             if options_.cova_compute == 1 %user did not request covariance not to be computed
                 if options_.analytic_derivation && strcmp(func2str(objective_function),'dsge_likelihood')
                     ana_deriv_old = options_.analytic_derivation;
-                    options_.analytic_derivation = 2;
+                    ana_hess_old = options_.analytic_Hessian;
+                    options_.analytic_derivation = true;
+                    options_.analytic_Hessian = 'full';
                     [~,~,~,~,hh] = feval(objective_function,xparam1, ...
                                          dataset_,dataset_info,options_,M_,estim_params_,bayestopt_,bounds,oo_.dr,oo_.steady_state,oo_.exo_steady_state,oo_.exo_det_steady_state);
                     options_.analytic_derivation = ana_deriv_old;
+                    options_.analytic_Hessian = ana_hess_old;
                 elseif ~isnumeric(current_optimizer) || ~(isequal(current_optimizer,5) && newratflag~=1 && strcmp(func2str(objective_function),'dsge_likelihood'))
                     % enter here if i) not mode_compute_5, ii) if mode_compute_5 and newratflag==1;
                     % with flag==0 or 2 and dsge_likelihood, we force to use
@@ -277,7 +283,7 @@ if ~isequal(options_.mode_compute,0) && ~options_.mh_posterior_mode_estimation &
                         hh = hessian(penalized_objective_function, xparam1, options_.gstep, objective_function, fval, dataset_, dataset_info, options_, M_, estim_params_, bayestopt_, bounds,oo_.dr,oo_.steady_state,oo_.exo_steady_state,oo_.exo_det_steady_state);
                     else
                         hh = hessian(objective_function, xparam1, options_.gstep, dataset_, dataset_info, options_, M_, estim_params_, bayestopt_, bounds,oo_.dr,oo_.steady_state,oo_.exo_steady_state,oo_.exo_det_steady_state);
-                    end 
+                    end
                     hh = reshape(hh, nx, nx);
                 elseif isnumeric(current_optimizer) && isequal(current_optimizer,5)
                     % other numerical Hessian options available with optimizer
@@ -330,7 +336,7 @@ end
 
 if options_.mode_check.status && ~options_.mh_posterior_mode_estimation && ~issmc(options_)
     ana_deriv_old = options_.analytic_derivation;
-    options_.analytic_derivation = 0;
+    options_.analytic_derivation = false;
     mode_check(objective_function,xparam1,hh,options_,M_,estim_params_,bayestopt_,bounds,false,...
                dataset_, dataset_info, options_, M_, estim_params_, bayestopt_, bounds,oo_.dr,oo_.steady_state,oo_.exo_steady_state,oo_.exo_det_steady_state);
     options_.analytic_derivation = ana_deriv_old;
@@ -416,7 +422,7 @@ if issmc(options_)
         dime(objective_function, xparam1, bounds, dataset_, dataset_info, options_, M_, estim_params_, bayestopt_, oo_.dr, oo_.steady_state, oo_.exo_steady_state, oo_.exo_det_steady_state);
     elseif isdsmh(options_)
         oo_.MarginalDensity.dsmh = dsmh(objective_function, bounds, dataset_, dataset_info, options_, M_, estim_params_, bayestopt_, oo_);
-    end 
+    end
 end
 
 %
@@ -447,7 +453,7 @@ if issmc(options_) || (any(bayestopt_.pshape>0) && options_.mh_replic) ||  (any(
             options_.posterior_sampler_options.current_options = posterior_sampler_options;
             if options_.mh_replic
                 ana_deriv_old = options_.analytic_derivation;
-                options_.analytic_derivation = 0;
+                options_.analytic_derivation = false;
                 posterior_sampler(objective_function,posterior_sampler_options.proposal_distribution,xparam1,posterior_sampler_options,bounds,dataset_,dataset_info,options_,M_,estim_params_,bayestopt_,oo_,dispString);
                 options_.analytic_derivation = ana_deriv_old;
             end
@@ -475,9 +481,13 @@ if issmc(options_) || (any(bayestopt_.pshape>0) && options_.mh_replic) ||  (any(
                     oo_.convergence=oo_load_mh.oo_.convergence;
                 end
             end
-        elseif isdime(options_) && ~options_.nodiagnostic
-            % provide plot of log densities over iterations
-            oo_.lprob = trace_plot_dime(options_, M_);
+        elseif isdime(options_)
+            if ~options_.nodiagnostic
+                % provide plot of log densities over iterations
+                oo_.lprob = trace_plot_dime(options_, M_);
+            end
+            [~, ~, posterior_mode] = compute_posterior_covariance_matrix(bayestopt_.name, M_.fname, M_.dname, options_);
+            oo_ = fill_mh_mode(posterior_mode, NaN(length(posterior_mode),1), M_, options_, estim_params_, oo_, 'posterior');
         end
         % Estimation of the marginal density from the Mh draws:
         if isdsmh(options_) || ishssmc(options_) || isonline(options_) || isdime(options_) || options_.mh_replic || (options_.load_mh_file && ~options_.load_results_after_load_mh)
@@ -522,7 +532,7 @@ if issmc(options_) || (any(bayestopt_.pshape>0) && options_.mh_replic) ||  (any(
                     fprintf('%s: the bayesian_irf option is not compatible with the use of OccBin.',dispString)
                 else
                     oo_=PosteriorIRF('posterior',options_,estim_params_,oo_,M_,bayestopt_,dataset_,dataset_info,dispString);
-                end                
+                end
             end
             if options_.moments_varendo
                 if error_flag
@@ -592,8 +602,10 @@ elseif options_.partial_information ||...
     options_.order>1 %no particle smoother
     % smoothing not yet supported
 else
-    %% ML estimation, or posterior mode without Metropolis-Hastings or Metropolis without Bayesian smoothed variables
-    oo_=save_display_classical_smoother_results(xparam1,M_,oo_,options_,bayestopt_,dataset_,dataset_info,estim_params_);
+    %% Frequentist smoother: ML estimation, or posterior mode without Metropolis-Hastings or Metropolis without Bayesian smoothed variables
+    if options_.frequentist_smoother
+        oo_=save_display_classical_smoother_results(xparam1,M_,oo_,options_,bayestopt_,dataset_,dataset_info,estim_params_);
+    end
 end
 
 if options_.forecast == 0 || options_.mh_replic > 0 || options_.load_mh_file

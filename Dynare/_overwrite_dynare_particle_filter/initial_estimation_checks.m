@@ -20,7 +20,7 @@ function oo_ = initial_estimation_checks(objective_function,xparam1,dataset_,dat
 % SPECIAL REQUIREMENTS
 %    none
 
-% Copyright © 2003-2025 Dynare Team
+% Copyright © 2003-2026 Dynare Team
 %
 % This file is part of Dynare.
 %
@@ -43,7 +43,7 @@ maximum_number_non_missing_observations=max(sum(~isnan(dataset_.data(2:end,:)),2
 init_number_non_missing_observations=sum(~isnan(dataset_.data(1,:)),2);
 
 if options_.heteroskedastic_filter
-    if options_.order>1 
+    if options_.order>1
         error('initial_estimation_checks:: heteroskedastic shocks are only supported with the Kalman filter/smoother')
     end
     observations_by_period=sum(~isnan(dataset_.data),2);
@@ -81,16 +81,16 @@ if options_.occbin.likelihood.status || options_.occbin.smoother.status
         error('initial_estimation_checks:: OccBin is incompatible with the prefilter option due to the sample mean generally not corresponding to the steady state with an occasionally binding constraint.')
     end
     if ~options_.occbin.likelihood.inversion_filter && (options_.kalman_algo==2 || options_.kalman_algo==4)
-        error('initial_estimation_checks:: OccBin is incompatible with the selected univariate Kalman filter.')        
+        error('initial_estimation_checks:: OccBin is incompatible with the selected univariate Kalman filter.')
     end
     if options_.fast_kalman_filter
-        error('initial_estimation_checks:: OccBin is incompatible with the fast Kalman filter.')        
+        error('initial_estimation_checks:: OccBin is incompatible with the fast Kalman filter.')
     end
     if options_.bayesian_irf
-        error('initial_estimation_checks:: OccBin is incompatible with the bayesian_irf option.')                
+        error('initial_estimation_checks:: OccBin is incompatible with the bayesian_irf option.')
     end
     if options_.moments_varendo
-        error('initial_estimation_checks:: OccBin is incompatible with the moments_varendo option.')                
+        error('initial_estimation_checks:: OccBin is incompatible with the moments_varendo option.')
     end
 end
 
@@ -168,7 +168,18 @@ if (any(bayestopt_.pshape  >0 ) && options_.mh_replic) && options_.mh_nblck<1
 end
 
 if options_.mh_drop<0 || options_.mh_drop>=1
-    error('initial_estimation_checks:: mh_drop must be in [0,1).')    
+    error('initial_estimation_checks:: mh_drop must be in [0,1).')
+end
+
+if options_.estimate_initial_states_endogenous_prior && ...
+        isequal(options_.posterior_sampler_options.posterior_sampling_method,'slice') && ...
+        ~isempty(options_.posterior_sampler_options.sampling_opt)
+    options_list = read_key_value_string(options_.posterior_sampler_options.sampling_opt);
+    for i=1:rows(options_list)
+        if strcmp(options_list{i,1},'rotated') && options_list{i,2}
+            warning('initial_estimation_checks:: rotated slice with estimate_initial_states_endogenous_prior tends to be very inefficient. Consider using normal slice.')
+        end
+    end
 end
 
 % check and display warnings if steady-state solves static model (except if diffuse_filter == 1) and if steady-state changes estimated parameters
@@ -207,7 +218,7 @@ end
 
 % Evaluate the likelihood.
 ana_deriv = options_.analytic_derivation;
-options_.analytic_derivation=0;
+options_.analytic_derivation=false;
 if ~isequal(options_.mode_compute,11) || ...
         (isequal(options_.mode_compute,11) && isequal(options_.order,1))
     %shut off potentially automatic switch to diffuse filter for the
