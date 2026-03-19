@@ -51,11 +51,11 @@ clearvars; clc; close all;
 % Replication part                           % |                         RUNTIMES                        |
 % Set to 1 to recompute results              % | maca64_m2max | maca64_m4pro |   glnxa64   |    win64    |
 %========================================================================================================|
-REDO_MONTECARLO_GAUSSIAN              = 0;   % |    00h09m    |    00h07m    |    00h00m   |    00h00m   |
-REDO_MONTECARLO_CSN                   = 0;   % |    12h40m    |    10h19m    |    00h00m   |    00h00m   |
+REDO_MONTECARLO_GAUSSIAN              = 0;   % |    00h09m    |    00h08m    |    00h00m   |    00h00m   |
+REDO_MONTECARLO_CSN                   = 0;   % |    12h40m    |    09h37m    |    00h00m   |    00h00m   |
 %--------------------------------------------------------------------------------------------------------|
 REDO_ML_GAUSSIAN                      = 0;   % |   <00h01m    |   <00h01m    |   <00h01m   |   <00h01m   |
-REDO_ML_CSN_INITVAL_SEARCH            = 0;   % |    00h18m    |    00h14m    |    00h30m   |    00h23m   |
+REDO_ML_CSN_INITVAL_SEARCH            = 0;   % |    00h18m    |    00h12m    |    00h30m   |    00h23m   |
 REDO_ML_CSN                           = 0;   % |    00h13m    |    00h10m    |    00h26m   |    00h09m   |
 %--------------------------------------------------------------------------------------------------------|
 REDO_BAYES_SLICE_LONG_GAUSSIAN        = 0;   % |    00h27m    |    00h21m    |    00h56m   |    00h53m   |
@@ -63,14 +63,14 @@ REDO_BAYES_SLICE_LONG_CSN             = 0;   % |    14h33m    |    10h26m    |  
 REDO_BAYES_SLICE_SHORT_GAUSSIAN       = 0;   % |    00h02m    |    00h01m    |    00h03m   |    00h03m   |
 REDO_BAYES_SLICE_SHORT_CSN            = 0;   % |    00h46m    |    00h33m    |    00h57m   |    00h58m   |
 REDO_BAYES_RWMH_SLICE_SHORT_GAUSSIAN  = 0;   % |    00h22m    |    00h15m    |    00h43m   |    00h41m   |
-REDO_BAYES_RWMH_SLICE_SHORT_CSN       = 0;   % |    08h16m    |    04h31m    |    08h08m   |    08h26m   |
-REDO_BAYES_MODE_GAUSSIAN              = 0;   % |    00h10m    |    00h06m    |    00h22m   |    00h13m   |
+REDO_BAYES_RWMH_SLICE_SHORT_CSN       = 0;   % |    08h16m    |    04h37m    |    08h08m   |    08h26m   |
+REDO_BAYES_MODE_GAUSSIAN              = 0;   % |    00h10m    |    00h07m    |    00h22m   |    00h13m   |
 REDO_BAYES_MODE_CSN                   = 0;   % |    03h13m    |    02h08m    |    07h04m   |    03h45m   |
 REDO_BAYES_RWMH_GAUSSIAN              = 0;   % |    00h20m    |    00h15m    |    00h44m   |    00h41m   |
-REDO_BAYES_RWMH_CSN                   = 0;   % |    07h17m    |    04h26m    |    08h03m   |    08h33m   |
+REDO_BAYES_RWMH_CSN                   = 0;   % |    07h17m    |    04h35m    |    08h03m   |    08h33m   |
 %--------------------------------------------------------------------------------------------------------|
 REDO_RECESSIONS                       = 0;   % |   <00h01m    |   <00h01m    |   <00h01m   |   <00h01m   |
-REDO_COMPARISON_WITH_PARTICLE_FILTER  = 0;   % |    00h51m    |    00h35m    |    02h17m   |    00h58m   |
+REDO_COMPARISON_WITH_PARTICLE_FILTER  = 0;   % |    00h51m    |    00h36m    |    02h17m   |    00h58m   |
 REDO_IRFS                             = 0;   % |   <00h01m    |   <00h01m    |   <00h01m   |   <00h01m   |
 %--------------------------------------------------------------------------------------------------------|
 

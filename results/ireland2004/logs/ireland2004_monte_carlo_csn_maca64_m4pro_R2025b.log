@@ -27,8 +27,8 @@ SIMULATE 1200 DATASETS WITH T=500...DONE!
 You did not declare endogenous variables after the estimation/calib_smoother command.
 Initial value of the log posterior (or likelihood): 1204.9652
 
-ESTIMATE 1200 DATASETS WITH T=200...DONE (2h35m02s)!
-ESTIMATE 1200 DATASETS WITH T=500...DONE (7h23m24s)!
+ESTIMATE 1200 DATASETS WITH T=200...DONE (2h25m37s)!
+ESTIMATE 1200 DATASETS WITH T=500...DONE (6h50m30s)!
 
 === MONTE CARLO SUMMARY (CSN) ===
 Parameter               Truth   Mean_200    [p5;p95]_200  NRMSE_200   Mean_500    [p5;p95]_500  NRMSE_500
@@ -43,4 +43,4 @@ skew eta_z            -0.9500    -0.8796 [-1.00;-0.64]     0.1437    -0.9002 [-1
 skew eta_r             0.5500     0.5822 [ 0.39; 0.79]     0.2328     0.5657 [ 0.42; 0.72]     0.1592
 
 Monte Carlo table updated: ../results/ireland2004/montecarlo/montecarlo_table_maca64_m4pro_R2025b.tex (columns for CSN)
-Total computing time : 10h18m58s
+Total computing time : 9h36m39s

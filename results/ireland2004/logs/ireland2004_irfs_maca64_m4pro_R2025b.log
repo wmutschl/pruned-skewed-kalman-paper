@@ -1,6 +1,6 @@
-Starting Dynare (version 7-unstable).
+Starting Dynare (version 7.0).
 Calling Dynare with arguments: none
-Using build directory: /Applications/Dynare/7-unstable-arm64/matlab/../build-matlab
+Using build directory: /Applications/Dynare/7.0-arm64/matlab/../build-matlab
 Starting preprocessing of the model file ...
 WARNING: in the 'steady_state_model' block, variable 'rAnnualized' is not assigned a value
 WARNING: in the 'steady_state_model' block, variable 'piAnnualized' is not assigned a value
@@ -106,5 +106,5 @@ Skew(eta_e)     -0.2140
 Skew(eta_z)     -0.9953
 Skew(eta_r)      0.8127
 
-Total computing time : 0h00m21s
+Total computing time : 0h00m22s
 Note: 2 warning(s) encountered in the preprocessor

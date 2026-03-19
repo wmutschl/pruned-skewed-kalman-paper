@@ -1,6 +1,6 @@
-Starting Dynare (version 7-unstable).
+Starting Dynare (version 7.0).
 Calling Dynare with arguments: none
-Using build directory: /Applications/Dynare/7-unstable-arm64/matlab/../build-matlab
+Using build directory: /Applications/Dynare/7.0-arm64/matlab/../build-matlab
 Starting preprocessing of the model file ...
 Found 8 equation(s).
 Evaluating expressions...
@@ -249,20 +249,20 @@ ESTIMATION RESULTS
 
 Log data density (Modified Harmonic Mean) is 1182.756775.
 parameters
-         prior mean   post. mean        90% HPD interval    prior       pstdev
+               prior mean   post. mean        90% HPD interval    prior       pstdev
 
-OMEGA         0.200       0.1294      0.0511      0.2089     beta       0.1000
-RHO_PI        0.300       0.5006      0.3408      0.6598     gamm       0.1000
-RHO_G         0.300       0.3633      0.2797      0.4475     gamm       0.1000
-RHO_X         0.250       0.2049      0.1254      0.2878     gamm       0.0625
-RHO_A         0.850       0.9117      0.8670      0.9585     beta       0.1000
-RHO_E         0.850       0.9106      0.8569      0.9683     beta       0.1000
+OMEGA               0.200       0.1294      0.0511      0.2089     beta       0.1000
+RHO_PI              0.300       0.5006      0.3408      0.6598     gamm       0.1000
+RHO_G               0.300       0.3633      0.2797      0.4475     gamm       0.1000
+RHO_X               0.250       0.2049      0.1254      0.2878     gamm       0.0625
+RHO_A               0.850       0.9117      0.8670      0.9585     beta       0.1000
+RHO_E               0.850       0.9106      0.8569      0.9683     beta       0.1000
 
 standard deviation of shocks
-         prior mean   post. mean        90% HPD interval    prior       pstdev
+               prior mean   post. mean        90% HPD interval    prior       pstdev
 
-eta_a         5.477       3.2126      1.8972      4.4605     invg       5.4772
-eta_e         0.283       0.0602      0.0468      0.0735     invg       1.0000
-eta_z         2.236       0.7891      0.6224      0.9675     invg       3.8730
-eta_r         0.707       0.2951      0.2414      0.3454     invg       1.4142
-Total computing time : 0h20m45s
+eta_a               5.477       3.2126      1.8972      4.4605     invg       5.4772
+eta_e               0.283       0.0602      0.0468      0.0735     invg       1.0000
+eta_z               2.236       0.7891      0.6224      0.9675     invg       3.8730
+eta_r               0.707       0.2951      0.2414      0.3454     invg       1.4142
+Total computing time : 0h21m04s

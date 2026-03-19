@@ -23,8 +23,6 @@ Preprocessing time: 0h00m00s.
 
 You did not declare endogenous variables after the estimation/calib_smoother command.
 
-The 'mode_file' ../results/ireland2004/bayes/ireland2004_gaussian_mode6_maca64_m4pro_R2025b.mat has been generated using another specification of the model or another model!
-
 Initial value of the log posterior (or likelihood): 1205.1095
 
 RESULTS FROM POSTERIOR ESTIMATION
@@ -279,4 +277,4 @@ eta_e               0.283       0.0602      0.0468      0.0736     invg       1.
 eta_z               2.236       0.7884      0.6135      0.9587     invg       3.8730
 eta_r               0.707       0.2951      0.2423      0.3463     invg       1.4142
 Density data saved to: ../results/ireland2004/density_gaussian_maca64_m4pro_R2025b.csv
-Total computing time : 0h15m32s
+Total computing time : 0h15m01s

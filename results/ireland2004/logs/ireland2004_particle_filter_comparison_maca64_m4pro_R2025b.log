@@ -1,6 +1,6 @@
-Starting Dynare (version 7-unstable).
+Starting Dynare (version 7.0).
 Calling Dynare with arguments: none
-Using build directory: /Applications/Dynare/7-unstable-arm64/matlab/../build-matlab
+Using build directory: /Applications/Dynare/7.0-arm64/matlab/../build-matlab
 Starting preprocessing of the model file ...
 Found 8 equation(s).
 Evaluating expressions...
@@ -390,7 +390,7 @@ Time to evaluate likelihood: 0h00m00s
 # CSN (ME=10%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=2000) #
 #############################################################################
 Value of the log likelihood: 1051.031
-Time to evaluate likelihood: 0h00m00s
+Time to evaluate likelihood: 0h00m01s
 
 
 ##############################################################################
@@ -411,7 +411,7 @@ Time to evaluate likelihood: 0h00m47s
 # CSN (ME=10%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=2000000) #
 ################################################################################
 Value of the log likelihood: 1204.721
-Time to evaluate likelihood: 0h07m54s
+Time to evaluate likelihood: 0h08m08s
 
 
 #########################################################################################
@@ -460,14 +460,14 @@ Time to evaluate likelihood: 0h00m05s
 # CSN (ME=5%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=200000) #
 ##############################################################################
 Value of the log likelihood: 1127.1614
-Time to evaluate likelihood: 0h00m47s
+Time to evaluate likelihood: 0h00m49s
 
 
 ###############################################################################
 # CSN (ME=5%): EVALUATE LOG-LIKELIHOOD VALUE WITH PARTICLE FILTER (N=2000000) #
 ###############################################################################
 Value of the log likelihood: 1206.9388
-Time to evaluate likelihood: 0h07m46s
+Time to evaluate likelihood: 0h08m07s
 
 
 ##########################################
@@ -486,4 +486,4 @@ Panel B: Skew-Normal (CSN) Shocks
 20\% & 1188.64 & 1190.79 & 1190.89 & 1190.90 & 1169.12 & 1188.99 & 1190.16 & 1190.85 \\
 10\% & 1203.19 & 1204.47 & 1204.55 & 1204.56 & 1051.03 & 1186.37 & 1199.03 & 1204.72 \\
 5\% & 1206.01 & 1207.29 & 1207.34 & 1207.35 & 299.90 & 1028.46 & 1127.16 & 1206.94 \\
-\textit{Avg. CPU Time} & \textit{\(<\)0.1s} & \textit{\(<\)0.1s} & \textit{\(<\)1s} & \textit{\(<\)1s} & \textit{\(<\)1s} & \textit{\(\approx \)5s} & \textit{\(\approx \)47s} & \textit{\(\approx \)8m} \\Total computing time : 0h35m06s
+\textit{Avg. CPU Time} & \textit{\(<\)0.1s} & \textit{\(<\)0.1s} & \textit{\(<\)1s} & \textit{\(<\)1s} & \textit{\(<\)1s} & \textit{\(\approx \)5s} & \textit{\(\approx \)47s} & \textit{\(\approx \)8m} \\Total computing time : 0h35m44s

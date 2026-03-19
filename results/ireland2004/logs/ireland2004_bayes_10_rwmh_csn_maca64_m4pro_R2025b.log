@@ -23,10 +23,8 @@ Preprocessing time: 0h00m00s.
 
 You did not declare endogenous variables after the estimation/calib_smoother command.
 
-The 'mode_file' ../results/ireland2004/bayes/ireland2004_csn_mode6_maca64_m4pro_R2025b.mat has been generated using another specification of the model or another model!
-
-[Warning: Your prior allows for skewness parameters larger than +-0.995272, which is outside the theoretical bound of the skew normal distribution, and thus will not integrate
-to 1 due to truncation. Please change your prior!] 
+[Warning: Your prior allows for skewness parameters larger than +-0.995272, which is outside the theoretical bound of the skew normal distribution, and thus will not integrate to 1 due to
+truncation. Please change your prior!] 
 [> In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('check_prior_stderr_corr_skew', '/Applications/Dynare/7.0-arm64/matlab/utilities/estimation/check_prior_stderr_corr_skew.m', 64)" style="font-weight:bold">check_prior_stderr_corr_skew</a> (<a href="matlab: opentoline('/Applications/Dynare/7.0-arm64/matlab/utilities/estimation/check_prior_stderr_corr_skew.m',64,0)">line 64</a>)
 In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('initial_estimation_checks', '/Applications/Dynare/7.0-arm64/matlab/estimation/initial_estimation_checks.m', 190)" style="font-weight:bold">initial_estimation_checks</a> (<a href="matlab: opentoline('/Applications/Dynare/7.0-arm64/matlab/estimation/initial_estimation_checks.m',190,0)">line 190</a>)
 In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare_estimation_1', '/Applications/Dynare/7.0-arm64/matlab/estimation/dynare_estimation_1.m', 164)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('/Applications/Dynare/7.0-arm64/matlab/estimation/dynare_estimation_1.m',164,0)">line 164</a>)
@@ -344,5 +342,5 @@ eta_e               0.000      -0.3603     -0.7301     -0.0193     beta       0.
 eta_z               0.000      -0.3802     -0.8880      0.1455     beta       0.4000
 eta_r               0.000       0.5181      0.2319      0.8185     beta       0.4000
 Density data saved to: ../results/ireland2004/density_csn_maca64_m4pro_R2025b.csv
-Total computing time : 4h25m41s
+Total computing time : 4h34m43s
 Note: warning(s) encountered in MATLAB/Octave code

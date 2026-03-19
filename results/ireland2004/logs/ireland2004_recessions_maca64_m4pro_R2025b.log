@@ -1,6 +1,6 @@
-Starting Dynare (version 7-unstable).
+Starting Dynare (version 7.0).
 Calling Dynare with arguments: none
-Using build directory: /Applications/Dynare/7-unstable-arm64/matlab/../build-matlab
+Using build directory: /Applications/Dynare/7.0-arm64/matlab/../build-matlab
 Starting preprocessing of the model file ...
 Found 8 equation(s).
 Evaluating expressions...

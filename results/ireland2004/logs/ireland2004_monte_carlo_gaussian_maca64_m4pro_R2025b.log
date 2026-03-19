@@ -29,8 +29,8 @@ Connected to parallel pool with 12 workers.
 You did not declare endogenous variables after the estimation/calib_smoother command.
 Initial value of the log posterior (or likelihood): 1202.4731
 
-ESTIMATE 1200 DATASETS WITH T=200...DONE (0h02m14s)!
-ESTIMATE 1200 DATASETS WITH T=500...DONE (0h03m32s)!
+ESTIMATE 1200 DATASETS WITH T=200...DONE (0h02m01s)!
+ESTIMATE 1200 DATASETS WITH T=500...DONE (0h03m30s)!
 
 === MONTE CARLO SUMMARY (GAUSSIAN) ===
 Parameter               Truth   Mean_200    [p5;p95]_200  NRMSE_200   Mean_500    [p5;p95]_500  NRMSE_500
@@ -41,4 +41,4 @@ stderr eta_z           0.7900     0.7916 [ 0.75; 0.83]     0.0332     0.7899 [ 0
 stderr eta_r           0.2838     0.2844 [ 0.27; 0.29]     0.0202     0.2840 [ 0.28; 0.29]     0.0130
 
 Monte Carlo table updated: ../results/ireland2004/montecarlo/montecarlo_table_maca64_m4pro_R2025b.tex (columns for GAUSSIAN)
-Total computing time : 0h07m07s
+Total computing time : 0h07m49s
